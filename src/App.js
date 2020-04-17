@@ -6,18 +6,16 @@ import CityCard from "./components/CityCard/CityCard";
 
 function App() {
   console.log("APP");
-  let city = "London";
+  //let city = "London";
   const key = keyAPI;
-  const kelvin = 273;
 
-  //const [city, setCity] = useState("")
+  const [city, setCity] = useState("No location chosen yet...");
   const [data, setData] = useState({});
   const [text, setText] = useState("");
-  // const []
 
   const getWeather = async () => {
     console.log("GETWEATHER");
-    let api = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`;
+    let api = `http://api.openweathermap.org/data/2.5/weather?q=${text}&appid=${key}`;
     const response = await fetch(api);
     const data = await response.json();
     console.log(data);
@@ -35,12 +33,18 @@ function App() {
   };
 
   // useEffect(() => {
-  //   //getWeather();
-
+  //fetching API from local storage settings comes here
+  //   getWeather();
   // }, []);
-  // const getText = e => {
-  //   setText(e.target.value);
-  // };
+
+  const submitUserInput = e => {
+    console.log("USER INPUT");
+    e.preventDefault();
+    getWeather();
+    //code 404 City not found - //change to run after successfuly fetching data. Maybe city doesn't exist
+    setCity(text);
+  };
+
   useEffect(() => {
     console.log("USEFFECT TEXT:", text);
   });
@@ -51,7 +55,7 @@ function App() {
       <div className="container-app">
         {/* future input + search city component */}
         <div>
-          <form onSubmit={() => setText(text)}>
+          <form onSubmit={e => submitUserInput(e)}>
             <input
               onChange={e => setText(e.target.value)}
               type="text"
@@ -76,8 +80,9 @@ function App() {
         {/* Chosen city + forecast */}
 
         {/* END of chosen city + forecast */}
-        <CityCard city={text} />
+        <CityCard city={city} />
         <WeatherCard
+          city={city}
           weatherIcon={data.weatherIcon}
           weatherDescription={data.weatherDescription}
           tempMain={data.tempMain}
