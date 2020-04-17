@@ -1,0 +1,69 @@
+.container__weather-card {
+  background-color: #eee;
+  font-size: 2rem;
+  font-weight: 600;
+  width: 100%;
+  margin: 1px;
+  display: grid;
+  border: 1px solid black;
+  grid-template-rows: 50px repeat(2, 150px) 50px 150px;
+  grid-template-columns: 50% 25% 25%;
+
+  grid-template-areas:
+    "icon temp temp"
+    "icon actual real"
+    "icon min max"
+    "description wind wind"
+    "description speed direction";
+
+  grid-gap: 2px;
+
+  //justify-content: center;
+
+  /*GAPS: sets gap towards the outer side of the grid */
+  //padding: 5px;
+}
+
+.item {
+  color: white;
+  text-align: center;
+  //display: flex;
+  //flex-direction: column;
+
+  justify-content: center;
+  &--1 {
+    grid-area: icon;
+    background-color: orange;
+  }
+  &--2 {
+    grid-area: temp;
+    background-color: green;
+  }
+  &--7 {
+    grid-area: description;
+    background-color: gray;
+  }
+  &--8 {
+    grid-area: wind;
+    background-color: black;
+  }
+}
+.item--3 {
+  background-color: red;
+}
+.item--4 {
+  background-color: pink;
+}
+.item--5 {
+  background-color: blue;
+}
+.item--6 {
+  background-color: black;
+}
+
+.item--9 {
+  background-color: black;
+}
+.item--10 {
+  background-color: black;
+}
