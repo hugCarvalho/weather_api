@@ -21,8 +21,9 @@ function App() {
     console.log(data);
     setData({
       city: data.name,
-      weatherIcon: data.weather[0].icon,
       weatherDescription: data.weather[0].description,
+      weatherAltDescription: data.weather[0].main,
+      weatherIcon: data.weather[0].icon,
       tempMain: data.main.temp,
       tempRealFeel: data.main.feels_like,
       tempMin: data.main.temp_min,
@@ -46,7 +47,7 @@ function App() {
   };
 
   useEffect(() => {
-    console.log("USEFFECT TEXT:", text);
+    console.log("USEFFECT TEXT:", text, "icon:", data.weatherIcon);
   });
 
   return (
@@ -85,6 +86,7 @@ function App() {
           city={city}
           weatherIcon={data.weatherIcon}
           weatherDescription={data.weatherDescription}
+          weatherAltDescription={data.weatherAltDescription}
           tempMain={data.tempMain}
           tempRealFeel={data.tempRealFeel}
           tempMin={data.tempMin}

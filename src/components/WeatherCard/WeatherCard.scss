@@ -33,7 +33,14 @@
   justify-content: center;
   &--1 {
     grid-area: icon;
-    background-color: orange;
+    background-color: rgb(159, 193, 224);
+    background-image: url("/media/test.ico");
+    background-repeat: no-repeat;
+    background-size: 80%;
+    // display: flex;
+    // align-self: center;
+    // height: 100%;
+    background-position: top;
   }
   &--2 {
     grid-area: temp;
@@ -71,4 +78,11 @@
 .wd {
   transform: rotate(0deg);
   background-color: pink;
+}
+
+img {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  width: 50%;
+  height: auto;
 }

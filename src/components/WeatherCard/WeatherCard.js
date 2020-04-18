@@ -6,6 +6,7 @@ export default function CityCard(props) {
     weatherIcon,
     windSpeed,
     weatherDescription,
+    weatherAltDescription,
     tempMain,
     tempRealFeel,
     tempMin,
@@ -40,7 +41,17 @@ export default function CityCard(props) {
   return (
     <>
       <div className="container__weather-card">
-        <div className="item item--1">1 {weatherIcon}</div>
+        <div className="item item--1">
+          <h3>Weather</h3>
+          {city === "No location chosen yet..." ? (
+            <img src="/media/weather_icons/n_a.png" alt="" />
+          ) : (
+            <img
+              src={`/media/weather_icons/${weatherIcon}.png`}
+              alt={`/media/weather_icons/${weatherAltDescription}.png`}
+            />
+          )}
+        </div>
         <div className="item item--2">2 Temp°</div>
         <div className="item item--3">
           Actual{" "}
