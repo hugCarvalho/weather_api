@@ -1,0 +1,57 @@
+.container__saved-cities {
+  //background-color: rgb(12, 12, 12);
+  border: 1px solid gray;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  //align-items: center;
+  align-content: center;
+  margin: auto;
+  margin-top: 15px;
+
+  width: 80%;
+  //margin: auto;
+  // grid-template-rows: repeat(2, 1fr);
+  // grid-template-columns: repeat(3, 1fr);
+  //display: flex;
+  //flex-direction: column;
+  text-align: center;
+  //justify-content: space-around;
+  //padding: 8px; not needed
+
+  .options-title {
+    background-color: rgb(177, 255, 177);
+    padding: 4px;
+  }
+  button {
+    width: 5rem;
+    font-size: 1rem;
+  }
+  .wrapper {
+    //background-color: black;
+    display: flex; //display 3 cols
+    //justify-content: space-evenly;
+    div {
+      //background-color: rgb(171, 171, 171);
+      padding: 0 2px;
+      //border: 0.5px solid black;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      h2 {
+        //background-color: green;
+        padding: 2px 0 6px 0;
+      }
+    }
+  }
+  .buttons {
+    //background-color: deepskyblue;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    padding: 5px;
+    //border: 1px solid black;
+  }
+}

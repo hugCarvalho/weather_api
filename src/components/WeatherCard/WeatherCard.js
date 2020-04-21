@@ -33,11 +33,11 @@ export default function CityCard(props) {
     //using this graph in http://snowfence.umn.edu/Components/winddirectionanddegrees.htm as a reference
     // prettier-ignore
     const cardinalPoints = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N"]
-    console.log(value);
+    //console.log(value);
     return cardinalPoints[Math.round(value / 22.5)];
   };
 
-  console.log(city);
+  //console.log(city);
   return (
     <>
       <div className="container__weather-card">

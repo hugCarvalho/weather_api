@@ -1,0 +1,21 @@
+header {
+  background-color: rgb(153, 224, 215);
+  width: 100vw;
+  position: relative;
+  text-align: center;
+
+  .options {
+    background-color: blueviolet;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    display: inline;
+  }
+  .wrapper-headers {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    //justify-content: space-evenly;
+    //height: 60px;
+  }
+}

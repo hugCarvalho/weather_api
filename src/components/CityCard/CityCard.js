@@ -5,7 +5,11 @@ export default function CityCard({ city }) {
   return (
     <>
       <div className="container__city-forecast">
-        <h1>{city}</h1>
+        {city ? (
+          <h1>city</h1>
+        ) : (
+          <h4>Choose a default city or type in a city to get started </h4>
+        )}
         <ul>
           <li className="current">Current</li>
           <li className="tomorrow">Tomorrow</li>

@@ -1,17 +1,36 @@
 import React, { useState, useEffect } from "react";
 import "./App.scss";
-import WeatherCard from "./components/WeatherCard/WeatherCard";
 import { keyAPI } from "./key";
+import WeatherCard from "./components/WeatherCard/WeatherCard";
+import Header from "./components/Header/Header";
+// import InputSearchCity from "./components/InputSearchCity/InputSearchCity";
 import CityCard from "./components/CityCard/CityCard";
+import SavedCitiesMenu from "./components/SavedCitiesMenu/SavedCitiesMenu";
 
 function App() {
-  console.log("APP");
+  //console.log("APP");
   //let city = "London";
   const key = keyAPI;
-
-  const [city, setCity] = useState("No location chosen yet...");
+  // prettier-ignore
+  const [savedCities, setSavedCities] = useState({city4: "Copenhagen", city2: "", city3: "Vila Franca de Xira"});
+  const [city, setCity] = useState("");
   const [data, setData] = useState({});
   const [text, setText] = useState("");
+  const [activeCity, setDefault] = useState("");
+
+  const weatherStorage = {
+    activeCity: activeCity,
+    savedCities: savedCities,
+  };
+  //Check local storage
+  useEffect(() => {
+    if (localStorage.weatherStorage) {
+      console.log("YES");
+    } else {
+      console.log("NO");
+    }
+    console.log(localStorage);
+  }, []);
 
   const getWeather = async () => {
     console.log("GETWEATHER");
@@ -46,37 +65,46 @@ function App() {
     setCity(text);
   };
 
+  //Save Cities
+  const saveCity = n => {
+    if (savedCities[n]) {
+      prompt("Are you sure you want to replace the current city?");
+      console.log("YEP");
+    }
+    console.log("city :", city);
+    console.log("text :", text);
+
+    if (n === "city1") return setSavedCities({ ...savedCities, city1: city });
+    if (n === "city2") return setSavedCities({ ...savedCities, city2: city });
+    if (n === "city3") return setSavedCities({ ...savedCities, city3: city });
+  };
   useEffect(() => {
-    console.log("USEFFECT TEXT:", text, "icon:", data.weatherIcon);
+    console.group("USEFFECT TEXT:");
+    console.log("ARR CITIES", savedCities);
+    console.log("ARR CITIES", savedCities.city1);
+
+    console.groupEnd();
   });
 
   return (
     <>
-      {console.log("RENDER")}
+      {/* {console.log("RENDER", savedCities)} */}
+      <Header />
       <div className="container-app">
-        {/* future input + search city component */}
-        <div>
+        {/* INPUT*/}
+        <div className="container__input-search-city">
           <form onSubmit={e => submitUserInput(e)}>
             <input
               onChange={e => setText(e.target.value)}
               type="text"
               placeholder="type a city"
             />
-            <button type="submit">Get Weather</button>
+            <button type="submit">Go</button>
           </form>
-          <div className="wrapper">
-            <div className="default">
-              <h4>Default</h4>
-              <span> {text} Berlin </span>
-            </div>
-            <div className="alt1">
-              <h4>Alternative 1:</h4> <span> Puerto Rico de los mares </span>
-            </div>
-            <div className="alt2">
-              <h4>Alternative 2:</h4> <span> -Lisbon </span>
-            </div>
-          </div>
         </div>
+        {/* SAVED CITIES */}
+        <SavedCitiesMenu savedCities={savedCities} saveCity={saveCity} />
+
         {/* END future input + search city component */}
         {/* Chosen city + forecast */}
 

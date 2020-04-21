@@ -1,16 +1,14 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.wrapper {
-  background-color: red;
-  width: 80%;
-  // grid-template-rows: repeat(2, 1fr);
-  // grid-template-columns: repeat(3, 1fr);
+.container__input-search-city {
+  background-color: chartreuse;
   display: flex;
   text-align: center;
-  justify-content: space-around;
-  padding: 8px;
+
+  form {
+    background-color: chocolate;
+    margin: auto;
+  }
+}
+
+button:hover {
+  cursor: pointer;
 }
