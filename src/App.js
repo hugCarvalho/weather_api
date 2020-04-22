@@ -7,14 +7,12 @@ import Header from "./components/Header/Header";
 import CityCard from "./components/CityCard/CityCard";
 import SavedCitiesMenu from "./components/SavedCitiesMenu/SavedCitiesMenu";
 
-//TODO catch error without breaking app
-
 function App() {
   //console.log("APP");
   const key = keyAPI;
   // prettier-ignore
   const [savedCities, setSavedCities] = useState({
-    city1: "Berlin",
+    city1: "",
     city2: "",
     city3: ""
   });
@@ -25,97 +23,93 @@ function App() {
   const [showError, setShowError] = useState(false);
   const [errorMsg, setErrorMsg] = useState({
     error: "",
-    errorSavedCities: "First save a city, then choose default",
+    errorSavedCities: "",
+    errorLocalStorage: "",
   });
 
   //Check local storage
   useEffect(() => {
     try {
-      console.log(localStorage.weatherApp);
       if (localStorage.weatherApp) {
-        console.log("YES");
         setSavedCities(JSON.parse(localStorage.getItem("weatherApp")));
       } else {
-        console.log("NO");
+        //console.log("NO");
         //do notihng
       }
     } catch (err) {
-      console.log("ERROR FOUND");
+      showErrorMsg("Error!File may be corrupted");
     }
-    console.log(localStorage);
+    //console.log("EFFECT1:", localStorage);
   }, []);
 
   useEffect(() => {
-    console.group("USEFFECT TEXT:");
-    console.log("ARR CITIES", savedCities);
-    console.log("ARR CITIES", savedCities.city1);
+    console.group(
+      "text:",
+      text,
+      "city :",
+      city,
+      "savedC:",
+      savedCities,
+      "DATA:",
+      data
+    );
+    // console.log("CITY1", savedCities.city1);
     console.groupEnd();
     localStorage.setItem("weatherApp", JSON.stringify(savedCities));
   }); //add at the end savedcity dependency
 
-  const toggleErrorMsg = () => {
+  //SHOW ERROR MESSAGE
+  const showErrorMsg = error => {
+    setErrorMsg({ error });
     setShowError(true);
     setTimeout(() => {
       setShowError(false);
     }, 1500);
   };
 
+  //FETCH DATA
   const getWeather = async () => {
-    console.log("GETWEATHER");
+    //console.log("GETWEATHER");
     let api = `http://api.openweathermap.org/data/2.5/weather?q=${text}&appid=${key}`;
-
     const response = await fetch(api);
     const data = await response.json();
-    if (data.cod !== "200") {
-      console.log("msg:", data.message);
-      setErrorMsg({ error: data.message });
-      toggleErrorMsg();
+
+    console.log("DATAFROMFETCHING :", data, data.cod);
+    if (data.cod != "200") {
+      return showErrorMsg(data.message);
+    } else {
+      console.log("RUN DATA:", data);
+      setData({
+        city: data.name,
+        weatherDescription: data.weather[0].description,
+        weatherAltDescription: data.weather[0].main,
+        weatherIcon: data.weather[0].icon,
+        tempMain: data.main.temp,
+        tempRealFeel: data.main.feels_like,
+        tempMin: data.main.temp_min,
+        tempMax: data.main.temp_max,
+        windSpeed: data.wind.speed,
+        windDirection: data.wind.deg,
+      });
+      setCity(text);
     }
-    console.log(data);
-    setData({
-      city: data.name,
-      weatherDescription: data.weather[0].description,
-      weatherAltDescription: data.weather[0].main,
-      weatherIcon: data.weather[0].icon,
-      tempMain: data.main.temp,
-      tempRealFeel: data.main.feels_like,
-      tempMin: data.main.temp_min,
-      tempMax: data.main.temp_max,
-      windSpeed: data.wind.speed,
-      windDirection: data.wind.deg,
-    });
-    console.log(data);
   };
 
-  // useEffect(() => {
-  //fetching API from local storage settings comes here
-  //   getWeather();
-  // }, []);
-
+  //ENTER INPUT
   const submitUserInput = e => {
-    console.log("USER INPUT");
+    //console.log("USER INPUT");
     e.preventDefault();
 
     getWeather().catch(err => {
       console.log("res:", err);
     });
-
-    //.catch(err => console.log(err));
-
-    //code 404 City not found - //change to run after successfuly fetching data. Maybe city doesn't exist
-    setCity(text);
   };
 
-  //Save Cities
+  //SAVE CITIES
   const saveCity = n => {
-    console.log(savedCities[n]);
-
-    if (savedCities[n]) {
-      //if there is a city saved already
-      if (prompt("Replace") === null) {
-        return;
-      }
-    }
+    console.log("n", n, savedCities[n]);
+    // prettier-ignore
+    if (!city)return showErrorMsg("SEARCH for a valid city first");
     if (n === "city1") return setSavedCities({ ...savedCities, city1: city });
     if (n === "city2") return setSavedCities({ ...savedCities, city2: city });
     if (n === "city3") return setSavedCities({ ...savedCities, city3: city });
@@ -148,9 +142,6 @@ function App() {
         </div>
         {/* SAVED CITIES */}
         <SavedCitiesMenu savedCities={savedCities} saveCity={saveCity} />
-
-        {/* END future input + search city component */}
-        {/* Chosen city + forecast */}
 
         {/* END of chosen city + forecast */}
         <CityCard city={city} />
