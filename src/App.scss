@@ -1,12 +1,18 @@
 .container__input-search-city {
   background-color: chartreuse;
   display: flex;
+  flex-direction: column;
   text-align: center;
 
   form {
     background-color: chocolate;
-    margin: auto;
+    //margin: auto;
   }
+}
+
+.error-message {
+  background-color: orangered;
+  //display: none;
 }
 
 button:hover {

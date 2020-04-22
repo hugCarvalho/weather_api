@@ -7,36 +7,70 @@ import Header from "./components/Header/Header";
 import CityCard from "./components/CityCard/CityCard";
 import SavedCitiesMenu from "./components/SavedCitiesMenu/SavedCitiesMenu";
 
+//TODO catch error without breaking app
+
 function App() {
   //console.log("APP");
-  //let city = "London";
   const key = keyAPI;
   // prettier-ignore
-  const [savedCities, setSavedCities] = useState({city4: "Copenhagen", city2: "", city3: "Vila Franca de Xira"});
+  const [savedCities, setSavedCities] = useState({
+    city1: "Berlin",
+    city2: "",
+    city3: ""
+  });
   const [city, setCity] = useState("");
-  const [data, setData] = useState({});
   const [text, setText] = useState("");
-  const [activeCity, setDefault] = useState("");
+  const [data, setData] = useState({});
+  //JOIN THEM?!
+  const [showError, setShowError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState({
+    error: "",
+    errorSavedCities: "First save a city, then choose default",
+  });
 
-  const weatherStorage = {
-    activeCity: activeCity,
-    savedCities: savedCities,
-  };
   //Check local storage
   useEffect(() => {
-    if (localStorage.weatherStorage) {
-      console.log("YES");
-    } else {
-      console.log("NO");
+    try {
+      console.log(localStorage.weatherApp);
+      if (localStorage.weatherApp) {
+        console.log("YES");
+        setSavedCities(JSON.parse(localStorage.getItem("weatherApp")));
+      } else {
+        console.log("NO");
+        //do notihng
+      }
+    } catch (err) {
+      console.log("ERROR FOUND");
     }
     console.log(localStorage);
   }, []);
 
+  useEffect(() => {
+    console.group("USEFFECT TEXT:");
+    console.log("ARR CITIES", savedCities);
+    console.log("ARR CITIES", savedCities.city1);
+    console.groupEnd();
+    localStorage.setItem("weatherApp", JSON.stringify(savedCities));
+  }); //add at the end savedcity dependency
+
+  const toggleErrorMsg = () => {
+    setShowError(true);
+    setTimeout(() => {
+      setShowError(false);
+    }, 1500);
+  };
+
   const getWeather = async () => {
     console.log("GETWEATHER");
     let api = `http://api.openweathermap.org/data/2.5/weather?q=${text}&appid=${key}`;
+
     const response = await fetch(api);
     const data = await response.json();
+    if (data.cod !== "200") {
+      console.log("msg:", data.message);
+      setErrorMsg({ error: data.message });
+      toggleErrorMsg();
+    }
     console.log(data);
     setData({
       city: data.name,
@@ -50,6 +84,7 @@ function App() {
       windSpeed: data.wind.speed,
       windDirection: data.wind.deg,
     });
+    console.log(data);
   };
 
   // useEffect(() => {
@@ -60,31 +95,33 @@ function App() {
   const submitUserInput = e => {
     console.log("USER INPUT");
     e.preventDefault();
-    getWeather();
+
+    getWeather().catch(err => {
+      console.log("res:", err);
+    });
+
+    //.catch(err => console.log(err));
+
     //code 404 City not found - //change to run after successfuly fetching data. Maybe city doesn't exist
     setCity(text);
   };
 
   //Save Cities
   const saveCity = n => {
-    if (savedCities[n]) {
-      prompt("Are you sure you want to replace the current city?");
-      console.log("YEP");
-    }
-    console.log("city :", city);
-    console.log("text :", text);
+    console.log(savedCities[n]);
 
+    if (savedCities[n]) {
+      //if there is a city saved already
+      if (prompt("Replace") === null) {
+        return;
+      }
+    }
     if (n === "city1") return setSavedCities({ ...savedCities, city1: city });
     if (n === "city2") return setSavedCities({ ...savedCities, city2: city });
     if (n === "city3") return setSavedCities({ ...savedCities, city3: city });
+    console.log("city :", city);
+    console.log("text :", text);
   };
-  useEffect(() => {
-    console.group("USEFFECT TEXT:");
-    console.log("ARR CITIES", savedCities);
-    console.log("ARR CITIES", savedCities.city1);
-
-    console.groupEnd();
-  });
 
   return (
     <>
@@ -101,6 +138,13 @@ function App() {
             />
             <button type="submit">Go</button>
           </form>
+          <br></br>
+          <p
+            className="error-message"
+            style={showError ? { display: "block" } : { display: "none" }}
+          >
+            {errorMsg.error}
+          </p>
         </div>
         {/* SAVED CITIES */}
         <SavedCitiesMenu savedCities={savedCities} saveCity={saveCity} />
