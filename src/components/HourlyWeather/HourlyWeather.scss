@@ -1,0 +1,48 @@
+.container {
+  background-color: gray;
+  //margin-top: 60px;
+  width: 100%;
+  margin: 10px auto;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap; //good to por responsive without mediaQueries
+
+  .item {
+    color: white;
+    padding: 2px 4px;
+    min-width: 10%;
+  }
+  .item--1 {
+    background-color: rgb(218, 112, 13);
+    //flex-grow: 1;
+  }
+  .item--2 {
+    background-color: green;
+    //flex-grow: 1;
+  }
+  .item--3 {
+    background-color: red;
+    flex-shrink: 1;
+  }
+  .item--4 {
+    background-color: pink;
+  }
+  .item--5 {
+    background-color: blue;
+  }
+  .item--6 {
+    background-color: black;
+  }
+  .item--7 {
+    background-color: lightblue;
+  }
+  .item--8 {
+    background-color: green;
+  }
+  .item--9 {
+    background-color: brown;
+  }
+  .item--10 {
+    background-color: black;
+  }
+}

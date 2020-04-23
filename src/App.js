@@ -6,6 +6,7 @@ import Header from "./components/Header/Header";
 // import InputSearchCity from "./components/InputSearchCity/InputSearchCity";
 import CityCard from "./components/CityCard/CityCard";
 import SavedCitiesMenu from "./components/SavedCitiesMenu/SavedCitiesMenu";
+import HourlyWeather from "./components/HourlyWeather/HourlyWeather";
 
 function App() {
   //console.log("APP");
@@ -68,7 +69,7 @@ function App() {
   };
 
   //FETCH DATA
-  const getWeather = async () => {
+  const getWeather = async text => {
     //console.log("GETWEATHER");
     // let api = `http://api.openweathermap.org/data/2.5/weather?q=${text}&appid=${key}`;
     let api = `http://api.openweathermap.org/data/2.5/forecast?q=${text}&appid=${key}`;
@@ -79,18 +80,18 @@ function App() {
     if (data.cod != "200") {
       return showErrorMsg(data.message);
     } else {
-      console.log("RUN DATA:", data);
       setData({
-        city: data.name,
-        weatherDescription: data.weather[0].description,
-        weatherAltDescription: data.weather[0].main,
-        weatherIcon: data.weather[0].icon,
-        tempMain: data.main.temp,
-        tempRealFeel: data.main.feels_like,
-        tempMin: data.main.temp_min,
-        tempMax: data.main.temp_max,
-        windSpeed: data.wind.speed,
-        windDirection: data.wind.deg,
+        data: data,
+        city: data.city.name,
+        // weatherDescription: data.weather[0].description,
+        // weatherAltDescription: data.weather[0].main,
+        // weatherIcon: data.weather[0].icon,
+        tempMain: data.list[0].main.temp,
+        // tempRealFeel: data.main.feels_like,
+        // tempMin: data.main.temp_min,
+        // tempMax: data.main.temp_max,
+        // windSpeed: data.wind.speed,
+        // windDirection: data.wind.deg,
       });
       setCity(text);
     }
@@ -101,8 +102,9 @@ function App() {
     //console.log("USER INPUT");
     e.preventDefault();
 
-    getWeather().catch(err => {
+    getWeather(text).catch(err => {
       console.log("res:", err);
+      showErrorMsg("Something went wrong...");
     });
   };
 
@@ -142,7 +144,11 @@ function App() {
           </p>
         </div>
         {/* SAVED CITIES */}
-        <SavedCitiesMenu savedCities={savedCities} saveCity={saveCity} />
+        <SavedCitiesMenu
+          savedCities={savedCities}
+          saveCity={saveCity}
+          getWeather={getWeather}
+        />
 
         {/* END of chosen city + forecast */}
         <CityCard city={city} />
@@ -158,6 +164,8 @@ function App() {
           windDirection={data.windDirection}
           windSpeed={data.windSpeed}
         />
+        {/* check text property, testing pruposes! */}
+        <HourlyWeather data={data} city={city} />
       </div>
     </>
   );

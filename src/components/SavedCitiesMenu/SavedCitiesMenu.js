@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./SavedCitiesMenu.scss";
-import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css";
+import Tooltips from "../Tooltips/Tooltips";
 
-export default function SavedCitiesMenu({ savedCities, saveCity }) {
+export default function SavedCitiesMenu({ savedCities, saveCity, getWeather }) {
   //console.log("savedCities", savedCities);
   //console.log("saveCity", saveCity);
   const [defaultCity, setDefaultCity] = useState("");
@@ -19,17 +18,19 @@ export default function SavedCitiesMenu({ savedCities, saveCity }) {
   };
   useEffect(() => {
     //console.log("EFFECT2", localStorage);
-    setDefaultCity(JSON.parse(localStorage.getItem("defaultCity")));
+    const defaultCity = JSON.parse(localStorage.getItem("defaultCity"));
+    setDefaultCity(defaultCity);
+    if (defaultCity) {
+      getWeather(defaultCity); //!!!! ACTIVATE THIS LINE TO FETCH AT ONLOAD
+    }
   }, []);
   useEffect(() => {
     //console.log("DEFAULT SAVE:", defaultCity);
     localStorage.setItem("defaultCity", JSON.stringify(defaultCity));
   }, [defaultCity]);
 
-  //console.log("SAVEDCITITESMENU");
   return (
     <>
-      {console.log(savedCities.city1)}
       {/* {console.log("DEFAULT:", defaultCity)} */}
       {/* {console.log("RENDER")}{" "} */}
       <div className="options-title">
@@ -114,26 +115,7 @@ export default function SavedCitiesMenu({ savedCities, saveCity }) {
             Save
           </button>
         </div>
-        <div id="what-is">
-          <p></p>
-          <Tippy
-            delay={500}
-            content="Weather will automatically be displayed for the selected city"
-          >
-            <p>?</p>
-          </Tippy>
-          <Tippy delay={500} content="must contain a valid city name">
-            <p>?</p>
-          </Tippy>
-          <Tippy
-            delay={500}
-            content="SEARCH for a city and then press the desired save spot"
-          >
-            <p>?</p>
-          </Tippy>
-        </div>
-
-        {/* // prettier-ignore */}
+        <Tooltips />
       </div>
     </>
   );
