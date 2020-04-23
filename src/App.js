@@ -70,7 +70,8 @@ function App() {
   //FETCH DATA
   const getWeather = async () => {
     //console.log("GETWEATHER");
-    let api = `http://api.openweathermap.org/data/2.5/weather?q=${text}&appid=${key}`;
+    // let api = `http://api.openweathermap.org/data/2.5/weather?q=${text}&appid=${key}`;
+    let api = `http://api.openweathermap.org/data/2.5/forecast?q=${text}&appid=${key}`;
     const response = await fetch(api);
     const data = await response.json();
 

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./SavedCitiesMenu.scss";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
 
 export default function SavedCitiesMenu({ savedCities, saveCity }) {
   //console.log("savedCities", savedCities);
@@ -113,10 +115,22 @@ export default function SavedCitiesMenu({ savedCities, saveCity }) {
           </button>
         </div>
         <div id="what-is">
-          <p>?</p>
-          <p>?</p>
-          <p>?</p>
-          <p>?</p>
+          <p></p>
+          <Tippy
+            delay={500}
+            content="Weather will automatically be displayed for the selected city"
+          >
+            <p>?</p>
+          </Tippy>
+          <Tippy delay={500} content="must contain a valid city name">
+            <p>?</p>
+          </Tippy>
+          <Tippy
+            delay={500}
+            content="SEARCH for a city and then press the desired save spot"
+          >
+            <p>?</p>
+          </Tippy>
         </div>
 
         {/* // prettier-ignore */}
