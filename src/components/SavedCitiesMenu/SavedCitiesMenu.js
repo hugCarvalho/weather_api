@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./SavedCitiesMenu.scss";
 import Tooltips from "../Tooltips/Tooltips";
 
+//TODO: try build fn to handle checked result because of REact warning OR change onHandle function
 export default function SavedCitiesMenu({ savedCities, saveCity, getWeather }) {
   //console.log("savedCities", savedCities);
   //console.log("saveCity", saveCity);
@@ -52,13 +53,13 @@ export default function SavedCitiesMenu({ savedCities, saveCity, getWeather }) {
               id="city-1"
               //name="cities"
               value={savedCities.city1}
+              //only allows action if a city is saved already
               onChange={
-                //only allows action if a city is saved already
                 savedCities.city1
                   ? e => chooseDefaultCity(e.target.value)
                   : null
               }
-              checked={savedCities.city1 === defaultCity}
+              checked={true} //savedCities.city1 === defaultCity
             />
             <label htmlFor="city-1"></label>
           </p>
@@ -81,7 +82,7 @@ export default function SavedCitiesMenu({ savedCities, saveCity, getWeather }) {
                   ? e => chooseDefaultCity(e.target.value)
                   : null
               }
-              checked={savedCities.city2 === defaultCity}
+              checked={false} //savedCities.city2 === defaultCity
             />
             <label htmlFor="city-2"></label>
           </p>
@@ -106,7 +107,7 @@ export default function SavedCitiesMenu({ savedCities, saveCity, getWeather }) {
                   ? e => chooseDefaultCity(e.target.value)
                   : null
               }
-              checked={savedCities.city3 === defaultCity}
+              checked={false} //savedCities.city3 === defaultCity
             />
             <label htmlFor="city-3"></label>
           </p>

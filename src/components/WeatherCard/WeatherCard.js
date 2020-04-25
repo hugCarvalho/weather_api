@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./WeatherCard.scss";
 
 export default function CityCard(props) {
   let {
+    data,
     weatherIcon,
     windSpeed,
     weatherDescription,
@@ -14,6 +15,10 @@ export default function CityCard(props) {
     windDirection,
     city,
   } = props;
+  let initialData = data;
+  let hourlyData = null; //here comes result from runFn
+  const [displayHourlyData, setDisplayHourlyData] = useState(false);
+  console.log("DATA RECEIVED:", initialData);
 
   const convertTemp = value => {
     //console.log("convert", temp, temp - celsius);

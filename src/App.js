@@ -44,18 +44,18 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.group(
-      "text:",
-      text,
-      "city :",
-      city,
-      "savedC:",
-      savedCities,
-      "DATA:",
-      data
-    );
-    // console.log("CITY1", savedCities.city1);
-    console.groupEnd();
+    // console.group(
+    //   "text:",
+    //   text,
+    //   "city :",
+    //   city,
+    //   "savedC:",
+    //   savedCities,
+    //   "DATA:",
+    //   data
+    // );
+    // // console.log("CITY1", savedCities.city1);
+    // console.groupEnd();
     localStorage.setItem("weatherApp", JSON.stringify(savedCities));
   }); //add at the end savedcity dependency
 
@@ -81,17 +81,17 @@ function App() {
       return showErrorMsg(data.message);
     } else {
       setData({
-        data: data,
+        data,
         city: data.city.name,
-        // weatherDescription: data.weather[0].description,
+        weatherDescription: data.list[0].weather[0].description,
         // weatherAltDescription: data.weather[0].main,
-        // weatherIcon: data.weather[0].icon,
+        weatherIcon: data.list[0].weather[0].icon,
         tempMain: data.list[0].main.temp,
-        // tempRealFeel: data.main.feels_like,
-        // tempMin: data.main.temp_min,
-        // tempMax: data.main.temp_max,
-        // windSpeed: data.wind.speed,
-        // windDirection: data.wind.deg,
+        tempRealFeel: data.list[0].main.feels_like,
+        tempMin: data.list[0].main.temp_min,
+        tempMax: data.list[0].main.temp_max,
+        windSpeed: data.list[0].wind.speed,
+        windDirection: data.list[0].wind.deg,
       });
       setCity(text);
     }
@@ -152,7 +152,9 @@ function App() {
 
         {/* END of chosen city + forecast */}
         <CityCard city={city} />
+        <HourlyWeather data={data} city={city} />
         <WeatherCard
+          data={data}
           city={city}
           weatherIcon={data.weatherIcon}
           weatherDescription={data.weatherDescription}
@@ -165,7 +167,6 @@ function App() {
           windSpeed={data.windSpeed}
         />
         {/* check text property, testing pruposes! */}
-        <HourlyWeather data={data} city={city} />
       </div>
     </>
   );
