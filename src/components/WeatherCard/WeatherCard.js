@@ -15,10 +15,13 @@ export default function CityCard(props) {
     windDirection,
     city,
   } = props;
+
+  //! CHAOS SECTION... !
   let initialData = data;
-  let hourlyData = null; //here comes result from runFn
+  const [dataToDisplay, setDataToDisplay] = useState(initialData);
+  let hourlyData = null; // !here comes result from runFn? !
   const [displayHourlyData, setDisplayHourlyData] = useState(false);
-  console.log("DATA RECEIVED:", initialData);
+  console.log("DATA RECEIVED:", initialData, dataToDisplay);
 
   const convertTemp = value => {
     //console.log("convert", temp, temp - celsius);
@@ -28,17 +31,14 @@ export default function CityCard(props) {
     //return `${((value * 9) / 5 - 459.67).toFixed(2)} °F`;
   };
 
-  const convertWind = value => {
-    //converts from metres per second (m/s)  to km/h
-    return value * 3.6 + " Km/h";
-  };
+  //converts from metres per second (m/s)  to km/h
+  const convertWind = value => Math.round(value * 3.6) + " Km/h";
 
   const convertWindDirection = value => {
     //adapted from https://www.campbellsci.de/blog/convert-wind-directions
     //using this graph in http://snowfence.umn.edu/Components/winddirectionanddegrees.htm as a reference
     // prettier-ignore
     const cardinalPoints = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N"]
-    //console.log(value);
     return cardinalPoints[Math.round(value / 22.5)];
   };
 

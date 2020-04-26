@@ -20,7 +20,6 @@ export default function HourlyWeather({ data, city }) {
     ));
   };
 
-  const [hourChosen, setHourChosen] = [];
   const runFunction = e => {
     console.log(currentDay);
     const hour = currentDay.filter(item => {
@@ -29,7 +28,8 @@ export default function HourlyWeather({ data, city }) {
       console.log("forecastHour, intendedHour", forecastHour, intendedHour);
       return forecastHour === intendedHour;
     });
-    setHourChosen(hour);
+    console.log(hour);
+    return hour;
   };
 
   return (
@@ -37,24 +37,12 @@ export default function HourlyWeather({ data, city }) {
       <div className="container">
         {/* <div className="item item--1">03:00</div> */}
         {city && renderHoursDOM(0)}
-        {/* <div className="item item--2">06:00</div>
-        <div className="item item--3">06:00</div>
-        <div className="item item--4">06:00</div>
-        <div className="item item--5">06:00</div>
-        <div className="item item--6">06:00</div>
-        <div className="item item--7">7 </div>
-        <div className="item item--8">8 </div>
-        <div className="item item--9">9 </div>
-        <div className="item item--10">10</div>
-       <div className="item item--11">11</div> */}
         <p className="item item--11">
           <button onClick={e => runFunction(e)} className="test">
             18:00
           </button>
-          11
         </p>
       </div>
-      {console.log(document.querySelector(".test"))}
     </>
   );
 }

@@ -3,19 +3,17 @@ import "./SavedCitiesMenu.scss";
 import Tooltips from "../Tooltips/Tooltips";
 
 //TODO: try build fn to handle checked result because of REact warning OR change onHandle function
+
 export default function SavedCitiesMenu({ savedCities, saveCity, getWeather }) {
-  //console.log("savedCities", savedCities);
-  //console.log("saveCity", saveCity);
   const [defaultCity, setDefaultCity] = useState("");
   //console.log("savedCities", savedCities);
 
-  const chooseDefaultCity = e => {
+  const chooseDefaultCity = city => {
     if (!savedCities) {
       //console.log("NOT POSSBILE");
       return;
     }
-    //console.log("CHOOSEDEFAULTCITY", e);
-    setDefaultCity(e);
+    setDefaultCity(city);
   };
   useEffect(() => {
     //console.log("EFFECT2", localStorage);
@@ -38,12 +36,13 @@ export default function SavedCitiesMenu({ savedCities, saveCity, getWeather }) {
         <h3>Choose your active city:</h3>
       </div>
       <div className="container__saved-cities">
-        {/* // prettier-ignore */}
+        {/* MEnu Left */}
         <div className="menu-left">
           <p></p>
           <p>Default</p>
           <p>City</p>
         </div>
+
         {/* City-1 */}
         <div className="cities city-1">
           <p>City 1</p>
@@ -57,9 +56,9 @@ export default function SavedCitiesMenu({ savedCities, saveCity, getWeather }) {
               onChange={
                 savedCities.city1
                   ? e => chooseDefaultCity(e.target.value)
-                  : null
+                  : () => {} //React shows warning if null is chosen
               }
-              checked={true} //savedCities.city1 === defaultCity
+              checked={savedCities.city1 === defaultCity}
             />
             <label htmlFor="city-1"></label>
           </p>
@@ -68,6 +67,7 @@ export default function SavedCitiesMenu({ savedCities, saveCity, getWeather }) {
             Save
           </button>
         </div>
+
         {/* CITY-2 */}
         <div className="cities city-2">
           <p>City 2</p>
@@ -80,9 +80,9 @@ export default function SavedCitiesMenu({ savedCities, saveCity, getWeather }) {
               onChange={
                 savedCities.city2
                   ? e => chooseDefaultCity(e.target.value)
-                  : null
+                  : () => {}
               }
-              checked={false} //savedCities.city2 === defaultCity
+              checked={savedCities.city2 === defaultCity}
             />
             <label htmlFor="city-2"></label>
           </p>
@@ -93,6 +93,7 @@ export default function SavedCitiesMenu({ savedCities, saveCity, getWeather }) {
             </button>
           </p>
         </div>
+
         {/* CITY-3 */}
         <div className="cities city-3">
           <p>City 3</p>
@@ -105,9 +106,9 @@ export default function SavedCitiesMenu({ savedCities, saveCity, getWeather }) {
               onChange={
                 savedCities.city3
                   ? e => chooseDefaultCity(e.target.value)
-                  : null
+                  : () => {}
               }
-              checked={false} //savedCities.city3 === defaultCity
+              checked={savedCities.city3 === defaultCity}
             />
             <label htmlFor="city-3"></label>
           </p>
@@ -116,6 +117,7 @@ export default function SavedCitiesMenu({ savedCities, saveCity, getWeather }) {
             Save
           </button>
         </div>
+
         <Tooltips />
       </div>
     </>

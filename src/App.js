@@ -9,7 +9,6 @@ import SavedCitiesMenu from "./components/SavedCitiesMenu/SavedCitiesMenu";
 import HourlyWeather from "./components/HourlyWeather/HourlyWeather";
 
 function App() {
-  //console.log("APP");
   const key = keyAPI;
   // prettier-ignore
   const [savedCities, setSavedCities] = useState({
@@ -20,7 +19,7 @@ function App() {
   const [city, setCity] = useState("");
   const [text, setText] = useState("");
   const [data, setData] = useState({});
-  //JOIN THEM?!
+  //Join them?!
   const [showError, setShowError] = useState(false);
   const [errorMsg, setErrorMsg] = useState({
     error: "",
@@ -35,7 +34,7 @@ function App() {
         setSavedCities(JSON.parse(localStorage.getItem("weatherApp")));
       } else {
         //console.log("NO");
-        //do notihng
+        //do notihng?
       }
     } catch (err) {
       showErrorMsg("Error!File may be corrupted");
@@ -81,6 +80,7 @@ function App() {
       return showErrorMsg(data.message);
     } else {
       setData({
+        //! Send data as whole or in pieces? !
         data,
         city: data.city.name,
         weatherDescription: data.list[0].weather[0].description,
@@ -103,21 +103,21 @@ function App() {
     e.preventDefault();
 
     getWeather(text).catch(err => {
-      console.log("res:", err);
+      //console.log("res:", err);
       showErrorMsg("Something went wrong...");
     });
   };
 
   //SAVE CITIES
   const saveCity = n => {
-    console.log("n", n, savedCities[n]);
+    //console.log("n", n, savedCities[n]);
     // prettier-ignore
     if (!city)return showErrorMsg("SEARCH for a valid city first");
     if (n === "city1") return setSavedCities({ ...savedCities, city1: city });
     if (n === "city2") return setSavedCities({ ...savedCities, city2: city });
     if (n === "city3") return setSavedCities({ ...savedCities, city3: city });
-    console.log("city :", city);
-    console.log("text :", text);
+    //console.log("city :", city);
+    //console.log("text :", text);
   };
 
   return (
@@ -135,7 +135,7 @@ function App() {
             />
             <button type="submit">Go</button>
           </form>
-          <br></br>
+          <br />
           <p
             className="error-message"
             style={showError ? { display: "block" } : { display: "none" }}
@@ -151,9 +151,10 @@ function App() {
         />
 
         {/* END of chosen city + forecast */}
-        <CityCard city={city} />
+        <CityCard data={data} city={city} />
         <HourlyWeather data={data} city={city} />
         <WeatherCard
+          // ! Change? !
           data={data}
           city={city}
           weatherIcon={data.weatherIcon}
@@ -171,5 +172,4 @@ function App() {
     </>
   );
 }
-
 export default App;
