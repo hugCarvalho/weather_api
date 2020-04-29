@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./App.scss";
 import { keyAPI } from "./key";
-import WeatherCard from "./components/WeatherCard/WeatherCard";
+//import WeatherCard from "./components/WeatherCard/WeatherCard";
 import Header from "./components/Header/Header";
 // import InputSearchCity from "./components/InputSearchCity/InputSearchCity";
 import CityCard from "./components/CityCard/CityCard";
 import SavedCitiesMenu from "./components/SavedCitiesMenu/SavedCitiesMenu";
-import HourlyWeather from "./components/HourlyWeather/HourlyWeather";
+// import HourlyWeather from "./components/HourlyWeather/HourlyWeather";
+//import WeatherCard from "./components/WeatherCard/WeatherCard";
+
+export const WeatherDataContext = React.createContext();
 
 function App() {
   const key = keyAPI;
@@ -16,9 +19,14 @@ function App() {
     city2: "",
     city3: ""
   });
+
   const [city, setCity] = useState("");
   const [text, setText] = useState("");
   const [data, setData] = useState({});
+  //const [renderedWeatherData, setRenderedWeatherData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [automaticRender, setAutomaticRender] = useState(false);
+
   //Join them?!
   const [showError, setShowError] = useState(false);
   const [errorMsg, setErrorMsg] = useState({
@@ -43,19 +51,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // console.group(
-    //   "text:",
-    //   text,
-    //   "city :",
-    //   city,
-    //   "savedC:",
-    //   savedCities,
-    //   "DATA:",
-    //   data
-    // );
-    // // console.log("CITY1", savedCities.city1);
-    // console.groupEnd();
     localStorage.setItem("weatherApp", JSON.stringify(savedCities));
+    // console.log("IS LOADING:", isLoading, data);
   }); //add at the end savedcity dependency
 
   //SHOW ERROR MESSAGE
@@ -75,33 +72,26 @@ function App() {
     const response = await fetch(api);
     const data = await response.json();
 
-    console.log("DATAFROMFETCHING :", data, data.cod);
-    if (data.cod != "200") {
+    // console.log("DATAFROMFETCHING :", isLoading);
+    if (data.cod !== "200") {
       return showErrorMsg(data.message);
     } else {
+      console.log("FETCHEDDATA:", data);
       setData({
-        //! Send data as whole or in pieces? !
-        data,
-        city: data.city.name,
-        weatherDescription: data.list[0].weather[0].description,
-        // weatherAltDescription: data.weather[0].main,
-        weatherIcon: data.list[0].weather[0].icon,
-        tempMain: data.list[0].main.temp,
-        tempRealFeel: data.list[0].main.feels_like,
-        tempMin: data.list[0].main.temp_min,
-        tempMax: data.list[0].main.temp_max,
-        windSpeed: data.list[0].wind.speed,
-        windDirection: data.list[0].wind.deg,
+        weather: data,
       });
       setCity(text);
     }
+    setIsLoading(false);
+    setAutomaticRender(false);
   };
 
   //ENTER INPUT
   const submitUserInput = e => {
     //console.log("USER INPUT");
     e.preventDefault();
-
+    setIsLoading(true);
+    setAutomaticRender(true);
     getWeather(text).catch(err => {
       //console.log("res:", err);
       showErrorMsg("Something went wrong...");
@@ -110,19 +100,15 @@ function App() {
 
   //SAVE CITIES
   const saveCity = n => {
-    //console.log("n", n, savedCities[n]);
     // prettier-ignore
     if (!city)return showErrorMsg("SEARCH for a valid city first");
     if (n === "city1") return setSavedCities({ ...savedCities, city1: city });
     if (n === "city2") return setSavedCities({ ...savedCities, city2: city });
     if (n === "city3") return setSavedCities({ ...savedCities, city3: city });
-    //console.log("city :", city);
-    //console.log("text :", text);
   };
 
   return (
     <>
-      {/* {console.log("RENDER", savedCities)} */}
       <Header />
       <div className="container-app">
         {/* INPUT*/}
@@ -151,23 +137,15 @@ function App() {
         />
 
         {/* END of chosen city + forecast */}
-        <CityCard data={data} city={city} />
-        <HourlyWeather data={data} city={city} />
-        <WeatherCard
-          // ! Change? !
+        {/* <WeatherDataContext.Provider value={{ data, setData }}> */}
+        <CityCard
           data={data}
           city={city}
-          weatherIcon={data.weatherIcon}
-          weatherDescription={data.weatherDescription}
-          weatherAltDescription={data.weatherAltDescription}
-          tempMain={data.tempMain}
-          tempRealFeel={data.tempRealFeel}
-          tempMin={data.tempMin}
-          tempMax={data.tempMax}
-          windDirection={data.windDirection}
-          windSpeed={data.windSpeed}
+          isLoading={isLoading}
+          automaticRender={automaticRender}
         />
-        {/* check text property, testing pruposes! */}
+        {/* <HourlyWeather data={data} city={city} /> */}
+        {/* </WeatherDataContext.Provider> */}
       </div>
     </>
   );
