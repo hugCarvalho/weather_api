@@ -1,19 +1,13 @@
-import React, { useContext } from "react";
-import "./WeatherCard.scss";
-import { WeatherDataContext } from "../../App";
+import React, { useContext, useEffect } from "react";
+import "./DisplayWeather.scss";
+import { IsLoading } from "../../App";
 
-export default function CityCard(props) {
-  let {
-    // weatherIcon,
-    renderedWeatherData,
-    city,
-    //data,
-    isLoading,
-    // currentArray,
-    // dayNeeded,
-  } = props;
-
-  //const data = useContext(WeatherDataContext);
+export default function DisplayWeather({ filData2 }) {
+  const isLoading = useContext(IsLoading);
+  useEffect(() => {
+    //console.log("DISPLAY WEATHER FILTER DATA:", filData2, isLoading);
+    //!isLoading && console.log("RES:", filData2.weather.list[0].main.temp);
+  }, [filData2, isLoading]);
 
   // const convertTemp = value => {
   //   //console.log("convert", temp, temp - celsius);
@@ -34,18 +28,12 @@ export default function CityCard(props) {
   //   return cardinalPoints[Math.round(value / 22.5)];
   // };
 
-  //console.log(city);
+  console.log(isLoading);
   return (
     <>
-      {!isLoading
-        ? console.log(
-            "WEATHERAPP is loading:",
-            isLoading
-            //renderedWeatherData,
-            //renderedWeatherData[0].weather[0].icon
-          )
-        : "N/A"}
-      <div className="container__weather-card">
+      <p>{isLoading ? "Loading..." : filData2.weather.list[0].main.temp}</p>
+
+      {/* <div className="container__weather-card">
         <div className="item item--1">
           <h3>Weather</h3>
           {city === "No location chosen yet..." ? (
@@ -59,8 +47,8 @@ export default function CityCard(props) {
               // alt={`/media/weather_icons/${weatherAltDescription}.png`}
             />
           )}
-        </div>
-        {/* <div className="item item--2">2 Temp°</div>
+        </div> */}
+      {/* <div className="item item--2">2 Temp°</div>
         <div className="item item--3">
           Actual{" "}
           <span>
@@ -81,7 +69,7 @@ export default function CityCard(props) {
           10 <div className="wd">--></div> Direction:{" "}
           {convertWindDirection(windDirection)}
         </div> */}
-      </div>
+      {/* </div> */}
     </>
   );
 }

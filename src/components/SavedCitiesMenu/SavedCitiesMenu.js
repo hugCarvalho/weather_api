@@ -4,7 +4,7 @@ import Tooltips from "../Tooltips/Tooltips";
 
 //TODO: try build fn to handle checked result because of REact warning OR change onHandle function
 
-export default function SavedCitiesMenu({ savedCities, saveCity, getWeather }) {
+export default function SavedCitiesMenu({ savedCities, saveCity, fetchCity }) {
   const [defaultCity, setDefaultCity] = useState("");
   //console.log("savedCities", savedCities);
 
@@ -20,7 +20,7 @@ export default function SavedCitiesMenu({ savedCities, saveCity, getWeather }) {
     const defaultCity = JSON.parse(localStorage.getItem("defaultCity"));
     setDefaultCity(defaultCity);
     if (defaultCity) {
-      getWeather(defaultCity); //!!!! ACTIVATE THIS LINE TO FETCH AT ONLOAD
+      fetchCity(defaultCity); //!!!! ACTIVATE THIS LINE TO FETCH AT ONLOAD
     }
   }, []);
   useEffect(() => {
