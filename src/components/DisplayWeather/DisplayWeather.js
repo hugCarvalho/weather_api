@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from "react";
 import "./DisplayWeather.scss";
-import { IsLoading } from "../../App";
+import { IsLoadingContext } from "../../App";
 
 export default function DisplayWeather({ filData2 }) {
-  const isLoading = useContext(IsLoading);
+  const { isLoading } = useContext(IsLoadingContext);
   useEffect(() => {
-    //console.log("DISPLAY WEATHER FILTER DATA:", filData2, isLoading);
+    // console.log("DISPLAY WEATHER FILTER DATA:", filData2, isLoading);
     //!isLoading && console.log("RES:", filData2.weather.list[0].main.temp);
   }, [filData2, isLoading]);
 
@@ -28,7 +28,7 @@ export default function DisplayWeather({ filData2 }) {
   //   return cardinalPoints[Math.round(value / 22.5)];
   // };
 
-  console.log(isLoading);
+  // console.log(isLoading);
   return (
     <>
       <p>{isLoading ? "Loading..." : filData2.weather.list[0].main.temp}</p>

@@ -1,19 +1,19 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import "./Hours.scss";
 import DisplayWeather from "../DisplayWeather/DisplayWeather";
-import { IsLoading } from "../../App";
+// import { IsLoadingContext } from "../../App";
 
-export default function Hours({ filteredData }) {
+export default function Hours({ filteredData, isLoading }) {
   const [filData2, setFilData2] = useState({});
-  const isLoading = useContext(IsLoading);
+  //const isLoading = useContext(IsLoadingContext);
 
   useEffect(() => {
-    console.log("USELAYOUT DAY:", filData2);
+    // console.log("USELAYOUT DAY:", filData2);
   }, [filData2]);
 
   useEffect(() => {
     setFilData2(filteredData);
-    console.log("filteredData", filteredData, isLoading);
+    // console.log("filteredData", filteredData, isLoading);
   }, [filteredData, isLoading]);
 
   // useEffect(() => {
@@ -34,7 +34,7 @@ export default function Hours({ filteredData }) {
     console.log(res);
   };
   // console.log("isLoading:", isLoading);
-  console.log("filteredData", filteredData);
+  // console.log("filteredData", filteredData);
   return (
     <div>
       {!isLoading &&

@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./App.scss";
 import { keyAPI } from "./key";
 import Header from "./components/Header/Header";
-// import InputSearchCity from "./components/InputSearchCity/InputSearchCity";
+import InputSearchCity from "./components/InputSearchCity/InputSearchCity";
+import DisplayErrorMsg from "./components/DisplayErrorMsg/DisplayErrorMsg";
 import Days from "./components/Days/Days";
 //import SavedCitiesMenu from "./components/SavedCitiesMenu/SavedCitiesMenu";
 
-export const IsLoading = React.createContext();
+export const IsLoadingContext = React.createContext();
+export const CityContext = React.createContext();
 
 function App() {
   const key = keyAPI;
@@ -17,10 +19,9 @@ function App() {
   //   city3: ""
   // });
 
-  const [city, setCity] = useState("Berlin");
+  const [city, setCity] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState({});
-  //const [text, setText] = useState("");
   //const [renderedWeatherData, setRenderedWeatherData] = useState({});
   //const [automaticRender, setAutomaticRender] = useState(false);
 
@@ -33,16 +34,6 @@ function App() {
   });
 
   //FETCH CITY
-  const fetchCity = e => {
-    //console.log("USER INPUT");
-    //e.preventDefault();
-    setCity("London");
-    setIsLoading(true);
-    // setCity(text);
-    // getWeather(text).catch(err => {
-    //   showErrorMsg("Something went wrong...");
-    // });
-  };
 
   //FETCH DATA
   useEffect(() => {
@@ -66,11 +57,13 @@ function App() {
         return showErrorMsg(data.message);
       }
     };
-    getWeather();
+    getWeather().catch(() => {
+      showErrorMsg("Something went wrong...");
+    });
   }, [isLoading, city, key]);
 
   useEffect(() => {
-    console.log("Effect 2 -> IS Loading:", isLoading);
+    // console.log("Effect 2 -> IS Loading:", isLoading, city);
     console.log("----------------------------");
   }, [isLoading, city]);
 
@@ -113,25 +106,7 @@ function App() {
     <>
       <Header />
       <div className="container-app">
-        <button onClick={() => fetchCity()}>change</button> :{city}
         {/* INPUT*/}
-        {/* <div className="container__input-search-city">
-          <form onSubmit={e => fetchCity(e)}>
-            <input
-              onChange={e => setText(e.target.value)}
-              type="text"
-              placeholder="type a city"
-            />
-            <button type="submit">Go</button>
-          </form>
-          <br />
-          <p
-            className="error-message"
-            style={showError ? { display: "block" } : { display: "none" }}
-          >
-            {errorMsg.error}
-          </p>
-        </div> */}
         {/* SAVED CITIES */}
         {/* <SavedCitiesMenu
           savedCities={savedCities}
@@ -140,12 +115,13 @@ function App() {
           //getWeather={getWeather}
         /> */}
         {/* END of chosen city + forecast */}
-        {/* <WeatherDataContext.Provider value={{ data, setData }}> */}
-        <IsLoading.Provider value={isLoading}>
-          <Days data={data} isLoading={isLoading} />
-        </IsLoading.Provider>
-        {/* <HourlyWeather data={data} city={city} /> */}
-        {/* </WeatherDataContext.Provider> */}
+        <CityContext.Provider value={{ city, setCity }}>
+          <IsLoadingContext.Provider value={{ isLoading, setIsLoading }}>
+            <InputSearchCity />
+            <Days data={data} isLoading={isLoading} />
+          </IsLoadingContext.Provider>
+        </CityContext.Provider>
+        <DisplayErrorMsg />
       </div>
     </>
   );

@@ -1,18 +1,20 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./Days.scss";
 //import { IsLoading } from "../../App";
 import Moment from "react-moment";
-// import WeatherCard from "../WeatherCard/WeatherCard";
 import Hours from "../Hours/Hours";
 
 export default function CityCard({ isLoading, data }) {
   const [filteredData, setFilteredData] = useState({});
 
   useEffect(() => {
-    //console.log("USELAYOUT DAY:", data);
+    // console.log("USELAYOUT DAY:", data, isLoading);
     setFilteredData(data);
     !isLoading && filterByDay(0);
   }, [data, isLoading]);
+  useEffect(() => {
+    // console.log("filteredData", filteredData);
+  }, [filteredData]);
 
   const filterByDay = day => {
     const currentDay = Number(data.weather.list[0].dt_txt.slice(8, 10));
@@ -39,18 +41,18 @@ export default function CityCard({ isLoading, data }) {
     }
     if (res.length === 0 && forecastDay === 32) {
       res = data.weather.list.filter(day => {
-        currentMonth % 2 === 0 ? (forecastDay = 1) : (forecastDay = 2);
-        //TODO: condition for feb
+        currentMonth % 2 !== 0 ? (forecastDay = 1) : (forecastDay = 2);
         return +day.dt_txt.slice(8, 10) === forecastDay;
       });
     }
+    //TODO: condition for feb
     setFilteredData({
       weather: {
         list: res,
       },
     });
   };
-
+  //TODO: conditional render to wait for loading, display or btns
   return (
     <>
       <ul>
@@ -69,8 +71,7 @@ export default function CityCard({ isLoading, data }) {
           </button>
         </li>
       </ul>
-      <Hours filteredData={filteredData} />
-      />
+      <Hours filteredData={filteredData} isLoading={isLoading} />
     </>
   );
 }
