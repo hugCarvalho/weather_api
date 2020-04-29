@@ -33,8 +33,6 @@ function App() {
     errorLocalStorage: "",
   });
 
-  //FETCH CITY
-
   //FETCH DATA
   useEffect(() => {
     const getWeather = async text => {
@@ -121,7 +119,7 @@ function App() {
             <Days data={data} isLoading={isLoading} />
           </IsLoadingContext.Provider>
         </CityContext.Provider>
-        <DisplayErrorMsg />
+        <DisplayErrorMsg showError={showError} errorMsg={errorMsg} />
       </div>
     </>
   );
