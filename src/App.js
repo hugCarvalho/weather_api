@@ -15,12 +15,10 @@ export const ShowErrorContext = React.createContext();
 function App() {
   const key = keyAPI;
   // prettier-ignore
-
   const [city, setCity] = useState("");
+  const [validCity, setValidCity] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState({});
-  //const [renderedWeatherData, setRenderedWeatherData] = useState({});
-  //const [automaticRender, setAutomaticRender] = useState(false);
 
   //Join them?!
   const [showError, setShowError] = useState(false);
@@ -32,7 +30,7 @@ function App() {
 
   //FETCH DATA
   useEffect(() => {
-    const getWeather = async text => {
+    const getWeather = async () => {
       //console.log("GETWEATHER");
       // let api = `http://api.openweathermap.org/data/2.5/weather?q=${text}&appid=${key}`;
       let api = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${key}`; //CHANGE TO TEXT!!!!
@@ -45,6 +43,7 @@ function App() {
         setData({
           weather: data,
         });
+        setValidCity(city);
         setTimeout(() => {
           setIsLoading(false);
         }, 200);
@@ -53,10 +52,11 @@ function App() {
         setShowError(true);
       }
     };
-    getWeather().catch(() => {
-      setErrorMsg({ error: "Something went wrong..." });
-      setShowError(true);
-    });
+    city &&
+      getWeather().catch(() => {
+        setErrorMsg({ error: "Something went wrong..." });
+        setShowError(true);
+      });
   }, [isLoading, city, key]);
 
   useEffect(() => {
@@ -76,7 +76,7 @@ function App() {
               <ShowErrorContext.Provider value={{ showError, setShowError }}>
                 <InputSearchCity />
                 <DisplayErrorMsg showError={showError} errorMsg={errorMsg} />
-                <SavedCitiesMenu />
+                <SavedCitiesMenu validCity={validCity} />
                 <Days data={data} isLoading={isLoading} />
               </ShowErrorContext.Provider>
             </ErrorMsgContext.Provider>

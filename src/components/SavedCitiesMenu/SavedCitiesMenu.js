@@ -4,8 +4,10 @@ import Tooltips from "../Tooltips/Tooltips";
 import { CityContext } from "../../App";
 
 //TODO: try build fn to handle checked result because of REact warning OR change onHandle function
+//TODO: V.1.1 - prevent saving the city twice
+//TODO: convert city names in buttons for fast access
 
-export default function SavedCitiesMenu(props) {
+export default function SavedCitiesMenu({ validCity }) {
   const { city, setCity } = useContext(CityContext);
   const [defaultCity, setDefaultCity] = useState("");
   const [savedCities, setSavedCities] = useState({
@@ -27,24 +29,30 @@ export default function SavedCitiesMenu(props) {
     //console.log("EFFECT1:", localStorage);
   }, []);
 
-  // useEffect(() => {
-  //   localStorage.setItem("weatherApp", JSON.stringify(savedCities));
-  //   console.log("SAVE THE CITY IN LS:", savedCities);
-  // }, [savedCities]); //add at the end savedcity dependency
+  useEffect(() => {
+    localStorage.setItem("weatherApp", JSON.stringify(savedCities));
+    console.log("SAVE THE CITY IN LS:", savedCities);
+  }, [savedCities]); //add at the end savedcity dependency
 
   const saveCity = n => {
     // prettier-ignore
-    if (!city)return JSON.stringify("ERROR IMPROVISED") //showErrorMsg("SEARCH for a valid city first");
-    if (n === "city1") return setSavedCities({ ...savedCities, city1: city });
-    if (n === "city2") return setSavedCities({ ...savedCities, city2: city });
-    if (n === "city3") return setSavedCities({ ...savedCities, city3: city });
+    if (!validCity) console.log("ERROR INVALID CITY") //showErrorMsg("SEARCH for a valid city first");
+    // prettier-ignore
+    if (n === "city1") return setSavedCities({ ...savedCities, city1: validCity });
+    // prettier-ignore
+    if (n === "city2") return setSavedCities({ ...savedCities, city2: validCity });
+    // prettier-ignore
+    if (n === "city3") return setSavedCities({ ...savedCities, city3: validCity });
   };
 
   const chooseDefaultCity = city => {
+    console.log("e.target.value", city);
     if (!savedCities) {
-      //console.log("NOT POSSBILE");
+      console.log(savedCities);
+      console.log("NOT POSSBILE");
       return;
     }
+    console.log("right...");
     setDefaultCity(city);
   };
   useEffect(() => {
@@ -52,7 +60,7 @@ export default function SavedCitiesMenu(props) {
     const defaultCity = JSON.parse(localStorage.getItem("defaultCity"));
     setDefaultCity(defaultCity);
     if (defaultCity) {
-      //fetchCity(defaultCity); //!!!! ACTIVATE THIS LINE TO FETCH AT ONLOAD
+      setCity(defaultCity); //!!!! ACTIVATE THIS LINE TO FETCH AT ONLOAD
     }
   }, []); //don't use default city as a dependency
 
