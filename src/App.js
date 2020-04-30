@@ -5,19 +5,16 @@ import Header from "./components/Header/Header";
 import InputSearchCity from "./components/InputSearchCity/InputSearchCity";
 import DisplayErrorMsg from "./components/DisplayErrorMsg/DisplayErrorMsg";
 import Days from "./components/Days/Days";
-//import SavedCitiesMenu from "./components/SavedCitiesMenu/SavedCitiesMenu";
+import SavedCitiesMenu from "./components/SavedCitiesMenu/SavedCitiesMenu";
 
 export const IsLoadingContext = React.createContext();
 export const CityContext = React.createContext();
+export const ErrorMsgContext = React.createContext();
+export const ShowErrorContext = React.createContext();
 
 function App() {
   const key = keyAPI;
   // prettier-ignore
-  // const [savedCities, setSavedCities] = useState({
-  //   city1: "",
-  //   city2: "",
-  //   city3: ""
-  // });
 
   const [city, setCity] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -52,74 +49,39 @@ function App() {
           setIsLoading(false);
         }, 200);
       } else {
-        return showErrorMsg(data.message);
+        setErrorMsg({ error: data.message });
+        setShowError(true);
       }
     };
     getWeather().catch(() => {
-      showErrorMsg("Something went wrong...");
+      setErrorMsg({ error: "Something went wrong..." });
+      setShowError(true);
     });
   }, [isLoading, city, key]);
 
   useEffect(() => {
-    // console.log("Effect 2 -> IS Loading:", isLoading, city);
+    console.log("Effect 2 -> IS Loading:", isLoading, city);
     console.log("----------------------------");
   }, [isLoading, city]);
-
-  //Check local storage
-  // useEffect(() => {
-  //   try {
-  //     if (localStorage.weatherApp) {
-  //       setSavedCities(JSON.parse(localStorage.getItem("weatherApp")));
-  //     }
-  //   } catch (err) {
-  //     showErrorMsg("Error!File may be corrupted");
-  //   }
-  //   //console.log("EFFECT1:", localStorage);
-  // }, []);
-
-  // useEffect(() => {
-  //   localStorage.setItem("weatherApp", JSON.stringify(savedCities));
-  //   console.log("SAVE THE CITY IN LS:", savedCities);
-  // }, [savedCities]); //add at the end savedcity dependency
-
-  //SHOW ERROR MESSAGE
-  const showErrorMsg = error => {
-    setErrorMsg({ error });
-    setShowError(true);
-    setTimeout(() => {
-      setShowError(false);
-    }, 1500);
-  };
-
-  //SAVE CITIES
-  // const saveCity = n => {
-  //   // prettier-ignore
-  //   if (!city)return showErrorMsg("SEARCH for a valid city first");
-  //   if (n === "city1") return setSavedCities({ ...savedCities, city1: city });
-  //   if (n === "city2") return setSavedCities({ ...savedCities, city2: city });
-  //   if (n === "city3") return setSavedCities({ ...savedCities, city3: city });
-  // };
 
   return (
     <>
       <Header />
       <div className="container-app">
-        {/* INPUT*/}
         {/* SAVED CITIES */}
-        {/* <SavedCitiesMenu
-          savedCities={savedCities}
-          saveCity={saveCity}
-          fetchCity={fetchCity}
-          //getWeather={getWeather}
-        /> */}
         {/* END of chosen city + forecast */}
         <CityContext.Provider value={{ city, setCity }}>
           <IsLoadingContext.Provider value={{ isLoading, setIsLoading }}>
-            <InputSearchCity />
-            <Days data={data} isLoading={isLoading} />
+            <ErrorMsgContext.Provider value={{ errorMsg, setErrorMsg }}>
+              <ShowErrorContext.Provider value={{ showError, setShowError }}>
+                <InputSearchCity />
+                <DisplayErrorMsg showError={showError} errorMsg={errorMsg} />
+                <SavedCitiesMenu />
+                <Days data={data} isLoading={isLoading} />
+              </ShowErrorContext.Provider>
+            </ErrorMsgContext.Provider>
           </IsLoadingContext.Provider>
         </CityContext.Provider>
-        <DisplayErrorMsg showError={showError} errorMsg={errorMsg} />
       </div>
     </>
   );

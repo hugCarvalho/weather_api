@@ -1,12 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./SavedCitiesMenu.scss";
 import Tooltips from "../Tooltips/Tooltips";
+import { CityContext } from "../../App";
 
 //TODO: try build fn to handle checked result because of REact warning OR change onHandle function
 
-export default function SavedCitiesMenu({ savedCities, saveCity, fetchCity }) {
+export default function SavedCitiesMenu(props) {
+  const { city, setCity } = useContext(CityContext);
   const [defaultCity, setDefaultCity] = useState("");
+  const [savedCities, setSavedCities] = useState({
+    city1: "",
+    city2: "",
+    city3: "",
+  });
   //console.log("savedCities", savedCities);
+
+  //Check local storage
+  useEffect(() => {
+    try {
+      if (localStorage.weatherApp) {
+        setSavedCities(JSON.parse(localStorage.getItem("weatherApp")));
+      }
+    } catch (err) {
+      //showErrorMsg("Error!File may be corrupted");
+    }
+    //console.log("EFFECT1:", localStorage);
+  }, []);
+
+  // useEffect(() => {
+  //   localStorage.setItem("weatherApp", JSON.stringify(savedCities));
+  //   console.log("SAVE THE CITY IN LS:", savedCities);
+  // }, [savedCities]); //add at the end savedcity dependency
+
+  const saveCity = n => {
+    // prettier-ignore
+    if (!city)return JSON.stringify("ERROR IMPROVISED") //showErrorMsg("SEARCH for a valid city first");
+    if (n === "city1") return setSavedCities({ ...savedCities, city1: city });
+    if (n === "city2") return setSavedCities({ ...savedCities, city2: city });
+    if (n === "city3") return setSavedCities({ ...savedCities, city3: city });
+  };
 
   const chooseDefaultCity = city => {
     if (!savedCities) {
@@ -20,9 +52,10 @@ export default function SavedCitiesMenu({ savedCities, saveCity, fetchCity }) {
     const defaultCity = JSON.parse(localStorage.getItem("defaultCity"));
     setDefaultCity(defaultCity);
     if (defaultCity) {
-      fetchCity(defaultCity); //!!!! ACTIVATE THIS LINE TO FETCH AT ONLOAD
+      //fetchCity(defaultCity); //!!!! ACTIVATE THIS LINE TO FETCH AT ONLOAD
     }
-  }, []);
+  }, []); //don't use default city as a dependency
+
   useEffect(() => {
     //console.log("DEFAULT SAVE:", defaultCity);
     localStorage.setItem("defaultCity", JSON.stringify(defaultCity));
