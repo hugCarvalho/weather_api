@@ -7,7 +7,7 @@ import { ErrorMsgContext, ShowErrorContext } from "../../App";
 
 export default function DisplayErrorMsg() {
   const { showError, setShowError } = useContext(ShowErrorContext);
-  const { errorMsg, setErrorMsg } = useContext(ErrorMsgContext);
+  const { errorMsg } = useContext(ErrorMsgContext);
 
   useEffect(() => {
     const showErrorMsg = () => {

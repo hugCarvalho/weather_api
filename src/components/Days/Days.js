@@ -55,22 +55,25 @@ export default function CityCard({ isLoading, data }) {
   //TODO: conditional render to wait for loading, display or btns
   return (
     <>
-      <ul>
-        <li className="current">
-          {/* // prettier-ignore */}
-          <button onClick={() => filterByDay(0)}>
-            {" "}
-            <Moment format="DD-MM-YY" />
-          </button>
-          <button onClick={() => filterByDay(1)}>
-            {" "}
-            <Moment format="DD-MM-YY" add={{ days: 1 }}></Moment>
-          </button>
-          <button onClick={() => filterByDay(2)}>
-            <Moment format="dddd" add={{ days: 2 }} />
-          </button>
-        </li>
-      </ul>
+      {/* Doesn't show "days" if there is no default city on page load  */}
+      <div style={!isLoading ? { display: "block" } : { display: "none" }}>
+        <ul>
+          <li className="current">
+            {/* // prettier-ignore */}
+            <button onClick={() => filterByDay(0)}>
+              {" "}
+              <Moment format="DD-MM-YY" />
+            </button>
+            <button onClick={() => filterByDay(1)}>
+              {" "}
+              <Moment format="DD-MM-YY" add={{ days: 1 }}></Moment>
+            </button>
+            <button onClick={() => filterByDay(2)}>
+              <Moment format="dddd" add={{ days: 2 }} />
+            </button>
+          </li>
+        </ul>
+      </div>
       <Hours filteredData={filteredData} isLoading={isLoading} />
     </>
   );

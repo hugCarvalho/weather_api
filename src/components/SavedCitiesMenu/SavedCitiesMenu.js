@@ -8,7 +8,7 @@ import { CityContext } from "../../App";
 //TODO: convert city names in buttons for fast access
 
 export default function SavedCitiesMenu({ validCity }) {
-  const { city, setCity } = useContext(CityContext);
+  const { setCity } = useContext(CityContext);
   const [defaultCity, setDefaultCity] = useState("");
   const [savedCities, setSavedCities] = useState({
     city1: "",
@@ -24,14 +24,13 @@ export default function SavedCitiesMenu({ validCity }) {
         setSavedCities(JSON.parse(localStorage.getItem("weatherApp")));
       }
     } catch (err) {
-      //showErrorMsg("Error!File may be corrupted");
+      console.log("Error!File may be corrupted"); //showErrorMsg("Error!File may be corrupted");
     }
     //console.log("EFFECT1:", localStorage);
   }, []);
 
   useEffect(() => {
     localStorage.setItem("weatherApp", JSON.stringify(savedCities));
-    console.log("SAVE THE CITY IN LS:", savedCities);
   }, [savedCities]); //add at the end savedcity dependency
 
   const saveCity = n => {
