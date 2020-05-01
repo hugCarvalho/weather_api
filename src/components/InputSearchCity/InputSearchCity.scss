@@ -1,0 +1,43 @@
+.container__search-city {
+  //background-color: chartreuse;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 10px;
+
+  form {
+    //background-color: chocolate;
+    //margin: auto;
+  }
+  input {
+    //background-color: black;
+    width: 60%;
+    height: 2rem;
+    padding: 1px 1px;
+  }
+
+  /* Buttons styles start */
+  button {
+    //display: inline-block;
+    border: none;
+    height: 2rem;
+    padding: 0 10px;
+    background: #0069ed;
+    color: #ffffff;
+    transition: background 250ms ease-in-out, transform 150ms ease;
+    // -webkit-appearance: none;
+    // -moz-appearance: none;
+  }
+
+  button:hover,
+  button:focus {
+    background: #0053ba;
+  }
+  button:focus {
+    outline: #072a55;
+  }
+  button:active {
+    transform: scale(0.99);
+  }
+  /* Button styles end */
+}

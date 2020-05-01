@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import "./InputSearchCity.scss";
 import { IsLoadingContext, CityContext } from "../../App";
 
 export default function InputSearchCity() {
@@ -15,12 +16,12 @@ export default function InputSearchCity() {
 
   return (
     <>
-      <div className="container__input-search-city">
+      <div className="container__search-city">
         <form onSubmit={e => fetchCity(e)}>
           <input
+            type="search"
+            placeholder="type a city..."
             onChange={e => setText(e.target.value)}
-            type="text"
-            placeholder="type a city"
           />
           <button type="submit">Go</button>
         </form>
