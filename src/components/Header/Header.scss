@@ -1,21 +1,26 @@
 header {
   background-color: rgb(153, 224, 215);
   width: 100vw;
-  position: relative;
+  padding: 7px;
   text-align: center;
+  //position: relative;
 
-  .options {
-    background-color: blueviolet;
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    display: inline;
-  }
-  .wrapper-headers {
+  // .options {
+  //   background-color: blueviolet;
+  //   position: absolute;
+  //   top: 5px;
+  //   left: 5px;
+  //   display: inline;
+  // }
+  .wrapper__header {
     display: flex;
     flex-direction: column;
-    padding: 8px;
-    //justify-content: space-evenly;
-    //height: 60px;
+  }
+  h1 {
+    font-size: 3rem;
+    font-weight: 500;
+  }
+  p {
+    font-weight: 500;
   }
 }
