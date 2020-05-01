@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import "./DisplayWeather.scss";
 import { IsLoadingContext, CityContext } from "../../App";
 
+//TODO: check condition onload with no cities saved for weather card rendering
 export default function DisplayWeather({ filData2 }) {
   const { isLoading } = useContext(IsLoadingContext);
   const city = useContext(CityContext);

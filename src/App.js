@@ -6,6 +6,7 @@ import InputSearchCity from "./components/InputSearchCity/InputSearchCity";
 import DisplayErrorMsg from "./components/DisplayErrorMsg/DisplayErrorMsg";
 import Days from "./components/Days/Days";
 import SavedCitiesMenu from "./components/SavedCitiesMenu/SavedCitiesMenu";
+import DisplayCityName from "./components/DisplayCityName/DisplayCityName";
 
 export const IsLoadingContext = React.createContext();
 export const CityContext = React.createContext();
@@ -66,10 +67,9 @@ function App() {
 
   return (
     <>
-      <Header />
       <div className="container-app">
-        {/* SAVED CITIES */}
-        {/* END of chosen city + forecast */}
+        <Header />
+        {/* <DisplayOutput></DisplayOutput> organize components later */}
         <CityContext.Provider value={{ city, setCity }}>
           <IsLoadingContext.Provider value={{ isLoading, setIsLoading }}>
             <ErrorMsgContext.Provider value={{ errorMsg, setErrorMsg }}>
@@ -77,6 +77,7 @@ function App() {
                 <InputSearchCity />
                 <DisplayErrorMsg showError={showError} errorMsg={errorMsg} />
                 <SavedCitiesMenu validCity={validCity} />
+                <DisplayCityName validCity={validCity} />
                 <Days data={data} isLoading={isLoading} />
               </ShowErrorContext.Provider>
             </ErrorMsgContext.Provider>
