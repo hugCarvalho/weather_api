@@ -74,74 +74,71 @@ export default function SavedCitiesMenu({ validCity }) {
     <>
       {/* {console.log("DEFAULT:", defaultCity)} */}
       {/* {console.log("DEFAULT:", defaultCity)} */}
-
-      {/* {console.log("DEFAULT:", defaultCity)} */}
-      <div>
-        <div className="options-title">
-          <h3>Choose your active city:</h3>
+      <div className="container">
+        <div className="items items--1">
+          <p>Select a city or set a default city</p>
         </div>
-        <div className="container__saved-cities">
-          {/* MEnu Left */}
-          <div className="menu-left">
-            <p></p>
-            <p>Default</p>
-            <p>City</p>
-          </div>
-
-          {/* City-1 */}
-          <div className="cities city-1">
-            <p>City 1</p>
-            <p>
-              <RadioInput
-                value={savedCities.city1}
-                value2={defaultCity}
-                id="city-1"
-                runFn={chooseDefaultCity}
-              />
-            </p>
-            <p>{savedCities.city1 || "empty"}</p>
-            { /* prettier-ignore */}
-
-            <div  onClick={() => saveCity("city1")}>Save</div>
-          </div>
-
-          {/* CITY-2 */}
-          <div className="cities city-2">
-            <p>City 2</p>
-            <p>
-              <RadioInput
-                value={savedCities.city2}
-                value2={defaultCity}
-                id="city-2"
-                runFn={chooseDefaultCity}
-              />
-            </p>
-            <p>{savedCities.city2 || "empty"}</p>
-
-            { /* prettier-ignore */}
-            <button type="button" onClick={() => saveCity("city2")}>Save</button>
-          </div>
-
-          {/* CITY-3 */}
-          <div className="cities city-3">
-            <p>City 3</p>
-            <p>
-              <RadioInput
-                value={savedCities.city3}
-                id="city-3"
-                value2={defaultCity}
-                runFn={chooseDefaultCity}
-              />
-            </p>
-            <p>{savedCities.city3 || "empty"}</p>
-            { /* prettier-ignore */}
-            <div>
-              <button type="button" onClick={() => saveCity("city3")}>Save</button>
-              </div>
-          </div>
-
+        <div className="items items--2">2</div>
+        <div className="items items--3">3</div>
+        <div className="items items--4">City 1</div>
+        <div className="items items--5">City 2</div>
+        <div className="items items--6">City 3</div>
+        <div className="items items--7">
           <Tooltips />
         </div>
+        <div className="items items--8">X</div>
+        <div className="items items--9">Default</div>
+        <div className="items items--10">
+          <RadioInput
+            value={savedCities.city1}
+            value2={defaultCity}
+            id="city-1"
+            runFn={chooseDefaultCity}
+          />
+        </div>
+        <div className="items items--11">
+          <RadioInput
+            value={savedCities.city2}
+            value2={defaultCity}
+            id="city-2"
+            runFn={chooseDefaultCity}
+          />
+        </div>
+        <div className="items items--12">
+          <RadioInput
+            value={savedCities.city3}
+            id="city-3"
+            value2={defaultCity}
+            runFn={chooseDefaultCity}
+          />
+        </div>
+        <div className="items items--13">
+          <Tooltips />
+        </div>
+        <div className="items items--14">Fast access</div>
+        <div className="items items--15">{savedCities.city1 || "empty"}</div>
+        <div className="items items--16">{savedCities.city2 || "empty"}</div>
+        <div className="items items--17">{savedCities.city3 || "empty"}</div>
+        <div className="items items--18">
+          <Tooltips />
+        </div>
+        <div className="items items--19">19</div>
+        <div className="items items--20">
+          <button onClick={() => saveCity("city1")}>Save</button>
+        </div>
+        <div className="items items--21">
+          {" "}
+          <button type="button" onClick={() => saveCity("city2")}>
+            Save
+          </button>
+        </div>
+        <div className="items items--22">
+          {" "}
+          <button type="button" onClick={() => saveCity("city3")}>
+            Save
+          </button>
+        </div>
+        <div className="items items--23">23</div>
       </div>
     </>
   );

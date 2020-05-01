@@ -1,45 +1,74 @@
-.options-title,
-.container__saved-cities {
+.container {
+  background-color: rgb(0, 0, 0);
   width: 90%;
-  margin: auto;
-  text-align: center;
-}
-
-.options-title {
-  background-color: lightcoral;
-  margin-top: 15px;
-}
-
-.container__saved-cities {
-  background-color: pink;
-  padding: 0px;
   border: 1px solid gray;
-  display: flex;
-  margin-bottom: 15px;
-  justify-content: space-between;
 
-  .menu-left {
-    //background-color: blue;
-    padding-right: 4px;
+  display: grid;
+  grid-gap: 1px;
+  //grid-template-rows: repeat(3, 3rem) 1fr 2rem;
+  grid-template-columns: auto 1fr 1fr 1fr auto auto;
+  grid-template-areas:
+    "header header header header header ."
+    ". main1 main2 main3 question close"
+    "side main1 main2 main3 question close"
+    "side main1 main2 main3 question close"
+    ". save1 save2 save3 question close";
+}
+
+.items {
+  color: rgb(80, 79, 79);
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 3px;
+
+  &--1 {
+    grid-area: header;
+    background-color: orange;
   }
-  .cities {
-    display: flex;
-    flex-direction: column;
-    background-color: greenyellow;
-    width: 100%;
-    //min-height: 9rem;
-    font-size: 1.1rem;
+  &--8 {
+    background-color: pink;
+    grid-area: close;
   }
-  p {
-    //background-color: yellow;
-    height: 20px;
-  }
-  button {
-    padding: 0 3px;
-    //margin-top: 30px;
-  }
-  #what-is {
-    background: rgb(12, 226, 226);
-    padding: 0px 4px;
-  }
+}
+.items--2 {
+  /*spanning over multiple cells, till the end*/
+  //grid-column: 1 / 4;
+  //grid-column: 1 / span 3;
+  //grid-column: 1 / -1;
+  background-color: green;
+}
+.items--3 {
+  background-color: red;
+}
+.items--4 {
+  background-color: pink;
+}
+.items--5 {
+  background-color: gray;
+}
+.items--6 {
+  background-color: yellow;
+}
+.items--7 {
+  background-color: red;
+  //grid-row-end: span 4;
+}
+
+.items--9 {
+  background-color: blue;
+}
+.items--10 {
+  background-color: brown;
+}
+.items--11 {
+  background-color: blue;
+}
+.items--12 {
+  background-color: lightgreen;
+}
+.items--14 {
+  background-color: lightgreen;
 }

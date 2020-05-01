@@ -22,67 +22,66 @@
 
   /*GAPS: sets gap towards the outer side of the grid */
   //padding: 5px;
-}
+  .item {
+    color: white;
+    text-align: center;
+    //display: flex;
+    //flex-direction: column;
 
-.item {
-  color: white;
-  text-align: center;
-  //display: flex;
-  //flex-direction: column;
-
-  justify-content: center;
-  &--1 {
-    grid-area: icon;
-    background-color: rgb(159, 193, 224);
-    background-image: url("/media/test.ico");
-    background-repeat: no-repeat;
-    background-size: 80%;
-    // display: flex;
-    // align-self: center;
-    // height: 100%;
-    background-position: top;
+    justify-content: center;
+    &--1 {
+      grid-area: icon;
+      background-color: rgb(159, 193, 224);
+      background-image: url("/media/test.ico");
+      background-repeat: no-repeat;
+      background-size: 80%;
+      // display: flex;
+      // align-self: center;
+      // height: 100%;
+      background-position: top;
+    }
+    &--2 {
+      grid-area: temp;
+      background-color: green;
+    }
+    &--7 {
+      grid-area: description;
+      background-color: gray;
+    }
+    &--8 {
+      grid-area: wind;
+      background-color: black;
+    }
   }
-  &--2 {
-    grid-area: temp;
-    background-color: green;
+  .item--3 {
+    background-color: red;
   }
-  &--7 {
-    grid-area: description;
-    background-color: gray;
+  .item--4 {
+    background-color: pink;
   }
-  &--8 {
-    grid-area: wind;
+  .item--5 {
+    background-color: blue;
+  }
+  .item--6 {
     background-color: black;
   }
-}
-.item--3 {
-  background-color: red;
-}
-.item--4 {
-  background-color: pink;
-}
-.item--5 {
-  background-color: blue;
-}
-.item--6 {
-  background-color: black;
-}
 
-.item--9 {
-  background-color: black;
-}
-.item--10 {
-  background-color: black;
-}
+  .item--9 {
+    background-color: black;
+  }
+  .item--10 {
+    background-color: black;
+  }
 
-.wd {
-  transform: rotate(0deg);
-  background-color: pink;
-}
+  .wd {
+    transform: rotate(0deg);
+    background-color: pink;
+  }
 
-img {
-  margin-top: 30px;
-  margin-bottom: 20px;
-  width: 50%;
-  height: auto;
+  img {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    width: 50%;
+    height: auto;
+  }
 }
