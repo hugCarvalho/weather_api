@@ -7,8 +7,8 @@ export default function DisplayWeather({ filData2 }) {
   const { isLoading } = useContext(IsLoadingContext);
   const city = useContext(CityContext);
   useEffect(() => {
-    console.log("DISPLAY WEATHER FILTER DATA:", filData2, isLoading);
-    !isLoading && console.log("RES:", filData2.weather.list[0].main.temp);
+    //console.log("DISPLAY WEATHER FILTER DATA:", filData2, isLoading);
+    //!isLoading && console.log("RES:", filData2.weather.list[0].main.temp);
   }, [filData2, isLoading]);
 
   const convertTemp = value => {
