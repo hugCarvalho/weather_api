@@ -1,36 +1,20 @@
 import React from "react";
 
-export default function RadioInput({
-  savedCities,
-  chooseDefaultCity,
-  defaultCity,
-  cityNum,
-}) {
-  //const {savedCities} = props
-  //console.log(;
+export default function RadioInput({ value, runFn, value2, id }) {
   return (
     <>
       <input
         type="radio"
-        id={cityNum}
+        id={id}
         //name="cities"
-        value={savedCities}
-        //only allows action if a city is saved already
+        value={value}
         onChange={
-          savedCities ? e => chooseDefaultCity(e.target.value) : () => {} //React shows warning if null is chosen
+          //only allows action if a city is saved already
+          value ? e => runFn(e.target.value) : () => {} //React shows warning if null is chosen
         }
-        checked={savedCities === defaultCity}
+        checked={value === value2}
       />
-      <label htmlFor={cityNum}></label>
+      <label htmlFor={id}></label>
     </>
   );
 }
-
-// const button = props => {
-//   <button
-//     className={[".nameofclass", [props.btnType]].join(" ")}
-//     onClick={props.clicked}
-//   >
-//     {props.children}
-//   </button>;
-// };

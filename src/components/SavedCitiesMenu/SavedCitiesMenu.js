@@ -93,10 +93,10 @@ export default function SavedCitiesMenu({ validCity }) {
             <p>City 1</p>
             <p>
               <RadioInput
-                savedCities={savedCities.city1}
-                cityNum="city-1"
-                defaultCity={defaultCity}
-                chooseDefaultCity={chooseDefaultCity}
+                value={savedCities.city1}
+                value2={defaultCity}
+                id="city-1"
+                runFn={chooseDefaultCity}
               />
             </p>
             <p>{savedCities.city1 || "empty"}</p>
@@ -110,10 +110,10 @@ export default function SavedCitiesMenu({ validCity }) {
             <p>City 2</p>
             <p>
               <RadioInput
-                savedCities={savedCities.city2}
-                cityNum="city-2"
-                defaultCity={defaultCity}
-                chooseDefaultCity={chooseDefaultCity}
+                value={savedCities.city2}
+                value2={defaultCity}
+                id="city-2"
+                runFn={chooseDefaultCity}
               />
             </p>
             <p>{savedCities.city2 || "empty"}</p>
@@ -127,10 +127,10 @@ export default function SavedCitiesMenu({ validCity }) {
             <p>City 3</p>
             <p>
               <RadioInput
-                savedCities={savedCities.city3}
-                cityNum="city-3"
-                defaultCity={defaultCity}
-                chooseDefaultCity={chooseDefaultCity}
+                value={savedCities.city3}
+                id="city-3"
+                value2={defaultCity}
+                runFn={chooseDefaultCity}
               />
             </p>
             <p>{savedCities.city3 || "empty"}</p>
