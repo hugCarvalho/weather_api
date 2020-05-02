@@ -3,15 +3,18 @@ import Tippy from "@tippyjs/react";
 import "./Tooltips.scss";
 import "tippy.js/dist/tippy.css";
 
-export default function Tooltips() {
+export default function Tooltips({ id }) {
+  const showText = id => {
+    console.log(id);
+    if (id === 501)
+      return "MUST have a saved city. Weather will automatically be displayed for the selected city";
+  };
+
   return (
     <>
       <div id="what-is">
         <p></p>
-        <Tippy
-          delay={500}
-          content="MUST have a saved city. Weather will automatically be displayed for the selected city"
-        >
+        <Tippy delay={501} content={showText()}>
           <p>?</p>
         </Tippy>
         <Tippy delay={500} content="must contain a valid city name">

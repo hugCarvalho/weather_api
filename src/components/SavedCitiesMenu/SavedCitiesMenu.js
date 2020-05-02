@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import "./SavedCitiesMenu.scss";
-import Tooltips from "../Tooltips/Tooltips";
-import { CityContext } from "../../App";
 import RadioInput from "../Utils/RadioInput/RadioInput";
+import { CityContext } from "../../App";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
 
 //TODO: try build fn to handle checked result because of REact warning OR change onHandle function
 //TODO: V.1.1 - prevent saving the city twice
@@ -70,23 +71,37 @@ export default function SavedCitiesMenu({ validCity }) {
     localStorage.setItem("defaultCity", JSON.stringify(defaultCity));
   }, [defaultCity]);
 
+  const closeMenu = () => {
+    console.log("close Menu");
+
+    document
+      .querySelector(".container__saved-cities-menu")
+      .classList.add("transform"); //CHANGE for state behaviour
+    // document.querySelector(".container__saved-cities-menu").style.marginTop =
+    //   "-100px";
+    // document.querySelector(".container__saved-cities-menu").style.marginLeft =
+    //   "-1px";
+  };
+
   return (
     <>
       {/* {console.log("DEFAULT:", defaultCity)} */}
       {/* {console.log("DEFAULT:", defaultCity)} */}
-      <div className="container">
+      <div className="container__saved-cities-menu">
         <div className="items items--1">
           <p>Select a city or set a default city</p>
         </div>
-        <div className="items items--2">2</div>
+        <div className="items items--2">
+          <button>O</button>
+        </div>
         <div className="items items--3">3</div>
         <div className="items items--4">City 1</div>
         <div className="items items--5">City 2</div>
         <div className="items items--6">City 3</div>
-        <div className="items items--7">
-          <Tooltips />
+        <div className="items items--7">7</div>
+        <div className="items items--8 " onClick={() => closeMenu()}>
+          <p className="vertical-text">Close</p>
         </div>
-        <div className="items items--8">X</div>
         <div className="items items--9">Default</div>
         <div className="items items--10">
           <RadioInput
@@ -113,14 +128,18 @@ export default function SavedCitiesMenu({ validCity }) {
           />
         </div>
         <div className="items items--13">
-          <Tooltips />
+          <Tippy delay={500} content="set a default city to load at startup">
+            <p>?</p>
+          </Tippy>
         </div>
         <div className="items items--14">Fast access</div>
         <div className="items items--15">{savedCities.city1 || "empty"}</div>
         <div className="items items--16">{savedCities.city2 || "empty"}</div>
         <div className="items items--17">{savedCities.city3 || "empty"}</div>
         <div className="items items--18">
-          <Tooltips />
+          <Tippy delay={400} content="must contain a valid city name">
+            <p>?</p>
+          </Tippy>
         </div>
         <div className="items items--19">19</div>
         <div className="items items--20">
@@ -138,7 +157,14 @@ export default function SavedCitiesMenu({ validCity }) {
             Save
           </button>
         </div>
-        <div className="items items--23">23</div>
+        <div className="items items--23">
+          <Tippy
+            delay={400}
+            content="SEARCH for a city. Press `save` to save... "
+          >
+            <span>?</span>
+          </Tippy>
+        </div>
       </div>
     </>
   );
