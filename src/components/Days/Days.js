@@ -4,8 +4,15 @@ import "./Days.scss";
 import Moment from "react-moment";
 import Hours from "../Hours/Hours";
 
+//TODO change active method for more dynamic approach
+
 export default function CityCard({ isLoading, data }) {
   const [filteredData, setFilteredData] = useState({});
+  const [isActive, setIsActive] = useState({
+    day0: true,
+    day1: false,
+    day2: false,
+  });
 
   useEffect(() => {
     // console.log("USELAYOUT DAY:", data, isLoading);
@@ -15,6 +22,10 @@ export default function CityCard({ isLoading, data }) {
   useEffect(() => {
     // console.log("filteredData", filteredData);
   }, [filteredData]);
+
+  useEffect(() => {
+    console.log("isActive", isActive);
+  }, [isActive]);
 
   const filterByDay = day => {
     const currentDay = Number(data.weather.list[0].dt_txt.slice(8, 10));
@@ -55,20 +66,60 @@ export default function CityCard({ isLoading, data }) {
   //TODO: conditional render to wait for loading, display or btns
   return (
     <>
-      {/* Doesn't show "days" if there is no default city on page load  */}
-      <div style={!isLoading ? { display: "block" } : { display: "none" }}>
-        <ul>
-          <li className="current">
-            {/* // prettier-ignore */}
-            <button onClick={() => filterByDay(0)}>
+      {/* Doesn't show "days" if there i  s no default city on page load  */}
+      <div
+        className="container__days-forecast "
+        style={!isLoading ? { display: "block" } : { display: "none" }}
+      >
+        <ul className="days">
+          {/* TODAY */}
+          <li
+            onClick={() =>
+              setIsActive({
+                day0: true,
+                day1: false,
+                day2: false,
+              })
+            }
+          >
+            <button
+              className={isActive.day0 ? "active" : "inactive"}
+              onClick={() => filterByDay(0)}
+            >
               {" "}
-              <Moment format="DD-MM-YY" />
+              Today
             </button>
-            <button onClick={() => filterByDay(1)}>
+          </li>
+          <li
+            onClick={() =>
+              setIsActive({
+                day0: false,
+                day1: true,
+                day2: false,
+              })
+            }
+          >
+            <button
+              className={isActive.day1 ? "active" : "inactive"}
+              onClick={() => filterByDay(1)}
+            >
               {" "}
-              <Moment format="DD-MM-YY" add={{ days: 1 }}></Moment>
+              <Moment format="dddd" add={{ days: 1 }}></Moment>
             </button>
-            <button onClick={() => filterByDay(2)}>
+          </li>
+          <li
+            onClick={() =>
+              setIsActive({
+                day0: false,
+                day1: false,
+                day2: true,
+              })
+            }
+          >
+            <button
+              className={isActive.day2 ? "active" : "inactive"}
+              onClick={() => filterByDay(2)}
+            >
               <Moment format="dddd" add={{ days: 2 }} />
             </button>
           </li>

@@ -36,16 +36,22 @@ export default function Hours({ filteredData, isLoading }) {
   // console.log("isLoading:", isLoading);
   // console.log("filteredData", filteredData);
   return (
-    <div>
-      {!isLoading &&
-        filteredData.weather.list.map((item, i) => {
-          return (
-            <button onClick={e => filterByHour(e)} key={i}>
-              {item.dt_txt.slice(11, 16)}
-            </button>
-          );
-        })}
+    <>
+      <div className="container__hours">
+        {!isLoading &&
+          filteredData.weather.list.map((item, i) => {
+            return (
+              <button
+                //className={`item--${i + 1}`}
+                onClick={e => filterByHour(e)}
+                key={i}
+              >
+                {item.dt_txt.slice(11, 16)}
+              </button>
+            );
+          })}
+      </div>
       <DisplayWeather filData2={filData2} />
-    </div>
+    </>
   );
 }

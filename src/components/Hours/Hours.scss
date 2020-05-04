@@ -1,4 +1,4 @@
-.container {
+.container__hours {
   background-color: gray;
   //margin-top: 60px;
   width: 100%;
@@ -44,5 +44,19 @@
   }
   .item--10 {
     background-color: black;
+  }
+
+  @font-face {
+    font-family: "digital-7regular";
+    src: url("/media/digital-7-webfont.woff2") format("woff2"),
+      url("/media/digital-7-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }
+  button {
+    font-family: "digital-7regular";
+    //padding: 0 0.6rem 0 0.6rem;
+    font-size: 1.8rem;
+    width: 5.6rem;
   }
 }
