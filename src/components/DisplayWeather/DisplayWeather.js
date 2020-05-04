@@ -1,26 +1,27 @@
-import React, { useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./DisplayWeather.scss";
 import { IsLoadingContext, CityContext } from "../../App";
+import { RadioInput2 } from "../Utils/RadioInput/RadioInput";
 
 //TODO: check condition onload with no cities saved for weather card rendering
 export default function DisplayWeather({ filData2 }) {
   const { isLoading } = useContext(IsLoadingContext);
   const city = useContext(CityContext);
+  const [isCelsius, setIsCelsius] = useState(true);
+  const [isKm, setIsKm] = useState(true);
+
   useEffect(() => {
     //console.log("DISPLAY WEATHER FILTER DATA:", filData2, isLoading);
     //!isLoading && console.log("RES:", filData2.weather.list[0].main.temp);
   }, [filData2, isLoading]);
 
-  const convertTemp = value => {
-    //console.log("convert", temp, temp - celsius);
-    //if celcius
-    return `${(value - 273.15).toFixed(1)} °C`;
-    //if fahr
-    //return `${((value * 9) / 5 - 459.67).toFixed(2)} °F`;
-  };
-
+  const convertTemp = value =>
+    isCelsius
+      ? `${(value - 273.15).toFixed(1)} °C`
+      : `${((value * 9) / 5 - 459.67).toFixed(2)} °F`;
   //converts from metres per second (m/s)  to km/h
-  const convertWind = value => Math.round(value * 3.6) + " Km/h";
+  const convertWind = value =>
+    isKm ? Math.round(value * 3.6) + "km/h" : Math.round(value * 2.237) + "mph";
 
   const convertWindDirection = value => {
     //adapted from https://www.campbellsci.de/blog/convert-wind-directions
@@ -48,7 +49,22 @@ export default function DisplayWeather({ filData2 }) {
             />
           )}
         </div>
-        <div className="item item--2">2 Temp°</div>
+        {/* Temperature */}
+        <div className="item item--2">
+          <h5>Temp</h5>
+          <div className="temp-type">
+            {/* prettier-ignore */}
+            <RadioInput2 id={"celsius"} label={"°C"} checked={isCelsius}
+              action={() => setIsCelsius(true)}
+            />
+            {/* prettier-ignore */}
+            <RadioInput2 id={"fahrenheit"} label={"°F"} checked={!isCelsius}
+              action={() => setIsCelsius(false)}
+            />
+          </div>
+        </div>
+
+        {/* Actual temperature  */}
         <div className="item item--3">
           Actual{" "}
           <span>
@@ -57,39 +73,61 @@ export default function DisplayWeather({ filData2 }) {
               : convertTemp(filData2.weather.list[0].main.temp)}
           </span>
         </div>
+
+        {/* Feels Like */}
         <div className="item item--4">
           4 Real Feel:
           {isLoading
             ? "N/A"
-            : convertTemp(filData2.weather.list[0].main.tempRealFeel)}{" "}
+            : convertTemp(filData2.weather.list[0].main.feels_like)}{" "}
         </div>
-        <div className="item item--5">
+        {/* <div className="item item--5">
           5 Min:
           {isLoading
             ? "N/A"
             : convertTemp(filData2.weather.list[0].main.tempMin)}
-        </div>
-        <div className="item item--6">
+        </div> */}
+        {/* <div className="item item--6">
           6 Max:
           {isLoading
             ? "N/A"
             : convertTemp(filData2.weather.list[0].main.tempMax)}
-        </div>
+        </div> */}
+
+        {/* Weather description */}
         <div className="item item--7">
           7{" "}
-          {isLoading ? "N/A" : filData2.weather.list[0].main.weatherDescription}
+          {isLoading ? "N/A" : filData2.weather.list[0].weather[0].description}
         </div>
-        <div className="item item--8">8 Wind </div>
+
+        {/* Wind  */}
+        <div className="item item--8">
+          8 Wind
+          <div>
+            <RadioInput2
+              id={"kms"}
+              label={"km/h"}
+              checked={isKm}
+              action={() => setIsKm(true)}
+            />
+            <RadioInput2
+              id={"mph"}
+              label={"mph"}
+              checked={!isKm}
+              action={() => setIsKm(false)}
+            />
+          </div>
+        </div>
         <div className="item item--9">
-          9 Speed:{" "}
+          9{" "}
           {isLoading ? "N/A" : convertWind(filData2.weather.list[0].wind.speed)}
         </div>
         <div className="item item--10">
-          10 <div className="wd">--></div> Direction:{" "}
           {isLoading
             ? "N/A"
             : convertWindDirection(filData2.weather.list[0].wind.deg)}
         </div>
+        <div className="wd">--></div>
       </div>
     </>
   );

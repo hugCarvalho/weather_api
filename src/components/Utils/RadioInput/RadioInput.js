@@ -18,3 +18,12 @@ export default function RadioInput({ value, runFn, value2, id }) {
     </>
   );
 }
+
+export function RadioInput2({ id, checked, label, action }) {
+  return (
+    <>
+      <input type="radio" id={id} checked={checked} onChange={action} />
+      <label htmlFor={id}>{label}</label>
+    </>
+  );
+}

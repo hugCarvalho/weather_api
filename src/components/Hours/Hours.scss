@@ -46,13 +46,6 @@
     background-color: black;
   }
 
-  @font-face {
-    font-family: "digital-7regular";
-    src: url("/media/digital-7-webfont.woff2") format("woff2"),
-      url("/media/digital-7-webfont.woff") format("woff");
-    font-weight: normal;
-    font-style: normal;
-  }
   button {
     font-family: "digital-7regular";
     //padding: 0 0.6rem 0 0.6rem;
