@@ -1,10 +1,24 @@
-header {
-  background-color: rgb(153, 224, 215);
+.page-header {
+  //background-color: blue;
+  background-image: url("/media/sky3.jpg");
   width: 100%;
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  //height: 7rem;
   padding: 7px;
   text-align: center;
+  color: rgb(212, 217, 219);
   //position: relative;
 
+  img {
+    width: 100%;
+    height: 100%;
+
+    border-style: none;
+    display: inline-block;
+    padding: -7px;
+  }
   // .options {
   //   background-color: blueviolet;
   //   position: absolute;

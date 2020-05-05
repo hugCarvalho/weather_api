@@ -8,7 +8,7 @@ import "./Header.scss";
 export default function Header() {
   return (
     <>
-      <header>
+      <header className="page-header">
         {/* <div className="options">Options</div> */}
         <div className="wrapper__header">
           <h1>Weatherjetzt</h1>
@@ -18,3 +18,5 @@ export default function Header() {
     </>
   );
 }
+
+//Photo by Nathaniel Yeo on Unsplash
