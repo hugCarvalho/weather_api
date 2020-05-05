@@ -18,6 +18,7 @@ export default function SavedCitiesMenu({ validCity }) {
     city2: "",
     city3: "",
   });
+  const [isMenuClosed, setIsMenuClosed] = useState(false);
   //console.log("savedCities", savedCities);
 
   //Check local storage
@@ -74,35 +75,51 @@ export default function SavedCitiesMenu({ validCity }) {
   const closeMenu = () => {
     console.log("close Menu");
 
-    document
-      .querySelector(".container__saved-cities-menu")
-      .classList.add("transform"); //CHANGE for state behaviour
+    document.querySelector(".container__saved-cities-menu").style.height =
+      "40px"; //CHANGE for state behaviour
     // document.querySelector(".container__saved-cities-menu").style.marginTop =
     //   "-100px";
     // document.querySelector(".container__saved-cities-menu").style.marginLeft =
     //   "-1px";
   };
 
+  const openMenu = () => {
+    document.querySelector(".container__saved-cities-menu").style.height =
+      "85px";
+  };
   return (
     <>
       {/* {console.log("DEFAULT:", defaultCity)} */}
-      {/* {console.log("DEFAULT:", defaultCity)} */}
       <div className="container__saved-cities-menu">
-        <div className="items items--1">
-          <p>Select a city or set a default city</p>
+        <div className="items items--4">
+          <button onClick={e => setCity(e.target.textContent)}>
+            {savedCities.city1 || "empty"}
+          </button>
         </div>
-        <div className="items items--2">
-          <button>O</button>
+        <div className="items items--5">
+          {" "}
+          <button onClick={e => setCity(e.target.textContent)}>
+            {savedCities.city2 || "empty"}
+          </button>
         </div>
-        <div className="items items--3">3</div>
-        <div className="items items--4">City 1</div>
-        <div className="items items--5">City 2</div>
-        <div className="items items--6">City 3</div>
-        <div className="items items--7">7</div>
+        <div className="items items--6">
+          {" "}
+          <button onClick={e => setCity(e.target.textContent)}>
+            {savedCities.city3 || "empty"}
+          </button>
+        </div>
+        <div className="items items--7">
+          <Tippy
+            delay={400}
+            content="Must be a valid city name.Use to quick access your saved citites."
+          >
+            <span>?</span>
+          </Tippy>
+        </div>
         <div className="items items--8 " onClick={() => closeMenu()}>
           <p className="vertical-text">Close</p>
         </div>
-        <div className="items items--9">Default</div>
+        {/* <div className="items items--9">Default</div> */}
         <div className="items items--10">
           <RadioInput
             value={savedCities.city1}
@@ -129,19 +146,14 @@ export default function SavedCitiesMenu({ validCity }) {
         </div>
         <div className="items items--13">
           <Tippy delay={500} content="set a default city to load at startup">
-            <p>?</p>
+            <span>?</span>
           </Tippy>
         </div>
-        <div className="items items--14">Fast access</div>
-        <div className="items items--15">{savedCities.city1 || "empty"}</div>
-        <div className="items items--16">{savedCities.city2 || "empty"}</div>
-        <div className="items items--17">{savedCities.city3 || "empty"}</div>
-        <div className="items items--18">
-          <Tippy delay={400} content="must contain a valid city name">
-            <p>?</p>
-          </Tippy>
+
+        {/* FAST ACCESS */}
+        <div className="items items--19" onClick={() => openMenu()}>
+          19
         </div>
-        <div className="items items--19">19</div>
         <div className="items items--20">
           <button onClick={() => saveCity("city1")}>Save</button>
         </div>

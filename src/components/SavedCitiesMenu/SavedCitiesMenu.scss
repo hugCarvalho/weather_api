@@ -1,44 +1,66 @@
+@import "../../App.scss";
+
 .container__saved-cities-menu {
-  background-color: rgb(0, 0, 0);
-  width: 90%;
-  border: 1px solid gray;
+  //background-color: rgb(160, 218, 223);
+  margin: auto;
+  width: 95%;
+  //border: 1px solid gray;
   transition: all 1s ease-in;
   overflow: hidden;
 
   display: grid;
-  grid-gap: 1px;
-  //grid-template-rows: repeat(3, 3rem) 1fr 2rem;
-  grid-template-columns: auto 1fr 1fr 1fr auto auto;
+  grid-column-gap: 1px;
+  grid-row-gap: 1px;
+  grid-template-rows: 40px 20px 20px;
+  grid-template-columns: 1fr 1fr 1fr auto auto;
   grid-template-areas:
-    "header header header header header ."
-    ". main1 main2 main3 question close"
-    "side main1 main2 main3 question close"
-    "side main1 main2 main3 question close"
-    ". save1 save2 save3 question close";
+    // "header header header header ."
+    "main1 main2 main3 question open"
+    "main1 main2 main3 question close"
+    "save1 save2 save3 question close";
+
+  transition: all 990ms ease;
 }
 
 .items {
-  color: rgb(80, 79, 79);
-  padding: 4px;
+  color: #ececec;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  border-radius: 3px;
+  border-radius: 4px;
+  //background: rgb(124, 175, 235);
+  border: $menu-gray1 solid 0.7px;
 
-  &--1 {
-    grid-area: header;
-    background-color: orange;
-  }
   &--8 {
-    background-color: pink;
+    background-color: $menu-gray1;
     grid-area: close;
     width: 20px;
     cursor: pointer;
-
-    :focus {
-      background-color: green;
+  }
+  &--19 {
+    grid-area: open;
+    background-color: red;
+  }
+  button {
+    background: transparent;
+    width: 101%;
+    height: 101%;
+    overflow: hidden;
+    padding: 0 10px;
+    color: inherit;
+    color: $menu-gray1;
+    border: none;
+    border-radius: 3px;
+    transition: background 250ms ease-in;
+    &:hover {
+      color: white;
+      background: $menu-gray1;
     }
+  }
+  span {
+    padding: 4px;
+    color: $menu-gray1;
+    cursor: help;
   }
 }
 .items--2 {
@@ -51,40 +73,38 @@
 .items--3 {
   background-color: red;
 }
-.items--4 {
-  background-color: pink;
-}
-.items--5 {
-  background-color: gray;
-}
-.items--6 {
-  background-color: yellow;
-}
-.items--7 {
-  background-color: red;
-  //grid-row-end: span 4;
-}
+// .items--5 {
+//   //background-color: gray;
+// }
+// .items--6 {
+//   //background-color: yellow;
+// }
+// .items--7 {
+//   //background-color: red;
+//   //grid-row-end: span 4;
+// }
 
-.items--9 {
-  background-color: blue;
-}
+// .items--9 {
+//   background-color: blue;
+// }
 .items--10 {
-  background-color: brown;
+  //  background-color: brown;
 }
-.items--11 {
-  background-color: blue;
-}
-.items--12 {
-  background-color: lightgreen;
-}
-.items--14 {
-  background-color: lightgreen;
-}
+// .items--11 {
+//   background-color: blue;
+// }
+// .items--12 {
+//   background-color: lightgreen;
+// }
+// .items--15 {
+//   background-color: lightgreen;
+//   padding: 0;
+// }
 
 .vertical-text {
   writing-mode: vertical-rl;
 }
 
 .transform {
-  transform: translateX(-100%);
+  transform: translateY(-90%);
 }
