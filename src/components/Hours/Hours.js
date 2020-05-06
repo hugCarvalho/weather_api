@@ -5,16 +5,30 @@ import DisplayWeather from "../DisplayWeather/DisplayWeather";
 
 export default function Hours({ filteredData, isLoading }) {
   const [filData2, setFilData2] = useState({});
+  let [defaultHour, setDefaultHour] = useState("");
+  const [selectedHour, setSelectedHour] = useState("");
+  let hour;
   //const isLoading = useContext(IsLoadingContext);
 
-  useEffect(() => {
-    // console.log("USELAYOUT DAY:", filData2);
-  }, [filData2]);
+  // useEffect(() => {
+  //   // console.log("USELAYOUT DAY:", filData2);
+  // }, [filData2]);
 
   useEffect(() => {
+    //console.log("object");
     setFilData2(filteredData);
-    // console.log("filteredData", filteredData, isLoading);
-  }, [filteredData, isLoading]);
+
+    //setSelectedHour(filteredData);
+    //console.log("filteredData", defaultHour, isLoading);
+  }, [filteredData, isLoading, defaultHour]);
+
+  useEffect(() => {
+    //console.log("222222");
+    if (!isLoading) {
+      setDefaultHour(filteredData.weather.list[0].dt_txt.slice(11, 16));
+      //console.log("IS NOT LOADING-SELECT HOUR", defaultHour);
+    }
+  }, [filData2, isLoading]);
 
   // useEffect(() => {
   //   //console.log("DATA2:", filData2);
@@ -22,27 +36,50 @@ export default function Hours({ filteredData, isLoading }) {
 
   const filterByHour = e => {
     const timeOnButton = e.target.textContent;
+    let prevHour = document.querySelector(".active-hour");
+    console.log(prevHour);
 
-    const res = filteredData.weather.list.filter(
-      item => item.dt_txt.slice(11, 16) === timeOnButton
-    );
+    hour = e.target;
+    setSelectedHour(e.target);
+    console.log("hour1:", hour, "REACT1:", selectedHour);
+
+    const activeHour = filteredData.weather.list.filter(item => {
+      //console.log(timeOnButton);
+      return item.dt_txt.slice(11, 16) === timeOnButton;
+    });
     setFilData2({
       weather: {
-        list: res,
+        list: activeHour,
       },
     });
-    console.log(res);
+    //e.target.style.color = "green";
+
+    prevHour.classList.remove("active-hour");
+    e.target.classList.add("active-hour");
+    console.log("hour2:", hour, "REACT2:", selectedHour);
+    // makeActive(timeOnButton)
+    //console.log("e.target", e.target, "HOUR:", selectedHour);
+    //console.log("AAAAAAAA", activeHour);
   };
-  // console.log("isLoading:", isLoading);
-  // console.log("filteredData", filteredData);
+  // const makeActive = timeOnButton => {
+  //   const timeOnButton = e.target.textContent;
+  //   console.log("timeOnButton", timeOnButton);
+  // };
+
   return (
     <>
       <div className="container__hours">
         {!isLoading &&
           filteredData.weather.list.map((item, i) => {
+            //console.log(selectedHour); //=== item.dt_txt.slice(11, 16));
+            let classes = [
+              defaultHour === item.dt_txt.slice(11, 16) ? "active-hour" : null,
+              `item--${i + 1}`,
+            ];
+
             return (
               <button
-                //className={`item--${i + 1}`}
+                className={classes.join(" ")}
                 onClick={e => filterByHour(e)}
                 key={i}
               >

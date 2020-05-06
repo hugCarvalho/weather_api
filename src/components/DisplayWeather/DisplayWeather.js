@@ -17,8 +17,8 @@ export default function DisplayWeather({ filData2 }) {
 
   const convertTemp = value =>
     isCelsius
-      ? `${(value - 273.15).toFixed(1)} °C`
-      : `${((value * 9) / 5 - 459.67).toFixed(2)} °F`;
+      ? `${(value - 273.15).toFixed(1)}`
+      : `${((value * 9) / 5 - 459.67).toFixed(2)}`;
   //converts from metres per second (m/s)  to km/h
   const convertWind = value =>
     isKm ? Math.round(value * 3.6) + "km/h" : Math.round(value * 2.237) + "mph";
@@ -35,38 +35,47 @@ export default function DisplayWeather({ filData2 }) {
     <>
       <p>{isLoading ? "loading..." : null}</p>
 
+      {/* WEATHER ICON AND DESCRIPTION */}
       <div className="container__weather-card">
         <div className="item item--1">
-          <h3>Weather</h3>
-          {city === "No location chosen yet..." ? (
-            <img src="/media/weather_icons/n_a.png" alt="" />
+          {!city ? (
+            <img src="/media/weather_icons/n_a.png" alt="Not available" />
           ) : (
             <img
               src={`/media/weather_icons/${
                 isLoading ? "N/A" : filData2.weather.list[0].weather[0].icon
               }.png`}
-              alt="Weather icon"
+              alt="weather icon"
             />
           )}
         </div>
+
         {/* Temperature */}
         <div className="item item--2">
           <h5>Temp</h5>
-          <div className="temp-type">
-            {/* prettier-ignore */}
-            <RadioInput2 id={"celsius"} label={"°C"} checked={isCelsius}
-              action={() => setIsCelsius(true)}
-            />
-            {/* prettier-ignore */}
-            <RadioInput2 id={"fahrenheit"} label={"°F"} checked={!isCelsius}
-              action={() => setIsCelsius(false)}
-            />
+          <div className="wrapper__temp-units">
+            <button>
+              <RadioInput2
+                id={"celsius"}
+                label={"°C"}
+                checked={isCelsius}
+                action={() => setIsCelsius(true)}
+              />
+            </button>
+            <button>
+              <RadioInput2
+                id={"fahrenheit"}
+                label={"°F"}
+                checked={!isCelsius}
+                action={() => setIsCelsius(false)}
+              />
+            </button>
           </div>
         </div>
 
         {/* Actual temperature  */}
         <div className="item item--3">
-          Actual{" "}
+          <h5>Actual</h5>
           <span>
             {isLoading
               ? "N/A"
@@ -76,7 +85,7 @@ export default function DisplayWeather({ filData2 }) {
 
         {/* Feels Like */}
         <div className="item item--4">
-          4 Real Feel:
+          <h5> Real Feel:</h5>
           {isLoading
             ? "N/A"
             : convertTemp(filData2.weather.list[0].main.feels_like)}{" "}
@@ -100,35 +109,52 @@ export default function DisplayWeather({ filData2 }) {
           {isLoading ? "N/A" : filData2.weather.list[0].weather[0].description}
         </div>
 
-        {/* Wind  */}
+        {/* WIND UNIT SELECTION */}
         <div className="item item--8">
-          8 Wind
-          <div>
-            <RadioInput2
-              id={"kms"}
-              label={"km/h"}
-              checked={isKm}
-              action={() => setIsKm(true)}
-            />
-            <RadioInput2
-              id={"mph"}
-              label={"mph"}
-              checked={!isKm}
-              action={() => setIsKm(false)}
-            />
+          <h5>Wind</h5>
+          <div className="wrapper__wind-units">
+            <button>
+              <RadioInput2
+                id={"kms"}
+                label={" km/h"}
+                checked={isKm}
+                action={() => setIsKm(true)}
+              />
+            </button>
+            <button>
+              <RadioInput2
+                id={"mph"}
+                label={" mph"}
+                checked={!isKm}
+                action={() => setIsKm(false)}
+              />
+            </button>
           </div>
         </div>
         <div className="item item--9">
           9{" "}
           {isLoading ? "N/A" : convertWind(filData2.weather.list[0].wind.speed)}
         </div>
+
+        {/* WIND DIRECTION */}
         <div className="item item--10">
-          {isLoading
-            ? "N/A"
-            : convertWindDirection(filData2.weather.list[0].wind.deg)}
+          <span>
+            {isLoading
+              ? "N/A"
+              : convertWindDirection(filData2.weather.list[0].wind.deg)}
+          </span>{" "}
+          {<i className="fas fa-long-arrow-alt-down"></i>}
+          <br />
+          {isLoading ? null : rotate(filData2.weather.list[0].wind.deg)}
         </div>
-        <div className="wd">--></div>
+        {/* <div className="wd">?</div> */}
       </div>
     </>
   );
 }
+
+const rotate = deg => {
+  //const degrees = `${deg}deg`;
+  document.querySelector(".fas").style.transform = `rotate(${deg}deg)`;
+  //maybe it starts hidden...
+};

@@ -1,13 +1,13 @@
 .container__weather-card {
-  background-color: #eee;
-  font-size: 2rem;
+  background-color: rgb(159, 193, 224);
+  font-size: 1.5rem;
   font-weight: 600;
   width: 100%;
-  margin: 1px;
   display: grid;
   border: 1px solid black;
-  grid-template-rows: repeat(4, 70px);
+  grid-template-rows: repeat(4, 6rem);
   grid-template-columns: 50% 25% 25%;
+  font-family: inherit;
 
   grid-template-areas:
     "icon temp temp"
@@ -15,34 +15,65 @@
     //"icon min max"
     "icon wind wind"
     "description speed direction";
+  //grid-gap: 1px;
 
-  grid-gap: 2px;
-
-  //justify-content: center;
-
-  /*GAPS: sets gap towards the outer side of the grid */
-  //padding: 5px;
   .item {
+    background: rgb(66, 66, 66);
     color: white;
     text-align: center;
-    //display: flex;
-    //flex-direction: column;
+    font-size: 2rem;
+
+    .wrapper__temp-units,
+    .wrapper__wind-units {
+      display: flex;
+      justify-content: space-around;
+      //padding: 4px;
+    }
+    button {
+      background-color: transparent;
+      border: none;
+      cursor: default;
+    }
 
     justify-content: center;
     &--1 {
       grid-area: icon;
       background-color: rgb(159, 193, 224);
-      background-image: url("/media/test.ico");
-      background-repeat: no-repeat;
-      background-size: 80%;
-      // display: flex;
-      // align-self: center;
-      // height: 100%;
-      background-position: top;
+      //position: relative;
+      //overflow: hidden;
+      position: relative;
+      display: flex;
+      transform img {
+        //position: absolute;
+        //background-color: rgb(63, 255, 5);
+        //height: auto;
+        width: 90%;
+        height: auto;
+        max-height: 18rem;
+        //top: 5%;
+        left: 5%;
+
+        //object-fit: scale-down;
+        // background-repeat: repeat;
+
+        //margin: auto;
+        //object-fit: cover;
+        // width: 100%;
+        //z-index: 0;
+        //width: 100%;
+
+        //max-width: 120%;
+      }
+
+      // // display: flex;
+      // // align-self: center;
+      // // height: 100%;
+      // background-position: top;
     }
     &--2 {
       grid-area: temp;
-      background-color: green;
+      background-color: rgb(66, 66, 66);
+      padding: 4px;
     }
     &--7 {
       grid-area: description;
@@ -50,38 +81,21 @@
     }
     &--8 {
       grid-area: wind;
-      background-color: black;
     }
   }
-  .item--3 {
-    background-color: red;
+  .item--3,
+  .item--4,
+  .item--8 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
   }
-  .item--4 {
-    background-color: pink;
-  }
-  .item--5 {
-    background-color: blue;
-  }
-  .item--6 {
-    background-color: black;
-  }
+  // .item--3,
+  // .item--4 {
+  // }
+}
 
-  .item--9 {
-    background-color: black;
-  }
-  .item--10 {
-    background-color: black;
-  }
-
-  .wd {
-    transform: rotate(0deg);
-    background-color: pink;
-  }
-
-  img {
-    margin-top: 30px;
-    margin-bottom: 20px;
-    width: 50%;
-    height: auto;
-  }
+.fas {
+  transform: rotate(180deg);
+  color: red;
 }

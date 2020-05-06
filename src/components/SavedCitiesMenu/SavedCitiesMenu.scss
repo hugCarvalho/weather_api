@@ -1,12 +1,10 @@
 @import "../../App.scss";
 
 .container__saved-cities-menu {
-  //background-color: rgb(160, 218, 223);
+  background-color: $main-blue1;
   margin: auto;
   width: 95%;
-  //border: 1px solid gray;
-  transition: all 1s ease-in;
-  overflow: hidden;
+  overflow: hidden; //needed for when closing menu
 
   display: grid;
   grid-column-gap: 1px;
@@ -23,32 +21,32 @@
 }
 
 .items {
+  background: rgb(210, 210, 211);
   color: #ececec;
+  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 4px;
-  //background: rgb(124, 175, 235);
   border: $menu-gray1 solid 0.7px;
 
   &--8 {
-    background-color: $menu-gray1;
     grid-area: close;
+    background-color: $menu-gray1;
     width: 20px;
     cursor: pointer;
   }
   &--19 {
     grid-area: open;
-    background-color: red;
   }
   button {
-    background: transparent;
+    background: #fdfeff;
     width: 101%;
     height: 101%;
     overflow: hidden;
     padding: 0 10px;
-    color: inherit;
     color: $menu-gray1;
+    //color: white;
     border: none;
     border-radius: 3px;
     transition: background 250ms ease-in;
@@ -63,43 +61,6 @@
     cursor: help;
   }
 }
-.items--2 {
-  /*spanning over multiple cells, till the end*/
-  //grid-column: 1 / 4;
-  //grid-column: 1 / span 3;
-  //grid-column: 1 / -1;
-  background-color: green;
-}
-.items--3 {
-  background-color: red;
-}
-// .items--5 {
-//   //background-color: gray;
-// }
-// .items--6 {
-//   //background-color: yellow;
-// }
-// .items--7 {
-//   //background-color: red;
-//   //grid-row-end: span 4;
-// }
-
-// .items--9 {
-//   background-color: blue;
-// }
-.items--10 {
-  //  background-color: brown;
-}
-// .items--11 {
-//   background-color: blue;
-// }
-// .items--12 {
-//   background-color: lightgreen;
-// }
-// .items--15 {
-//   background-color: lightgreen;
-//   padding: 0;
-// }
 
 .vertical-text {
   writing-mode: vertical-rl;

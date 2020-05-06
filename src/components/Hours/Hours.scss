@@ -1,55 +1,19 @@
 .container__hours {
-  background-color: gray;
-  //margin-top: 60px;
+  background-color: rgb(66, 63, 63);
   width: 100%;
-  margin: 10px auto;
-  padding: 10px;
   display: flex;
   flex-wrap: wrap; //good to por responsive without mediaQueries
-
-  .item {
-    color: white;
-    padding: 2px 4px;
-    min-width: 10%;
-  }
-  .item--1 {
-    background-color: rgb(218, 112, 13);
-    //flex-grow: 1;
-  }
-  .item--2 {
-    background-color: green;
-    //flex-grow: 1;
-  }
-  .item--3 {
-    background-color: red;
-    flex-shrink: 1;
-  }
-  .item--4 {
-    background-color: pink;
-  }
-  .item--5 {
-    background-color: blue;
-  }
-  .item--6 {
-    background-color: black;
-  }
-  .item--7 {
-    background-color: lightblue;
-  }
-  .item--8 {
-    background-color: green;
-  }
-  .item--9 {
-    background-color: brown;
-  }
-  .item--10 {
-    background-color: black;
-  }
+  justify-content: center;
+  padding: 7px;
 
   button {
     font-family: "digital-7regular";
     //padding: 0 0.6rem 0 0.6rem;
-    font-size: 1.8rem;
-    width: 5.6rem;
+    font-size: 1.7rem;
+    width: 4.5rem;
+  }
+
+  .active-hour {
+    color: rgb(238, 59, 4);
   }
 }

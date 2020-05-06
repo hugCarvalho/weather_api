@@ -1,8 +1,10 @@
+@import "../../App.scss";
+
 .container__days-forecast {
-  //background-color: rgb(53, 54, 54);
+  background-color: $main-blue1;
   width: 100%;
   margin: auto;
-  margin-bottom: 5px;
+  //margin-bottom: 5px;
   border-bottom: lightslategray 1px solid;
   ul {
     //background-color: red;
