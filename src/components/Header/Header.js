@@ -1,7 +1,6 @@
 import React from "react";
 import "./Header.scss";
 
-//TODO: put background image - priority: very low
 //TODO: search icon for options (cog style)
 //TODO: see font weigth 500
 
