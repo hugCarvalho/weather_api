@@ -1,16 +1,19 @@
 .container__hours {
   background-color: rgb(66, 63, 63);
   width: 100%;
+  padding: 10px 6px;
   display: flex;
-  flex-wrap: wrap; //good to por responsive without mediaQueries
+  flex-wrap: wrap; //good for responsive without mediaQueries
   justify-content: center;
-  padding: 7px;
 
   button {
+    width: 4.9rem;
+    //margin: 1px;
     font-family: "digital-7regular";
-    //padding: 0 0.6rem 0 0.6rem;
     font-size: 1.7rem;
-    width: 4.5rem;
+    &:hover {
+      opacity: 0.9;
+    }
   }
 
   .active-hour {
