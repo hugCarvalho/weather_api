@@ -19,6 +19,7 @@ export default function CityCard({ isLoading, data }) {
     setFilteredData(data);
     !isLoading && filterByDay(0);
   }, [data, isLoading]);
+
   useEffect(() => {
     // console.log("filteredData", filteredData);
   }, [filteredData]);
@@ -39,14 +40,12 @@ export default function CityCard({ isLoading, data }) {
     if (res.length === 0 && forecastDay === 33) {
       forecastDay = 2;
       res = data.weather.list.filter(day => {
-        //console.log(day);
         return +day.dt_txt.slice(8, 10) === forecastDay;
       });
     }
     if (res.length === 0 && forecastDay === 31) {
       forecastDay = 1;
       res = data.weather.list.filter(day => {
-        //console.log(day);
         return +day.dt_txt.slice(8, 10) === forecastDay;
       });
     }
@@ -66,7 +65,7 @@ export default function CityCard({ isLoading, data }) {
   //TODO: conditional render to wait for loading, display or btns
   return (
     <>
-      {/* Doesn't show "days" if there i  s no default city on page load  */}
+      {/* Doesn't show "days" if there is no default city on page load  */}
       <div
         className="container__days-forecast "
         style={!isLoading ? { display: "block" } : { display: "none" }}
@@ -87,9 +86,11 @@ export default function CityCard({ isLoading, data }) {
               onClick={() => filterByDay(0)}
             >
               {" "}
-              Today
+              <p>Today</p>
             </button>
           </li>
+
+          {/* Tomorrow */}
           <li
             onClick={() =>
               setIsActive({
@@ -103,10 +104,13 @@ export default function CityCard({ isLoading, data }) {
               className={isActive.day1 ? "active" : "inactive"}
               onClick={() => filterByDay(1)}
             >
-              {" "}
-              <Moment format="dddd" add={{ days: 1 }}></Moment>
+              <p>
+                <Moment format="dddd" add={{ days: 1 }}></Moment>
+              </p>
             </button>
           </li>
+
+          {/* After Tomorrow */}
           <li
             onClick={() =>
               setIsActive({
@@ -120,7 +124,9 @@ export default function CityCard({ isLoading, data }) {
               className={isActive.day2 ? "active" : "inactive"}
               onClick={() => filterByDay(2)}
             >
-              <Moment format="dddd" add={{ days: 2 }} />
+              <h5>
+                <Moment format="dddd" add={{ days: 2 }} />
+              </h5>
             </button>
           </li>
         </ul>

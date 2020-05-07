@@ -13,10 +13,9 @@
   grid-template-rows: 40px 20px 20px;
   grid-template-columns: 1fr 1fr 1fr auto auto;
   grid-template-areas:
-    // "header header header header ."
-    "city1 city2 city3 question open"
-    "radiobtn1 radiobtn2 radiobtn2 question close"
-    "save1 save2 save3 question close";
+    "city1 city2 city3 question1 open"
+    "radiobtn1 radiobtn2 radiobtn2 question2 close"
+    "save1 save2 save3 question3 close";
 
   transition: all 350ms ease;
 
@@ -69,9 +68,9 @@
       margin-left: 4px;
     }
     &--19 {
-      margin-left: 4px;
       grid-area: open;
       width: 20px;
+      margin-left: 4px;
     }
 
     button {
