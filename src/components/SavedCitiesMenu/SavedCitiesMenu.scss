@@ -1,71 +1,96 @@
 @import "../../App.scss";
 
 .container__saved-cities-menu {
-  background-color: $main-blue1;
-  margin: auto;
-  width: 95%;
-  overflow: hidden; //needed for when closing menu
+  //background-color: red;
+  height: 90px;
 
+  margin: auto;
+  width: 97%;
+  overflow: hidden; //needed for when closing menu
   display: grid;
-  grid-column-gap: 1px;
-  grid-row-gap: 1px;
+  grid-column-gap: 3px;
+  grid-row-gap: 3px;
   grid-template-rows: 40px 20px 20px;
   grid-template-columns: 1fr 1fr 1fr auto auto;
   grid-template-areas:
     // "header header header header ."
-    "main1 main2 main3 question open"
-    "main1 main2 main3 question close"
+    "city1 city2 city3 question open"
+    "radiobtn1 radiobtn2 radiobtn2 question close"
     "save1 save2 save3 question close";
 
-  transition: all 990ms ease;
-}
+  transition: all 350ms ease;
 
-.items {
-  background: rgb(210, 210, 211);
-  color: #ececec;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 4px;
-  border: $menu-gray1 solid 0.7px;
-
-  &--8 {
-    grid-area: close;
-    background-color: $menu-gray1;
-    width: 20px;
-    cursor: pointer;
-  }
-  &--19 {
-    grid-area: open;
-  }
+  //Shared properties
+  .items,
   button {
-    background: #fdfeff;
-    width: 101%;
-    height: 101%;
-    overflow: hidden;
-    padding: 0 10px;
-    color: $menu-gray1;
-    //color: white;
-    border: none;
-    border-radius: 3px;
-    transition: background 250ms ease-in;
-    &:hover {
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    outline: none;
+    :focus {
+      background-color: rgba(150, 148, 148, 0.486);
+    }
+    :hover {
       color: white;
       background: $menu-gray1;
+      opacity: 0.7;
+      border-radius: 30px;
     }
   }
-  span {
-    padding: 4px;
-    color: $menu-gray1;
-    cursor: help;
+
+  .fa-angle-double-down,
+  .fa-angle-double-up {
+    font-size: 1.5rem;
   }
-}
 
-.vertical-text {
-  writing-mode: vertical-rl;
-}
+  //  ITEMS
+  .items {
+    background: rgba(240, 239, 239, 0.685);
+    color: #ececec;
+    color: rgb(223, 222, 222);
+    //color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 1px 5px 0px;
 
-.transform {
-  transform: translateY(-90%);
+    .tooltips {
+      color: gray;
+      padding: 0 6px;
+      &:hover {
+        cursor: help;
+      }
+    }
+
+    //  OPEN & CLOSE MENU
+    &--8 {
+      grid-area: close;
+      width: 20px;
+      margin-left: 4px;
+    }
+    &--19 {
+      margin-left: 4px;
+      grid-area: open;
+      width: 20px;
+    }
+
+    button {
+      background: #a6caee75;
+      color: white;
+      width: 100%;
+      height: 100%;
+      padding: 0 3px;
+      border: none;
+      transition: background 250ms ease-in;
+    }
+  }
+
+  .radio-btns {
+    width: 55%;
+    justify-self: center;
+  }
+  .save-btns {
+    width: 55%;
+    justify-self: start;
+  }
 }

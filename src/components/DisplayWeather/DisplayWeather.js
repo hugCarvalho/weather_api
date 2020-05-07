@@ -155,6 +155,8 @@ export default function DisplayWeather({ filData2 }) {
 
 const rotate = deg => {
   //const degrees = `${deg}deg`;
-  document.querySelector(".fas").style.transform = `rotate(${deg}deg)`;
+  document.querySelector(
+    ".fa-long-arrow-alt-down"
+  ).style.transform = `rotate(${deg}deg)`;
   //maybe it starts hidden...
 };

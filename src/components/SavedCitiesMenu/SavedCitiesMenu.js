@@ -5,11 +5,6 @@ import { CityContext } from "../../App";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 
-//TODO: try build fn to handle checked result because of REact warning OR change onHandle function
-//TODO: V.1.1 - prevent saving the city twice
-//TODO: convert city names in buttons for fast access
-//TODO: build component for each city?
-
 export default function SavedCitiesMenu({ validCity }) {
   const { setCity } = useContext(CityContext);
   const [defaultCity, setDefaultCity] = useState("");
@@ -19,19 +14,26 @@ export default function SavedCitiesMenu({ validCity }) {
     city3: "",
   });
   const [isMenuClosed, setIsMenuClosed] = useState(false);
+
   //console.log("savedCities", savedCities);
 
   //Check local storage
   useEffect(() => {
+    console.log("isMenuClosed", isMenuClosed);
     try {
       if (localStorage.weatherApp) {
         setSavedCities(JSON.parse(localStorage.getItem("weatherApp")));
+        setIsMenuClosed(JSON.parse(localStorage.getItem("menuClosed")));
       }
     } catch (err) {
       console.log("Error!File may be corrupted"); //showErrorMsg("Error!File may be corrupted");
     }
     //console.log("EFFECT1:", localStorage);
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("menuClosed", isMenuClosed);
+  }, [isMenuClosed]);
 
   useEffect(() => {
     localStorage.setItem("weatherApp", JSON.stringify(savedCities));
@@ -72,55 +74,63 @@ export default function SavedCitiesMenu({ validCity }) {
     localStorage.setItem("defaultCity", JSON.stringify(defaultCity));
   }, [defaultCity]);
 
-  const closeMenu = () => {
-    console.log("close Menu");
-
-    document.querySelector(".container__saved-cities-menu").style.height =
-      "40px"; //CHANGE for state behaviour
-    // document.querySelector(".container__saved-cities-menu").style.marginTop =
-    //   "-100px";
-    // document.querySelector(".container__saved-cities-menu").style.marginLeft =
-    //   "-1px";
+  const setContainerHeight = () =>
+    isMenuClosed ? { height: "42px" } : { height: "90px" };
+  const showHideOpenArrow = () => {
+    return isMenuClosed
+      ? {
+          visibility: "visible",
+        }
+      : { visibility: "hidden" };
   };
 
-  const openMenu = () => {
-    document.querySelector(".container__saved-cities-menu").style.height =
-      "85px";
-  };
   return (
     <>
-      {/* {console.log("DEFAULT:", defaultCity)} */}
-      <div className="container__saved-cities-menu">
+      <div
+        className="container__saved-cities-menu"
+        style={setContainerHeight()}
+      >
+        {/*FAST ACCESS CITIES BUTTONS */}
         <div className="items items--4">
           <button onClick={e => setCity(e.target.textContent)}>
             {savedCities.city1 || "empty"}
           </button>
         </div>
+
         <div className="items items--5">
           {" "}
           <button onClick={e => setCity(e.target.textContent)}>
             {savedCities.city2 || "empty"}
           </button>
         </div>
+
         <div className="items items--6">
           {" "}
           <button onClick={e => setCity(e.target.textContent)}>
             {savedCities.city3 || "empty"}
           </button>
         </div>
+
+        {/* TOOLTIP FAST ACCESS CITIES */}
         <div className="items items--7">
           <Tippy
             delay={400}
             content="Must be a valid city name.Use to quick access your saved citites."
           >
-            <span>?</span>
+            <button className="tooltips">?</button>
           </Tippy>
         </div>
-        <div className="items items--8 " onClick={() => closeMenu()}>
-          <p className="vertical-text">Close</p>
+
+        {/* OPEN MENU */}
+        <div className="items items--8 ">
+          <button onClick={() => setIsMenuClosed(true)}>
+            <i className="fas fa-angle-double-up"></i>
+          </button>
         </div>
         {/* <div className="items items--9">Default</div> */}
-        <div className="items items--10">
+
+        {/* RADIO INPUTS*/}
+        <div className="items items--10 radio-btns">
           <RadioInput
             value={savedCities.city1}
             value2={defaultCity}
@@ -128,7 +138,7 @@ export default function SavedCitiesMenu({ validCity }) {
             runFn={chooseDefaultCity}
           />
         </div>
-        <div className="items items--11">
+        <div className="items items--11 radio-btns">
           <RadioInput
             value={savedCities.city2}
             value2={defaultCity}
@@ -136,7 +146,7 @@ export default function SavedCitiesMenu({ validCity }) {
             runFn={chooseDefaultCity}
           />
         </div>
-        <div className="items items--12">
+        <div className="items items--12 radio-btns">
           <RadioInput
             value={savedCities.city3}
             id="city-3"
@@ -144,39 +154,49 @@ export default function SavedCitiesMenu({ validCity }) {
             runFn={chooseDefaultCity}
           />
         </div>
+
+        {/* TOOLTIP RADIO BUTTONS*/}
         <div className="items items--13">
           <Tippy delay={500} content="set a default city to load at startup">
-            <span>?</span>
+            <button className="tooltips">?</button>
           </Tippy>
         </div>
 
-        {/* FAST ACCESS */}
-        <div className="items items--19" onClick={() => openMenu()}>
-          19
+        {/* OPEN MENU */}
+        <div className="items items--19" style={showHideOpenArrow()}>
+          <button className="open-menu" onClick={() => setIsMenuClosed(false)}>
+            <i className="fas fa-angle-double-down"></i>
+          </button>
         </div>
-        <div className="items items--20">
+
+        {/* SAVE CITY BUTTONS */}
+        <div className="items items--20 save-btns">
           <button onClick={() => saveCity("city1")}>Save</button>
         </div>
-        <div className="items items--21">
+
+        <div className="items items--21 save-btns">
           {" "}
           <button type="button" onClick={() => saveCity("city2")}>
             Save
           </button>
         </div>
-        <div className="items items--22">
+        <div className="items items--22 save-btns">
           {" "}
           <button type="button" onClick={() => saveCity("city3")}>
             Save
           </button>
         </div>
+
+        {/* TOOLTIP RADIO BUTTON */}
         <div className="items items--23">
           <Tippy
             delay={400}
             content="SEARCH for a city. Press `save` to save... "
           >
-            <span>?</span>
+            <button className="tooltips">?</button>
           </Tippy>
         </div>
+        {/* END CONTAINER */}
       </div>
     </>
   );

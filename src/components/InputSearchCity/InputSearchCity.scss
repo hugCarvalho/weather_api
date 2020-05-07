@@ -1,45 +1,40 @@
 @import "../../App.scss";
 
 .container__search-city {
-  background-color: $main-blue1;
+  //background-color: $main-blue1;
   display: flex;
   flex-direction: column;
   text-align: center;
-  padding-top: 10px;
+  padding: 1.5rem 0;
 
-  form {
-    //background-color: chocolate;
-    //margin: auto;
-  }
   input {
     //background-color: black;
     width: 60%;
     height: 2rem;
-    padding: 1px 1px;
+    padding: 1px 3px;
+    border-right: none; //to remove firefox automatic border-radius
   }
 
   /* Buttons styles start */
   button {
-    //display: inline-block;
+    display: inline-block;
     border: none;
     height: 2rem;
     padding: 0 10px;
-    background: #0069ed;
+    background: #096ee9;
     color: #ffffff;
-    transition: background 250ms ease-in-out, transform 150ms ease;
-    // -webkit-appearance: none;
-    -moz-appearance: none;
+    transition: background 350ms ease-out;
+    //-webkit-appearance: none;
+    //-moz-appearance: none;
   }
 
   button:hover,
   button:focus {
-    background: #0053ba;
+    background: darken(#096ee9, 13%);
+    outline: darken(#096ee9, 13%);
   }
-  button:focus {
-    outline: #072a55;
-  }
+
   button:active {
     transform: scale(0.99);
   }
-  /* Button styles end */
 }
