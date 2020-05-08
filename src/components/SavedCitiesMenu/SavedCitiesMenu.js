@@ -15,21 +15,27 @@ export default function SavedCitiesMenu({ validCity }) {
   });
   const [isMenuClosed, setIsMenuClosed] = useState(false);
 
-  //console.log("savedCities", savedCities);
-
-  //Check local storage
+  //LOCAL STORAGE
   useEffect(() => {
-    console.log("isMenuClosed", isMenuClosed);
+    // console.log("isMenuClosed", isMenuClosed);
     try {
       if (localStorage.weatherApp) {
         setSavedCities(JSON.parse(localStorage.getItem("weatherApp")));
         setIsMenuClosed(JSON.parse(localStorage.getItem("menuClosed")));
       }
     } catch (err) {
-      console.log("Error!File may be corrupted"); //showErrorMsg("Error!File may be corrupted");
+      console.log("Error!File may be corrupted");
     }
-    //console.log("EFFECT1:", localStorage);
   }, []);
+
+  useEffect(() => {
+    //console.log("EFFECT2", localStorage);
+    const defaultCity = JSON.parse(localStorage.getItem("defaultCity"));
+    setDefaultCity(defaultCity);
+    if (defaultCity) {
+      setCity(defaultCity); //!!!! ACTIVATE THIS LINE TO FETCH AT ONLOAD
+    }
+  }, [setCity]); //don't use default city as a dependency
 
   useEffect(() => {
     localStorage.setItem("menuClosed", isMenuClosed);
@@ -60,14 +66,6 @@ export default function SavedCitiesMenu({ validCity }) {
     console.log("right...");
     setDefaultCity(city);
   };
-  useEffect(() => {
-    //console.log("EFFECT2", localStorage);
-    const defaultCity = JSON.parse(localStorage.getItem("defaultCity"));
-    setDefaultCity(defaultCity);
-    if (defaultCity) {
-      setCity(defaultCity); //!!!! ACTIVATE THIS LINE TO FETCH AT ONLOAD
-    }
-  }, []); //don't use default city as a dependency
 
   useEffect(() => {
     //console.log("DEFAULT SAVE:", defaultCity);
@@ -109,16 +107,6 @@ export default function SavedCitiesMenu({ validCity }) {
           <button onClick={e => setCity(e.target.textContent)}>
             {savedCities.city3 || "empty"}
           </button>
-        </div>
-
-        {/* TOOLTIP FAST ACCESS CITIES */}
-        <div className="items items--7">
-          <Tippy
-            delay={400}
-            content="Must be a valid city name.Use to quick access your saved citites."
-          >
-            <button className="tooltips">?</button>
-          </Tippy>
         </div>
 
         {/* OPEN MENU */}
@@ -173,18 +161,11 @@ export default function SavedCitiesMenu({ validCity }) {
         <div className="items items--20 save-btns">
           <button onClick={() => saveCity("city1")}>Save</button>
         </div>
-
         <div className="items items--21 save-btns">
-          {" "}
-          <button type="button" onClick={() => saveCity("city2")}>
-            Save
-          </button>
+          <button onClick={() => saveCity("city2")}>Save</button>
         </div>
         <div className="items items--22 save-btns">
-          {" "}
-          <button type="button" onClick={() => saveCity("city3")}>
-            Save
-          </button>
+          <button onClick={() => saveCity("city3")}>Save</button>
         </div>
 
         {/* TOOLTIP RADIO BUTTON */}

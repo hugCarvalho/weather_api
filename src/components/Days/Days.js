@@ -25,7 +25,7 @@ export default function CityCard({ isLoading, data }) {
   }, [filteredData]);
 
   useEffect(() => {
-    console.log("isActive", isActive);
+    // console.log("isActive", isActive);
   }, [isActive]);
 
   const filterByDay = day => {

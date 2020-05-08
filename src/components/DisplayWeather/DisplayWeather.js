@@ -10,11 +10,18 @@ export default function DisplayWeather({ filData2 }) {
   const [isCelsius, setIsCelsius] = useState(true);
   const [isKm, setIsKm] = useState(true);
   const [isNight, setIsNight] = useState(false);
+  const [trigger, setTrigger] = useState(false);
 
   useEffect(() => {
     //console.log("DISPLAY WEATHER FILTER DATA:", filData2, isLoading);
     //!isLoading && console.log("RES:", filData2.weather.list[0].main.temp);
-  }, [filData2, isLoading]);
+    // console.log("Trigger");
+    const trigger = () => setTrigger(!trigger);
+    if (!isLoading) {
+      // console.log("loading ended");
+      trigger();
+    }
+  }, [isLoading]);
 
   const convertTemp = value =>
     isCelsius
@@ -32,10 +39,21 @@ export default function DisplayWeather({ filData2 }) {
     return cardinalPoints[Math.round(value / 22.5)];
   };
 
+  useEffect(() => {
+    const changeBackgroundDayNight = () => {
+      const iconName = filData2.weather.list[0].weather[0].icon;
+      iconName.endsWith("n") ? setIsNight(true) : setIsNight(false);
+    };
+
+    if (!isLoading) {
+      changeBackgroundDayNight();
+    }
+  }, [isLoading, filData2]);
+
   return (
     <>
       <p>{isLoading ? "loading..." : null}</p>
-
+      {/* {!isLoading ? console.log(filData2.weather.list[0].weather[0].icon) : ""} */}
       {/* WEATHER ICON AND DESCRIPTION */}
       <div
         className="container__weather-card"
@@ -125,21 +143,29 @@ export default function DisplayWeather({ filData2 }) {
 
         {/* WINDSPEED */}
         <div className="item item--9">
-          {isLoading ? "N/A" : convertWind(filData2.weather.list[0].wind.speed)}
-        </div>
+          <span>
+            {isLoading
+              ? "N/A"
+              : convertWind(filData2.weather.list[0].wind.speed)}
+          </span>
 
-        {/* WIND DIRECTION */}
-        <div className="item item--10">
-          {isLoading
-            ? "N/A"
-            : convertWindDirection(filData2.weather.list[0].wind.deg)}
+          <span>
+            {isLoading
+              ? "N/A"
+              : convertWindDirection(filData2.weather.list[0].wind.deg)}
+          </span>
 
           <span>{<i className="fas fa-long-arrow-alt-down"></i>}</span>
           {isLoading ? null : rotate(filData2.weather.list[0].wind.deg)}
         </div>
+
+        {/* WIND DIRECTION */}
+        {/* <div className="item item--10"> */}
+        {/* </div> */}
         {/* <div className="wd">?</div> */}
         <div className="item item--11"></div>
       </div>
+      {/* {!isLoading ? () => setTrigger(true) : null} */}
     </>
   );
 }
@@ -150,5 +176,3 @@ const rotate = deg => {
   ).style.transform = `rotate(${deg}deg)`;
   //maybe it starts hidden...
 };
-
-const changeBackgroundDayNight = () => {};

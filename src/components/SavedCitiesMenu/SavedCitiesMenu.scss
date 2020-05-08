@@ -13,7 +13,7 @@
   grid-template-rows: 40px 20px 20px;
   grid-template-columns: 1fr 1fr 1fr auto auto;
   grid-template-areas:
-    "city1 city2 city3 question1 open"
+    "city1 city2 city3 open open"
     "radiobtn1 radiobtn2 radiobtn2 question2 close"
     "save1 save2 save3 question3 close";
 
@@ -68,6 +68,7 @@
       margin-left: 4px;
     }
     &--19 {
+      //background-color: black;
       grid-area: open;
       width: 20px;
       margin-left: 4px;

@@ -23,14 +23,17 @@ export default function Hours({ filteredData, isLoading }) {
       setDefaultHour(filteredData.weather.list[0].dt_txt.slice(11, 16));
       //console.log("IS NOT LOADING-SELECT HOUR", defaultHour);
     }
-  }, [filData2, isLoading]);
+  }, [filData2, isLoading, filteredData]);
+  useEffect(() => {
+    console.log("defaultHour", defaultHour);
+  }, [defaultHour]);
 
   const filterByHour = e => {
     const timeOnButton = e.target.textContent;
     const prevHour = document.querySelector(".active-hour");
     const actualHour = e.target;
 
-    console.log(prevHour);
+    console.log("1- prevHour", prevHour, "actualHour:", actualHour);
     const activeHour = filteredData.weather.list.filter(item => {
       return item.dt_txt.slice(11, 16) === timeOnButton;
     });
@@ -41,6 +44,7 @@ export default function Hours({ filteredData, isLoading }) {
     });
     prevHour.classList.remove("active-hour");
     actualHour.classList.add("active-hour");
+    console.log("2- prevHour", prevHour, "actualHour:", actualHour);
   };
 
   return (
