@@ -29,6 +29,11 @@ function App() {
     errorLocalStorage: "",
   });
 
+  //TESTING EFFECTS
+  useEffect(() => {
+    console.log("1- city:", city, "validCity:", validCity);
+  }, [city, validCity]);
+
   //FETCH DATA
   useEffect(() => {
     const getWeather = async () => {
@@ -61,7 +66,6 @@ function App() {
   }, [isLoading, city, key]);
 
   useEffect(() => {
-    console.log("1:city", city);
     console.log("----------------------------");
   }, [city]);
 

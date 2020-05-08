@@ -7,20 +7,27 @@ export default function InputSearchCity() {
   const { setIsLoading } = useContext(IsLoadingContext);
   const { setCity } = useContext(CityContext);
 
-  const fetchCity = e => {
-    //console.log("USER INPUT");
-    e.preventDefault();
+  const fetchCity = () => {
     setIsLoading(true);
     setCity(text);
+  };
+
+  //VALIDATION
+  const checkInputIsValid = e => {
+    e.preventDefault();
+    console.log("text:", text);
+    if (text) {
+      fetchCity();
+    } else console.log("Please type something"); //TODO ERROR
   };
 
   return (
     <>
       <div className="container__search-city">
-        <form onSubmit={e => fetchCity(e)}>
+        <form onSubmit={checkInputIsValid}>
           <input
             type="search"
-            placeholder="type a city..."
+            placeholder="type a city name..."
             onChange={e => setText(e.target.value)}
           />
           <button type="submit">Go</button>

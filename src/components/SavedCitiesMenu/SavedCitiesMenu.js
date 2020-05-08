@@ -17,7 +17,7 @@ export default function SavedCitiesMenu({ validCity }) {
 
   //TESTING PURPOSES
   useEffect(() => {
-    console.log("2- city:", city);
+    console.log("2- city:", city, "validCity:", validCity);
   }, [city]);
 
   //LOCAL STORAGE GET

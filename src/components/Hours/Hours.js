@@ -25,7 +25,7 @@ export default function Hours({ filteredData, isLoading }) {
     }
   }, [filData2, isLoading, filteredData]);
   useEffect(() => {
-    console.log("defaultHour", defaultHour);
+    //console.log("defaultHour", defaultHour);
   }, [defaultHour]);
 
   const filterByHour = e => {
