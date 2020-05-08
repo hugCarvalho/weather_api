@@ -6,7 +6,7 @@ import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 
 export default function SavedCitiesMenu({ validCity }) {
-  const { setCity } = useContext(CityContext);
+  const { city, setCity } = useContext(CityContext);
   const [defaultCity, setDefaultCity] = useState("");
   const [savedCities, setSavedCities] = useState({
     city1: "",
@@ -15,9 +15,13 @@ export default function SavedCitiesMenu({ validCity }) {
   });
   const [isMenuClosed, setIsMenuClosed] = useState(false);
 
+  //TESTING PURPOSES
+  useEffect(() => {
+    console.log("2- city:", city);
+  }, [city]);
+
   //LOCAL STORAGE GET
   useEffect(() => {
-    // console.log("isMenuClosed", isMenuClosed);
     try {
       if (localStorage.weatherApp) {
         setSavedCities(JSON.parse(localStorage.getItem("weatherApp")));
@@ -28,11 +32,10 @@ export default function SavedCitiesMenu({ validCity }) {
     }
   }, []);
   useEffect(() => {
-    //console.log("EFFECT2", localStorage);
-    const defaultCity = JSON.parse(localStorage.getItem("defaultCity"));
-    setDefaultCity(defaultCity);
-    if (defaultCity) {
-      setCity(defaultCity); //!!!! ACTIVATE THIS LINE TO FETCH AT ONLOAD
+    const fetchedDefaultCity = JSON.parse(localStorage.getItem("defaultCity"));
+    setDefaultCity(fetchedDefaultCity);
+    if (fetchedDefaultCity) {
+      setCity(fetchedDefaultCity); //automatically fetches on onload
     }
   }, [setCity]); //don't use default city as a dependency
 
@@ -61,23 +64,44 @@ export default function SavedCitiesMenu({ validCity }) {
 
   //TODO: show error for !validCity in App
   //SAVE CITY
-  const saveCity = n => {
+  const saveCity = citySlot => {
     // prettier-ignore
-    if (!validCity) console.log("SEARCH for a valid city first");
+    console.log("save city:", citySlot, validCity);
     // prettier-ignore
-    if (n === "city1") return setSavedCities({ ...savedCities, city1: validCity });
+    if (citySlot === "city1") return setSavedCities({ ...savedCities, city1: validCity });
     // prettier-ignore
-    if (n === "city2") return setSavedCities({ ...savedCities, city2: validCity });
+    if (citySlot === "city2") return setSavedCities({ ...savedCities, city2: validCity });
     // prettier-ignore
-    if (n === "city3") return setSavedCities({ ...savedCities, city3: validCity });
+    if (citySlot === "city3") return setSavedCities({ ...savedCities, city3: validCity });
   };
 
-  //TODO: show error for !city
+  //VALIDATION
+  const checkCityisElegible = citySlot => {
+    if (!validCity) {
+      console.log("SEARCH for a valid city first"); //TODO: ERROR MSG
+      return;
+    }
+    const nameExists = Object.values(savedCities).some(city => {
+      console.log(city);
+      return city.toLowerCase() === validCity.toLowerCase();
+    });
+    return nameExists
+      ? console.log("City is already saved")
+      : saveCity(citySlot);
+  };
+
+  const checkSlotIsEmpty = e => {
+    if (e.target.textContent === "empty") {
+      console.log("SAVE A CITY FIRST"); //TODO: ERROR
+      return;
+    } else setCity(e.target.textContent);
+  };
+
   //CHOOSE DEFAULT CITY
   const chooseDefaultCity = city => {
-    console.log("e.target.value", city);
+    //console.log("e.target.value", city);
     if (!city) {
-      console.log("NOT POSSBILE"); //TODO
+      console.log("NOT POSSBILE"); //TODO: show error
       return;
     }
     setDefaultCity(city);
@@ -91,21 +115,21 @@ export default function SavedCitiesMenu({ validCity }) {
       >
         {/*FAST ACCESS CITIES BUTTONS */}
         <div className="items items--4">
-          <button onClick={e => setCity(e.target.textContent)}>
+          <button onClick={checkSlotIsEmpty}>
             {savedCities.city1 || "empty"}
           </button>
         </div>
 
         <div className="items items--5">
           {" "}
-          <button onClick={e => setCity(e.target.textContent)}>
+          <button onClick={checkSlotIsEmpty}>
             {savedCities.city2 || "empty"}
           </button>
         </div>
 
         <div className="items items--6">
           {" "}
-          <button onClick={e => setCity(e.target.textContent)}>
+          <button onClick={checkSlotIsEmpty}>
             {savedCities.city3 || "empty"}
           </button>
         </div>
@@ -159,13 +183,13 @@ export default function SavedCitiesMenu({ validCity }) {
 
         {/* SAVE CITY BUTTONS */}
         <div className="items items--20 save-btns">
-          <button onClick={() => saveCity("city1")}>Save</button>
+          <button onClick={() => checkCityisElegible("city1")}>Save</button>
         </div>
         <div className="items items--21 save-btns">
-          <button onClick={() => saveCity("city2")}>Save</button>
+          <button onClick={() => checkCityisElegible("city2")}>Save</button>
         </div>
         <div className="items items--22 save-btns">
-          <button onClick={() => saveCity("city3")}>Save</button>
+          <button onClick={() => checkCityisElegible("city3")}>Save</button>
         </div>
 
         {/* TOOLTIP RADIO BUTTON */}

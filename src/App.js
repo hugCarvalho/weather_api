@@ -61,9 +61,9 @@ function App() {
   }, [isLoading, city, key]);
 
   useEffect(() => {
-    //console.log("Effect 2 -> IS Loading:", isLoading, city);
+    console.log("1:city", city);
     console.log("----------------------------");
-  }, [isLoading, city]);
+  }, [city]);
 
   return (
     <>
