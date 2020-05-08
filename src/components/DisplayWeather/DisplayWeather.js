@@ -9,6 +9,7 @@ export default function DisplayWeather({ filData2 }) {
   const city = useContext(CityContext);
   const [isCelsius, setIsCelsius] = useState(true);
   const [isKm, setIsKm] = useState(true);
+  const [isNight, setIsNight] = useState(false);
 
   useEffect(() => {
     //console.log("DISPLAY WEATHER FILTER DATA:", filData2, isLoading);
@@ -21,7 +22,7 @@ export default function DisplayWeather({ filData2 }) {
       : `${((value * 9) / 5 - 459.67).toFixed(2)}`;
   //converts from metres per second (m/s)  to km/h
   const convertWind = value =>
-    isKm ? Math.round(value * 3.6) + "km/h" : Math.round(value * 2.237) + "mph";
+    isKm ? Math.round(value * 3.6) : Math.round(value * 2.237);
 
   const convertWindDirection = value => {
     //adapted from https://www.campbellsci.de/blog/convert-wind-directions
@@ -36,7 +37,10 @@ export default function DisplayWeather({ filData2 }) {
       <p>{isLoading ? "loading..." : null}</p>
 
       {/* WEATHER ICON AND DESCRIPTION */}
-      <div className="container__weather-card">
+      <div
+        className="container__weather-card"
+        style={isNight ? { background: "#202020" } : { background: "#7cafeb" }}
+      >
         <div className="item item--1">
           {!city ? (
             <img src="/media/weather_icons/n_a.png" alt="Not available" />
@@ -52,12 +56,12 @@ export default function DisplayWeather({ filData2 }) {
 
         {/* Temperature */}
         <div className="item item--2">
-          <h5>Temp</h5>
+          <h4>Temperature</h4>
           <div className="wrapper__temp-units">
             <button>
               <RadioInput2
                 id={"celsius"}
-                label={"°C"}
+                label={" °C"}
                 checked={isCelsius}
                 action={() => setIsCelsius(true)}
               />
@@ -65,7 +69,7 @@ export default function DisplayWeather({ filData2 }) {
             <button>
               <RadioInput2
                 id={"fahrenheit"}
-                label={"°F"}
+                label={" °F"}
                 checked={!isCelsius}
                 action={() => setIsCelsius(false)}
               />
@@ -90,28 +94,15 @@ export default function DisplayWeather({ filData2 }) {
             ? "N/A"
             : convertTemp(filData2.weather.list[0].main.feels_like)}{" "}
         </div>
-        {/* <div className="item item--5">
-          5 Min:
-          {isLoading
-            ? "N/A"
-            : convertTemp(filData2.weather.list[0].main.tempMin)}
-        </div> */}
-        {/* <div className="item item--6">
-          6 Max:
-          {isLoading
-            ? "N/A"
-            : convertTemp(filData2.weather.list[0].main.tempMax)}
-        </div> */}
 
         {/* Weather description */}
         <div className="item item--7">
-          7{" "}
           {isLoading ? "N/A" : filData2.weather.list[0].weather[0].description}
         </div>
 
         {/* WIND UNIT SELECTION */}
         <div className="item item--8">
-          <h5>Wind</h5>
+          <h4>Wind</h4>
           <div className="wrapper__wind-units">
             <button>
               <RadioInput2
@@ -131,32 +122,33 @@ export default function DisplayWeather({ filData2 }) {
             </button>
           </div>
         </div>
+
+        {/* WINDSPEED */}
         <div className="item item--9">
-          9{" "}
           {isLoading ? "N/A" : convertWind(filData2.weather.list[0].wind.speed)}
         </div>
 
         {/* WIND DIRECTION */}
         <div className="item item--10">
-          <span>
-            {isLoading
-              ? "N/A"
-              : convertWindDirection(filData2.weather.list[0].wind.deg)}
-          </span>{" "}
-          {<i className="fas fa-long-arrow-alt-down"></i>}
-          <br />
+          {isLoading
+            ? "N/A"
+            : convertWindDirection(filData2.weather.list[0].wind.deg)}
+
+          <span>{<i className="fas fa-long-arrow-alt-down"></i>}</span>
           {isLoading ? null : rotate(filData2.weather.list[0].wind.deg)}
         </div>
         {/* <div className="wd">?</div> */}
+        <div className="item item--11"></div>
       </div>
     </>
   );
 }
 
 const rotate = deg => {
-  //const degrees = `${deg}deg`;
   document.querySelector(
     ".fa-long-arrow-alt-down"
   ).style.transform = `rotate(${deg}deg)`;
   //maybe it starts hidden...
 };
+
+const changeBackgroundDayNight = () => {};

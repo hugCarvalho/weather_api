@@ -1,99 +1,135 @@
+@import "../../App.scss";
+
 .container__weather-card {
-  background-color: rgb(159, 193, 224);
-  font-size: 1.5rem;
-  font-weight: 600;
+  //background-color: rgb(159, 193, 224);
   width: 100%;
+
+  //font-size: 1.5rem;
+  font-weight: 400;
   display: grid;
-  border: 1px solid black;
-  grid-template-rows: repeat(4, 6rem);
+  grid-template-rows: repeat(4, 6.6rem) 2rem;
   grid-template-columns: 50% 25% 25%;
-  font-family: inherit;
 
   grid-template-areas:
     "icon temp temp"
     "icon actual real"
     //"icon min max"
     "icon wind wind"
-    "description speed direction";
+    "description speed direction"
+    "endborder endborder endborder";
   //grid-gap: 1px;
-
   .item {
-    background: rgb(66, 66, 66);
+    //background: rgb(66, 66, 66);
     color: white;
     text-align: center;
     font-size: 2rem;
+    //
 
     .wrapper__temp-units,
     .wrapper__wind-units {
       display: flex;
       justify-content: space-around;
-      //padding: 4px;
     }
+
     button {
       background-color: transparent;
       border: none;
       cursor: default;
     }
-    // .fa-long-arrow-alt-down {
-    //   transform: rotate(180deg);
-    //   color: red;
-    // }
-    justify-content: center;
+
     &--1 {
+      display: flex;
+      justify-content: center;
       grid-area: icon;
-      background-color: rgb(159, 193, 224);
+      //background-color: $main-blue1;
+      //background-color: #202020;
       //position: relative;
-      //overflow: hidden;
+      overflow: hidden;
       position: relative;
       display: flex;
-      transform img {
+
+      img {
         //position: absolute;
-        //background-color: rgb(63, 255, 5);
         //height: auto;
         width: 90%;
         height: auto;
         max-height: 18rem;
         //top: 5%;
-        left: 5%;
-
-        //object-fit: scale-down;
-        // background-repeat: repeat;
-
-        //margin: auto;
-        //object-fit: cover;
-        // width: 100%;
-        //z-index: 0;
-        //width: 100%;
-
-        //max-width: 120%;
+        //left: 5%;
       }
-
-      // // display: flex;
-      // // align-self: center;
-      // // height: 100%;
-      // background-position: top;
-    }
-    &--2 {
-      grid-area: temp;
-      background-color: rgb(66, 66, 66);
-      padding: 4px;
     }
     &--7 {
       grid-area: description;
-      background-color: gray;
+      background-color: $main-blue1;
+      //background-color: red;
+      // display: flex;
+      // justify-content: center;
+      // align-items: center;
+      display: grid;
+      align-content: center;
+      //border-bottom: 10px solid #424242;
+      font-size: 2.1rem;
+      padding: 3px;
     }
+    &--2 {
+      grid-area: temp;
+      display: flex;
+      //background-color: #424242;
+      border-radius: 15px 0px 0 15px;
+      border-bottom: 1px solid rgb(97, 94, 94);
+      //padding: 4px;
+    }
+    &--3 {
+      grid-area: actual;
+      border-radius: 15px 0px 0px 15px;
+      border-bottom: 1px solid rgb(97, 94, 94);
+      border-right: 1px solid rgb(97, 94, 94);
+      //background-color: black;
+    }
+
+    &--4 {
+      grid-area: real;
+      //border-radius: 15px 0px 15px 0;
+      border-bottom: 1px solid rgb(97, 94, 94);
+    }
+
     &--8 {
       grid-area: wind;
+      //margin-top: 1px;
+      border-radius: 15px 0px 0px 15px;
+      border-bottom: 1px solid rgb(97, 94, 94);
+    }
+    &--9 {
+      grid-area: speed;
+      border-radius: 15px 0 0 15px;
+    }
+    &--10 {
+      grid-area: direction;
+      //border-radius: 15px 0px 0px 0;
+    }
+    &--11 {
+      grid-area: endborder;
+      background-color: #424242;
+      //color: red;
     }
   }
   .item--3,
+  .item--2,
   .item--4,
-  .item--8 {
+  .item--8,
+  .item--9,
+  .item--10 {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
   }
-  // .item--3,
-  // .item--4 {
-  // }
+
+  label {
+    color: white;
+    font-size: 1.7rem;
+  }
+
+  h4 {
+    font-weight: 400;
+  }
 }
