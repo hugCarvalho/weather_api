@@ -15,7 +15,7 @@ export default function SavedCitiesMenu({ validCity }) {
   });
   const [isMenuClosed, setIsMenuClosed] = useState(false);
 
-  //LOCAL STORAGE
+  //LOCAL STORAGE GET
   useEffect(() => {
     // console.log("isMenuClosed", isMenuClosed);
     try {
@@ -27,7 +27,6 @@ export default function SavedCitiesMenu({ validCity }) {
       console.log("Error!File may be corrupted");
     }
   }, []);
-
   useEffect(() => {
     //console.log("EFFECT2", localStorage);
     const defaultCity = JSON.parse(localStorage.getItem("defaultCity"));
@@ -37,41 +36,19 @@ export default function SavedCitiesMenu({ validCity }) {
     }
   }, [setCity]); //don't use default city as a dependency
 
-  useEffect(() => {
-    localStorage.setItem("menuClosed", isMenuClosed);
-  }, [isMenuClosed]);
-
+  //LOCAL STORAGE SET
   useEffect(() => {
     localStorage.setItem("weatherApp", JSON.stringify(savedCities));
-  }, [savedCities]); //add at the end savedcity dependency
-
-  const saveCity = n => {
-    // prettier-ignore
-    if (!validCity) console.log("ERROR INVALID CITY") //showErrorMsg("SEARCH for a valid city first");
-    // prettier-ignore
-    if (n === "city1") return setSavedCities({ ...savedCities, city1: validCity });
-    // prettier-ignore
-    if (n === "city2") return setSavedCities({ ...savedCities, city2: validCity });
-    // prettier-ignore
-    if (n === "city3") return setSavedCities({ ...savedCities, city3: validCity });
-  };
-
-  const chooseDefaultCity = city => {
-    console.log("e.target.value", city);
-    if (!savedCities) {
-      console.log(savedCities);
-      console.log("NOT POSSBILE");
-      return;
-    }
-    console.log("right...");
-    setDefaultCity(city);
-  };
-
+  }, [savedCities]);
   useEffect(() => {
-    //console.log("DEFAULT SAVE:", defaultCity);
     localStorage.setItem("defaultCity", JSON.stringify(defaultCity));
   }, [defaultCity]);
+  useEffect(() => {
+    localStorage.setItem("menuClosed", JSON.stringify(isMenuClosed));
+  }, [isMenuClosed]);
 
+  //FUNCTIONS
+  //SET CONTAINER HEIGHT
   const setContainerHeight = () =>
     isMenuClosed ? { height: "42px" } : { height: "90px" };
   const showHideOpenArrow = () => {
@@ -80,6 +57,30 @@ export default function SavedCitiesMenu({ validCity }) {
           visibility: "visible",
         }
       : { visibility: "hidden" };
+  };
+
+  //TODO: show error for !validCity in App
+  //SAVE CITY
+  const saveCity = n => {
+    // prettier-ignore
+    if (!validCity) console.log("SEARCH for a valid city first");
+    // prettier-ignore
+    if (n === "city1") return setSavedCities({ ...savedCities, city1: validCity });
+    // prettier-ignore
+    if (n === "city2") return setSavedCities({ ...savedCities, city2: validCity });
+    // prettier-ignore
+    if (n === "city3") return setSavedCities({ ...savedCities, city3: validCity });
+  };
+
+  //TODO: show error for !city
+  //CHOOSE DEFAULT CITY
+  const chooseDefaultCity = city => {
+    console.log("e.target.value", city);
+    if (!city) {
+      console.log("NOT POSSBILE"); //TODO
+      return;
+    }
+    setDefaultCity(city);
   };
 
   return (
@@ -115,7 +116,6 @@ export default function SavedCitiesMenu({ validCity }) {
             <i className="fas fa-angle-double-up"></i>
           </button>
         </div>
-        {/* <div className="items items--9">Default</div> */}
 
         {/* RADIO INPUTS*/}
         <div className="items items--10 radio-btns">
@@ -172,7 +172,7 @@ export default function SavedCitiesMenu({ validCity }) {
         <div className="items items--23">
           <Tippy
             delay={400}
-            content="SEARCH for a city. Press `save` to save... "
+            content="SEARCH for a city first. Press `save` to save... "
           >
             <button className="tooltips">?</button>
           </Tippy>

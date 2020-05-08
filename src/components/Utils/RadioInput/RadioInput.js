@@ -10,7 +10,8 @@ export default function RadioInput({ value, runFn, value2, id }) {
         value={value}
         onChange={
           //only allows action if a city is saved already
-          value ? e => runFn(e.target.value) : () => {} //React shows warning if null is chosen
+          //value ? e => runFn(e.target.value) : () => {} //React shows warning if null is chosen
+          e => runFn(e.target.value)
         }
         checked={value === value2}
       />
