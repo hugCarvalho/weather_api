@@ -82,7 +82,7 @@ function App() {
                 <DisplayErrorMsg showError={showError} errorMsg={errorMsg} />
                 <SavedCitiesMenu validCity={validCity} />
                 <DisplayCityName validCity={validCity} />
-                <Days data={data} isLoading={isLoading} />
+                <Days data={data} isLoading={isLoading} validCity={validCity} />
               </ShowErrorContext.Provider>
             </ErrorMsgContext.Provider>
           </IsLoadingContext.Provider>

@@ -1,42 +1,37 @@
 import React, { useState, useEffect } from "react";
 import "./Days.scss";
-//import { IsLoading } from "../../App";
 import Moment from "react-moment";
 import Hours from "../Hours/Hours";
 
-//TODO change active method for more dynamic approach
-
-export default function CityCard({ isLoading, data }) {
-  const [filteredData, setFilteredData] = useState({});
-  const [isActive, setIsActive] = useState({
+export default function CityCard({ isLoading, data, validCity }) {
+  const initTabs = {
     day0: true,
     day1: false,
     day2: false,
-  });
+  };
+  const [filteredDataByDay, setFilteredDataByDay] = useState({});
+  const [tabIsActive, setTabIsActive] = useState(initTabs);
 
   useEffect(() => {
     // console.log("USELAYOUT DAY:", data, isLoading);
-    setFilteredData(data);
+    setFilteredDataByDay(data);
     !isLoading && filterByDay(0);
   }, [data, isLoading]);
 
   useEffect(() => {
-    // console.log("filteredData", filteredData);
-  }, [filteredData]);
+    setTabIsActive(initTabs);
+  }, [validCity]);
 
-  useEffect(() => {
-    // console.log("isActive", isActive);
-  }, [isActive]);
-
+  //Filters original data returning the data for desired day
   const filterByDay = day => {
     const currentDay = Number(data.weather.list[0].dt_txt.slice(8, 10));
     const currentMonth = Number(data.weather.list[0].dt_txt.slice(5, 7));
     let forecastDay = currentDay + day;
 
-    let res = data.weather.list.filter(day => {
-      return +day.dt_txt.slice(8, 10) === forecastDay;
+    let res = data.weather.list.filter(dayOfTheMonth => {
+      return +dayOfTheMonth.dt_txt.slice(8, 10) === forecastDay;
     });
-
+    //if no match is found, number is not valid calendar day, hence the conditions
     if (res.length === 0 && forecastDay === 33) {
       forecastDay = 2;
       res = data.weather.list.filter(day => {
@@ -56,7 +51,8 @@ export default function CityCard({ isLoading, data }) {
       });
     }
     //TODO: condition for feb
-    setFilteredData({
+
+    setFilteredDataByDay({
       weather: {
         list: res,
       },
@@ -74,7 +70,7 @@ export default function CityCard({ isLoading, data }) {
           {/* TODAY */}
           <li
             onClick={() =>
-              setIsActive({
+              setTabIsActive({
                 day0: true,
                 day1: false,
                 day2: false,
@@ -82,7 +78,7 @@ export default function CityCard({ isLoading, data }) {
             }
           >
             <button
-              className={isActive.day0 ? "active" : "inactive"}
+              className={tabIsActive.day0 ? "tab-is-active" : "tab-is-inactive"}
               onClick={() => filterByDay(0)}
             >
               {" "}
@@ -90,10 +86,10 @@ export default function CityCard({ isLoading, data }) {
             </button>
           </li>
 
-          {/* Tomorrow */}
+          {/* TOMORROW */}
           <li
             onClick={() =>
-              setIsActive({
+              setTabIsActive({
                 day0: false,
                 day1: true,
                 day2: false,
@@ -101,7 +97,7 @@ export default function CityCard({ isLoading, data }) {
             }
           >
             <button
-              className={isActive.day1 ? "active" : "inactive"}
+              className={tabIsActive.day1 ? "tab-is-active" : "tab-is-inactive"}
               onClick={() => filterByDay(1)}
             >
               <p>
@@ -110,10 +106,10 @@ export default function CityCard({ isLoading, data }) {
             </button>
           </li>
 
-          {/* After Tomorrow */}
+          {/* AFTER TOMORROW */}
           <li
             onClick={() =>
-              setIsActive({
+              setTabIsActive({
                 day0: false,
                 day1: false,
                 day2: true,
@@ -121,17 +117,17 @@ export default function CityCard({ isLoading, data }) {
             }
           >
             <button
-              className={isActive.day2 ? "active" : "inactive"}
+              className={tabIsActive.day2 ? "tab-is-active" : "tab-is-inactive"}
               onClick={() => filterByDay(2)}
             >
-              <h5>
+              <p>
                 <Moment format="dddd" add={{ days: 2 }} />
-              </h5>
+              </p>
             </button>
           </li>
         </ul>
       </div>
-      <Hours filteredData={filteredData} isLoading={isLoading} />
+      <Hours filteredDataByDay={filteredDataByDay} isLoading={isLoading} />
     </>
   );
 }
