@@ -1,5 +1,5 @@
 .container__hours {
-  background-color: rgb(66, 63, 63);
+  background-color: #423f3f;
   width: 100%;
   padding: 10px 6px;
   display: flex;
@@ -7,13 +7,20 @@
   justify-content: center;
 
   button {
-    width: 4.9rem;
-    margin: 0px;
-    font-family: "digital-7regular";
+    width: 5.1rem; //don't use padding for left & right, buttons will have diff sizes.
+    padding: 4px 0 4px 0;
+    margin: 1px;
     font-size: 1.7rem;
+    font-family: "digital-7regular";
+    border: none;
+    border-radius: 4px;
+
+    //border-radius: 5px;
     &:hover {
       opacity: 0.9;
     }
+    // -webkit-appearance: button;
+    // -moz-appearance: button;
   }
 
   .active-hour {

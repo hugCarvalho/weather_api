@@ -13,28 +13,31 @@
     height: 2rem;
     padding: 1px 3px;
     border-right: none; //to remove firefox automatic border-radius
+    border-radius: 4px 0 0 4px;
   }
 
   /* Buttons styles start */
   button {
-    display: inline-block;
+    background: $tabs-blue1;
+    color: #ffffff;
+    //display: inline-block;
     border: none;
+    border-radius: 0 2px 2px 0;
     height: 2rem;
     padding: 0 10px;
-    background: #096ee9;
-    color: #ffffff;
+    font-weight: 500;
     transition: background 350ms ease-out;
     //-webkit-appearance: none;
     //-moz-appearance: none;
-  }
 
-  button:hover,
-  button:focus {
-    background: darken(#096ee9, 13%);
-    outline: darken(#096ee9, 13%);
-  }
-
-  button:active {
-    transform: scale(0.99);
+    &:active {
+      transform: scale(0.99);
+    }
+    &:hover,
+    &:focus {
+      background: lighten($tabs-blue1, 10%);
+      font-weight: 600;
+      outline: none;
+    }
   }
 }

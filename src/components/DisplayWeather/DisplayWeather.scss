@@ -1,132 +1,27 @@
 @import "../../App.scss";
 
 .container__weather-card {
-  //background-color: rgb(159, 193, 224);
   width: 100%;
-
-  //font-size: 1.5rem;
   font-weight: 400;
   display: grid;
   grid-template-rows: repeat(4, 6.6rem) 2rem;
   grid-template-columns: 50% 25% 25%;
-
   grid-template-areas:
     "icon temp temp"
-    "icon actual real"
+    "icon actualTemp realTemp"
     //"icon min max"
     "icon wind wind"
-    "description speed speed"
+    "description wSpeedDirection wSpeedDirection"
     "endborder endborder endborder";
-  //grid-gap: 1px;
-  .item {
-    //background: rgb(66, 66, 66);
-    color: white;
-    text-align: center;
-    font-size: 2rem;
-    //
 
-    .wrapper__temp-units,
-    .wrapper__wind-units {
-      display: flex;
-      justify-content: space-around;
-    }
-
-    button {
-      background-color: transparent;
-      border: none;
-      cursor: default;
-    }
-
-    &--1 {
-      display: flex;
-      justify-content: center;
-      grid-area: icon;
-      //background-color: $main-blue1;
-      //background-color: #202020;
-      //position: relative;
-      overflow: hidden;
-      position: relative;
-      display: flex;
-
-      img {
-        //position: absolute;
-        //height: auto;
-        width: 90%;
-        height: auto;
-        max-height: 18rem;
-        //top: 5%;
-        //left: 5%;
-      }
-    }
-    &--7 {
-      grid-area: description;
-      //background-color: $main-blue1;
-      //background-color: red;
-      // display: flex;
-      // justify-content: center;
-      // align-items: center;
-      display: grid;
-      align-content: center;
-      //border-bottom: 10px solid #424242;
-      font-size: 2.1rem;
-      padding: 3px;
-    }
-    &--2 {
-      grid-area: temp;
-      display: flex;
-      //background-color: #424242;
-      border-radius: 15px 0px 0 15px;
-      border-bottom: 1px solid rgb(97, 94, 94);
-      //padding: 4px;
-    }
-    &--3 {
-      grid-area: actual;
-      border-radius: 15px 0px 0px 15px;
-      border-bottom: 1px solid rgb(97, 94, 94);
-      border-right: 1px solid rgb(97, 94, 94);
-      //background-color: black;
-    }
-
-    &--4 {
-      grid-area: real;
-      //border-radius: 15px 0px 15px 0;
-      border-bottom: 1px solid rgb(97, 94, 94);
-    }
-
-    &--8 {
-      grid-area: wind;
-      //margin-top: 1px;
-      border-radius: 15px 0px 0px 15px;
-      border-bottom: 1px solid rgb(97, 94, 94);
-    }
-    &--9 {
-      //background-color: black;
-      display: flex;
-      justify-content: space-evenly;
-
-      align-items: center;
-
-      grid-area: speed;
-      border-radius: 15px 0 0 15px;
-    }
-    &--10 {
-      grid-area: direction;
-      //border-radius: 15px 0px 0px 0;
-    }
-    &--11 {
-      grid-area: endborder;
-      background-color: #424242;
-      //color: red;
-    }
+  button {
+    background-color: transparent;
+    border: none;
+    cursor: default;
   }
-  .item--3,
-  .item--2,
-  .item--4,
-  .item--8,
-  .item--10 {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+
+  h4 {
+    font-weight: 400;
   }
 
   label {
@@ -134,7 +29,85 @@
     font-size: 1.7rem;
   }
 
-  h4 {
-    font-weight: 400;
+  .item {
+    color: white;
+    text-align: center;
+    font-size: 2rem;
+
+    //SHARED PROPERTIES
+    .wrapper__temp-units,
+    .wrapper__wind-units {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    &--2,
+    &--3,
+    &--4,
+    &--8,
+    &--10 {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+    }
+
+    &--2,
+    &--3,
+    &--8,
+    &--9 {
+      border-radius: 0px 0px 0px 15px;
+      border-bottom: 1px solid rgb(97, 94, 94);
+    }
+    //END SHARED
+
+    &--1 {
+      grid-area: icon;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+
+      img {
+        width: 90%;
+        height: auto;
+        max-height: 19.2rem;
+      }
+    }
+
+    &--7 {
+      grid-area: description;
+      padding: 3px;
+      font-size: 2.1rem;
+      display: grid;
+      align-content: center;
+    }
+
+    &--2 {
+      grid-area: temp; // Merging 2 areas
+    }
+
+    &--3 {
+      grid-area: actualTemp;
+      border-right: 1px solid rgb(97, 94, 94);
+    }
+    &--4 {
+      grid-area: realTemp;
+      border-bottom: 1px solid rgb(97, 94, 94);
+    }
+
+    &--8 {
+      grid-area: wind; // Merging 2 areas
+    }
+    &--9 {
+      grid-area: wSpeedDirection;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+    // &--11 {
+    //   grid-area: endborder;
+
+    //   //background-color: #423f3f;
+    //   //margin-top: 10px;
+    // }
   }
 }
