@@ -44,7 +44,7 @@ export default function Hours({ filteredDataByDay, isLoading, activeDay }) {
     // (e === undefined ? "12:00" : e.target.textContent);
 
     if (e === undefined) {
-      setDefaultHour("15:00");
+      setDefaultHour("12:00");
       return filterByHour("anotherDay");
     } else {
       setDefaultHour(e.target.textContent);
