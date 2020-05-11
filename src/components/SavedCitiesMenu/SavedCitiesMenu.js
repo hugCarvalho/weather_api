@@ -17,7 +17,7 @@ export default function SavedCitiesMenu({ validCity }) {
 
   //TESTING PURPOSES
   useEffect(() => {
-    console.log("2- city:", city, "validCity:", validCity);
+    //console.log("2- city:", city, "validCity:", validCity);
   }, [city]);
 
   //LOCAL STORAGE GET
@@ -182,14 +182,29 @@ export default function SavedCitiesMenu({ validCity }) {
         </div>
 
         {/* SAVE CITY BUTTONS */}
-        <div className="items items--20 save-btns">
-          <button onClick={() => checkCityisElegible("city1")}>Save</button>
+        <div className="items items--20 ">
+          <button
+            className="save-btns"
+            onClick={() => checkCityisElegible("city1")}
+          >
+            Save
+          </button>
         </div>
-        <div className="items items--21 save-btns">
-          <button onClick={() => checkCityisElegible("city2")}>Save</button>
+        <div className="items items--21">
+          <button
+            className="save-btns"
+            onClick={() => checkCityisElegible("city2")}
+          >
+            Save
+          </button>
         </div>
-        <div className="items items--22 save-btns">
-          <button onClick={() => checkCityisElegible("city3")}>Save</button>
+        <div className="items items--22">
+          <button
+            className="save-btns"
+            onClick={() => checkCityisElegible("city3")}
+          >
+            Save
+          </button>
         </div>
 
         {/* TOOLTIP RADIO BUTTON */}

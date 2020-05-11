@@ -5,12 +5,15 @@ import Hours from "../Hours/Hours";
 
 export default function CityCard({ isLoading, data, validCity }) {
   const initTabs = {
-    day0: true,
+    day0: [true, "Today"],
     day1: false,
     day2: false,
   };
   const [filteredDataByDay, setFilteredDataByDay] = useState({});
   const [tabIsActive, setTabIsActive] = useState(initTabs);
+  //const [activeDay] = "Today";
+
+  useEffect(() => {}, [tabIsActive]);
 
   useEffect(() => {
     // console.log("USELAYOUT DAY:", data, isLoading);
@@ -71,7 +74,7 @@ export default function CityCard({ isLoading, data, validCity }) {
           <li
             onClick={() =>
               setTabIsActive({
-                day0: true,
+                day0: [true, "Today"],
                 day1: false,
                 day2: false,
               })
@@ -127,7 +130,11 @@ export default function CityCard({ isLoading, data, validCity }) {
           </li>
         </ul>
       </div>
-      <Hours filteredDataByDay={filteredDataByDay} isLoading={isLoading} />
+      <Hours
+        filteredDataByDay={filteredDataByDay}
+        isLoading={isLoading}
+        activeDay={tabIsActive}
+      />
     </>
   );
 }

@@ -31,7 +31,7 @@ function App() {
 
   //TESTING EFFECTS
   useEffect(() => {
-    console.log("1- city:", city, "validCity:", validCity);
+    //console.log("1- city:", city, "validCity:", validCity);
   }, [city, validCity]);
 
   //FETCH DATA
