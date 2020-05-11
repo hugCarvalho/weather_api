@@ -23,11 +23,7 @@ function App() {
 
   //Join them?!
   const [showError, setShowError] = useState(false);
-  const [errorMsg, setErrorMsg] = useState({
-    error: "",
-    errorSavedCities: "",
-    errorLocalStorage: "",
-  });
+  const [errorMsg, setErrorMsg] = useState("");
 
   //TESTING EFFECTS
   useEffect(() => {
@@ -36,8 +32,9 @@ function App() {
 
   //FETCH DATA
   useEffect(() => {
+    console.log("1:", data);
     const getWeather = async () => {
-      //console.log("GETWEATHER");
+      console.log("GETWEATHER");
       // let api = `http://api.openweathermap.org/data/2.5/weather?q=${text}&appid=${key}`;
       let api = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${key}`; //CHANGE TO TEXT!!!!
       const response = await fetch(api);
@@ -54,8 +51,10 @@ function App() {
           setIsLoading(false);
         }, 200);
       } else {
-        setErrorMsg({ error: data.message });
+        console.log("Error", data.message);
+        setErrorMsg(data.message);
         setShowError(true);
+        setIsLoading(false);
       }
     };
     city &&
@@ -63,6 +62,7 @@ function App() {
         setErrorMsg({ error: "Something went wrong..." });
         setShowError(true);
       });
+    console.log("2:", data);
   }, [isLoading, city, key]);
 
   useEffect(() => {

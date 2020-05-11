@@ -1,0 +1,18 @@
+.container__error-message {
+  margin: 2px 0 15px 0;
+  text-align: center;
+
+  .error-message {
+    background-color: rgb(255, 76, 5);
+    background-color: rgb(255, 230, 0);
+    background-color: rgb(255, 208, 0);
+    //background-color: rgb(255, 174, 0);
+    color: white;
+    color: gray;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 4px;
+    //text-align: center;
+  }
+}

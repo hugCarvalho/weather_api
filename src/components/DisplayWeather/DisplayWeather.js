@@ -3,7 +3,6 @@ import "./DisplayWeather.scss";
 import { IsLoadingContext, CityContext } from "../../App";
 import { RadioInput2 } from "../Utils/RadioInput/RadioInput";
 
-//TODO: check condition onload with no cities saved for weather card rendering
 export default function DisplayWeather({ filData2 }) {
   const { isLoading } = useContext(IsLoadingContext);
   const city = useContext(CityContext);

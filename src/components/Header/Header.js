@@ -1,9 +1,6 @@
 import React from "react";
 import "./Header.scss";
 
-//TODO: search icon for options (cog style)
-//TODO: see font weigth 500
-
 export default function Header() {
   return (
     <>

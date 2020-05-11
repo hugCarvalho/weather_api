@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import "./SavedCitiesMenu.scss";
 import RadioInput from "../Utils/RadioInput/RadioInput";
-import { CityContext } from "../../App";
+import { CityContext, ErrorMsgContext, ShowErrorContext } from "../../App";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 
@@ -14,6 +14,8 @@ export default function SavedCitiesMenu({ validCity }) {
     city3: "",
   });
   const [isMenuClosed, setIsMenuClosed] = useState(false);
+  const { setErrorMsg } = useContext(ErrorMsgContext);
+  const { setShowError } = useContext(ShowErrorContext);
 
   //TESTING PURPOSES
   useEffect(() => {
@@ -28,7 +30,8 @@ export default function SavedCitiesMenu({ validCity }) {
         setIsMenuClosed(JSON.parse(localStorage.getItem("menuClosed")));
       }
     } catch (err) {
-      console.log("Error!File may be corrupted");
+      setErrorMsg("Error!File may be corrupted");
+      setShowError(true); //TODO: useReducer
     }
   }, []);
   useEffect(() => {
@@ -62,10 +65,12 @@ export default function SavedCitiesMenu({ validCity }) {
       : { visibility: "hidden" };
   };
 
-  //TODO: show error for !validCity in App
+  //TODO: useReduced
   //SAVE CITY
   const saveCity = citySlot => {
     // prettier-ignore
+    setErrorMsg("search for a city first")
+    setShowError(true);
     console.log("save city:", citySlot, validCity);
     // prettier-ignore
     if (citySlot === "city1") return setSavedCities({ ...savedCities, city1: validCity });
@@ -78,7 +83,9 @@ export default function SavedCitiesMenu({ validCity }) {
   //VALIDATION
   const checkCityisElegible = citySlot => {
     if (!validCity) {
-      console.log("SEARCH for a valid city first"); //TODO: ERROR MSG
+      //TODO: useReducer
+      setErrorMsg("SEARCH for a valid city first");
+      setShowError(true);
       return;
     }
     const nameExists = Object.values(savedCities).some(city => {
@@ -87,12 +94,14 @@ export default function SavedCitiesMenu({ validCity }) {
     });
     return nameExists
       ? console.log("City is already saved")
-      : saveCity(citySlot);
+      : saveCity(citySlot); //TODO useReducer
   };
 
   const checkSlotIsEmpty = e => {
     if (e.target.textContent === "empty") {
-      console.log("SAVE A CITY FIRST"); //TODO: ERROR
+      setErrorMsg("save a city first");
+      setShowError(true);
+      console.log("SAVE A CITY FIRST"); //TODO: useReducer
       return;
     } else setCity(e.target.textContent);
   };
@@ -101,6 +110,8 @@ export default function SavedCitiesMenu({ validCity }) {
   const chooseDefaultCity = city => {
     //console.log("e.target.value", city);
     if (!city) {
+      setErrorMsg("save a city first");
+      setShowError(true);
       console.log("NOT POSSBILE"); //TODO: show error
       return;
     }

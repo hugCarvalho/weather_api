@@ -3,7 +3,6 @@ import "./DisplayErrorMsg.scss";
 import { ErrorMsgContext, ShowErrorContext } from "../../App";
 
 //TODO use reducer to join error messages in one object
-//TODO v.1.1 display error if input is blank
 
 export default function DisplayErrorMsg() {
   const { showError, setShowError } = useContext(ShowErrorContext);
@@ -13,7 +12,7 @@ export default function DisplayErrorMsg() {
     const showErrorMsg = () => {
       setTimeout(() => {
         setShowError(false);
-      }, 1500);
+      }, 1200);
     };
     // console.log("showError", showError);
     showError && showErrorMsg();
@@ -21,13 +20,15 @@ export default function DisplayErrorMsg() {
 
   return (
     <>
-      <br></br>
-      <p
-        className="error-message"
-        style={showError ? { display: "block" } : { display: "none" }}
-      >
-        {errorMsg.error}
-      </p>
+      <div className="container__error-message">
+        {/* <br></br> */}
+        <p
+          className="error-message"
+          style={showError ? { display: "inline-block" } : { display: "none" }}
+        >
+          {errorMsg}
+        </p>
+      </div>
     </>
   );
 }

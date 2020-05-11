@@ -1,11 +1,18 @@
 import React, { useState, useContext } from "react";
 import "./InputSearchCity.scss";
-import { IsLoadingContext, CityContext } from "../../App";
+import {
+  IsLoadingContext,
+  CityContext,
+  ErrorMsgContext,
+  ShowErrorContext,
+} from "../../App";
 
 export default function InputSearchCity() {
   const [text, setText] = useState("");
   const { setIsLoading } = useContext(IsLoadingContext);
   const { setCity } = useContext(CityContext);
+  const { setErrorMsg } = useContext(ErrorMsgContext);
+  const { setShowError } = useContext(ShowErrorContext);
 
   const fetchCity = () => {
     setIsLoading(true);
@@ -18,7 +25,11 @@ export default function InputSearchCity() {
     console.log("text:", text);
     if (text) {
       fetchCity();
-    } else console.log("Please type something"); //TODO ERROR
+    } else {
+      setErrorMsg("Please type something");
+      setShowError(true);
+      console.log("Please type something"); //TODO USEREDUCER
+    }
   };
 
   return (
