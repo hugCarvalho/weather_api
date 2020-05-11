@@ -49,6 +49,14 @@ export default function DisplayWeather({ filData2 }) {
     }
   }, [isLoading, filData2]);
 
+  const rotate = deg => {
+  document.querySelector(
+    ".fa-long-arrow-alt-down"
+  ).style.transform = `rotate(${deg}deg)`;
+  //maybe it starts hidden...
+};
+
+
   return (
     <>
       <p>{isLoading ? "loading..." : null}</p>
@@ -158,20 +166,8 @@ export default function DisplayWeather({ filData2 }) {
           {isLoading ? null : rotate(filData2.weather.list[0].wind.deg)}
         </div>
 
-        {/* WIND DIRECTION */}
-        {/* <div className="item item--10"> */}
-        {/* </div> */}
-        {/* <div className="wd">?</div> */}
-        <div className="item item--11"></div>
       </div>
-      {/* {!isLoading ? () => setTrigger(true) : null} */}
     </>
   );
 }
 
-const rotate = deg => {
-  document.querySelector(
-    ".fa-long-arrow-alt-down"
-  ).style.transform = `rotate(${deg}deg)`;
-  //maybe it starts hidden...
-};

@@ -1,31 +1,30 @@
 @import "../../App.scss";
 
 .container__search-city {
-  //background-color: $main-blue1;
+  padding: 1.5rem 0;
   display: flex;
   flex-direction: column;
   text-align: center;
-  padding: 1.5rem 0;
 
-  input {
-    //background-color: black;
-    width: 60%;
-    height: 2rem;
-    padding: 1px 3px;
-    border-right: none; //to remove firefox automatic border-radius
-    border-radius: 4px 0 0 4px;
+  input,
+  button {
+    height: 2.3rem;
   }
 
-  /* Buttons styles start */
+  input {
+    width: 60%;
+    padding: 1px 3px;
+    border-right: none; //also deactivates removes firefox automatic border-radius
+    border-radius: 3px 0 0 3px;
+  }
+
   button {
     background: $tabs-blue1;
     color: #ffffff;
-    //display: inline-block;
-    border: none;
-    border-radius: 0 2px 2px 0;
-    height: 2rem;
-    padding: 0 10px;
     font-weight: 500;
+    padding: 0 10px;
+    border: none;
+    border-radius: 0 3px 3px 0;
     transition: background 350ms ease-out;
     //-webkit-appearance: none;
     //-moz-appearance: none;

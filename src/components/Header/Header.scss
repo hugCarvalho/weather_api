@@ -1,13 +1,12 @@
 .page-header {
-  //background-color: blue;
-  background-image: url("/media/sky3.jpg");
+  color: rgb(212, 217, 219);
   width: 100%;
+  padding: 7px;
+  text-align: center;
+  background-image: url("/media/sky3.jpg");
   background-size: 100%;
   background-position: 50% 57%;
   background-repeat: no-repeat;
-  padding: 7px;
-  text-align: center;
-  color: rgb(212, 217, 219);
 
   .wrapper__header {
     display: flex;

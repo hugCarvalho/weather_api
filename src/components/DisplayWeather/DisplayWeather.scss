@@ -67,9 +67,10 @@
       overflow: hidden;
 
       img {
-        width: 90%;
+        
+        width: 100%;
         height: auto;
-        max-height: 19.2rem;
+        max-height: 19.2rem; //TODO: check
       }
     }
 
@@ -103,11 +104,14 @@
       justify-content: space-evenly;
       align-items: center;
     }
-    // &--11 {
-    //   grid-area: endborder;
-
-    //   //background-color: #423f3f;
-    //   //margin-top: 10px;
-    // }
   }
+}
+
+.end-border {
+  display: flex;
+  flex-flow: column;
+  flex-grow: 1;
+  flex: 1;
+border-top: none;
+  background-color: #423f3f;
 }

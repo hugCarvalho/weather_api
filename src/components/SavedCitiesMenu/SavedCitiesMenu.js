@@ -56,7 +56,7 @@ export default function SavedCitiesMenu({ validCity }) {
   //FUNCTIONS
   //SET CONTAINER HEIGHT
   const setContainerHeight = () =>
-    isMenuClosed ? { height: "42px" } : { height: "90px" };
+    isMenuClosed ? { height: "42px" } : { height: "96px" };
   const showHideOpenArrow = () => {
     return isMenuClosed
       ? {

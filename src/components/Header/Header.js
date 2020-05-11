@@ -5,7 +5,6 @@ export default function Header() {
   return (
     <>
       <header className="page-header">
-        {/* <div className="options">Options</div> */}
         <div className="wrapper__header">
           <h1>Weatherjetzt</h1>
           <p>Get your weather everywhere. Or almost...</p>
@@ -15,4 +14,4 @@ export default function Header() {
   );
 }
 
-//Photo by Nathaniel Yeo on Unsplash
+//TODO:  photo by ???

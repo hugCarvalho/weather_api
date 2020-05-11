@@ -1,12 +1,10 @@
 @import "../../App.scss";
 
 .container__days-forecast {
-  //background-color: $main-blue1;
   width: 100%;
   margin: auto;
 
   ul {
-    //background-color: red;
     display: flex;
     justify-content: center;
   }
@@ -17,7 +15,6 @@
   }
 
   li {
-    //background-color: green;
     font-size: 1.2rem;
     border-bottom: none;
     list-style: none;
@@ -30,22 +27,16 @@
   button {
     color: #ffffff;
     background: #0059c5;
-
     width: 100%;
-    // !DECIDE!
-    height: 2rem;
-    height: 2.5rem;
     height: 3rem;
-    height: 3.5rem;
-    ////////////////
     padding: 0px 20px;
     letter-spacing: 1px;
+    font-weight: 500;
     border: none;
-    opacity: 0.7;
-    transition: background 350ms ease-out, transform 250ms ease;
+    opacity: 0.8;
+    transition: background 300ms ease;
     //-moz-appearance: none;
     //-webkit-appearance: none;
-    font-weight: 500;
 
     &:active {
       transform: scale(0.99);
