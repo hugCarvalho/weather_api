@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.scss";
-import { keyAPI } from "./key";
+//import { keyAPI } from "./key";
 import Header from "./components/Header/Header";
 import InputSearchCity from "./components/InputSearchCity/InputSearchCity";
 import DisplayErrorMsg from "./components/DisplayErrorMsg/DisplayErrorMsg";
@@ -14,7 +14,7 @@ export const ErrorMsgContext = React.createContext();
 export const ShowErrorContext = React.createContext();
 
 function App() {
-  const key = keyAPI;
+  const key = "82005d27a116c2880c8f0fcb866998a0";
   // prettier-ignore
   const [city, setCity] = useState("");
   const [validCity, setValidCity] = useState("");
