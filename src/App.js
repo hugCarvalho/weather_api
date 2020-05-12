@@ -36,7 +36,7 @@ function App() {
     const getWeather = async () => {
       console.log("GETWEATHER");
       // let api = `http://api.openweathermap.org/data/2.5/weather?q=${text}&appid=${key}`;
-      let api = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${key}`; //CHANGE TO TEXT!!!!
+      let api = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${key}`; //CHANGE TO TEXT!!!!
       const response = await fetch(api);
       const data = await response.json();
 
@@ -51,7 +51,7 @@ function App() {
           setIsLoading(false);
         }, 200);
       } else {
-        console.log("Error", data.message);
+        console.log("An Error ocurred:", data.message);
         setErrorMsg(data.message);
         setShowError(true);
         setIsLoading(false);
