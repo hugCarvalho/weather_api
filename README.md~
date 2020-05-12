@@ -3,16 +3,18 @@
 	- No media queries yet. Display is optimized only for mobile view (vertical). 
 	- Not optimized
 	- Refactoring of code is still in progress
-
-## Weather App
-Displays weather data from *OpenWeather* API. 
-
-### Specs
+	 
+## Specs
 Built with React HOOKS, 
 
 3rd party used: 
 - Moment 
 - Tippy
+	
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Weather App
+Displays weather data from *OpenWeather* API. 
 
 #### App functionalities
 - searching for a city

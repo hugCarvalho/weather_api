@@ -42,7 +42,7 @@ function App() {
 
       // console.log("DATAFROMFETCHING :", isLoading);
       if (data.cod === "200") {
-        console.log("FETCHEDDATA:", data);
+        //console.log("FETCHEDDATA:", data);
         setData({
           weather: data,
         });
@@ -62,12 +62,11 @@ function App() {
         setErrorMsg({ error: "Something went wrong..." });
         setShowError(true);
       });
-    console.log("2:", data);
   }, [isLoading, city, key]);
 
-  useEffect(() => {
-    console.log("----------------------------");
-  }, [city]);
+  // useEffect(() => {
+  //   console.log("----------------------------");
+  // }, [city]);
 
   return (
     <>

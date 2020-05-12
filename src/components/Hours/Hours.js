@@ -15,18 +15,10 @@ export default function Hours({ filteredDataByDay, isLoading, activeDay }) {
 
   useEffect(() => {
     if (!isLoading) {
-      // console.log(
-      //   "1 - UE NOT LOADING: setDefaultHour with data from array:",
-      //   defaultHour
-      // );
       if (activeDay.day0[1]) {
         setDefaultHour(filteredDataByDay.weather.list[0].dt_txt.slice(11, 16));
       }
       if (!activeDay.day0[1]) {
-        // console.log(
-        //   "UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUE: setDefaultHour for 15:00, defaultHour"
-        // );
-        //setDefaultHour("12:00");
         setActiveHour();
       }
     }

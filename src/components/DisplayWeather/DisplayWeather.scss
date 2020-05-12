@@ -66,10 +66,13 @@
       justify-content: center;
       overflow: hidden;
 
+      .not-available {
+        padding-top: 9rem;
+      }
+
       img {
-        
-        width: 100%;
-        height: auto;
+        width: 80%;
+        height: 80%;
         max-height: 19.2rem; //TODO: check
       }
     }
@@ -105,6 +108,12 @@
       align-items: center;
     }
   }
+  p {
+    //display: block;
+    //background-color: red;
+    font-size: 1.5rem;
+    padding: 0 4px 40px 4px;
+  }
 }
 
 .end-border {
@@ -112,6 +121,6 @@
   flex-flow: column;
   flex-grow: 1;
   flex: 1;
-border-top: none;
+  border-top: none;
   background-color: #423f3f;
 }

@@ -34,6 +34,7 @@ export default function SavedCitiesMenu({ validCity }) {
       setShowError(true); //TODO: useReducer
     }
   }, []);
+
   useEffect(() => {
     const fetchedDefaultCity = JSON.parse(localStorage.getItem("defaultCity"));
     setDefaultCity(fetchedDefaultCity);
