@@ -7,6 +7,8 @@ import {
   ShowErrorContext,
 } from "../../App";
 
+//TODO: prevent n/a display if city already is displayed and new city is not found
+
 export default function InputSearchCity() {
   const [text, setText] = useState("");
   const { setIsLoading } = useContext(IsLoadingContext);
