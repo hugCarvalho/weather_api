@@ -21,8 +21,22 @@ select {
   -webkit-appearance: none;
 }
 
+html,
 body {
-  background-color: #7cafeb;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  //background-color: pink;
+}
+
+#root {
+  height: 100%;
+}
+
+.container-app {
+  background-color: black;
+
+  height: 100%;
 }
 
 $main-blue1: #7cafeb;

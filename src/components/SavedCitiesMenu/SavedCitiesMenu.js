@@ -98,6 +98,7 @@ export default function SavedCitiesMenu({ validCity }) {
       : saveCity(citySlot); //TODO useReducer
   };
 
+  // Check to prevent saving the same city again
   const checkSlotIsEmpty = e => {
     if (e.target.textContent === "empty") {
       setErrorMsg("save a city first");

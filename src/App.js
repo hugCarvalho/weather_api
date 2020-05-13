@@ -12,6 +12,7 @@ export const IsLoadingContext = React.createContext();
 export const CityContext = React.createContext();
 export const ErrorMsgContext = React.createContext();
 export const ShowErrorContext = React.createContext();
+export const IsNightContext = React.createContext();
 
 function App() {
   const key = "82005d27a116c2880c8f0fcb866998a0";
@@ -20,6 +21,7 @@ function App() {
   const [validCity, setValidCity] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState({});
+  const [isNight, setIsNight] = useState(false);
 
   //Join them?!
   const [showError, setShowError] = useState(false);
@@ -54,23 +56,21 @@ function App() {
         console.log("An Error ocurred:", data.message);
         setErrorMsg(data.message);
         setShowError(true);
-        setIsLoading(false);
       }
     };
     city &&
       getWeather().catch(() => {
-        setErrorMsg({ error: "Something went wrong..." });
+        setErrorMsg("Something went wrong...");
         setShowError(true);
       });
   }, [isLoading, city, key]);
 
-  // useEffect(() => {
-  //   console.log("----------------------------");
-  // }, [city]);
-
   return (
     <>
-      <div className="container-app">
+      <div
+        className="container-app"
+        style={isNight ? { background: "#202020" } : { background: "#7cafeb" }}
+      >
         <Header />
         {/* <DisplayOutput></DisplayOutput> organize components later */}
         <CityContext.Provider value={{ city, setCity }}>
@@ -81,7 +81,13 @@ function App() {
                 <DisplayErrorMsg showError={showError} errorMsg={errorMsg} />
                 <SavedCitiesMenu validCity={validCity} />
                 <DisplayCityName validCity={validCity} />
-                <Days data={data} isLoading={isLoading} validCity={validCity} />
+                <IsNightContext.Provider value={{ isNight, setIsNight }}>
+                  <Days
+                    data={data}
+                    isLoading={isLoading}
+                    validCity={validCity}
+                  />
+                </IsNightContext.Provider>
               </ShowErrorContext.Provider>
             </ErrorMsgContext.Provider>
           </IsLoadingContext.Provider>

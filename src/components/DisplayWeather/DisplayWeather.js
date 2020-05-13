@@ -1,13 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
 import "./DisplayWeather.scss";
-import { IsLoadingContext } from "../../App";
+import { IsLoadingContext, IsNightContext } from "../../App";
 import { RadioInput2 } from "../Utils/RadioInput/RadioInput";
 
 export default function DisplayWeather({ filData2 }) {
   const { isLoading } = useContext(IsLoadingContext);
+  const { isNight, setIsNight } = useContext(IsNightContext);
+
   const [isCelsius, setIsCelsius] = useState(true);
   const [isKm, setIsKm] = useState(true);
-  const [isNight, setIsNight] = useState(false);
 
   useEffect(() => {
     const changeBackgroundDayNight = () => {
@@ -121,8 +122,8 @@ export default function DisplayWeather({ filData2 }) {
             </button>
             <button>
               <RadioInput2
-                id={"mph"}
-                label={" mph"}
+                id={"mps"}
+                label={" mps"}
                 checked={!isKm}
                 action={() => setIsKm(false)}
               />
@@ -153,6 +154,7 @@ export default function DisplayWeather({ filData2 }) {
           }
           {isLoading ? "n/a" : rotate(filData2.weather.list[0].wind.deg)}
         </div>
+
         {/* <p>{isLoading ? "loading..." : null}</p> */}
       </div>
     </>

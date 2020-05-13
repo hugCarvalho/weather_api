@@ -1,7 +1,9 @@
 @import "../../App.scss";
 
 .container__weather-card {
+  background-color: lime;
   width: 100%;
+
   font-weight: 400;
   display: grid;
   grid-template-rows: repeat(4, 8rem) 2rem;
@@ -116,11 +118,9 @@
   }
 }
 
-.end-border {
-  display: flex;
-  flex-flow: column;
-  flex-grow: 1;
-  flex: 1;
-  border-top: none;
-  background-color: #423f3f;
-}
+// .end-border {
+//   background-color: #423f3f;
+//   background-color: blue;
+//   flex-grow: 1;
+//   height: 100%;
+// }

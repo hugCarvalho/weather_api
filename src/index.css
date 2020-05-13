@@ -10,14 +10,12 @@
   font-weight: normal;
   font-style: normal;
 }
+
 html {
   font-size: 62.5%;
-  background-color: #423f3f;  
 }
-
 body {
   font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
