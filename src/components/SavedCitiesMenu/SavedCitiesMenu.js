@@ -5,6 +5,8 @@ import { CityContext, ErrorMsgContext, ShowErrorContext } from "../../App";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 
+// TODO: change error beahviour in case of saving with a blank input
+
 export default function SavedCitiesMenu({ validCity }) {
   const { city, setCity } = useContext(CityContext);
   const [defaultCity, setDefaultCity] = useState("");
@@ -70,8 +72,10 @@ export default function SavedCitiesMenu({ validCity }) {
   //SAVE CITY
   const saveCity = citySlot => {
     // prettier-ignore
-    setErrorMsg("search for a city first")
-    setShowError(true);
+    if (!validCity) {
+      setErrorMsg("search for a city first")
+      setShowError(true);
+    }
     console.log("save city:", citySlot, validCity);
     // prettier-ignore
     if (citySlot === "city1") return setSavedCities({ ...savedCities, city1: validCity });
@@ -89,13 +93,14 @@ export default function SavedCitiesMenu({ validCity }) {
       setShowError(true);
       return;
     }
+
     const nameExists = Object.values(savedCities).some(city => {
-      console.log(city);
       return city.toLowerCase() === validCity.toLowerCase();
     });
-    return nameExists
-      ? console.log("City is already saved")
-      : saveCity(citySlot); //TODO useReducer
+    if (nameExists) {
+      setErrorMsg("City is already saved");
+      setShowError(true);
+    } else saveCity(citySlot);
   };
 
   // Check to prevent saving the same city again

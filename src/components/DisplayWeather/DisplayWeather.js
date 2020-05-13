@@ -26,7 +26,7 @@ export default function DisplayWeather({ filData2 }) {
       ? `${(value - 273.15).toFixed(1)}`
       : `${((value * 9) / 5 - 459.67).toFixed(2)}`;
 
-  //converts from metres per second (m/s)  to km/h
+  //converts from metres per second (m/s) to km/h or uses m/s value
   const convertWindSpeed = value =>
     isKm ? Math.round(value * 3.6) : Math.round(value * 2.237);
 
