@@ -35,3 +35,24 @@
     color: yellow;
   }
 }
+
+@media (min-width: 768px) {
+  .container__hours {
+    display: flex;
+    button {
+      width: 9.1rem; //don't use padding for left & right, buttons will have diff sizes.
+      padding: 7px 0;
+      font-size: 2.4rem;
+    }
+  }
+}
+// @media (min-width: 1140px) {
+//   .container__hours {
+//     display: flex;
+//     button {
+//       width: 9.1rem; //don't use padding for left & right, buttons will have diff sizes.
+//       padding: 7px 0;
+//       font-size: 2.4rem;
+//     }
+//   }
+// }

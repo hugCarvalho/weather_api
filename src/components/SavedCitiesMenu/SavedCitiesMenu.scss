@@ -3,7 +3,7 @@
 .container__saved-cities-menu {
   //height is inline controlled - setContainerHeight()
   //background: red;
-  width: 97%;
+  width: 90%;
 
   margin: auto;
   overflow: hidden; //needed for when closing menu
@@ -117,3 +117,42 @@
     justify-self: center;
   }
 }
+
+// @media (min-width: 576px) {
+//   .container__saved-cities-menu {
+//     width: 60%;
+//     grid-column-gap: 6px;
+//     margin-top: 3rem;
+//     margin-bottom: 2rem;
+//     .city-name {
+//       font-size: 1.5rem;
+//       font-weight: 500;
+//     }
+//   }
+// }
+
+@media (min-width: 768px) {
+  .container__saved-cities-menu {
+    width: 60%;
+    grid-column-gap: 6px;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    .city-name {
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+  }
+}
+
+// @media (min-width: 1140px) {
+//   .container__saved-cities-menu {
+//     width: 60%;
+//     grid-column-gap: 6px;
+//     margin-top: 3rem;
+//     margin-bottom: 2rem;
+//     .city-name {
+//       font-size: 1.5rem;
+//       font-weight: 500;
+//     }
+//   }
+// }

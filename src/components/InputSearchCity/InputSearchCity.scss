@@ -12,7 +12,7 @@
   }
 
   input {
-    width: 60%;
+    width: 48%;
     padding: 1px 3px;
     border-right: none; //also deactivates removes firefox automatic border-radius
     border-radius: 3px 0 0 3px;
@@ -40,3 +40,15 @@
     }
   }
 }
+
+@media (min-width: 576px) {
+  #input-search-city {
+    width: 30%;
+  }
+}
+
+// @media (min-width: 1140px) {
+//   #input-search-city {
+//     width: 30%;
+//   }
+// }

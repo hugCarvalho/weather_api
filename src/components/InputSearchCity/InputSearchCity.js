@@ -42,6 +42,7 @@ export default function InputSearchCity() {
             type="search"
             placeholder="type a city name..."
             onChange={e => setText(e.target.value)}
+            id="input-search-city"
           />
           <button type="submit">Go</button>
         </form>

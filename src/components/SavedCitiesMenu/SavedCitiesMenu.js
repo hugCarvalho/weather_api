@@ -134,21 +134,21 @@ export default function SavedCitiesMenu({ validCity }) {
         {/*FAST ACCESS CITIES BUTTONS */}
         <div className="items items--4">
           <button onClick={checkSlotIsEmpty}>
-            {savedCities.city1 || "empty"}
+            <span className="city-name">{savedCities.city1 || "empty"}</span>
           </button>
         </div>
 
         <div className="items items--5">
           {" "}
           <button onClick={checkSlotIsEmpty}>
-            {savedCities.city2 || "empty"}
+            <span className="city-name">{savedCities.city2 || "empty"}</span>
           </button>
         </div>
 
         <div className="items items--6">
           {" "}
           <button onClick={checkSlotIsEmpty}>
-            {savedCities.city3 || "empty"}
+            <span className="city-name">{savedCities.city3 || "empty"}</span>
           </button>
         </div>
 

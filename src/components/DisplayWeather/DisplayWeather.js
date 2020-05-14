@@ -58,6 +58,7 @@ export default function DisplayWeather({ filData2 }) {
             <img
               src={`/media/weather_icons/${filData2.weather.list[0].weather[0].icon}.png`}
               alt="weather icon"
+              id="weather-icon"
             />
           )}
         </div>
@@ -104,7 +105,7 @@ export default function DisplayWeather({ filData2 }) {
         </div>
 
         {/* Weather description */}
-        <div className="item item--7">
+        <div id="weather-description" className="item item--7">
           {isLoading ? "n/a" : filData2.weather.list[0].weather[0].description}
         </div>
 

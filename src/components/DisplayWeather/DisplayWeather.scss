@@ -75,9 +75,9 @@
 
       img {
         display: block;
-        width: 90%;
-        height: 80%;
-        margin-top: 10%;
+        width: 158px;
+        height: 158px;
+        margin-top: 20%;
         //max-height: 19rem; //TODO: check
       }
     }
@@ -121,4 +121,32 @@
   //   font-size: 1.5rem;
   //   padding: 0 4px 40px 4px;
   // }
+}
+
+@media (min-width: 576px) {
+  #weather-icon {
+    margin-top: 10%;
+    width: 186px;
+    height: 186px;
+  }
+}
+
+// @media (min-width: 768px) {
+//   #weather-icon {
+//     margin-top: 6%;
+//     width: 260px;
+//     // height: auto;
+//   }
+// }
+
+@media (min-width: 992px) {
+  #weather-icon {
+    margin-top: 2%;
+    width: 236px;
+    height: auto;
+  }
+
+  #weather-description {
+    font-size: 3rem;
+  }
 }
