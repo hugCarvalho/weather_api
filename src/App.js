@@ -69,11 +69,6 @@ function App() {
       });
   }, [isLoading, city, key]);
 
-  window.addEventListener(
-    "unhandledrejection",
-    alert("An error has ocurred, please reload ")
-  );
-
   return (
     <>
       <div
