@@ -24,50 +24,51 @@ function App() {
   const [city, setCity] = useState("");
   const [validCity, setValidCity] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState({});
+  const [data, setData] = useState();
   const [isNight, setIsNight] = useState(false);
 
   //Join them?!
   const [showError, setShowError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  //TESTING EFFECTS
-  useEffect(() => {
-    //console.log("1- city:", city, "validCity:", validCity);
-  }, [city, validCity]);
-
   //FETCH DATA
   useEffect(() => {
-    console.log("1:", data);
+    // console.log("1:", data);
     const getWeather = async () => {
       console.log("GETWEATHER");
-      // let api = `http://api.openweathermap.org/data/2.5/weather?q=${text}&appid=${key}`;
       let api = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${key}`; //CHANGE TO TEXT!!!!
       const response = await fetch(api);
       const data = await response.json();
 
+      // setIsLoading(true);
       // console.log("DATAFROMFETCHING :", isLoading);
       if (data.cod === "200") {
         //console.log("FETCHEDDATA:", data);
         setData({
           weather: data,
         });
-        setValidCity(city);
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 200);
+        setValidCity(city); //change to another place
+        setIsLoading(false);
+        // setTimeout(() => {
+        //   console.log("ONE");
+        // }, 100);
       } else {
         console.log("An Error ocurred:", data.message);
         setErrorMsg(data.message);
         setShowError(true);
       }
     };
+    setIsLoading(true);
     city &&
       getWeather().catch(() => {
         setErrorMsg("Something went wrong...");
         setShowError(true);
       });
-  }, [isLoading, city, key]);
+  }, [city, key]);
+
+  useEffect(() => {
+    console.log("isLoading:", isLoading);
+  }, [isLoading]);
 
   return (
     <>
