@@ -1,28 +1,18 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useReducer } from "react";
 import "./SavedCitiesMenu.scss";
 import RadioInput from "../Utils/RadioInput/RadioInput";
-import { CityContext, ErrorMsgContext, ShowErrorContext } from "../../App";
+import { ErrorContext, CityContext } from "../../App";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 
-// TODO: change error beahviour in case of saving with a blank input
-
 export default function SavedCitiesMenu({ validCity }) {
   const { city, setCity } = useContext(CityContext);
-  const [defaultCity, setDefaultCity] = useState("");
-  const [savedCities, setSavedCities] = useState({
-    city1: "",
-    city2: "",
-    city3: "",
-  });
-  const [isMenuClosed, setIsMenuClosed] = useState(false);
-  const { setErrorMsg } = useContext(ErrorMsgContext);
-  const { setShowError } = useContext(ShowErrorContext);
+  const { error, dispatch } = useContext(ErrorContext);
 
-  //TESTING PURPOSES
-  useEffect(() => {
-    //console.log("2- city:", city, "validCity:", validCity);
-  }, [city]);
+  const [defaultCity, setDefaultCity] = useState("");
+  // prettier-ignore
+  const [savedCities, setSavedCities] = useState({city1: "",city2: "",city3: ""});
+  const [isMenuClosed, setIsMenuClosed] = useState(false);
 
   //LOCAL STORAGE GET
   useEffect(() => {
@@ -32,8 +22,7 @@ export default function SavedCitiesMenu({ validCity }) {
         setIsMenuClosed(JSON.parse(localStorage.getItem("menuClosed")));
       }
     } catch (err) {
-      setErrorMsg("Error!File may be corrupted");
-      setShowError(true); //TODO: useReducer
+      dispatch({ type: "TRUE", value: "Error!File may be corrupted" });
     }
   }, []);
 
@@ -68,15 +57,8 @@ export default function SavedCitiesMenu({ validCity }) {
       : { visibility: "hidden" };
   };
 
-  //TODO: useReduced
   //SAVE CITY
   const saveCity = citySlot => {
-    // prettier-ignore
-    if (!validCity) {
-      setErrorMsg("search for a city first")
-      setShowError(true);
-    }
-    console.log("save city:", citySlot, validCity);
     // prettier-ignore
     if (citySlot === "city1") return setSavedCities({ ...savedCities, city1: validCity });
     // prettier-ignore
@@ -88,28 +70,21 @@ export default function SavedCitiesMenu({ validCity }) {
   //VALIDATION
   const checkCityisElegible = citySlot => {
     if (!validCity) {
-      //TODO: useReducer
-      setErrorMsg("SEARCH for a valid city first");
-      setShowError(true);
-      return;
+      return dispatch({ type: "TRUE", value: "SEARCH for a valid city first" });
     }
 
-    const nameExists = Object.values(savedCities).some(city => {
+    const cityNameExists = Object.values(savedCities).some(city => {
       return city.toLowerCase() === validCity.toLowerCase();
     });
-    if (nameExists) {
-      setErrorMsg("City is already saved");
-      setShowError(true);
+    if (cityNameExists) {
+      dispatch({ type: "TRUE", value: "City is already saved" });
     } else saveCity(citySlot);
   };
 
   // Check to prevent saving the same city again
   const checkSlotIsEmpty = e => {
     if (e.target.textContent === "empty") {
-      setErrorMsg("save a city first");
-      setShowError(true);
-      console.log("SAVE A CITY FIRST"); //TODO: useReducer
-      return;
+      return dispatch({ type: "TRUE", value: "save a city first" });
     } else setCity(e.target.textContent);
   };
 
@@ -117,10 +92,7 @@ export default function SavedCitiesMenu({ validCity }) {
   const chooseDefaultCity = city => {
     //console.log("e.target.value", city);
     if (!city) {
-      setErrorMsg("save a city first");
-      setShowError(true);
-      console.log("NOT POSSBILE"); //TODO: show error
-      return;
+      return dispatch({ type: "TRUE", value: "save a city first" });
     }
     setDefaultCity(city);
   };

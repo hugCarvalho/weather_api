@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import "./App.scss";
 //import { keyAPI } from "./key";
 import Header from "./components/Header/Header";
@@ -8,6 +8,10 @@ import Days from "./components/Days/Days";
 import SavedCitiesMenu from "./components/SavedCitiesMenu/SavedCitiesMenu";
 import DisplayCityName from "./components/DisplayCityName/DisplayCityName";
 
+//TESTIUNG
+import { errorInit, errorReducer } from "./components/reducers";
+export const ErrorContext = React.createContext();
+
 export const IsLoadingContext = React.createContext();
 export const CityContext = React.createContext();
 export const ErrorMsgContext = React.createContext();
@@ -15,21 +19,18 @@ export const ShowErrorContext = React.createContext();
 export const IsNightContext = React.createContext();
 
 //TODO: check focus behaviour
-//TODO!!!: check bug when choosing a city in fast track after displaying a dif day
 //TODO: check hoover effect on cities fast track
 
 function App() {
   const key = "82005d27a116c2880c8f0fcb866998a0";
-  // prettier-ignore
+
   const [city, setCity] = useState("");
   const [validCity, setValidCity] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
   const [isNight, setIsNight] = useState(false);
 
-  //Join them?!
-  const [showError, setShowError] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
+  const [error, dispatch] = useReducer(errorReducer, errorInit);
 
   //FETCH DATA
   useEffect(() => {
@@ -54,15 +55,13 @@ function App() {
         // }, 100);
       } else {
         console.log("An Error ocurred:", data.message);
-        setErrorMsg(data.message);
-        setShowError(true);
+        dispatch({ type: "TRUE", value: data.message });
       }
     };
     setIsLoading(true);
     city &&
       getWeather().catch(() => {
-        setErrorMsg("Something went wrong...");
-        setShowError(true);
+        dispatch({ type: "TRUE", value: "Something went wrong..." });
       });
   }, [city, key]);
 
@@ -77,24 +76,18 @@ function App() {
         style={isNight ? { background: "#202020" } : { background: "#7cafeb" }}
       >
         <Header />
-        {/* <DisplayOutput></DisplayOutput> organize components later */}
+        {/* {/* <DisplayOutput></DisplayOutput> organize components later */}
         <CityContext.Provider value={{ city, setCity }}>
           <IsLoadingContext.Provider value={{ isLoading, setIsLoading }}>
-            <ErrorMsgContext.Provider value={{ errorMsg, setErrorMsg }}>
-              <ShowErrorContext.Provider value={{ showError, setShowError }}>
-                <InputSearchCity />
-                <DisplayErrorMsg showError={showError} errorMsg={errorMsg} />
-                <SavedCitiesMenu validCity={validCity} />
-                <DisplayCityName validCity={validCity} />
-                <IsNightContext.Provider value={{ isNight, setIsNight }}>
-                  <Days
-                    data={data}
-                    isLoading={isLoading}
-                    validCity={validCity}
-                  />
-                </IsNightContext.Provider>
-              </ShowErrorContext.Provider>
-            </ErrorMsgContext.Provider>
+            <ErrorContext.Provider value={{ error, dispatch }}>
+              <InputSearchCity />
+              <DisplayErrorMsg />
+              <SavedCitiesMenu validCity={validCity} />
+            </ErrorContext.Provider>{" "}
+            <DisplayCityName validCity={validCity} />
+            <IsNightContext.Provider value={{ isNight, setIsNight }}>
+              <Days data={data} isLoading={isLoading} validCity={validCity} />
+            </IsNightContext.Provider>
           </IsLoadingContext.Provider>
         </CityContext.Provider>
       </div>
