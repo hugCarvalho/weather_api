@@ -3,7 +3,7 @@ import "./DisplayWeather.scss";
 import { RadioInput2 } from "../Utils/RadioInput/RadioInput";
 import { IsLoadingContext, IsNightContext } from "../../App";
 
-export default function DisplayWeather({ filData2 }) {
+export default function DisplayWeather({ filteredDataByHour }) {
   const { isLoading } = useContext(IsLoadingContext);
   const { isNight, setIsNight } = useContext(IsNightContext);
 
@@ -12,14 +12,14 @@ export default function DisplayWeather({ filData2 }) {
 
   useEffect(() => {
     const changeBackgroundDayNight = () => {
-      const iconName = filData2.weather.list[0].weather[0].icon;
+      const iconName = filteredDataByHour.weather.list[0].weather[0].icon;
       iconName.endsWith("n") ? setIsNight(true) : setIsNight(false);
     };
 
     if (!isLoading) {
       changeBackgroundDayNight();
     }
-  }, [isLoading, filData2, setIsNight]);
+  }, [isLoading, filteredDataByHour, setIsNight]);
 
   const convertTemp = value =>
     isCelsius
@@ -57,7 +57,7 @@ export default function DisplayWeather({ filData2 }) {
             <span className="not-available">n/a</span>
           ) : (
             <img
-              src={`/media/weather_icons/${filData2.weather.list[0].weather[0].icon}.png`}
+              src={`/media/weather_icons/${filteredDataByHour.weather.list[0].weather[0].icon}.png`}
               alt="weather icon"
               id="weather-icon"
             />
@@ -93,7 +93,7 @@ export default function DisplayWeather({ filData2 }) {
           <span>
             {isLoading
               ? "n/a"
-              : convertTemp(filData2.weather.list[0].main.temp)}
+              : convertTemp(filteredDataByHour.weather.list[0].main.temp)}
           </span>
         </div>
 
@@ -102,12 +102,16 @@ export default function DisplayWeather({ filData2 }) {
           <h5> Real Feel:</h5>
           {isLoading
             ? "n/a"
-            : convertTemp(filData2.weather.list[0].main.feels_like)}{" "}
+            : convertTemp(
+                filteredDataByHour.weather.list[0].main.feels_like
+              )}{" "}
         </div>
 
         {/* Weather description */}
         <div id="weather-description" className="item item--7">
-          {isLoading ? "n/a" : filData2.weather.list[0].weather[0].description}
+          {isLoading
+            ? "n/a"
+            : filteredDataByHour.weather.list[0].weather[0].description}
         </div>
 
         {/* WIND UNIT SELECTION */}
@@ -138,13 +142,15 @@ export default function DisplayWeather({ filData2 }) {
           <span>
             {isLoading
               ? "n/a"
-              : convertWindSpeed(filData2.weather.list[0].wind.speed)}
+              : convertWindSpeed(filteredDataByHour.weather.list[0].wind.speed)}
           </span>
 
           <span>
             {isLoading
               ? "n/a"
-              : convertWindDirection(filData2.weather.list[0].wind.deg)}
+              : convertWindDirection(
+                  filteredDataByHour.weather.list[0].wind.deg
+                )}
           </span>
 
           {
@@ -154,7 +160,9 @@ export default function DisplayWeather({ filData2 }) {
               {<i className="fas fa-long-arrow-alt-down"></i>}
             </span>
           }
-          {isLoading ? "n/a" : rotate(filData2.weather.list[0].wind.deg)}
+          {isLoading
+            ? "n/a"
+            : rotate(filteredDataByHour.weather.list[0].wind.deg)}
         </div>
 
         {/* <p>{isLoading ? "loading..." : null}</p> */}

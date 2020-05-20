@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./Hours.scss";
 import DisplayWeather from "../DisplayWeather/DisplayWeather";
-// import { IsLoadingContext } from "../../App";
 
 export default function Hours({ filteredDataByDay, isLoading, activeDay }) {
-  const [filData2, setFilData2] = useState({});
+  const [filteredDataByHour, setFilData2] = useState({});
   let [defaultHour, setDefaultHour] = useState("");
-  //const [activeHour, setActiveHour] = useState("");
 
   useEffect(() => {
     console.log(
@@ -14,22 +12,11 @@ export default function Hours({ filteredDataByDay, isLoading, activeDay }) {
       filteredDataByDay
     );
     setFilData2(filteredDataByDay);
-  }, [filteredDataByDay]);
+  }, [filteredDataByDay]); //remove
 
   useEffect(() => {
-    console.log("filData2", filData2);
-  }, [filData2]);
-
-  useEffect(() => {
-    if (!isLoading) {
-      if (activeDay.day0[1]) {
-        setDefaultHour(filteredDataByDay.weather.list[0].dt_txt.slice(11, 16));
-      }
-      if (!activeDay.day0[1]) {
-        setActiveHour();
-      }
-    }
-  }, [isLoading, filteredDataByDay]);
+    console.log("filData2", filteredDataByHour);
+  }, [filteredDataByHour]); //remove
 
   useEffect(() => {
     //console.log("UE: ActiveDay", activeDay);
@@ -44,9 +31,18 @@ export default function Hours({ filteredDataByDay, isLoading, activeDay }) {
       return filterByHour(e);
     }
   };
+  useEffect(() => {
+    if (!isLoading) {
+      if (activeDay.day0[1]) {
+        setDefaultHour(filteredDataByDay.weather.list[0].dt_txt.slice(11, 16));
+      }
+      if (!activeDay.day0[1]) {
+        setActiveHour();
+      }
+    }
+  }, [isLoading, filteredDataByDay, activeDay]);
 
   const filterByHour = e => {
-    //console.log("e:", e);
     const timeOnButton = e === "anotherDay" ? "12:00" : e.target.textContent;
     const activeHour = filteredDataByDay.weather.list.filter(item => {
       return item.dt_txt.slice(11, 16) === timeOnButton;
@@ -56,7 +52,6 @@ export default function Hours({ filteredDataByDay, isLoading, activeDay }) {
         list: activeHour,
       },
     });
-    //console.log("FN: FilterByHour");
   };
 
   return (
@@ -79,7 +74,7 @@ export default function Hours({ filteredDataByDay, isLoading, activeDay }) {
             );
           })}
       </div>
-      <DisplayWeather filData2={filData2} />
+      <DisplayWeather filteredDataByHour={filteredDataByHour} />
     </>
   );
 }

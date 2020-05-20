@@ -3,7 +3,7 @@ import "./Days.scss";
 import Moment from "react-moment";
 import Hours from "../Hours/Hours";
 
-export default function CityCard({ isLoading, data, validCity }) {
+export default function CityCard({ isLoading, data }) {
   const initTabs = {
     day0: [true, "Today"],
     day1: false,
@@ -11,15 +11,6 @@ export default function CityCard({ isLoading, data, validCity }) {
   };
   const [filteredDataByDay, setFilteredDataByDay] = useState({});
   const [tabIsActive, setTabIsActive] = useState(initTabs);
-
-  useEffect(() => {
-    setFilteredDataByDay(data);
-    !isLoading && filterByDay(0);
-  }, [data, isLoading]);
-
-  useEffect(() => {
-    setTabIsActive(initTabs);
-  }, [validCity]);
 
   //Filters original data returning the data for desired day
   const filterByDay = day => {
@@ -57,6 +48,11 @@ export default function CityCard({ isLoading, data, validCity }) {
       },
     });
   };
+
+  useEffect(() => {
+    setFilteredDataByDay(data);
+    !isLoading && filterByDay(0);
+  }, [data, isLoading]);
   //TODO: conditional render to wait for loading, display or btns
   return (
     <>
@@ -79,7 +75,6 @@ export default function CityCard({ isLoading, data, validCity }) {
               className={tabIsActive.day0 ? "tab-is-active" : "tab-is-inactive"}
               onClick={() => filterByDay(0)}
             >
-              {" "}
               <p>Today</p>
             </button>
           </li>
