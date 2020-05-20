@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useReducer } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./SavedCitiesMenu.scss";
 import RadioInput from "../Utils/RadioInput/RadioInput";
 import { ErrorContext, UserQueryContext } from "../../App";
@@ -14,7 +14,7 @@ export default function SavedCitiesMenu({ validCity }) {
   const [savedCities, setSavedCities] = useState({city1: "",city2: "",city3: ""});
   const [isMenuClosed, setIsMenuClosed] = useState(false);
 
-  //LOCAL STORAGE GET
+  //LOCAL STORAGE: GET
   useEffect(() => {
     try {
       if (localStorage.weatherApp) {
@@ -24,17 +24,19 @@ export default function SavedCitiesMenu({ validCity }) {
     } catch (err) {
       dispatch({ type: "TRUE", value: "Error!File may be corrupted" });
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     const fetchedDefaultCity = JSON.parse(localStorage.getItem("defaultCity"));
+
     setDefaultCity(fetchedDefaultCity);
+
     if (fetchedDefaultCity) {
       setUserQuery(fetchedDefaultCity); //automatically fetches on onload
     }
   }, [setUserQuery]); //don't use default city as a dependency
 
-  //LOCAL STORAGE SET
+  //LOCAL STORAGE: SET
   useEffect(() => {
     localStorage.setItem("weatherApp", JSON.stringify(savedCities));
   }, [savedCities]);
@@ -84,13 +86,12 @@ export default function SavedCitiesMenu({ validCity }) {
   // Check to prevent saving the same city again
   const checkSlotIsEmpty = e => {
     if (e.target.textContent === "empty") {
-      return dispatch({ type: "TRUE", value: "save a city first" });
+      dispatch({ type: "TRUE", value: "save a city first" });
     } else setUserQuery(e.target.textContent);
   };
 
   //CHOOSE DEFAULT CITY
   const chooseDefaultCity = city => {
-    //console.log("e.target.value", city);
     if (!city) {
       return dispatch({ type: "TRUE", value: "save a city first" });
     }

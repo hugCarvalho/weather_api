@@ -54,7 +54,6 @@ function App() {
         setInterval(() => {
           setIsLoading(false);
         }, 300);
-        //setIsLoading(false);
       }
     };
     userQuery &&
@@ -66,19 +65,6 @@ function App() {
   useEffect(() => {
     console.log("isLoading:", isLoading);
   }, [isLoading]);
-
-  useEffect(() => {
-    if (data !== null) {
-      console.log(data.weather.list[39].weather[0].icon);
-      // setInterval(() => {
-      //   setIsLoading(false);
-      // }, 300);
-      //setIsLoading(false);
-      console.log(isLoading);
-    }
-    console.log("data", data);
-  }, [data]);
-  //console.log("APP");
 
   return (
     <>
