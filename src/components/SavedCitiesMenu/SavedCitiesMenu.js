@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useContext, useReducer } from "react";
 import "./SavedCitiesMenu.scss";
 import RadioInput from "../Utils/RadioInput/RadioInput";
-import { ErrorContext, CityContext } from "../../App";
+import { ErrorContext, UserQueryContext } from "../../App";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 
 export default function SavedCitiesMenu({ validCity }) {
-  const { city, setCity } = useContext(CityContext);
-  const { error, dispatch } = useContext(ErrorContext);
+  const { setUserQuery } = useContext(UserQueryContext);
+  const { dispatch } = useContext(ErrorContext);
 
   const [defaultCity, setDefaultCity] = useState("");
   // prettier-ignore
@@ -30,9 +30,9 @@ export default function SavedCitiesMenu({ validCity }) {
     const fetchedDefaultCity = JSON.parse(localStorage.getItem("defaultCity"));
     setDefaultCity(fetchedDefaultCity);
     if (fetchedDefaultCity) {
-      setCity(fetchedDefaultCity); //automatically fetches on onload
+      setUserQuery(fetchedDefaultCity); //automatically fetches on onload
     }
-  }, [setCity]); //don't use default city as a dependency
+  }, [setUserQuery]); //don't use default city as a dependency
 
   //LOCAL STORAGE SET
   useEffect(() => {
@@ -85,7 +85,7 @@ export default function SavedCitiesMenu({ validCity }) {
   const checkSlotIsEmpty = e => {
     if (e.target.textContent === "empty") {
       return dispatch({ type: "TRUE", value: "save a city first" });
-    } else setCity(e.target.textContent);
+    } else setUserQuery(e.target.textContent);
   };
 
   //CHOOSE DEFAULT CITY

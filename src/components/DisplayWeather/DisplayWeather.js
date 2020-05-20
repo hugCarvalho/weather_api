@@ -1,7 +1,7 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, memo } from "react";
 import "./DisplayWeather.scss";
-import { IsLoadingContext, IsNightContext } from "../../App";
 import { RadioInput2 } from "../Utils/RadioInput/RadioInput";
+import { IsLoadingContext, IsNightContext } from "../../App";
 
 export default function DisplayWeather({ filData2 }) {
   const { isLoading } = useContext(IsLoadingContext);
@@ -19,12 +19,12 @@ export default function DisplayWeather({ filData2 }) {
     if (!isLoading) {
       changeBackgroundDayNight();
     }
-  }, [isLoading, filData2]);
+  }, [isLoading, filData2, setIsNight]);
 
   const convertTemp = value =>
     isCelsius
       ? `${(value - 273.15).toFixed(1)}`
-      : `${((value * 9) / 5 - 459.67).toFixed(2)}`;
+      : `${((value * 9) / 5 - 459.67).toFixed(0)}`;
 
   //converts from metres per second (m/s) to km/h or uses m/s value
   const convertWindSpeed = value =>
@@ -44,6 +44,7 @@ export default function DisplayWeather({ filData2 }) {
     ).style.transform = `rotate(${deg}deg)`;
   };
 
+  //console.log("WEATHER");
   return (
     <>
       {/* WEATHER ICON AND DESCRIPTION */}

@@ -9,9 +9,16 @@ export default function Hours({ filteredDataByDay, isLoading, activeDay }) {
   //const [activeHour, setActiveHour] = useState("");
 
   useEffect(() => {
-    //console.log("2.1- UE: setFilData2: sends the data to be displayed ");
+    console.log(
+      "setFilData2: sends the data to be displayed:",
+      filteredDataByDay
+    );
     setFilData2(filteredDataByDay);
   }, [filteredDataByDay]);
+
+  useEffect(() => {
+    console.log("filData2", filData2);
+  }, [filData2]);
 
   useEffect(() => {
     if (!isLoading) {

@@ -1,7 +1,8 @@
 import React from "react";
 import "./DisplayCityName.scss";
 
-export default function DisplayCityName({ validCity }) {
+function DisplayCityName({ validCity }) {
+  console.log("CITY NAME");
   return (
     <>
       <header className="container__city-name">
@@ -10,3 +11,5 @@ export default function DisplayCityName({ validCity }) {
     </>
   );
 }
+
+export default React.memo(DisplayCityName);

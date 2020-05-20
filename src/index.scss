@@ -13,9 +13,16 @@
 
 html {
   font-size: 62.5%;
+  height: 100%;
 }
+
 body {
+  height: 100%;
   font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  height: 100%;
 }
