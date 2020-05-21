@@ -1,45 +1,29 @@
-button:hover {
-  cursor: pointer;
+.container__app {
+  height: 100%;
 }
 
 button,
-input,
-optgroup,
-select,
-textarea {
-  font-family: inherit; /* 1 */
-  font-size: 100%; /* 1 */
-  //line-height: 1.15; /* 1 */
-  margin: 0; /* 2 */
+input {
+  font-family: inherit;
+  font-size: 100%;
+  margin: 0;
 }
-
-button,
-select {
-  /* 1 */
+button {
   text-transform: none;
-  //background-color: red;
   -webkit-appearance: none;
 }
-
-html,
-body {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  //background-color: pink;
-}
-
-#root {
-  height: 100%;
-}
-
-.container-app {
-  background-color: black;
-
-  height: 100%;
+button:hover {
+  cursor: pointer;
 }
 
 $main-blue1: #7cafeb;
 $tabs-blue1: #0059c5;
 $menu-gray1: #a3a3a3;
 $main-gray: #423f3f;
+
+//Colors
+$white: #ffffff;
+$main-blue: #7cafeb;
+$secondary-blue: #0059c5;
+$gray-dark: #423f3f;
+$menu-gray1: #a3a3a3;

@@ -19,8 +19,8 @@
   }
 
   button {
-    background: $tabs-blue1;
-    color: #ffffff;
+    background: $secondary-blue;
+    color: $white;
     font-weight: 500;
     padding: 0 10px;
     border: none;
@@ -34,7 +34,7 @@
     }
     &:hover,
     &:focus {
-      background: lighten($tabs-blue1, 10%);
+      background: lighten($secondary-blue, 10%);
       font-weight: 600;
       outline: none;
     }

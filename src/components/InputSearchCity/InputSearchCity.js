@@ -1,26 +1,17 @@
 import React, { useState, useContext } from "react";
 import "./InputSearchCity.scss";
-import { IsLoadingContext, ErrorContext, UserQueryContext } from "../../App";
-
-//TODO: prevent n/a display if city already is displayed and new city is not found
+import { ErrorContext, UserQueryContext } from "../../App";
 
 export default function InputSearchCity() {
   const { setUserQuery } = useContext(UserQueryContext);
-
   const [text, setText] = useState("");
-  const { setIsLoading } = useContext(IsLoadingContext);
   const { dispatch } = useContext(ErrorContext);
-
-  // const fetchCity = () => {
-  //   setIsLoading(true);
-  //   setCity(text);
-  // };
 
   //VALIDATION
   const checkInputIsValid = e => {
+    //don't use setIsLoading. Allows for rerender on city not found
     e.preventDefault();
     if (text) {
-      //      fetchCity();
       setUserQuery(text);
     } else {
       dispatch({ type: "TRUE", value: "Please type something" });
