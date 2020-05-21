@@ -1,17 +1,17 @@
 import React from "react";
 import "./Header.scss";
 
-export default function Header() {
+function Header() {
+  // console.log("HEADER");
   return (
     <>
-      <header className="page-header">
-        <div className="wrapper__header">
-          <h1>Weatherjetzt</h1>
-          <p>Get your weather everywhere. Or almost...</p>
-        </div>
+      <header className="header">
+        <h1>Weatherjetzt</h1>
+        <p>Get your weather everywhere. Or almost...</p>
       </header>
     </>
   );
 }
 
+export default React.memo(Header);
 //TODO:  photo by ???
