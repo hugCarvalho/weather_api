@@ -1,14 +1,13 @@
 import React, { useEffect, useState, useContext, useReducer } from "react";
 import "./SavedCitiesMenu.scss";
 import RadioInput from "../Utils/RadioInput/RadioInput";
-import { ErrorContext, CityContext, UserQueryContext } from "../../App";
+import { ErrorContext, UserQueryContext } from "../../App";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 
 export default function SavedCitiesMenu({ validCity }) {
   const { setUserQuery } = useContext(UserQueryContext);
 
-  const { city, setCity } = useContext(CityContext);
   const { error, dispatch } = useContext(ErrorContext);
 
   const [defaultCity, setDefaultCity] = useState("");

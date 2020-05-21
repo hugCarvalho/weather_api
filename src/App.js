@@ -26,7 +26,6 @@ function App() {
   const key = "82005d27a116c2880c8f0fcb866998a0";
   const [userQuery, setUserQuery] = useState("");
 
-  const [city, setCity] = useState("");
   const [validCity, setValidCity] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
@@ -81,19 +80,17 @@ function App() {
         <Header />
         <UserQueryContext.Provider value={{ userQuery, setUserQuery }}>
           {/* {/* <DisplayOutput></DisplayOutput> organize components later */}
-          <CityContext.Provider value={{ city, setCity }}>
-            <IsLoadingContext.Provider value={{ isLoading, setIsLoading }}>
-              <ErrorContext.Provider value={{ error, dispatch }}>
-                <InputSearchCity />
-                <DisplayErrorMsg />
-                <SavedCitiesMenu validCity={validCity} />
-              </ErrorContext.Provider>{" "}
-              <DisplayCityName validCity={validCity} />
-              <IsNightContext.Provider value={{ isNight, setIsNight }}>
-                <Days data={data} isLoading={isLoading} validCity={validCity} />
-              </IsNightContext.Provider>
-            </IsLoadingContext.Provider>
-          </CityContext.Provider>
+          <IsLoadingContext.Provider value={{ isLoading, setIsLoading }}>
+            <ErrorContext.Provider value={{ error, dispatch }}>
+              <InputSearchCity />
+              <DisplayErrorMsg />
+              <SavedCitiesMenu validCity={validCity} />
+            </ErrorContext.Provider>{" "}
+            <DisplayCityName validCity={validCity} />
+            <IsNightContext.Provider value={{ isNight, setIsNight }}>
+              <Days data={data} isLoading={isLoading} validCity={validCity} />
+            </IsNightContext.Provider>
+          </IsLoadingContext.Provider>
         </UserQueryContext.Provider>
       </div>
     </>

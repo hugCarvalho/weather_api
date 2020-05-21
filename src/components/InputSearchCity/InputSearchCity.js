@@ -1,11 +1,6 @@
 import React, { useState, useContext } from "react";
 import "./InputSearchCity.scss";
-import {
-  IsLoadingContext,
-  CityContext,
-  ErrorContext,
-  UserQueryContext,
-} from "../../App";
+import { IsLoadingContext, ErrorContext, UserQueryContext } from "../../App";
 
 //TODO: prevent n/a display if city already is displayed and new city is not found
 
@@ -14,7 +9,6 @@ export default function InputSearchCity() {
 
   const [text, setText] = useState("");
   const { setIsLoading } = useContext(IsLoadingContext);
-  const { setCity } = useContext(CityContext);
   const { dispatch } = useContext(ErrorContext);
 
   // const fetchCity = () => {
