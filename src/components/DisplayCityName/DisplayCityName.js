@@ -2,7 +2,7 @@ import React from "react";
 import "./DisplayCityName.scss";
 
 function DisplayCityName({ validCity }) {
-  console.log("CITY NAME");
+  // console.log("CITY NAME");
   return (
     <>
       <header className="container__city-name">

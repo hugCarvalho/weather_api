@@ -2,7 +2,7 @@ import React from "react";
 import "./Header.scss";
 
 function Header() {
-  console.log("HEADER");
+  // console.log("HEADER");
   return (
     <>
       <header className="header">
@@ -13,6 +13,6 @@ function Header() {
   );
 }
 
-export default React.memo(Header);
+export default Header;
 
 //TODO:  photo by ???

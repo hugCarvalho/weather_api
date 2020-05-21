@@ -8,19 +8,32 @@ export default function Hours({ filteredDataByDay, isLoading, activeDay }) {
 
   useEffect(() => {
     console.log(
-      " setFilteredDataByHour: sends the data to be displayed:",
+      // prettier-ignore
+      "data received from DAYS:",
+      filteredDataByDay,
+      "sets setFilteredDataByHour:",
       filteredDataByDay
     );
     setFilteredDataByHour(filteredDataByDay);
   }, [filteredDataByDay]); //remove
 
   useEffect(() => {
-    console.log("filData2", filteredDataByHour);
+    console.log("filteredDataByHour", filteredDataByHour);
   }, [filteredDataByHour]); //remove
 
   useEffect(() => {
-    //console.log("UE: ActiveDay", activeDay);
-  }, [activeDay]);
+    if (!isLoading) {
+      if (activeDay.day0[1]) {
+        setDefaultHour(filteredDataByDay.weather.list[0].dt_txt.slice(11, 16));
+      }
+      if (!activeDay.day0[1]) {
+        setActiveHour();
+      }
+    }
+  }, [isLoading, filteredDataByDay]);
+  useEffect(() => {
+    console.log("filData2", filteredDataByHour);
+  }, [filteredDataByHour]); //remove
 
   const setActiveHour = e => {
     if (e === undefined) {
@@ -31,16 +44,6 @@ export default function Hours({ filteredDataByDay, isLoading, activeDay }) {
       return filterByHour(e);
     }
   };
-  useEffect(() => {
-    if (!isLoading) {
-      if (activeDay.day0[1]) {
-        setDefaultHour(filteredDataByDay.weather.list[0].dt_txt.slice(11, 16));
-      }
-      if (!activeDay.day0[1]) {
-        setActiveHour();
-      }
-    }
-  }, [isLoading, filteredDataByDay, activeDay]);
 
   const filterByHour = e => {
     const timeOnButton = e === "anotherDay" ? "12:00" : e.target.textContent;

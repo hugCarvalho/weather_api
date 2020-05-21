@@ -112,12 +112,11 @@
       align-items: center;
     }
   }
-  // p {
-  //   //display: block;
-  //   //background-color: red;
-  //   font-size: 1.5rem;
-  //   padding: 0 4px 40px 4px;
-  // }
+}
+.loading {
+  color: yellow;
+  font-size: 2.5rem;
+  padding: 4px 4px 40px 4px;
 }
 
 @media (min-width: 576px) {

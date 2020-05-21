@@ -25,16 +25,17 @@ function App() {
   const [error, dispatch] = useReducer(errorReducer, errorInit);
 
   //CONTROL ONLY
-  useEffect(() => {
-    console.log("userQuery:", userQuery);
-  }, [userQuery]);
-  useEffect(() => {
-    console.log("valid city:", validCity);
-  }, [validCity]);
+  // useEffect(() => {
+  //   console.log("userQuery:", userQuery);
+  // }, [userQuery]);
+  // useEffect(() => {
+  //   console.log("valid city:", validCity);
+  // }, [validCity]);
   /////////////////////////
 
   //FETCH DATA
   useEffect(() => {
+    console.log("FETCH CITY");
     setIsLoading(true); //don't comment out
     const getWeather = async () => {
       const api = `https://api.openweathermap.org/data/2.5/forecast?q=${userQuery}&appid=${key}`; //CHANGE TO TEXT!!!!
@@ -48,7 +49,7 @@ function App() {
         setValidCity(userQuery); //change to another place
         setInterval(() => {
           setIsLoading(false);
-        }, 300);
+        }, 3000);
       } else {
         dispatch({ type: "TRUE", value: data.message });
         setInterval(() => {

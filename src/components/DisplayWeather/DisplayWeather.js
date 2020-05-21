@@ -1,7 +1,7 @@
-import React, { useState, useContext, useEffect, memo } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./DisplayWeather.scss";
-import { RadioInput2 } from "../Utils/RadioInput/RadioInput";
 import { IsLoadingContext, IsNightContext } from "../../App";
+import { RadioInput2 } from "../Utils/RadioInput/RadioInput";
 
 export default function DisplayWeather({ filteredDataByHour }) {
   const { isLoading } = useContext(IsLoadingContext);
@@ -9,6 +9,10 @@ export default function DisplayWeather({ filteredDataByHour }) {
 
   const [isCelsius, setIsCelsius] = useState(true);
   const [isKm, setIsKm] = useState(true);
+
+  useEffect(() => {
+    console.log("FINAL. Data received from Hours:", filteredDataByHour);
+  }, [filteredDataByHour]);
 
   useEffect(() => {
     const changeBackgroundDayNight = () => {
@@ -47,6 +51,7 @@ export default function DisplayWeather({ filteredDataByHour }) {
   //console.log("WEATHER");
   return (
     <>
+      <p className="loading">{isLoading ? "loading..." : null}</p>
       {/* WEATHER ICON AND DESCRIPTION */}
       <div
         className="container__weather-card"
@@ -164,8 +169,6 @@ export default function DisplayWeather({ filteredDataByHour }) {
             ? "n/a"
             : rotate(filteredDataByHour.weather.list[0].wind.deg)}
         </div>
-
-        {/* <p>{isLoading ? "loading..." : null}</p> */}
       </div>
     </>
   );

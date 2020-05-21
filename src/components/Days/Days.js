@@ -3,7 +3,7 @@ import "./Days.scss";
 import Moment from "react-moment";
 import Hours from "../Hours/Hours";
 
-export default function CityCard({ isLoading, data }) {
+export default function CityCard({ isLoading, data, validCity }) {
   const initTabs = {
     day0: [true, "Today"],
     day1: false,
@@ -11,6 +11,15 @@ export default function CityCard({ isLoading, data }) {
   };
   const [filteredDataByDay, setFilteredDataByDay] = useState({});
   const [tabIsActive, setTabIsActive] = useState(initTabs);
+
+  useEffect(() => {
+    console.log("DATAOBJ that comes from APP:", data);
+  }, [data]);
+
+  useEffect(() => {
+    setFilteredDataByDay(data);
+    !isLoading && filterByDay(0);
+  }, [data, isLoading]);
 
   //Filters original data returning the data for desired day
   const filterByDay = day => {
@@ -26,15 +35,13 @@ export default function CityCard({ isLoading, data }) {
       forecastDay = 2;
       res = data.weather.list.filter(day => {
         return +day.dt_txt.slice(8, 10) === forecastDay;
-      });
-    }
-    if (res.length === 0 && forecastDay === 31) {
+      }); //make FN for
+    } else if (res.length === 0 && forecastDay === 31) {
       forecastDay = 1;
       res = data.weather.list.filter(day => {
         return +day.dt_txt.slice(8, 10) === forecastDay;
       });
-    }
-    if (res.length === 0 && forecastDay === 32) {
+    } else if (res.length === 0 && forecastDay === 32) {
       res = data.weather.list.filter(day => {
         currentMonth % 2 !== 0 ? (forecastDay = 1) : (forecastDay = 2);
         return +day.dt_txt.slice(8, 10) === forecastDay;
@@ -49,10 +56,6 @@ export default function CityCard({ isLoading, data }) {
     });
   };
 
-  useEffect(() => {
-    setFilteredDataByDay(data);
-    !isLoading && filterByDay(0);
-  }, [data, isLoading]);
   //TODO: conditional render to wait for loading, display or btns
   return (
     <>
