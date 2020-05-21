@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useReducer } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./SavedCitiesMenu.scss";
 import RadioInput from "../Utils/RadioInput/RadioInput";
 import { ErrorContext, UserQueryContext } from "../../App";
@@ -7,8 +7,7 @@ import "tippy.js/dist/tippy.css";
 
 export default function SavedCitiesMenu({ validCity }) {
   const { setUserQuery } = useContext(UserQueryContext);
-
-  const { error, dispatch } = useContext(ErrorContext);
+  const { dispatch } = useContext(ErrorContext);
 
   const [defaultCity, setDefaultCity] = useState("");
   // prettier-ignore
@@ -91,7 +90,6 @@ export default function SavedCitiesMenu({ validCity }) {
 
   //CHOOSE DEFAULT CITY
   const chooseDefaultCity = city => {
-    //console.log("e.target.value", city);
     if (!city) {
       return dispatch({ type: "TRUE", value: "save a city first" });
     }
@@ -112,14 +110,12 @@ export default function SavedCitiesMenu({ validCity }) {
         </div>
 
         <div className="items items--5">
-          {" "}
           <button onClick={checkSlotIsEmpty}>
             <span className="city-name">{savedCities.city2 || "empty"}</span>
           </button>
         </div>
 
         <div className="items items--6">
-          {" "}
           <button onClick={checkSlotIsEmpty}>
             <span className="city-name">{savedCities.city3 || "empty"}</span>
           </button>
