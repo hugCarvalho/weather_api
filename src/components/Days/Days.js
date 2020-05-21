@@ -11,7 +11,6 @@ export default function CityCard({ isLoading, data, validCity }) {
   };
   const [filteredDataByDay, setFilteredDataByDay] = useState({});
   const [tabIsActive, setTabIsActive] = useState(initTabs);
-  //const [activeDay] = "Today";
 
   useEffect(() => {
     console.log("RECEIVED DATA FROM APP", data);
@@ -36,6 +35,7 @@ export default function CityCard({ isLoading, data, validCity }) {
     const currentMonth = Number(data.weather.list[0].dt_txt.slice(5, 7));
     let forecastDay = currentDay + day;
 
+    //TODO: make FN to replace 3 ocurrences
     let res = data.weather.list.filter(dayOfTheMonth => {
       return +dayOfTheMonth.dt_txt.slice(8, 10) === forecastDay;
     });
@@ -66,11 +66,9 @@ export default function CityCard({ isLoading, data, validCity }) {
       },
     });
   };
-  //TODO: conditional render to wait for loading, display or btns
+
   return (
     <>
-      {/* {console.log("RENEDR DAYS")} */}
-      {/* Doesn't show "days" if there is no default city on page load  */}
       <div
         className="container__days-forecast "
         style={!isLoading ? { display: "block" } : { display: "none" }}
@@ -90,7 +88,6 @@ export default function CityCard({ isLoading, data, validCity }) {
               className={tabIsActive.day0 ? "tab-is-active" : "tab-is-inactive"}
               onClick={() => filterByDay(0)}
             >
-              {" "}
               <p>Today</p>
             </button>
           </li>
