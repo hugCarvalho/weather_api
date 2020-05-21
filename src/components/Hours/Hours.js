@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./Hours.scss";
 import DisplayWeather from "../DisplayWeather/DisplayWeather";
-// import { IsLoadingContext } from "../../App";
 
 export default function Hours({ filteredDataByDay, isLoading, activeDay }) {
-  const [filData2, setFilData2] = useState({});
+  const [filteredDataByHours, setFilteredDataByHours] = useState({});
   let [defaultHour, setDefaultHour] = useState("");
-  //const [activeHour, setActiveHour] = useState("");
 
   useEffect(() => {
     //console.log("2.1- UE: setFilData2: sends the data to be displayed ");
-    setFilData2(filteredDataByDay);
+    setFilteredDataByHours(filteredDataByDay);
   }, [filteredDataByDay]);
 
   useEffect(() => {
@@ -18,8 +16,8 @@ export default function Hours({ filteredDataByDay, isLoading, activeDay }) {
   }, [filteredDataByDay]);
 
   useEffect(() => {
-    console.log("filteredDataByHour", filData2);
-  }, [filData2]);
+    console.log("filteredDataByHours", filteredDataByHours);
+  }, [filteredDataByHours]);
 
   useEffect(() => {
     if (!isLoading) {
@@ -52,7 +50,7 @@ export default function Hours({ filteredDataByDay, isLoading, activeDay }) {
     const activeHour = filteredDataByDay.weather.list.filter(item => {
       return item.dt_txt.slice(11, 16) === timeOnButton;
     });
-    setFilData2({
+    setFilteredDataByHours({
       weather: {
         list: activeHour,
       },
@@ -80,7 +78,7 @@ export default function Hours({ filteredDataByDay, isLoading, activeDay }) {
             );
           })}
       </div>
-      <DisplayWeather filData2={filData2} />
+      <DisplayWeather finalData={filteredDataByHours} />
     </>
   );
 }

@@ -1,7 +1,7 @@
 @import "../../App.scss";
 
 .container__hours {
-  background-color: #423f3f;
+  background-color: $gray-dark;
   width: 100%;
   padding: 10px 6px;
   display: flex;
@@ -9,8 +9,8 @@
   justify-content: center;
 
   button {
-    background-color: #423f3f;
-    color: lighten($main-gray, 25%);
+    background-color: $gray-dark;
+    color: lighten($gray-dark, 25%);
     width: 5.1rem; //don't use padding for left & right, buttons will have diff sizes.
     padding: 4px 0 4px 0;
     margin: 1px;
@@ -23,7 +23,7 @@
     &:active,
     &:focus,
     &:hover {
-      color: $main-blue1;
+      color: $main-blue;
       color: yellow;
     }
     -webkit-appearance: none;
@@ -31,7 +31,6 @@
   }
 
   .active-hour {
-    color: $main-blue1;
     color: yellow;
   }
 }
@@ -46,13 +45,3 @@
     }
   }
 }
-// @media (min-width: 1140px) {
-//   .container__hours {
-//     display: flex;
-//     button {
-//       width: 9.1rem; //don't use padding for left & right, buttons will have diff sizes.
-//       padding: 7px 0;
-//       font-size: 2.4rem;
-//     }
-//   }
-// }
