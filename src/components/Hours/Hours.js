@@ -3,15 +3,15 @@ import "./Hours.scss";
 import DisplayWeather from "../DisplayWeather/DisplayWeather";
 
 export default function Hours({ filteredDataByDay, isLoading, activeDay }) {
-  const [filteredDataByHour, setFilData2] = useState({});
-  let [defaultHour, setDefaultHour] = useState("");
+  const [filteredDataByHour, setFilteredDataByHour] = useState({});
+  const [defaultHour, setDefaultHour] = useState("");
 
   useEffect(() => {
     console.log(
-      "setFilData2: sends the data to be displayed:",
+      " setFilteredDataByHour: sends the data to be displayed:",
       filteredDataByDay
     );
-    setFilData2(filteredDataByDay);
+    setFilteredDataByHour(filteredDataByDay);
   }, [filteredDataByDay]); //remove
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export default function Hours({ filteredDataByDay, isLoading, activeDay }) {
     const activeHour = filteredDataByDay.weather.list.filter(item => {
       return item.dt_txt.slice(11, 16) === timeOnButton;
     });
-    setFilData2({
+    setFilteredDataByHour({
       weather: {
         list: activeHour,
       },

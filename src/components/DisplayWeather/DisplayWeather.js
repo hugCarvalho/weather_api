@@ -129,7 +129,7 @@ export default function DisplayWeather({ filteredDataByHour }) {
             <button>
               <RadioInput2
                 id={"mps"}
-                label={" mps"}
+                label={" mph"}
                 checked={!isKm}
                 action={() => setIsKm(false)}
               />
