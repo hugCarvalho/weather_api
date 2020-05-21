@@ -11,6 +11,7 @@ import DisplayCityName from "./components/DisplayCityName/DisplayCityName";
 //TESTIUNG
 import { errorInit, errorReducer } from "./components/reducers";
 export const ErrorContext = React.createContext();
+export const UserQueryContext = React.createContext();
 
 export const IsLoadingContext = React.createContext();
 export const CityContext = React.createContext();
@@ -23,6 +24,7 @@ export const IsNightContext = React.createContext();
 
 function App() {
   const key = "82005d27a116c2880c8f0fcb866998a0";
+  const [userQuery, setUserQuery] = useState("");
 
   const [city, setCity] = useState("");
   const [validCity, setValidCity] = useState("");
@@ -35,9 +37,10 @@ function App() {
   //FETCH DATA
   useEffect(() => {
     // console.log("1:", data);
+    setIsLoading(true);
     const getWeather = async () => {
       //console.log("GETWEATHER");
-      let api = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${key}`; //CHANGE TO TEXT!!!!
+      let api = `https://api.openweathermap.org/data/2.5/forecast?q=${userQuery}&appid=${key}`; //CHANGE TO TEXT!!!!
       const response = await fetch(api);
       const data = await response.json();
 
@@ -48,7 +51,7 @@ function App() {
         setData({
           weather: data,
         });
-        setValidCity(city); //change to another place
+        setValidCity(userQuery); //change to another place
         setIsLoading(false);
         // setTimeout(() => {
         //   console.log("ONE");
@@ -58,12 +61,12 @@ function App() {
         dispatch({ type: "TRUE", value: data.message });
       }
     };
-    setIsLoading(true);
-    city &&
+
+    userQuery &&
       getWeather().catch(() => {
         dispatch({ type: "TRUE", value: "Something went wrong..." });
       });
-  }, [city, key]);
+  }, [userQuery, key]);
 
   useEffect(() => {
     console.log("isLoading:", isLoading);
@@ -76,20 +79,22 @@ function App() {
         style={isNight ? { background: "#202020" } : { background: "#7cafeb" }}
       >
         <Header />
-        {/* {/* <DisplayOutput></DisplayOutput> organize components later */}
-        <CityContext.Provider value={{ city, setCity }}>
-          <IsLoadingContext.Provider value={{ isLoading, setIsLoading }}>
-            <ErrorContext.Provider value={{ error, dispatch }}>
-              <InputSearchCity />
-              <DisplayErrorMsg />
-              <SavedCitiesMenu validCity={validCity} />
-            </ErrorContext.Provider>{" "}
-            <DisplayCityName validCity={validCity} />
-            <IsNightContext.Provider value={{ isNight, setIsNight }}>
-              <Days data={data} isLoading={isLoading} validCity={validCity} />
-            </IsNightContext.Provider>
-          </IsLoadingContext.Provider>
-        </CityContext.Provider>
+        <UserQueryContext.Provider value={{ userQuery, setUserQuery }}>
+          {/* {/* <DisplayOutput></DisplayOutput> organize components later */}
+          <CityContext.Provider value={{ city, setCity }}>
+            <IsLoadingContext.Provider value={{ isLoading, setIsLoading }}>
+              <ErrorContext.Provider value={{ error, dispatch }}>
+                <InputSearchCity />
+                <DisplayErrorMsg />
+                <SavedCitiesMenu validCity={validCity} />
+              </ErrorContext.Provider>{" "}
+              <DisplayCityName validCity={validCity} />
+              <IsNightContext.Provider value={{ isNight, setIsNight }}>
+                <Days data={data} isLoading={isLoading} validCity={validCity} />
+              </IsNightContext.Provider>
+            </IsLoadingContext.Provider>
+          </CityContext.Provider>
+        </UserQueryContext.Provider>
       </div>
     </>
   );
