@@ -14,6 +14,14 @@ export default function Hours({ filteredDataByDay, isLoading, activeDay }) {
   }, [filteredDataByDay]);
 
   useEffect(() => {
+    console.log("filteredDataByDay", filteredDataByDay);
+  }, [filteredDataByDay]);
+
+  useEffect(() => {
+    console.log("filteredDataByHour", filData2);
+  }, [filData2]);
+
+  useEffect(() => {
     if (!isLoading) {
       if (activeDay.day0[1]) {
         setDefaultHour(filteredDataByDay.weather.list[0].dt_txt.slice(11, 16));

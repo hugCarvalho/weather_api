@@ -27,7 +27,7 @@ function App() {
   const [city, setCity] = useState("");
   const [validCity, setValidCity] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState();
+  const [data, setData] = useState(null);
   const [isNight, setIsNight] = useState(false);
 
   const [error, dispatch] = useReducer(errorReducer, errorInit);
@@ -36,7 +36,7 @@ function App() {
   useEffect(() => {
     // console.log("1:", data);
     const getWeather = async () => {
-      console.log("GETWEATHER");
+      //console.log("GETWEATHER");
       let api = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${key}`; //CHANGE TO TEXT!!!!
       const response = await fetch(api);
       const data = await response.json();

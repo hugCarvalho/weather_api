@@ -21,6 +21,10 @@ export default function DisplayWeather({ filData2 }) {
     }
   }, [isLoading, filData2]);
 
+  useEffect(() => {
+    console.log("DATA TO DISPLAY:", filData2);
+  }, [filData2]);
+
   const convertTemp = value =>
     isCelsius
       ? `${(value - 273.15).toFixed(1)}`

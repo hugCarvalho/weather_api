@@ -14,6 +14,13 @@ export default function CityCard({ isLoading, data, validCity }) {
   //const [activeDay] = "Today";
 
   useEffect(() => {
+    console.log("RECEIVED DATA FROM APP", data);
+  }, [data]);
+  useEffect(() => {
+    console.log("filteredDataByDay", filteredDataByDay);
+  }, [filteredDataByDay]);
+
+  useEffect(() => {
     // console.log("USELAYOUT DAY:", data, isLoading);
     setFilteredDataByDay(data);
     !isLoading && filterByDay(0);
@@ -62,7 +69,7 @@ export default function CityCard({ isLoading, data, validCity }) {
   //TODO: conditional render to wait for loading, display or btns
   return (
     <>
-      {console.log("RENEDR DAYS")}
+      {/* {console.log("RENEDR DAYS")} */}
       {/* Doesn't show "days" if there is no default city on page load  */}
       <div
         className="container__days-forecast "
