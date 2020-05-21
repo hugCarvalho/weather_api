@@ -1,7 +1,6 @@
 @import "../../App.scss";
 
 .container__weather-card {
-  background-color: lime;
   width: 100%;
 
   font-weight: 400;
@@ -11,7 +10,6 @@
   grid-template-areas:
     "icon temp temp"
     "icon actualTemp realTemp"
-    //"icon min max"
     "icon wind wind"
     "description wSpeedDirection wSpeedDirection"
     "endborder endborder endborder";
@@ -78,7 +76,6 @@
         width: 158px;
         height: 158px;
         margin-top: 20%;
-        //max-height: 19rem; //TODO: check
       }
     }
 
@@ -97,11 +94,11 @@
 
     &--3 {
       grid-area: actualTemp;
-      border-right: 1px solid rgb(97, 94, 94);
+      border-right: 1px solid #615e5e;
     }
     &--4 {
       grid-area: realTemp;
-      border-bottom: 1px solid rgb(97, 94, 94);
+      border-bottom: 1px solid #615e5e;
     }
 
     // WIND
@@ -115,12 +112,11 @@
       align-items: center;
     }
   }
-  // p {
-  //   //display: block;
-  //   //background-color: red;
-  //   font-size: 1.5rem;
-  //   padding: 0 4px 40px 4px;
-  // }
+}
+.loading {
+  color: yellow;
+  font-size: 2.5rem;
+  padding: 4px 4px 40px 4px;
 }
 
 @media (min-width: 576px) {
@@ -130,14 +126,6 @@
     height: 186px;
   }
 }
-
-// @media (min-width: 768px) {
-//   #weather-icon {
-//     margin-top: 6%;
-//     width: 260px;
-//     // height: auto;
-//   }
-// }
 
 @media (min-width: 992px) {
   #weather-icon {

@@ -11,13 +11,13 @@ export default function DisplayWeather({ finalData }) {
   const [isKm, setIsKm] = useState(true);
 
   useEffect(() => {
-    const changeBackgroundDayNight = () => {
+    const toggleBackgroundDayNight = () => {
       const iconName = finalData.weather.list[0].weather[0].icon;
       iconName.endsWith("n") ? setIsNight(true) : setIsNight(false);
     };
 
     if (!isLoading) {
-      changeBackgroundDayNight();
+      toggleBackgroundDayNight();
     }
   }, [isLoading, finalData]);
 
@@ -28,7 +28,7 @@ export default function DisplayWeather({ finalData }) {
   const convertTemp = value =>
     isCelsius
       ? `${(value - 273.15).toFixed(1)}`
-      : `${((value * 9) / 5 - 459.67).toFixed(2)}`;
+      : `${((value * 9) / 5 - 459.67).toFixed(0)}`;
 
   //converts from metres per second (m/s) to km/h or uses m/s value
   const convertWindSpeed = value =>
@@ -128,7 +128,7 @@ export default function DisplayWeather({ finalData }) {
             <button>
               <RadioInput2
                 id={"mps"}
-                label={" mps"}
+                label={" mph"}
                 checked={!isKm}
                 action={() => setIsKm(false)}
               />
