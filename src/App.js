@@ -77,7 +77,7 @@ function App() {
               <DisplayErrorMsg />
               <SavedCitiesMenu validCity={validCity} />
             </ErrorContext.Provider>{" "}
-            <DisplayCityName validCity={validCity} />
+            <DisplayCityName validCity={validCity} isLoading={isLoading} />
             <IsNightContext.Provider value={{ isNight, setIsNight }}>
               <Days data={data} isLoading={isLoading} validCity={validCity} />
             </IsNightContext.Provider>
