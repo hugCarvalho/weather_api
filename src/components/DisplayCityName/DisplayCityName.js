@@ -5,7 +5,7 @@ export default function DisplayCityName({ validCity }) {
   return (
     <>
       <header className="container__city-name">
-        <h2>{validCity.toUpperCase() || "Search for a city to begin"} </h2>
+        <h2>{validCity.toUpperCase() || "Search for a city"} </h2>
       </header>
     </>
   );

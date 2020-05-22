@@ -51,7 +51,9 @@ export default function DisplayWeather({ finalData, validCity }) {
   return (
     <>
       {/* added validCity to avoid showing at the begining without any default city set */}
-      <p className="loading">{isLoading && validCity ? "loading..." : null}</p>
+      <p className="loading">
+        {isLoading && validCity ? "Fetching city data..." : null}
+      </p>
       {/* WEATHER ICON AND DESCRIPTION */}
       <div
         className="container__weather-card"
