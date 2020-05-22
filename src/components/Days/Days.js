@@ -36,22 +36,21 @@ export default function CityCard({ isLoading, data, validCity }) {
     const currentMonth = Number(data.weather.list[0].dt_txt.slice(5, 7));
     let forecastDay = currentDay + day;
 
-    //TODO: make FN to replace 3 ocurrences
-    let res = data.weather.list.filter(dayOfTheMonth => {
-      return +dayOfTheMonth.dt_txt.slice(8, 10) === forecastDay;
-    });
+    const filterRequiredDay = () => {
+      return data.weather.list.filter(dayOfTheMonth => {
+        return +dayOfTheMonth.dt_txt.slice(8, 10) === forecastDay;
+      });
+    };
+
+    let res = filterRequiredDay();
     //if no match is found, number is not valid calendar day, hence the conditions
     if (res.length === 0 && forecastDay === 33) {
       forecastDay = 2;
-      res = data.weather.list.filter(day => {
-        return +day.dt_txt.slice(8, 10) === forecastDay;
-      });
+      res = filterRequiredDay();
     }
     if (res.length === 0 && forecastDay === 31) {
       forecastDay = 1;
-      res = data.weather.list.filter(day => {
-        return +day.dt_txt.slice(8, 10) === forecastDay;
-      });
+      res = filterRequiredDay();
     }
     if (res.length === 0 && forecastDay === 32) {
       res = data.weather.list.filter(day => {
