@@ -22,7 +22,8 @@ export default function CityCard({ isLoading, data, validCity }) {
   useEffect(() => {
     // console.log("USELAYOUT DAY:", data, isLoading);
     setFilteredDataByDay(data);
-    !isLoading && filterByDay(0);
+
+    validCity && !isLoading && filterByDay(0);
   }, [data, isLoading]);
 
   useEffect(() => {
@@ -137,6 +138,7 @@ export default function CityCard({ isLoading, data, validCity }) {
         filteredDataByDay={filteredDataByDay}
         isLoading={isLoading}
         activeDay={tabIsActive}
+        validCity={validCity}
       />
     </>
   );

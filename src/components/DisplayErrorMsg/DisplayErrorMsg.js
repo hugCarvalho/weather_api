@@ -2,8 +2,6 @@ import React, { useEffect, useContext } from "react";
 import "./DisplayErrorMsg.scss";
 import { ErrorContext } from "../../App";
 
-//TODO use reducer to join error messages in one object
-
 export default function DisplayErrorMsg() {
   const { error, dispatch } = useContext(ErrorContext);
 
@@ -13,7 +11,6 @@ export default function DisplayErrorMsg() {
         dispatch("FALSE");
       }, 1200);
     };
-    // console.log("showError", showError);
     error.showError && showErrorMsg();
   }, [error, dispatch]);
 

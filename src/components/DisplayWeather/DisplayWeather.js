@@ -3,7 +3,7 @@ import "./DisplayWeather.scss";
 import { IsLoadingContext, IsNightContext } from "../../App";
 import { RadioInput2 } from "../Utils/RadioInput/RadioInput";
 
-export default function DisplayWeather({ finalData }) {
+export default function DisplayWeather({ finalData, validCity }) {
   const { isLoading } = useContext(IsLoadingContext);
   const { isNight, setIsNight } = useContext(IsNightContext);
 
@@ -16,7 +16,7 @@ export default function DisplayWeather({ finalData }) {
       iconName.endsWith("n") ? setIsNight(true) : setIsNight(false);
     };
 
-    if (!isLoading) {
+    if (validCity && !isLoading) {
       toggleBackgroundDayNight();
     }
   }, [isLoading, finalData]);
@@ -50,20 +50,22 @@ export default function DisplayWeather({ finalData }) {
 
   return (
     <>
+      {/* added validCity to avoid showing at the begining without any default city set */}
+      <p className="loading">{isLoading && validCity ? "loading..." : null}</p>
       {/* WEATHER ICON AND DESCRIPTION */}
       <div
         className="container__weather-card"
         style={isNight ? { background: "#202020" } : { background: "#7cafeb" }}
       >
         <div className="item item--1">
-          {isLoading ? (
-            <span className="not-available">n/a</span>
-          ) : (
+          {validCity && !isLoading ? (
             <img
               src={`/media/weather_icons/${finalData.weather.list[0].weather[0].icon}.png`}
               alt="weather icon"
               id="weather-icon"
             />
+          ) : (
+            <span className="not-available">n/a</span>
           )}
         </div>
 
@@ -94,23 +96,25 @@ export default function DisplayWeather({ finalData }) {
         <div className="item item--3">
           <h5>Actual</h5>
           <span>
-            {isLoading
-              ? "n/a"
-              : convertTemp(finalData.weather.list[0].main.temp)}
+            {validCity && !isLoading
+              ? convertTemp(finalData.weather.list[0].main.temp)
+              : "n/a"}
           </span>
         </div>
 
         {/* Feels Like */}
         <div className="item item--4">
           <h5> Real Feel:</h5>
-          {isLoading
-            ? "n/a"
-            : convertTemp(finalData.weather.list[0].main.feels_like)}{" "}
+          {validCity && !isLoading
+            ? convertTemp(finalData.weather.list[0].main.feels_like)
+            : "n/a"}
         </div>
 
         {/* Weather description */}
         <div id="weather-description" className="item item--7">
-          {isLoading ? "n/a" : finalData.weather.list[0].weather[0].description}
+          {validCity && !isLoading
+            ? finalData.weather.list[0].weather[0].description
+            : "n/a"}
         </div>
 
         {/* WIND UNIT SELECTION */}
@@ -139,28 +143,32 @@ export default function DisplayWeather({ finalData }) {
         {/* WINDSPEED */}
         <div className="item item--9">
           <span>
-            {isLoading
-              ? "n/a"
-              : convertWindSpeed(finalData.weather.list[0].wind.speed)}
+            {validCity && !isLoading
+              ? convertWindSpeed(finalData.weather.list[0].wind.speed)
+              : "n/a"}
           </span>
 
           <span>
-            {isLoading
-              ? "n/a"
-              : convertWindDirection(finalData.weather.list[0].wind.deg)}
+            {validCity && !isLoading
+              ? convertWindDirection(finalData.weather.list[0].wind.deg)
+              : "n/a"}
           </span>
 
           {
             <span
-              style={isLoading ? { display: "none" } : { display: "block" }}
+              style={
+                validCity && !isLoading
+                  ? { display: "block" }
+                  : { display: "none" }
+              }
             >
               {<i className="fas fa-long-arrow-alt-down"></i>}
             </span>
           }
-          {isLoading ? "n/a" : rotate(finalData.weather.list[0].wind.deg)}
+          {validCity && !isLoading
+            ? rotate(finalData.weather.list[0].wind.deg)
+            : "n/a"}
         </div>
-
-        {/* <p>{isLoading ? "loading..." : null}</p> */}
       </div>
     </>
   );

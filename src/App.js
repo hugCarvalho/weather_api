@@ -28,9 +28,9 @@ function App() {
   // useEffect(() => {
   //   console.log("userQuery:", userQuery);
   // }, [userQuery]);
-  // useEffect(() => {
-  //   console.log("valid city:", validCity);
-  // }, [validCity]);
+  useEffect(() => {
+    console.log("valid city:", validCity);
+  }, [validCity]);
   /////////////////////////
 
   //FETCH DATA
@@ -50,7 +50,7 @@ function App() {
         setIsLoading(false);
       } else {
         dispatch({ type: "TRUE", value: data.message });
-        setIsLoading(false);
+        setIsLoading(false); //TODO will provoke error if no validcity was chosen before
       }
     };
     userQuery &&

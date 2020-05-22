@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./Hours.scss";
 import DisplayWeather from "../DisplayWeather/DisplayWeather";
 
-export default function Hours({ filteredDataByDay, isLoading, activeDay }) {
+export default function Hours({
+  filteredDataByDay,
+  isLoading,
+  activeDay,
+  validCity,
+}) {
   const [filteredDataByHours, setFilteredDataByHours] = useState({});
   let [defaultHour, setDefaultHour] = useState("");
 
@@ -20,7 +25,7 @@ export default function Hours({ filteredDataByDay, isLoading, activeDay }) {
   }, [filteredDataByHours]);
 
   useEffect(() => {
-    if (!isLoading) {
+    if (validCity && !isLoading) {
       if (activeDay.day0[1]) {
         setDefaultHour(filteredDataByDay.weather.list[0].dt_txt.slice(11, 16));
       }
@@ -62,6 +67,7 @@ export default function Hours({ filteredDataByDay, isLoading, activeDay }) {
     <>
       <div className="container__hours">
         {!isLoading &&
+          validCity &&
           filteredDataByDay.weather.list.map((item, i) => {
             let classes = [
               defaultHour === item.dt_txt.slice(11, 16) ? "active-hour" : null,
@@ -78,7 +84,7 @@ export default function Hours({ filteredDataByDay, isLoading, activeDay }) {
             );
           })}
       </div>
-      <DisplayWeather finalData={filteredDataByHours} />
+      <DisplayWeather finalData={filteredDataByHours} validCity={validCity} />
     </>
   );
 }
