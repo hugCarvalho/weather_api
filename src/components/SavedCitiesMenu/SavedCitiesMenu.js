@@ -32,7 +32,7 @@ export default function SavedCitiesMenu({ validCity }) {
     if (fetchedDefaultCity) {
       setUserQuery(fetchedDefaultCity); //automatically fetches on onload
     }
-  }, [setUserQuery]); //don't use default city as a dependency
+  }, [setUserQuery]);
 
   //LOCAL STORAGE SET
   useEffect(() => {
@@ -203,7 +203,6 @@ export default function SavedCitiesMenu({ validCity }) {
             <button className="tooltips">?</button>
           </Tippy>
         </div>
-        {/* END CONTAINER */}
       </div>
     </>
   );

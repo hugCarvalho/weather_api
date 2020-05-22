@@ -12,17 +12,8 @@ export default function Hours({
   let [defaultHour, setDefaultHour] = useState("");
 
   useEffect(() => {
-    //console.log("2.1- UE: setFilData2: sends the data to be displayed ");
     setFilteredDataByHours(filteredDataByDay);
   }, [filteredDataByDay]);
-
-  useEffect(() => {
-    console.log("filteredDataByDay", filteredDataByDay);
-  }, [filteredDataByDay]);
-
-  useEffect(() => {
-    console.log("filteredDataByHours", filteredDataByHours);
-  }, [filteredDataByHours]);
 
   useEffect(() => {
     if (validCity && !isLoading) {
@@ -35,10 +26,6 @@ export default function Hours({
     }
   }, [isLoading, filteredDataByDay]);
 
-  useEffect(() => {
-    //console.log("UE: ActiveDay", activeDay);
-  }, [activeDay]);
-
   const setActiveHour = e => {
     if (e === undefined) {
       setDefaultHour("12:00");
@@ -50,7 +37,6 @@ export default function Hours({
   };
 
   const filterByHour = e => {
-    //console.log("e:", e);
     const timeOnButton = e === "anotherDay" ? "12:00" : e.target.textContent;
     const activeHour = filteredDataByDay.weather.list.filter(item => {
       return item.dt_txt.slice(11, 16) === timeOnButton;
@@ -60,7 +46,6 @@ export default function Hours({
         list: activeHour,
       },
     });
-    //console.log("FN: FilterByHour");
   };
 
   return (

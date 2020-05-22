@@ -2,7 +2,6 @@ import React from "react";
 import "./Header.scss";
 
 function Header() {
-  // console.log("HEADER");
   return (
     <>
       <header className="header">
@@ -13,5 +12,4 @@ function Header() {
   );
 }
 
-export default React.memo(Header);
-//TODO:  photo by ???
+export default Header;

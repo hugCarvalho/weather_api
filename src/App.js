@@ -24,21 +24,12 @@ function App() {
 
   const [error, dispatch] = useReducer(errorReducer, errorInit);
 
-  //CONTROL ONLY
-  // useEffect(() => {
-  //   console.log("userQuery:", userQuery);
-  // }, [userQuery]);
-  useEffect(() => {
-    console.log("valid city:", validCity);
-  }, [validCity]);
-  /////////////////////////
-
   //FETCH DATA
   useEffect(() => {
-    console.log("FETCH CITY");
     setIsLoading(true); //don't comment out
+
     const getWeather = async () => {
-      const api = `https://api.openweathermap.org/data/2.5/forecast?q=${userQuery}&appid=${key}`; //CHANGE TO TEXT!!!!
+      const api = `https://api.openweathermap.org/data/2.5/forecast?q=${userQuery}&appid=${key}`;
       const response = await fetch(api);
       const data = await response.json();
 
@@ -50,7 +41,7 @@ function App() {
         setIsLoading(false);
       } else {
         dispatch({ type: "TRUE", value: data.message });
-        setIsLoading(false); //TODO will provoke error if no validcity was chosen before
+        setIsLoading(false);
       }
     };
     userQuery &&
@@ -58,10 +49,6 @@ function App() {
         dispatch({ type: "TRUE", value: "Something went wrong..." });
       });
   }, [userQuery, key]);
-
-  useEffect(() => {
-    console.log("isLoading:", isLoading);
-  }, [isLoading]);
 
   return (
     <>

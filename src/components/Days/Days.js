@@ -13,16 +13,7 @@ export default function CityCard({ isLoading, data, validCity }) {
   const [tabIsActive, setTabIsActive] = useState(initTabs);
 
   useEffect(() => {
-    console.log("RECEIVED DATA FROM APP", data);
-  }, [data]);
-  useEffect(() => {
-    console.log("filteredDataByDay", filteredDataByDay);
-  }, [filteredDataByDay]);
-
-  useEffect(() => {
-    // console.log("USELAYOUT DAY:", data, isLoading);
     setFilteredDataByDay(data);
-
     validCity && !isLoading && filterByDay(0);
   }, [data, isLoading]);
 
