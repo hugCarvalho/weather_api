@@ -11,6 +11,7 @@ export default function DisplayWeather({ finalData, validCity }) {
   const [isKm, setIsKm] = useState(true);
 
   useEffect(() => {
+    //debugger;
     const toggleBackgroundDayNight = () => {
       const iconName = finalData.weather.list[0].weather[0].icon;
       iconName.endsWith("n") ? setIsNight(true) : setIsNight(false);
@@ -19,6 +20,7 @@ export default function DisplayWeather({ finalData, validCity }) {
     if (validCity && !isLoading) {
       toggleBackgroundDayNight();
     }
+    //debugger;
   }, [isLoading, finalData]);
 
   const convertTemp = value =>
@@ -47,9 +49,6 @@ export default function DisplayWeather({ finalData, validCity }) {
   return (
     <>
       {/* added validCity to avoid showing at the begining without any default city set */}
-      <p className="loading">
-        {isLoading && validCity ? "Fetching city data..." : null}
-      </p>
       {/* WEATHER ICON AND DESCRIPTION */}
       <div
         className="container__weather-card"

@@ -21,13 +21,14 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
   const [isNight, setIsNight] = useState(false);
+  const [invalidCity, setInvalidCity] = useState(false); //fixing error
 
   const [error, dispatch] = useReducer(errorReducer, errorInit);
 
   //FETCH DATA
   useEffect(() => {
     setIsLoading(true); //don't comment out
-
+    ////debugger;
     const getWeather = async () => {
       const api = `https://api.openweathermap.org/data/2.5/forecast?q=${userQuery}&appid=${key}`;
       const response = await fetch(api);
@@ -37,11 +38,20 @@ function App() {
         setData({
           weather: data,
         });
-        setValidCity(userQuery); //change to another place
+        //debugger;
+        setValidCity(userQuery);
+        setInvalidCity(false);
         setIsLoading(false);
+        //debugger;
       } else {
+        //debugger;
         dispatch({ type: "TRUE", value: data.message });
+        if (data.message === "city not found") {
+          // console.log(data.message);
+          setInvalidCity(true);
+        }
         setIsLoading(false);
+        //debugger;
       }
     };
     userQuery &&
@@ -66,7 +76,12 @@ function App() {
             </ErrorContext.Provider>{" "}
             <DisplayCityName validCity={validCity} isLoading={isLoading} />
             <IsNightContext.Provider value={{ isNight, setIsNight }}>
-              <Days data={data} isLoading={isLoading} validCity={validCity} />
+              <Days
+                data={data}
+                isLoading={isLoading}
+                validCity={validCity}
+                invalidCity={invalidCity}
+              />
             </IsNightContext.Provider>
           </IsLoadingContext.Provider>
         </UserQueryContext.Provider>
