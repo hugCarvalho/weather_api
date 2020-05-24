@@ -3,7 +3,13 @@ import "./Days.scss";
 import Moment from "react-moment";
 import Hours from "../Hours/Hours";
 
-export default function Days({ isLoading, data, validCity, invalidCity }) {
+export default function Days({
+  isLoading,
+  data,
+  validCity,
+  notValidCity,
+  userQuery,
+}) {
   const initTabs = {
     day0: true,
     day1: false,
@@ -11,6 +17,10 @@ export default function Days({ isLoading, data, validCity, invalidCity }) {
   };
   const [filteredDataByDay, setFilteredDataByDay] = useState({});
   const [tabIsActive, setTabIsActive] = useState(initTabs);
+
+  useEffect(() => {
+    console.log("USER QUERY CHANGED", userQuery);
+  }, [userQuery]);
 
   useEffect(() => {
     console.log("DATA from app:", data);
@@ -25,26 +35,8 @@ export default function Days({ isLoading, data, validCity, invalidCity }) {
   }, [tabIsActive]);
 
   useEffect(() => {
-    console.log("invalidCity", invalidCity);
-  }, [invalidCity]);
-
-  useEffect(() => {
-    //debugger;
-    //Filters the data for the first load?
-    setFilteredDataByDay(data);
-    if (!isLoading && validCity) {
-      filterByDay(0);
-    }
-    console.log("inSETFILTEREDDATAbyDAY:, ", data, filteredDataByDay);
-    //debugger;
-  }, [data, isLoading, validCity, invalidCity]); //filterDAtabyDay causes error
-
-  useEffect(() => {
-    //debugger;
-    console.log("setTTTTTTTTTTTTTTTTTTTabisActive");
-    setTabIsActive(initTabs);
-    //debugger;
-  }, [validCity, invalidCity]); //will reset the active tab after a request about a new city
+    console.log("notValidCity", notValidCity);
+  }, [notValidCity]);
 
   //Filters original data returning the data for desired day
   const filterByDay = day => {
@@ -81,6 +73,24 @@ export default function Days({ isLoading, data, validCity, invalidCity }) {
     });
     //debugger;
   };
+
+  useEffect(() => {
+    //debugger;
+    //Filters the data for the first load?
+    setFilteredDataByDay(data);
+    if (!isLoading && validCity) {
+      filterByDay(0);
+    }
+    console.log("inSETFILTEREDDATAbyDAY:, ", data, filteredDataByDay);
+    //debugger;
+  }, [data, isLoading, validCity, notValidCity]); //filterDAtabyDay causes error
+
+  useEffect(() => {
+    //debugger;
+    console.log("setTTTTTTTTTTTTTTTTTTTabisActive");
+    setTabIsActive(initTabs);
+    //debugger;
+  }, [validCity, notValidCity]); //will reset the active tab after a request about a new city
 
   return (
     <>
@@ -167,7 +177,6 @@ export default function Days({ isLoading, data, validCity, invalidCity }) {
         isLoading={isLoading}
         activeDay={tabIsActive}
         validCity={validCity}
-        invalidCity={invalidCity}
       />
     </>
   );

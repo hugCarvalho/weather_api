@@ -21,9 +21,13 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
   const [isNight, setIsNight] = useState(false);
-  const [invalidCity, setInvalidCity] = useState(false); //fixing error
+  const [notValidCity, setNotValidCity] = useState(false); //fixing error
 
   const [error, dispatch] = useReducer(errorReducer, errorInit);
+
+  useEffect(() => {
+    console.log("notValidCity from app:", notValidCity);
+  }, [notValidCity]);
 
   //FETCH DATA
   useEffect(() => {
@@ -40,7 +44,6 @@ function App() {
         });
         //debugger;
         setValidCity(userQuery);
-        setInvalidCity(false);
         setIsLoading(false);
         //debugger;
       } else {
@@ -48,7 +51,8 @@ function App() {
         dispatch({ type: "TRUE", value: data.message });
         if (data.message === "city not found") {
           // console.log(data.message);
-          setInvalidCity(true);
+          setNotValidCity(true);
+          setNotValidCity(false); //prevents error when selecting a dif day and typing a not valid name
         }
         setIsLoading(false);
         //debugger;
@@ -80,7 +84,8 @@ function App() {
                 data={data}
                 isLoading={isLoading}
                 validCity={validCity}
-                invalidCity={invalidCity}
+                notValidCity={notValidCity}
+                userQuery={userQuery}
               />
             </IsNightContext.Provider>
           </IsLoadingContext.Provider>

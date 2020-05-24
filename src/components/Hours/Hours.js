@@ -7,15 +7,11 @@ export default function Hours({
   isLoading,
   activeDay,
   validCity,
-  invalidCity,
 }) {
   const [filteredDataByHours, setFilteredDataByHours] = useState({});
   let [defaultHour, setDefaultHour] = useState("");
 
   //TESTING
-  useEffect(() => {
-    console.log("INVALIDCITY:", invalidCity);
-  }, [invalidCity]);
   useEffect(() => {
     console.log("filteredDataByHours", filteredDataByHours);
   }, [filteredDataByHours]);
