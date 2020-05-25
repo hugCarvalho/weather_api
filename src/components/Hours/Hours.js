@@ -20,49 +20,14 @@ export default function Hours({
   //   console.log("filteredDataByDAYS", filteredDataByDay);
   // }, [filteredDataByDay]);
 
-  //sets the data so that only the hours for one day appear
-  useEffect(() => {
-    //debugger;
-    // console.log("setFilteredDataByDay", filteredDataByDay);
-    validCity && setFilteredDataByHours(filteredDataByDay);
-    //debugger;
-  }, [filteredDataByDay, validCity]);
-
-  //Not
-  useEffect(() => {
-    //debugger;
-    if (validCity && !isLoading && activeTab) {
-      if (activeTab.day0) {
-        setDefaultHour(filteredDataByDay.weather.list[0].dt_txt.slice(11, 16));
-      }
-      if (!activeTab.day0) {
-        settingActiveHour();
-      }
-    }
-    //debugger;
-  }, [isLoading, filteredDataByDay]);
-
-  //SETTING ACTIVE HOUR
-  const settingActiveHour = e => {
-    // console.log("e:", e);
-    if (e === undefined) {
-      setDefaultHour("12:00");
-      return filterByActiveHour("anotherDay");
-    } else {
-      setDefaultHour(e.target.textContent);
-      return filterByActiveHour(e);
-    }
-  };
-
   //One array with the matching time is returned and will be passed down
-  const filterByActiveHour = e => {
-    const timeOnButton = e === "anotherDay" ? "12:00" : e.target.textContent;
+  const filterByActiveHour = day => {
+    const timeOnButton = day === "anotherDay" ? "12:00" : day;
     const activeHourArray = filteredDataByDay.weather.list.filter(item => {
       return item.dt_txt.slice(11, 16) === timeOnButton;
     });
     if (validCity && !isLoading) {
       //don't change, will re-render data also after false city
-      console.log("active hour", activeHourArray);
       setFilteredDataByHours({
         weather: {
           list: activeHourArray,
@@ -70,6 +35,30 @@ export default function Hours({
       });
     }
   };
+
+  //Sets active hour, triggers on click => filterByActiveHour
+  const settingActiveHour = e => {
+    setDefaultHour(e.target.textContent);
+    return filterByActiveHour(e.target.textContent);
+  };
+
+  //sets the data so that only the hours for one day appear
+  useEffect(() => {
+    validCity && setFilteredDataByHours(filteredDataByDay);
+  }, [filteredDataByDay, validCity]);
+
+  useEffect(() => {
+    if (validCity && !isLoading) {
+      if (activeTab.day0) {
+        //sets default hour for day of today. Will be automatically chosen when page loads for first time.
+        setDefaultHour(filteredDataByDay.weather.list[0].dt_txt.slice(11, 16));
+      }
+      if (!activeTab.day0) {
+        setDefaultHour("12:00");
+        return filterByActiveHour("anotherDay");
+      }
+    }
+  }, [isLoading, filteredDataByDay, validCity]);
 
   return (
     <>
