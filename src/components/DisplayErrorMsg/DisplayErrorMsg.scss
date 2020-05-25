@@ -1,10 +1,11 @@
+@import "../../App.scss";
 .container__error-message {
   margin: 2px 0 15px 0;
   text-align: center;
 
   .error-message {
-    background-color: rgb(255, 208, 0);
-    color: gray;
+    color: lighten($gray-dark, 18%);
+    display: inline;
     padding: 5px 10px;
     font-size: 1.3rem;
     font-weight: 500;

@@ -6,12 +6,14 @@ export default function DisplayErrorMsg() {
   const { error, dispatch } = useContext(ErrorContext);
 
   useEffect(() => {
-    const showErrorMsg = () => {
-      setTimeout(() => {
-        dispatch("FALSE");
-      }, 1200);
+    const timer = setTimeout(() => {
+      dispatch("FALSE");
+    }, 1200);
+
+    return () => {
+      console.log("CLEANUP");
+      clearTimeout(timer);
     };
-    error.showError && showErrorMsg();
   }, [error, dispatch]);
 
   return (
@@ -20,9 +22,12 @@ export default function DisplayErrorMsg() {
         <p
           className="error-message"
           style={
-            error.showError ? { display: "inline-block" } : { display: "none" }
+            error.showError
+              ? { visibility: "visible", background: "#fffb00" }
+              : { visibility: "none" }
           }
         >
+          {""}
           {error.text}
         </p>
       </div>

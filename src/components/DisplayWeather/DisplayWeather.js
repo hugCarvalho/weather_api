@@ -155,8 +155,8 @@ export default function DisplayWeather({ finalData, validCity }) {
             <span
               style={
                 validCity && !isLoading
-                  ? { display: "block" }
-                  : { display: "none" }
+                  ? { visibility: "block" }
+                  : { visibility: "none" }
               }
             >
               {<i className="fas fa-long-arrow-alt-down"></i>}
