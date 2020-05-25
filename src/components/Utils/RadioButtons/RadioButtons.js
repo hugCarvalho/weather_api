@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function RadioButtons({ id, value, value2, action }) {
-  console.log(id, value, value2, action);
   return (
     <>
       <input

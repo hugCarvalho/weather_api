@@ -10,11 +10,11 @@ export default function SavedCitiesMenu({ validCity }) {
   const { dispatch } = useContext(ErrorContext);
 
   const [defaultCity, setDefaultCity] = useState("");
+  const [isMenuClosed, setIsMenuClosed] = useState(false);
   // prettier-ignore
   const [savedCities, setSavedCities] = useState({city1: "",city2: "",city3: ""});
-  const [isMenuClosed, setIsMenuClosed] = useState(false);
 
-  //LOCAL STORAGE GET
+  //LOCAL STORAGE: GET
   useEffect(() => {
     try {
       if (localStorage.weatherApp) {
@@ -22,19 +22,27 @@ export default function SavedCitiesMenu({ validCity }) {
         setIsMenuClosed(JSON.parse(localStorage.getItem("menuClosed")));
       }
     } catch (err) {
-      dispatch({ type: "TRUE", value: "Error!File may be corrupted" });
+      dispatch({ type: "TRUE", value: "Error! File may be corrupted!" });
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
-    const fetchedDefaultCity = JSON.parse(localStorage.getItem("defaultCity"));
-    setDefaultCity(fetchedDefaultCity);
-    if (fetchedDefaultCity) {
-      setUserQuery(fetchedDefaultCity); //automatically fetches on onload
-    }
-  }, [setUserQuery]);
+    try {
+      const fetchedDefaultCity = JSON.parse(
+        localStorage.getItem("defaultCity")
+      );
 
-  //LOCAL STORAGE SET
+      setDefaultCity(fetchedDefaultCity);
+
+      if (fetchedDefaultCity) {
+        setUserQuery(fetchedDefaultCity); //automatically fetches on onload
+      }
+    } catch (err) {
+      dispatch({ type: "TRUE", value: "Error! File may be corrupted!" });
+    }
+  }, [setUserQuery, dispatch]);
+
+  //LOCAL STORAGE: SET
   useEffect(() => {
     localStorage.setItem("weatherApp", JSON.stringify(savedCities));
   }, [savedCities]);
@@ -49,6 +57,7 @@ export default function SavedCitiesMenu({ validCity }) {
   //SET CONTAINER HEIGHT
   const setContainerHeight = () =>
     isMenuClosed ? { height: "42px" } : { height: "auto" };
+
   const showHideOpenArrow = () => {
     return isMenuClosed
       ? {
@@ -76,6 +85,7 @@ export default function SavedCitiesMenu({ validCity }) {
     const cityNameExists = Object.values(savedCities).some(city => {
       return city.toLowerCase() === validCity.toLowerCase();
     });
+
     if (cityNameExists) {
       dispatch({ type: "TRUE", value: "City is already saved" });
     } else saveCity(citySlot);
@@ -108,23 +118,28 @@ export default function SavedCitiesMenu({ validCity }) {
             <span className="city-name">{savedCities.city1 || "empty"}</span>
           </button>
         </div>
-
         <div className="items items--5">
           <button onClick={checkSlotIsEmpty}>
             <span className="city-name">{savedCities.city2 || "empty"}</span>
           </button>
         </div>
-
         <div className="items items--6">
           <button onClick={checkSlotIsEmpty}>
             <span className="city-name">{savedCities.city3 || "empty"}</span>
           </button>
         </div>
 
-        {/* OPEN MENU */}
+        {/* CLOSE MENU */}
         <div className="items items--8 ">
           <button onClick={() => setIsMenuClosed(true)}>
             <i className="fas fa-angle-double-up"></i>
+          </button>
+        </div>
+
+        {/* OPEN MENU */}
+        <div className="items items--19" style={showHideOpenArrow()}>
+          <button className="open-menu" onClick={() => setIsMenuClosed(false)}>
+            <i className="fas fa-angle-double-down"></i>
           </button>
         </div>
 
@@ -161,13 +176,6 @@ export default function SavedCitiesMenu({ validCity }) {
           </Tippy>
         </div>
 
-        {/* OPEN MENU */}
-        <div className="items items--19" style={showHideOpenArrow()}>
-          <button className="open-menu" onClick={() => setIsMenuClosed(false)}>
-            <i className="fas fa-angle-double-down"></i>
-          </button>
-        </div>
-
         {/* SAVE CITY BUTTONS */}
         <div className="items items--20 ">
           <button
@@ -194,11 +202,11 @@ export default function SavedCitiesMenu({ validCity }) {
           </button>
         </div>
 
-        {/* TOOLTIP RADIO BUTTON */}
+        {/* TOOLTIP SAVE BUTTON */}
         <div className="items items--23">
           <Tippy
             delay={400}
-            content="SEARCH for a city first. Press `save` to save... "
+            content="SEARCH for a city first. Then press `save`"
           >
             <button className="tooltips">?</button>
           </Tippy>
