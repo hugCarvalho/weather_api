@@ -85,7 +85,6 @@ function App() {
                 isLoading={isLoading}
                 validCity={validCity}
                 notValidCity={notValidCity}
-                userQuery={userQuery}
               />
             </IsNightContext.Provider>
           </IsLoadingContext.Provider>

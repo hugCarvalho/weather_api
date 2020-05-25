@@ -5,26 +5,25 @@ import DisplayWeather from "../DisplayWeather/DisplayWeather";
 export default function Hours({
   filteredDataByDay,
   isLoading,
-  activeDay,
+  activeTab,
   validCity,
 }) {
   const [filteredDataByHours, setFilteredDataByHours] = useState({});
   let [defaultHour, setDefaultHour] = useState("");
 
   //TESTING
-  useEffect(() => {
-    console.log("filteredDataByHours", filteredDataByHours);
-  }, [filteredDataByHours]);
+  // useEffect(() => {
+  //   console.log("filteredDataByHours", filteredDataByHours);
+  // }, [filteredDataByHours]);
 
-  useEffect(() => {
-    console.log("filteredDataByDAYS", filteredDataByDay);
-  }, [filteredDataByDay]);
+  // useEffect(() => {
+  //   console.log("filteredDataByDAYS", filteredDataByDay);
+  // }, [filteredDataByDay]);
 
   //sets the data so that only the hours for one day appear
   useEffect(() => {
     //debugger;
-    console.log("setFilteredDataByDay", filteredDataByDay);
-    // debugger;
+    // console.log("setFilteredDataByDay", filteredDataByDay);
     validCity && setFilteredDataByHours(filteredDataByDay);
     //debugger;
   }, [filteredDataByDay, validCity]);
@@ -32,11 +31,11 @@ export default function Hours({
   //Not
   useEffect(() => {
     //debugger;
-    if (validCity && !isLoading && activeDay) {
-      if (activeDay.day0) {
+    if (validCity && !isLoading && activeTab) {
+      if (activeTab.day0) {
         setDefaultHour(filteredDataByDay.weather.list[0].dt_txt.slice(11, 16));
       }
-      if (!activeDay.day0) {
+      if (!activeTab.day0) {
         settingActiveHour();
       }
     }
@@ -45,7 +44,7 @@ export default function Hours({
 
   //SETTING ACTIVE HOUR
   const settingActiveHour = e => {
-    console.log("e:", e);
+    // console.log("e:", e);
     if (e === undefined) {
       setDefaultHour("12:00");
       return filterByActiveHour("anotherDay");

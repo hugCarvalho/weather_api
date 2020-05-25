@@ -3,40 +3,35 @@ import "./Days.scss";
 import Moment from "react-moment";
 import Hours from "../Hours/Hours";
 
-export default function Days({
-  isLoading,
-  data,
-  validCity,
-  notValidCity,
-  userQuery,
-}) {
+export default function Days({ isLoading, data, validCity, notValidCity }) {
   const initTabs = {
     day0: true,
     day1: false,
     day2: false,
   };
   const [filteredDataByDay, setFilteredDataByDay] = useState({});
-  const [tabIsActive, setTabIsActive] = useState(initTabs);
+  const [activeTab, setActiveTab] = useState(initTabs);
 
-  useEffect(() => {
-    console.log("USER QUERY CHANGED", userQuery);
-  }, [userQuery]);
+  //testing
+  // useEffect(() => {
+  //   console.log("USER QUERY CHANGED", userQuery);
+  // }, [userQuery]);
 
-  useEffect(() => {
-    console.log("DATA from app:", data);
-  }, [data]);
+  // useEffect(() => {
+  //   console.log("DATA from app:", data);
+  // }, [data]);
 
-  useEffect(() => {
-    console.log("filteredDataByDay", filteredDataByDay);
-  }, [filteredDataByDay]);
+  // useEffect(() => {
+  //   console.log("filteredDataByDay", filteredDataByDay);
+  // }, [filteredDataByDay]);
 
-  useEffect(() => {
-    console.log("tabIsActive", tabIsActive);
-  }, [tabIsActive]);
+  // useEffect(() => {
+  //   console.log("activeTab", activeTab);
+  // }, [activeTab]);
 
-  useEffect(() => {
-    console.log("notValidCity", notValidCity);
-  }, [notValidCity]);
+  // useEffect(() => {
+  //   console.log("notValidCity", notValidCity);
+  // }, [notValidCity]);
 
   //Filters original data returning the data for desired day
   const filterByDay = day => {
@@ -65,7 +60,6 @@ export default function Days({
       });
     }
     //TODO: condition for feb
-    //debugger;
     setFilteredDataByDay({
       weather: {
         list: res,
@@ -76,22 +70,20 @@ export default function Days({
 
   useEffect(() => {
     //debugger;
-    //Filters the data for the first load?
+    //Filters the data for initiat and reload
     setFilteredDataByDay(data);
     if (!isLoading && validCity) {
       filterByDay(0);
     }
-    console.log("inSETFILTEREDDATAbyDAY:, ", data, filteredDataByDay);
+    //console.log("inSETFILTEREDDATAbyDAY:, ", data, filteredDataByDay);
     //debugger;
   }, [data, isLoading, validCity, notValidCity]); //filterDAtabyDay causes error
 
   useEffect(() => {
-    //debugger;
-    console.log("setTTTTTTTTTTTTTTTTTTTabisActive");
-    setTabIsActive(initTabs);
-    //debugger;
+    setActiveTab(initTabs);
   }, [validCity, notValidCity]); //will reset the active tab after a request about a new city
 
+  //TODO: change setActiveTab to reducer
   return (
     <>
       <div
@@ -104,7 +96,7 @@ export default function Days({
           {/* TODAY */}
           <li
             onClick={() =>
-              setTabIsActive({
+              setActiveTab({
                 day0: true,
                 day1: false,
                 day2: false,
@@ -112,11 +104,7 @@ export default function Days({
             }
           >
             <button
-              className={
-                tabIsActive && tabIsActive.day0
-                  ? "tab-is-active"
-                  : "tab-is-inactive"
-              }
+              className={activeTab.day0 ? "tab-is-active" : "tab-is-inactive"}
               onClick={() => filterByDay(0)}
             >
               <p>Today</p>
@@ -126,7 +114,7 @@ export default function Days({
           {/* TOMORROW */}
           <li
             onClick={() =>
-              setTabIsActive({
+              setActiveTab({
                 day0: false,
                 day1: true,
                 day2: false,
@@ -134,11 +122,7 @@ export default function Days({
             }
           >
             <button
-              className={
-                tabIsActive && tabIsActive.day1
-                  ? "tab-is-active"
-                  : "tab-is-inactive"
-              }
+              className={activeTab.day1 ? "tab-is-active" : "tab-is-inactive"}
               onClick={() => filterByDay(1)}
             >
               <p>
@@ -150,7 +134,7 @@ export default function Days({
           {/* AFTER TOMORROW */}
           <li
             onClick={() =>
-              setTabIsActive({
+              setActiveTab({
                 day0: false,
                 day1: false,
                 day2: true,
@@ -158,11 +142,7 @@ export default function Days({
             }
           >
             <button
-              className={
-                tabIsActive && tabIsActive.day2
-                  ? "tab-is-active"
-                  : "tab-is-inactive"
-              }
+              className={activeTab.day2 ? "tab-is-active" : "tab-is-inactive"}
               onClick={() => filterByDay(2)}
             >
               <p>
@@ -175,7 +155,7 @@ export default function Days({
       <Hours
         filteredDataByDay={filteredDataByDay}
         isLoading={isLoading}
-        activeDay={tabIsActive}
+        activeTab={activeTab}
         validCity={validCity}
       />
     </>
