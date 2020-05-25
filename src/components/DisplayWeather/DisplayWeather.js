@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import "./DisplayWeather.scss";
 import { IsLoadingContext, IsNightContext } from "../../App";
-import { RadioInput2 } from "../Utils/RadioInput/RadioInput";
+import { RadioButtons2 } from "../Utils/RadioButtons/RadioButtons";
 
 export default function DisplayWeather({ finalData, validCity }) {
   const { isLoading } = useContext(IsLoadingContext);
@@ -71,7 +71,7 @@ export default function DisplayWeather({ finalData, validCity }) {
           <h4>Temperature</h4>
           <div className="wrapper__temp-units">
             <button>
-              <RadioInput2
+              <RadioButtons2
                 id={"celsius"}
                 label={" °C"}
                 checked={isCelsius}
@@ -79,7 +79,7 @@ export default function DisplayWeather({ finalData, validCity }) {
               />
             </button>
             <button>
-              <RadioInput2
+              <RadioButtons2
                 id={"fahrenheit"}
                 label={" °F"}
                 checked={!isCelsius}
@@ -119,7 +119,7 @@ export default function DisplayWeather({ finalData, validCity }) {
           <h4>Wind</h4>
           <div className="wrapper__wind-units">
             <button>
-              <RadioInput2
+              <RadioButtons2
                 id={"kms"}
                 label={" km/h"}
                 checked={isKm}
@@ -127,7 +127,7 @@ export default function DisplayWeather({ finalData, validCity }) {
               />
             </button>
             <button>
-              <RadioInput2
+              <RadioButtons2
                 id={"mps"}
                 label={" mph"}
                 checked={!isKm}
@@ -155,8 +155,8 @@ export default function DisplayWeather({ finalData, validCity }) {
             <span
               style={
                 validCity && !isLoading
-                  ? { visibility: "block" }
-                  : { visibility: "none" }
+                  ? { display: "block" }
+                  : { display: "none" }
               }
             >
               {<i className="fas fa-long-arrow-alt-down"></i>}

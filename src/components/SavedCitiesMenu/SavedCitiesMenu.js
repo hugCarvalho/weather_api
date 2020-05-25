@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import "./SavedCitiesMenu.scss";
-import RadioInput from "../Utils/RadioInput/RadioInput";
+import RadioButtons from "../Utils/RadioButtons/RadioButtons";
 import { ErrorContext, UserQueryContext } from "../../App";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
@@ -130,27 +130,27 @@ export default function SavedCitiesMenu({ validCity }) {
 
         {/* RADIO INPUTS*/}
         <div className="items items--10 radio-btns">
-          <RadioInput
+          <RadioButtons
             value={savedCities.city1}
             value2={defaultCity}
             id="city-1"
-            runFn={chooseDefaultCity}
+            action={chooseDefaultCity}
           />
         </div>
         <div className="items items--11 radio-btns">
-          <RadioInput
+          <RadioButtons
             value={savedCities.city2}
             value2={defaultCity}
             id="city-2"
-            runFn={chooseDefaultCity}
+            action={chooseDefaultCity}
           />
         </div>
         <div className="items items--12 radio-btns">
-          <RadioInput
+          <RadioButtons
             value={savedCities.city3}
             id="city-3"
             value2={defaultCity}
-            runFn={chooseDefaultCity}
+            action={chooseDefaultCity}
           />
         </div>
 
