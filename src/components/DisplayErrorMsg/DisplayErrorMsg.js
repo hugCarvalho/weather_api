@@ -11,7 +11,6 @@ export default function DisplayErrorMsg() {
     }, 1200);
 
     return () => {
-      console.log("CLEANUP");
       clearTimeout(timer);
     };
   }, [error, dispatch]);

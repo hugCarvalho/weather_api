@@ -36,7 +36,7 @@ export default function Hours({
     }
   };
 
-  //Sets active hour, triggers on click => filterByActiveHour
+  //Sets active hour for "tomorrow and after tomorrow", triggers on click => filterByActiveHour
   const settingActiveHour = e => {
     setDefaultHour(e.target.textContent);
     return filterByActiveHour(e.target.textContent);
@@ -50,10 +50,11 @@ export default function Hours({
   useEffect(() => {
     if (validCity && !isLoading) {
       if (activeTab.day0) {
-        //sets default hour for day of today. Will be automatically chosen when page loads for first time.
+        //sets active hour for day of today. Will be automatically chosen when page loads for first time.
         setDefaultHour(filteredDataByDay.weather.list[0].dt_txt.slice(11, 16));
       }
       if (!activeTab.day0) {
+        //sets default hour for "tomorrow and after tomorrow"
         setDefaultHour("12:00");
         return filterByActiveHour("anotherDay");
       }

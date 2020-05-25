@@ -10,8 +10,8 @@ export default function DisplayWeather({ finalData, validCity }) {
   const [isCelsius, setIsCelsius] = useState(true);
   const [isKm, setIsKm] = useState(true);
 
+  //Toggle background color
   useEffect(() => {
-    //debugger;
     const toggleBackgroundDayNight = () => {
       const iconName = finalData.weather.list[0].weather[0].icon;
       iconName.endsWith("n") ? setIsNight(true) : setIsNight(false);
@@ -20,15 +20,15 @@ export default function DisplayWeather({ finalData, validCity }) {
     if (validCity && !isLoading) {
       toggleBackgroundDayNight();
     }
-    //debugger;
-  }, [isLoading, finalData]);
+  }, [isLoading, finalData, setIsNight, validCity]);
 
+  //Converts Kelvin to Celsius or Fahrenheit
   const convertTemp = value =>
     isCelsius
       ? `${(value - 273.15).toFixed(1)}`
       : `${((value * 9) / 5 - 459.67).toFixed(0)}`;
 
-  //converts from metres per second (m/s) to km/h or uses m/s value
+  //converts from metres per second (m/s) to km/h or to miles per hour
   const convertWindSpeed = value =>
     isKm ? Math.round(value * 3.6) : Math.round(value * 2.237);
 
@@ -40,6 +40,7 @@ export default function DisplayWeather({ finalData, validCity }) {
     return cardinalPoints[Math.round(value / 22.5)];
   };
 
+  //Rotates wind arrow
   const rotate = deg => {
     document.querySelector(
       ".fa-long-arrow-alt-down"
@@ -49,7 +50,7 @@ export default function DisplayWeather({ finalData, validCity }) {
   return (
     <>
       {/* added validCity to avoid showing at the begining without any default city set */}
-      {/* WEATHER ICON AND DESCRIPTION */}
+      {/* WEATHER ICON */}
       <div
         className="container__weather-card"
         style={isNight ? { background: "#202020" } : { background: "#7cafeb" }}
@@ -64,6 +65,13 @@ export default function DisplayWeather({ finalData, validCity }) {
           ) : (
             <span className="not-available">n/a</span>
           )}
+        </div>
+
+        {/* Weather description */}
+        <div id="weather-description" className="item item--7">
+          {validCity && !isLoading
+            ? finalData.weather.list[0].weather[0].description
+            : "n/a"}
         </div>
 
         {/* Temperature */}
@@ -99,18 +107,11 @@ export default function DisplayWeather({ finalData, validCity }) {
           </span>
         </div>
 
-        {/* Feels Like */}
+        {/* Real feel */}
         <div className="item item--4">
           <h5> Real Feel:</h5>
           {validCity && !isLoading
             ? convertTemp(finalData.weather.list[0].main.feels_like)
-            : "n/a"}
-        </div>
-
-        {/* Weather description */}
-        <div id="weather-description" className="item item--7">
-          {validCity && !isLoading
-            ? finalData.weather.list[0].weather[0].description
             : "n/a"}
         </div>
 
