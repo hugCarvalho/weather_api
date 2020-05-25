@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useReducer } from "react";
 import "./App.scss";
-//import { keyAPI } from "./key";
 import Header from "./components/Header/Header";
 import InputSearchCity from "./components/InputSearchCity/InputSearchCity";
 import DisplayErrorMsg from "./components/DisplayErrorMsg/DisplayErrorMsg";
@@ -21,17 +20,17 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
   const [isNight, setIsNight] = useState(false);
-  const [notValidCity, setNotValidCity] = useState(false); //fixing error
+  const [notValidCity, setNotValidCity] = useState(false);
 
   const [error, dispatch] = useReducer(errorReducer, errorInit);
 
-  useEffect(() => {
-    console.log("notValidCity from app:", notValidCity);
-  }, [notValidCity]);
+  // useEffect(() => {
+  //   console.log("notValidCity from app:", notValidCity);
+  // }, [notValidCity]);
 
   //FETCH DATA
   useEffect(() => {
-    setIsLoading(true); //don't comment out
+    setIsLoading(true); //don't change
     ////debugger;
     const getWeather = async () => {
       const api = `https://api.openweathermap.org/data/2.5/forecast?q=${userQuery}&appid=${key}`;
@@ -42,20 +41,15 @@ function App() {
         setData({
           weather: data,
         });
-        //debugger;
         setValidCity(userQuery);
         setIsLoading(false);
-        //debugger;
       } else {
-        //debugger;
         dispatch({ type: "TRUE", value: data.message });
         if (data.message === "city not found") {
-          // console.log(data.message);
           setNotValidCity(true);
           setNotValidCity(false); //prevents error when selecting a dif day and typing a not valid name
         }
         setIsLoading(false);
-        //debugger;
       }
     };
     userQuery &&
@@ -63,7 +57,7 @@ function App() {
         dispatch({ type: "TRUE", value: "Something went wrong..." });
       });
   }, [userQuery, key]);
-
+  //TODO: check contexts
   return (
     <>
       <div
