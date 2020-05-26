@@ -8,10 +8,9 @@ import DisplayCityName from "./components/DisplayCityName/DisplayCityName";
 import Days from "./components/Days/Days";
 import { errorInit, errorReducer } from "./components/reducers";
 
-export const IsLoadingContext = React.createContext();
 export const UserQueryContext = React.createContext();
-export const IsNightContext = React.createContext();
 export const ErrorContext = React.createContext();
+export const IsNightContext = React.createContext();
 
 function App() {
   const key = "82005d27a116c2880c8f0fcb866998a0";
@@ -57,6 +56,7 @@ function App() {
         dispatch({ type: "TRUE", value: "Something went wrong..." });
       });
   }, [userQuery, key]);
+
   //TODO: check contexts
   return (
     <>
@@ -65,24 +65,22 @@ function App() {
         style={isNight ? { background: "#202020" } : { background: "#7cafeb" }}
       >
         <Header />
-        <UserQueryContext.Provider value={{ userQuery, setUserQuery }}>
-          <IsLoadingContext.Provider value={{ isLoading, setIsLoading }}>
-            <ErrorContext.Provider value={{ error, dispatch }}>
-              <InputSearchCity />
-              <DisplayErrorMsg />
-              <SavedCitiesMenu validCity={validCity} />
-            </ErrorContext.Provider>{" "}
-            <DisplayCityName validCity={validCity} isLoading={isLoading} />
-            <IsNightContext.Provider value={{ isNight, setIsNight }}>
-              <Days
-                data={data}
-                isLoading={isLoading}
-                validCity={validCity}
-                notValidCity={notValidCity}
-              />
-            </IsNightContext.Provider>
-          </IsLoadingContext.Provider>
-        </UserQueryContext.Provider>
+        <ErrorContext.Provider value={{ error, dispatch }}>
+          <UserQueryContext.Provider value={{ userQuery, setUserQuery }}>
+            <InputSearchCity />
+            <DisplayErrorMsg />
+            <SavedCitiesMenu validCity={validCity} />
+          </UserQueryContext.Provider>
+        </ErrorContext.Provider>{" "}
+        <DisplayCityName validCity={validCity} isLoading={isLoading} />
+        <IsNightContext.Provider value={{ isNight, setIsNight }}>
+          <Days
+            data={data}
+            isLoading={isLoading}
+            validCity={validCity}
+            notValidCity={notValidCity}
+          />
+        </IsNightContext.Provider>
       </div>
     </>
   );

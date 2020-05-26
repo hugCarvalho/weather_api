@@ -82,7 +82,11 @@ export default function Hours({
             );
           })}
       </div>
-      <DisplayWeather finalData={filteredDataByHours} validCity={validCity} />
+      <DisplayWeather
+        finalData={filteredDataByHours}
+        validCity={validCity}
+        isLoading={isLoading}
+      />
     </>
   );
 }

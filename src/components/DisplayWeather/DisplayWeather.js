@@ -1,10 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import "./DisplayWeather.scss";
-import { IsLoadingContext, IsNightContext } from "../../App";
+import { IsNightContext } from "../../App";
 import { RadioButtons2 } from "../Utils/RadioButtons/RadioButtons";
 
-export default function DisplayWeather({ finalData, validCity }) {
-  const { isLoading } = useContext(IsLoadingContext);
+export default function DisplayWeather({ finalData, validCity, isLoading }) {
   const { isNight, setIsNight } = useContext(IsNightContext);
 
   const [isCelsius, setIsCelsius] = useState(true);
