@@ -9,7 +9,7 @@ export default function Hours({
   validCity,
 }) {
   const [filteredDataByHours, setFilteredDataByHours] = useState({});
-  let [defaultHour, setDefaultHour] = useState("");
+  const [defaultHour, setDefaultHour] = useState("");
 
   //TESTING
   // useEffect(() => {
@@ -59,7 +59,7 @@ export default function Hours({
         return filterByActiveHour("anotherDay");
       }
     }
-  }, [isLoading, filteredDataByDay, validCity]);
+  }, [isLoading, filteredDataByDay, validCity, activeTab.day0]);
 
   return (
     <>

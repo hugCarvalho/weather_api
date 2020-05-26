@@ -9,6 +9,11 @@ export default function DisplayWeather({ finalData, validCity, isLoading }) {
   const [isCelsius, setIsCelsius] = useState(true);
   const [isKm, setIsKm] = useState(true);
 
+  //Debugging
+  useEffect(() => {
+    console.log("finalData:", finalData);
+  }, [finalData]);
+
   //Toggle background color
   useEffect(() => {
     const toggleBackgroundDayNight = () => {

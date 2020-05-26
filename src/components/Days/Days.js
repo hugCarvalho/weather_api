@@ -3,12 +3,13 @@ import "./Days.scss";
 import Moment from "react-moment";
 import Hours from "../Hours/Hours";
 
+const initTabs = {
+  day0: true,
+  day1: false,
+  day2: false,
+};
+
 export default function Days({ isLoading, data, validCity, notValidCity }) {
-  const initTabs = {
-    day0: true,
-    day1: false,
-    day2: false,
-  };
   const [filteredDataByDay, setFilteredDataByDay] = useState({});
   const [activeTab, setActiveTab] = useState(initTabs);
 
