@@ -11,15 +11,6 @@ export default function Hours({
   const [filteredDataByHours, setFilteredDataByHours] = useState({});
   const [defaultHour, setDefaultHour] = useState("");
 
-  //TESTING
-  // useEffect(() => {
-  //   console.log("filteredDataByHours", filteredDataByHours);
-  // }, [filteredDataByHours]);
-
-  // useEffect(() => {
-  //   console.log("filteredDataByDAYS", filteredDataByDay);
-  // }, [filteredDataByDay]);
-
   //One array with the matching time is returned and will be passed down
   const filterByActiveHour = day => {
     const timeOnButton = day === "anotherDay" ? "12:00" : day;

@@ -8,7 +8,7 @@ export default function DisplayErrorMsg() {
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch("FALSE");
-    }, 1200);
+    }, 1500);
 
     return () => {
       clearTimeout(timer);

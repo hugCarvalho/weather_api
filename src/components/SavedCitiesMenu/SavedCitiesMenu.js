@@ -133,6 +133,7 @@ export default function SavedCitiesMenu({ validCity }) {
         <div className="items items--8 ">
           <button onClick={() => setIsMenuClosed(true)}>
             <i className="fas fa-angle-double-up"></i>
+            <span style={accessibility}>open or close saved cities menu</span>
           </button>
         </div>
 
@@ -215,3 +216,9 @@ export default function SavedCitiesMenu({ validCity }) {
     </>
   );
 }
+
+const accessibility = {
+  position: "absolute",
+  marginLeft: "9999px",
+  //color: "transparent",
+};

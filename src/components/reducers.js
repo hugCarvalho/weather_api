@@ -7,7 +7,10 @@ export const errorInit = {
 export function errorReducer(state, action) {
   switch (action.type) {
     case "TRUE":
-      return { showError: true, text: action.value };
+      return {
+        showError: true,
+        text: action.value,
+      };
     default:
       return errorInit;
   }

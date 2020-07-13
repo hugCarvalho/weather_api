@@ -16,11 +16,12 @@ Built with React HOOKS, styled with SASS(scss)
 - React-spinners
 
 #### App functionalities
-- search for a city to display the weather
-- display weather for present day, tomorrow, and after tomorrow (every 3 hours display)
- 	- displays temperature (actual + real feel) 
-	- displays wind speed + wind direction (cardinal points + arrow pointer)
-- save a city for fast access (up to 3 cities) in local storage
+- search for a city to display the weather forecast
+- display weather forecast for present day and next 2 days:
+	- every 3 hours option
+ 	- temperature (actual + real feel) 
+	- wind speed + wind direction (cardinal points + arrow pointer)
+- save cities for fast access (up to 3 cities) in local storage
 - set a city to load at startup
 
 Verification: 

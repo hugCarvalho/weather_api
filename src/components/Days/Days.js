@@ -13,27 +13,6 @@ export default function Days({ isLoading, data, validCity, notValidCity }) {
   const [filteredDataByDay, setFilteredDataByDay] = useState({});
   const [activeTab, setActiveTab] = useState(initTabs);
 
-  //testing
-  // useEffect(() => {
-  //   console.log("USER QUERY CHANGED", userQuery);
-  // }, [userQuery]);
-
-  // useEffect(() => {
-  //   console.log("DATA from app:", data);
-  // }, [data]);
-
-  // useEffect(() => {
-  //   console.log("filteredDataByDay", filteredDataByDay);
-  // }, [filteredDataByDay]);
-
-  // useEffect(() => {
-  //   console.log("activeTab", activeTab);
-  // }, [activeTab]);
-
-  // useEffect(() => {
-  //   console.log("notValidCity", notValidCity);
-  // }, [notValidCity]);
-
   //Filters original data returning the data for desired day
   const filterByDay = day => {
     const currentDay = Number(data.weather.list[0].dt_txt.slice(8, 10));
@@ -45,7 +24,6 @@ export default function Days({ isLoading, data, validCity, notValidCity }) {
         return +dayOfTheMonth.dt_txt.slice(8, 10) === forecastDay;
       });
     };
-    //debugger;
     let res = filterRequiredDay();
     //if no match is found, number is not valid calendar day, hence the conditions
     if (res.length === 0 && forecastDay === 33) {
@@ -66,25 +44,20 @@ export default function Days({ isLoading, data, validCity, notValidCity }) {
         list: res,
       },
     });
-    //debugger;
   };
 
   useEffect(() => {
-    //debugger;
-    //Filters the data for initiat and reload
+    //Filters the data for initial and reload
     setFilteredDataByDay(data);
     if (!isLoading && validCity) {
       filterByDay(0);
     }
-    //console.log("inSETFILTEREDDATAbyDAY:, ", data, filteredDataByDay);
-    //debugger;
-  }, [data, isLoading, validCity, notValidCity]); //filterDAtabyDay causes error
+  }, [data, isLoading, validCity, notValidCity]);
 
   useEffect(() => {
     setActiveTab(initTabs);
   }, [validCity, notValidCity]); //will reset the active tab after a request about a new city
 
-  //TODO: change setActiveTab to reducer
   return (
     <>
       <div

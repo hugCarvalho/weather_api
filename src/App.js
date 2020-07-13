@@ -13,7 +13,7 @@ export const ErrorContext = React.createContext();
 export const IsNightContext = React.createContext();
 
 function App() {
-  const key = "82005d27a116c2880c8f0fcb866998a0";
+  const key = "f2b65d46e479364d7c9f2127abfcb2b4";
   const [userQuery, setUserQuery] = useState("");
   const [validCity, setValidCity] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -23,14 +23,9 @@ function App() {
 
   const [error, dispatch] = useReducer(errorReducer, errorInit);
 
-  // useEffect(() => {
-  //   console.log("notValidCity from app:", notValidCity);
-  // }, [notValidCity]);
-
   //FETCH DATA
   useEffect(() => {
     setIsLoading(true); //don't change
-    ////debugger;
     const getWeather = async () => {
       const api = `https://api.openweathermap.org/data/2.5/forecast?q=${userQuery}&appid=${key}`;
       const response = await fetch(api);
@@ -57,7 +52,6 @@ function App() {
       });
   }, [userQuery, key]);
 
-  //TODO: check contexts
   return (
     <>
       <div

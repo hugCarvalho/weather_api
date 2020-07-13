@@ -53,7 +53,7 @@ export default function DisplayWeather({ finalData, validCity, isLoading }) {
 
   return (
     <>
-      {/* added validCity to avoid showing at the begining without any default city set */}
+      {/* added validCity condition to avoid showing at the begining without any default city set */}
       {/* WEATHER ICON */}
       <div
         className="container__weather-card"
