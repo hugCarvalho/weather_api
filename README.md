@@ -1,7 +1,5 @@
-## Weather App with 2 days forecast 
+## Weather App with 3 days forecast 
 Displays weather data from *OpenWeather* API for the present day and for the next 2 days for every 3 hours. 
-
-*Note*: performance not yet optimized.
 
 ### Project specs
 Built with React HOOKS, styled with SASS(scss)
