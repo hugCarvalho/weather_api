@@ -10,10 +10,15 @@ input {
 }
 button {
   text-transform: none;
-  -webkit-appearance: none;
+  //-webkit-appearance: none;
 }
 button:hover {
   cursor: pointer;
+}
+
+input {
+  -webkit-border-radius: 0;
+  border-radius: 0;
 }
 
 //Colors
