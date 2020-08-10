@@ -10,9 +10,9 @@ export default function DisplayWeather({ finalData, validCity, isLoading }) {
   const [isKm, setIsKm] = useState(true);
 
   //Debugging
-  useEffect(() => {
-    console.log("finalData:", finalData);
-  }, [finalData]);
+  // useEffect(() => {
+  //   console.log("finalData:", finalData);
+  // }, [finalData]);
 
   //Toggle background color
   useEffect(() => {
@@ -27,16 +27,16 @@ export default function DisplayWeather({ finalData, validCity, isLoading }) {
   }, [isLoading, finalData, setIsNight, validCity]);
 
   //Converts Kelvin to Celsius or Fahrenheit
-  const convertTemp = value =>
+  const convertTemp = (value) =>
     isCelsius
       ? `${(value - 273.15).toFixed(1)}`
       : `${((value * 9) / 5 - 459.67).toFixed(0)}`;
 
   //converts from metres per second (m/s) to km/h or to miles per hour
-  const convertWindSpeed = value =>
+  const convertWindSpeed = (value) =>
     isKm ? Math.round(value * 3.6) : Math.round(value * 2.237);
 
-  const convertWindDirection = value => {
+  const convertWindDirection = (value) => {
     //adapted from https://www.campbellsci.de/blog/convert-wind-directions
     //using this graph in http://snowfence.umn.edu/Components/winddirectionanddegrees.htm as a reference
     // prettier-ignore
@@ -45,7 +45,7 @@ export default function DisplayWeather({ finalData, validCity, isLoading }) {
   };
 
   //Rotates wind arrow
-  const rotate = deg => {
+  const rotate = (deg) => {
     document.querySelector(
       ".fa-long-arrow-alt-down"
     ).style.transform = `rotate(${deg}deg)`;
@@ -57,8 +57,7 @@ export default function DisplayWeather({ finalData, validCity, isLoading }) {
       {/* WEATHER ICON */}
       <div
         className="container__weather-card"
-        style={isNight ? { background: "#202020" } : { background: "#7cafeb" }}
-      >
+        style={isNight ? { background: "#202020" } : { background: "#7cafeb" }}>
         <div className="item item--1">
           {validCity && !isLoading ? (
             <img
@@ -162,8 +161,7 @@ export default function DisplayWeather({ finalData, validCity, isLoading }) {
                 validCity && !isLoading
                   ? { display: "block" }
                   : { display: "none" }
-              }
-            >
+              }>
               {<i className="fas fa-long-arrow-alt-down"></i>}
             </span>
           }

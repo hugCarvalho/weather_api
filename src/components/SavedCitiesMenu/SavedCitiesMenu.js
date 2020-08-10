@@ -67,7 +67,7 @@ export default function SavedCitiesMenu({ validCity }) {
   };
 
   //SAVE CITY
-  const saveCity = citySlot => {
+  const saveCity = (citySlot) => {
     // prettier-ignore
     if (citySlot === "city1") return setSavedCities({ ...savedCities, city1: validCity });
     // prettier-ignore
@@ -77,12 +77,12 @@ export default function SavedCitiesMenu({ validCity }) {
   };
 
   //VALIDATION
-  const checkCityisElegible = citySlot => {
+  const checkCityisElegible = (citySlot) => {
     if (!validCity) {
       return dispatch({ type: "TRUE", value: "SEARCH for a valid city first" });
     }
 
-    const cityNameExists = Object.values(savedCities).some(city => {
+    const cityNameExists = Object.values(savedCities).some((city) => {
       return city.toLowerCase() === validCity.toLowerCase();
     });
 
@@ -92,14 +92,14 @@ export default function SavedCitiesMenu({ validCity }) {
   };
 
   // Check to prevent saving the same city again
-  const checkSlotIsEmpty = e => {
+  const checkSlotIsEmpty = (e) => {
     if (e.target.textContent === "empty") {
       return dispatch({ type: "TRUE", value: "SAVE a city first" });
     } else setUserQuery(e.target.textContent);
   };
 
   //CHOOSE DEFAULT CITY
-  const chooseDefaultCity = city => {
+  const chooseDefaultCity = (city) => {
     if (!city) {
       return dispatch({ type: "TRUE", value: "SAVE a city first" });
     }
@@ -110,8 +110,7 @@ export default function SavedCitiesMenu({ validCity }) {
     <>
       <div
         className="container__saved-cities-menu"
-        style={setContainerHeight()}
-      >
+        style={setContainerHeight()}>
         {/*FAST ACCESS CITIES BUTTONS */}
         <div className="items items--4">
           <button onClick={checkSlotIsEmpty}>
@@ -181,24 +180,21 @@ export default function SavedCitiesMenu({ validCity }) {
         <div className="items items--20 ">
           <button
             className="save-btns"
-            onClick={() => checkCityisElegible("city1")}
-          >
+            onClick={() => checkCityisElegible("city1")}>
             Save
           </button>
         </div>
         <div className="items items--21">
           <button
             className="save-btns"
-            onClick={() => checkCityisElegible("city2")}
-          >
+            onClick={() => checkCityisElegible("city2")}>
             Save
           </button>
         </div>
         <div className="items items--22">
           <button
             className="save-btns"
-            onClick={() => checkCityisElegible("city3")}
-          >
+            onClick={() => checkCityisElegible("city3")}>
             Save
           </button>
         </div>
@@ -207,8 +203,7 @@ export default function SavedCitiesMenu({ validCity }) {
         <div className="items items--23">
           <Tippy
             delay={400}
-            content="SEARCH for a city first. Then press `save`"
-          >
+            content="SEARCH for a city first. Then press `save`">
             <button className="tooltips">?</button>
           </Tippy>
         </div>
@@ -218,7 +213,10 @@ export default function SavedCitiesMenu({ validCity }) {
 }
 
 const accessibility = {
+  width: "1px",
+  height: "1px",
   position: "absolute",
-  marginLeft: "9999px",
-  //color: "transparent",
+  top: "auto",
+  left: "-10000px",
+  overflow: "hidden",
 };
