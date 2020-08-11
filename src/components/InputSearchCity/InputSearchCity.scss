@@ -12,6 +12,9 @@
   }
 
   input {
+    -webkit-appearance: none;
+    -webkit-border-radius: 0;
+    border-radius: 0;
     width: 48%;
     padding: 1px 3px;
     border-right: none; //also removes firefox automatic border-radius
