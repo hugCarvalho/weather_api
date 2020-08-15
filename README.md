@@ -1,10 +1,14 @@
 ## Weather App with 3 days forecast 
 Displays weather data from *OpenWeather* API for the present day and for the next 2 days for every 3 hours. 
 
+Live: https://awesome-payne-8bf6bd.netlify.app/ (<code>ctrl + click</code> to open in a new window)
+
 ### Project specs
 Built with React HOOKS, styled with SASS(scss)
 
-#### Hooks used (appart from useState and useEffect...) 
+#### Hooks used 
+- useState
+- useEffect
 - useReducer
 - useContext
  
