@@ -4,5 +4,4 @@ import SavedCitiesMenu from "./SavedCitiesMenu";
 
 test.skip("should ", () => {
   // render(<SavedCitiesMenu />);
-  expect(true).toBe(true);
 });

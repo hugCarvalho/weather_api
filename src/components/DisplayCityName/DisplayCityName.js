@@ -1,6 +1,7 @@
 import React from "react";
 import "./DisplayCityName.scss";
 import { ClipLoader } from "react-spinners";
+import PropTypes from "prop-types";
 
 export default function DisplayCityName({ validCity, isLoading }) {
   return (
@@ -17,3 +18,8 @@ export default function DisplayCityName({ validCity, isLoading }) {
     </>
   );
 }
+
+DisplayCityName.propTypes = {
+  validCity: PropTypes.string,
+  isLoading: PropTypes.bool,
+};
