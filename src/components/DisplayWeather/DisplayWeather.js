@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import "./DisplayWeather.scss";
 import { IsNightContext } from "../../App";
 import { RadioButtons2 } from "../Utils/RadioButtons/RadioButtons";
+import PropTypes from "prop-types";
 
 export default function DisplayWeather({ finalData, validCity, isLoading }) {
   const { isNight, setIsNight } = useContext(IsNightContext);
@@ -57,7 +58,8 @@ export default function DisplayWeather({ finalData, validCity, isLoading }) {
       {/* WEATHER ICON */}
       <div
         className="container__weather-card"
-        style={isNight ? { background: "#202020" } : { background: "#7cafeb" }}>
+        style={isNight ? { background: "#202020" } : { background: "#7cafeb" }}
+      >
         <div className="item item--1">
           {validCity && !isLoading ? (
             <img
@@ -157,19 +159,20 @@ export default function DisplayWeather({ finalData, validCity, isLoading }) {
 
           {
             <span
-              style={
-                validCity && !isLoading
-                  ? { display: "block" }
-                  : { display: "none" }
-              }>
+              style={validCity && !isLoading ? { display: "block" } : { display: "none" }}
+            >
               {<i className="fas fa-long-arrow-alt-down"></i>}
             </span>
           }
-          {validCity && !isLoading
-            ? rotate(finalData.weather.list[0].wind.deg)
-            : "n/a"}
+          {validCity && !isLoading ? rotate(finalData.weather.list[0].wind.deg) : "n/a"}
         </div>
       </div>
     </>
   );
 }
+
+DisplayWeather.propTypes = {
+  finalData: PropTypes.object,
+  validCity: PropTypes.string,
+  isLoading: PropTypes.bool,
+};

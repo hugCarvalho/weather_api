@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "./Hours.scss";
 import DisplayWeather from "../DisplayWeather/DisplayWeather";
+import PropTypes from "prop-types";
 
-export default function Hours({
-  filteredDataByDay,
-  isLoading,
-  activeTab,
-  validCity,
-}) {
+export default function Hours({ filteredDataByDay, isLoading, activeTab, validCity }) {
   const [filteredDataByHours, setFilteredDataByHours] = useState({});
   const [defaultHour, setDefaultHour] = useState("");
 
   //One array with the matching time is returned and will be passed down
-  const filterByActiveHour = day => {
+  const filterByActiveHour = (day) => {
     const timeOnButton = day === "anotherDay" ? "12:00" : day;
-    const activeHourArray = filteredDataByDay.weather.list.filter(item => {
+    const activeHourArray = filteredDataByDay.weather.list.filter((item) => {
       return item.dt_txt.slice(11, 16) === timeOnButton;
     });
     if (validCity && !isLoading) {
@@ -28,7 +24,7 @@ export default function Hours({
   };
 
   //Sets active hour for "tomorrow and after tomorrow", triggers on click => filterByActiveHour
-  const settingActiveHour = e => {
+  const settingActiveHour = (e) => {
     setDefaultHour(e.target.textContent);
     return filterByActiveHour(e.target.textContent);
   };
@@ -65,7 +61,7 @@ export default function Hours({
             return (
               <button
                 className={classes.join(" ")}
-                onClick={e => settingActiveHour(e)}
+                onClick={(e) => settingActiveHour(e)}
                 key={i}
               >
                 {item.dt_txt.slice(11, 16)}
@@ -81,3 +77,10 @@ export default function Hours({
     </>
   );
 }
+
+Hours.propTypes = {
+  validCity: PropTypes.string,
+  isLoading: PropTypes.bool,
+  activeTab: PropTypes.object,
+  filteredDataByDay: PropTypes.object,
+};

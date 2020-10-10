@@ -4,6 +4,16 @@ import RadioButtons from "../Utils/RadioButtons/RadioButtons";
 import { ErrorContext, UserQueryContext } from "../../App";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
+import PropTypes from "prop-types";
+
+const accessibility = {
+  width: "1px",
+  height: "1px",
+  position: "absolute",
+  top: "auto",
+  left: "-10000px",
+  overflow: "hidden",
+};
 
 export default function SavedCitiesMenu({ validCity }) {
   const { setUserQuery } = useContext(UserQueryContext);
@@ -28,9 +38,7 @@ export default function SavedCitiesMenu({ validCity }) {
 
   useEffect(() => {
     try {
-      const fetchedDefaultCity = JSON.parse(
-        localStorage.getItem("defaultCity")
-      );
+      const fetchedDefaultCity = JSON.parse(localStorage.getItem("defaultCity"));
 
       setDefaultCity(fetchedDefaultCity);
 
@@ -108,9 +116,7 @@ export default function SavedCitiesMenu({ validCity }) {
 
   return (
     <>
-      <div
-        className="container__saved-cities-menu"
-        style={setContainerHeight()}>
+      <div className="container__saved-cities-menu" style={setContainerHeight()}>
         {/*FAST ACCESS CITIES BUTTONS */}
         <div className="items items--4">
           <button onClick={checkSlotIsEmpty}>
@@ -178,32 +184,24 @@ export default function SavedCitiesMenu({ validCity }) {
 
         {/* SAVE CITY BUTTONS */}
         <div className="items items--20 ">
-          <button
-            className="save-btns"
-            onClick={() => checkCityisElegible("city1")}>
+          <button className="save-btns" onClick={() => checkCityisElegible("city1")}>
             Save
           </button>
         </div>
         <div className="items items--21">
-          <button
-            className="save-btns"
-            onClick={() => checkCityisElegible("city2")}>
+          <button className="save-btns" onClick={() => checkCityisElegible("city2")}>
             Save
           </button>
         </div>
         <div className="items items--22">
-          <button
-            className="save-btns"
-            onClick={() => checkCityisElegible("city3")}>
+          <button className="save-btns" onClick={() => checkCityisElegible("city3")}>
             Save
           </button>
         </div>
 
         {/* TOOLTIP SAVE BUTTON */}
         <div className="items items--23">
-          <Tippy
-            delay={400}
-            content="SEARCH for a city first. Then press `save`">
+          <Tippy delay={400} content="SEARCH for a city first. Then press `save`">
             <button className="tooltips">?</button>
           </Tippy>
         </div>
@@ -212,11 +210,6 @@ export default function SavedCitiesMenu({ validCity }) {
   );
 }
 
-const accessibility = {
-  width: "1px",
-  height: "1px",
-  position: "absolute",
-  top: "auto",
-  left: "-10000px",
-  overflow: "hidden",
+SavedCitiesMenu.propTypes = {
+  validCity: PropTypes.string,
 };

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Days.scss";
 import Moment from "react-moment";
 import Hours from "../Hours/Hours";
+import PropTypes from "prop-types";
 
 const initTabs = {
   day0: true,
@@ -14,13 +15,13 @@ export default function Days({ isLoading, data, validCity, notValidCity }) {
   const [activeTab, setActiveTab] = useState(initTabs);
 
   //Filters original data returning the data for desired day
-  const filterByDay = day => {
+  const filterByDay = (day) => {
     const currentDay = Number(data.weather.list[0].dt_txt.slice(8, 10));
     const currentMonth = Number(data.weather.list[0].dt_txt.slice(5, 7));
     let forecastDay = currentDay + day;
 
     const filterRequiredDay = () => {
-      return data.weather.list.filter(dayOfTheMonth => {
+      return data.weather.list.filter((dayOfTheMonth) => {
         return +dayOfTheMonth.dt_txt.slice(8, 10) === forecastDay;
       });
     };
@@ -33,7 +34,7 @@ export default function Days({ isLoading, data, validCity, notValidCity }) {
       forecastDay = 1;
       res = filterRequiredDay();
     } else if (res.length === 0 && forecastDay === 32) {
-      res = data.weather.list.filter(day => {
+      res = data.weather.list.filter((day) => {
         currentMonth % 2 !== 0 ? (forecastDay = 1) : (forecastDay = 2);
         return +day.dt_txt.slice(8, 10) === forecastDay;
       });
@@ -62,9 +63,7 @@ export default function Days({ isLoading, data, validCity, notValidCity }) {
     <>
       <div
         className="container__days-forecast "
-        style={
-          !isLoading && validCity ? { display: "block" } : { display: "none" }
-        }
+        style={!isLoading && validCity ? { display: "block" } : { display: "none" }}
       >
         <ul className="days">
           {/* TODAY */}
@@ -135,3 +134,10 @@ export default function Days({ isLoading, data, validCity, notValidCity }) {
     </>
   );
 }
+
+Days.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+  notValidCity: PropTypes.bool.isRequired,
+  data: PropTypes.object,
+  validCity: PropTypes.string,
+};

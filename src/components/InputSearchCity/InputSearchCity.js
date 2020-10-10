@@ -9,7 +9,7 @@ export default function InputSearchCity() {
   const [text, setText] = useState("");
 
   //VALIDATION
-  const checkInputIsValid = e => {
+  const checkInputIsValid = (e) => {
     //don't use setIsLoading. Allows for rerender on city not found
     e.preventDefault();
     if (text) {
@@ -26,7 +26,7 @@ export default function InputSearchCity() {
           <input
             type="search"
             placeholder="type a city name..."
-            onChange={e => setText(e.target.value)}
+            onChange={(e) => setText(e.target.value)}
             id="input-search-city"
           />
           <button type="submit">Go</button>
