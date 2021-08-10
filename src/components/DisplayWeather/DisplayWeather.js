@@ -3,6 +3,7 @@ import "./DisplayWeather.scss";
 import { IsNightContext } from "../../App";
 import { RadioButtons2 } from "../Utils/RadioButtons/RadioButtons";
 import PropTypes from "prop-types";
+import { RainValue } from "./DisplayWeatherStyles";
 
 export default function DisplayWeather({ finalData, validCity, isLoading }) {
   const { isNight, setIsNight } = useContext(IsNightContext);
@@ -52,6 +53,7 @@ export default function DisplayWeather({ finalData, validCity, isLoading }) {
     ).style.transform = `rotate(${deg}deg)`;
   };
 
+  console.log("FD,", finalData )
   return (
     <>
       {/* added validCity condition to avoid showing at the begining without any default city set */}
@@ -75,9 +77,13 @@ export default function DisplayWeather({ finalData, validCity, isLoading }) {
         {/* Weather description */}
         <div id="weather-description" className="item item--7">
           {validCity && !isLoading
-            ? finalData.weather.list[0].weather[0].description
+            ? <span>{finalData.weather.list[0].weather[0].description}</span>
             : "n/a"}
+          <RainValue>
+            {validCity && !isLoading && finalData.weather.list[0].rain && `(${finalData.weather.list[0].rain['3h']} mm)`}
+          </RainValue> 
         </div>
+
 
         {/* Temperature */}
         <div className="item item--2">
