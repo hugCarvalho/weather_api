@@ -3,7 +3,8 @@
 .container__hours {
   background-color: $gray-dark;
   width: 100%;
-  padding: 10px 6px;
+  min-height: 35px;
+  padding: 5px 6px;
   display: flex;
   flex-wrap: wrap; //good for responsive without mediaQueries
   justify-content: center;
@@ -38,6 +39,7 @@
 @media (min-width: 768px) {
   .container__hours {
     display: flex;
+    min-height: 57.6px;
     button {
       width: 9.1rem; //don't use padding for left & right, buttons will have diff sizes.
       padding: 7px 0;

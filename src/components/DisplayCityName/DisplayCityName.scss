@@ -1,5 +1,5 @@
 .container__city-name {
-  padding: 28px 3px;
+  padding: 19px 3px 12px 3px;
   text-align: center;
 
   h2 {
@@ -9,5 +9,9 @@
     font-size: 2.5rem;
     font-weight: 500;
     letter-spacing: 2px;
+  }
+
+  @media (min-width: 768px) {
+    padding: 27px 3px 20px 3px; 
   }
 }

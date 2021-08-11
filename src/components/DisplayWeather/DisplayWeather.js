@@ -80,13 +80,13 @@ export default function DisplayWeather({ finalData, validCity, isLoading }) {
             validCity && !isLoading 
               ? <>
                 <span>{finalData.weather.list[0].weather[0].description}</span>
-                <AirPressure>Pressure - {validCity && !isLoading && finalData.weather.list[0].main.pressure}mb</AirPressure>
+                <RainValue>{ finalData.weather.list[0].main.rain}</RainValue>
                 <Humidity>Humidity - {validCity && !isLoading && finalData.weather.list[0].main.humidity}%</Humidity>
+                <AirPressure>Pressure - {finalData.weather.list[0].main.pressure}mb</AirPressure>
               </>
             : "n/a"
           }
         </div>
-
 
         {/* Temperature */}
         <div className="item item--2">
@@ -157,7 +157,7 @@ export default function DisplayWeather({ finalData, validCity, isLoading }) {
           <span>
             {validCity && !isLoading
               ? convertWindSpeed(finalData.weather.list[0].wind.speed)
-              : "n/a"}
+              : null}
           </span>
 
           <span>
@@ -173,7 +173,7 @@ export default function DisplayWeather({ finalData, validCity, isLoading }) {
               {<i className="fas fa-long-arrow-alt-down"></i>}
             </span>
           }
-          {validCity && !isLoading ? rotate(finalData.weather.list[0].wind.deg) : "n/a"}
+          {validCity && !isLoading ? rotate(finalData.weather.list[0].wind.deg) : null}
         </div>
       </div>
     </>
