@@ -5,6 +5,7 @@ import { ErrorContext, UserQueryContext } from "../../App";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import PropTypes from "prop-types";
+import { CityCloud } from "./SavedCitiesStyled";
 
 const accessibility = {
   width: "1px",
@@ -119,19 +120,22 @@ export default function SavedCitiesMenu({ validCity }) {
       <div className="container__saved-cities-menu" style={setContainerHeight()}>
         {/*FAST ACCESS CITIES BUTTONS */}
         <div className="items items--4">
-          <button onClick={checkSlotIsEmpty}>
-            <span className="city-name">{savedCities.city1 || "empty"}</span>
-          </button>
+          <CityCloud onClick={checkSlotIsEmpty}>
+           {savedCities.city1 || "empty"}
+          </CityCloud>  
         </div>
         <div className="items items--5">
-          <button onClick={checkSlotIsEmpty}>
-            <span className="city-name">{savedCities.city2 || "empty"}</span>
-          </button>
+          <CityCloud onClick={checkSlotIsEmpty}>
+           {savedCities.city2 || "empty"}
+          </CityCloud>
         </div>
         <div className="items items--6">
-          <button onClick={checkSlotIsEmpty}>
-            <span className="city-name">{savedCities.city3 || "empty"}</span>
-          </button>
+          <CityCloud onClick={checkSlotIsEmpty}>
+           {savedCities.city3 || "empty"}
+          </CityCloud>
+          {/* <button onClick={checkSlotIsEmpty} className="city-name">
+              
+          </button> */}
         </div>
 
         {/* CLOSE MENU */}
