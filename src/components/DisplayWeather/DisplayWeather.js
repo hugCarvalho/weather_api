@@ -63,7 +63,7 @@ export default function DisplayWeather({ finalData, validCity, isLoading }) {
         style={isNight ? { background: "#202020" } : { background: "#7cafeb" }}
       >
         <div className="item item--1">
-          {validCity && !isLoading ? (
+          {validCity && !isLoading && finalData ? (
             <img
               src={`/media/weather_icons/${finalData.weather.list[0].weather[0].icon}.png`}
               alt="weather icon"

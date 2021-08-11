@@ -10,7 +10,7 @@ const initTabs = {
   day2: false,
 };
 
-export default function Days({ isLoading, data, validCity, notValidCity }) {
+export default function Days({ isLoading, data, validCity, cityNotValid }) {
   const [filteredDataByDay, setFilteredDataByDay] = useState({});
   const [activeTab, setActiveTab] = useState(initTabs);
 
@@ -53,11 +53,13 @@ export default function Days({ isLoading, data, validCity, notValidCity }) {
     if (!isLoading && validCity) {
       filterByDay(0);
     }
-  }, [data, isLoading, validCity, notValidCity]);
+  }, [data, isLoading, validCity, cityNotValid]);
 
   useEffect(() => {
     setActiveTab(initTabs);
-  }, [validCity, notValidCity]); //will reset the active tab after a request about a new city
+  }, [validCity, cityNotValid]); //will reset the active tab after a request about a new city
+
+  console.log("filteredDAY:", filteredDataByDay)
 
   return (
     <>
@@ -137,7 +139,7 @@ export default function Days({ isLoading, data, validCity, notValidCity }) {
 
 Days.propTypes = {
   isLoading: PropTypes.bool.isRequired,
-  notValidCity: PropTypes.bool.isRequired,
+  cityNotValid: PropTypes.bool.isRequired,
   data: PropTypes.object,
   validCity: PropTypes.string,
 };
