@@ -24,6 +24,7 @@ export default function InputSearchCity() {
       <div className="container__search-city">
         <form onSubmit={checkInputIsValid}>
           <input
+            name="searchCity"
             type="search"
             placeholder="type a city name..."
             onChange={(e) => setText(e.target.value)}

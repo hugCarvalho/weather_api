@@ -15,7 +15,7 @@ export const IsNightContext = React.createContext();
 function App() {
   const key = "f2b65d46e479364d7c9f2127abfcb2b4";
   const [userQuery, setUserQuery] = useState("");
-  const [validCity, setValidCity] = useState("");
+  const [validCity, setValidCity] = useState(""); //is useful when searching for an invalid city if there's no city saved yet
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
   const [isNight, setIsNight] = useState(false);
@@ -26,6 +26,7 @@ function App() {
   //FETCH DATA
   useEffect(() => {
     setIsLoading(true); //don't change
+    //console.log("FETCHED")
     const getWeather = async () => {
       const api = `https://api.openweathermap.org/data/2.5/forecast?q=${userQuery}&appid=${key}`;
       const response = await fetch(api);
@@ -46,8 +47,8 @@ function App() {
         setIsLoading(false);
       }
     };
-    userQuery &&
-      getWeather().catch(() => {
+
+    userQuery && getWeather().catch(() => {
         dispatch({ type: "TRUE", value: "Something went wrong..." });
       });
   }, [userQuery, key]);

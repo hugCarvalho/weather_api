@@ -3,7 +3,7 @@ import "./DisplayWeather.scss";
 import { IsNightContext } from "../../App";
 import { RadioButtons2 } from "../Utils/RadioButtons/RadioButtons";
 import PropTypes from "prop-types";
-import { AirPressure, Humidity, RainValue } from "./DisplayWeatherStyles";
+import { WeatherDescription } from "./components/WeatherDescription";
 
 export default function DisplayWeather({ finalData, validCity, isLoading }) {
   const { isNight, setIsNight } = useContext(IsNightContext);
@@ -53,7 +53,7 @@ export default function DisplayWeather({ finalData, validCity, isLoading }) {
     ).style.transform = `rotate(${deg}deg)`;
   };
 
-  console.log("FD,", finalData )
+  console.log("FD,", finalData)
   return (
     <>
       {/* added validCity condition to avoid showing at the begining without any default city set */}
@@ -75,18 +75,11 @@ export default function DisplayWeather({ finalData, validCity, isLoading }) {
         </div>
 
         {/* Weather description */}
-        <div id="weather-description" className="item item--7">
-          {
-            validCity && !isLoading 
-              ? <>
-                <span>{finalData.weather.list[0].weather[0].description}</span>
-                <RainValue>{ finalData.weather.list[0].main.rain}</RainValue>
-                <Humidity>Humidity - {validCity && !isLoading && finalData.weather.list[0].main.humidity}%</Humidity>
-                <AirPressure>Pressure - {finalData.weather.list[0].main.pressure}mb</AirPressure>
-              </>
-            : "n/a"
-          }
-        </div>
+        <WeatherDescription
+          validCity={validCity}
+          isLoading={isLoading}
+          data={finalData}
+        />
 
         {/* Temperature */}
         <div className="item item--2">
