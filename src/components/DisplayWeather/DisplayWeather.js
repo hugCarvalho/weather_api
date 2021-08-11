@@ -3,7 +3,7 @@ import "./DisplayWeather.scss";
 import { IsNightContext } from "../../App";
 import { RadioButtons2 } from "../Utils/RadioButtons/RadioButtons";
 import PropTypes from "prop-types";
-import { RainValue } from "./DisplayWeatherStyles";
+import { AirPressure, Humidity, RainValue } from "./DisplayWeatherStyles";
 
 export default function DisplayWeather({ finalData, validCity, isLoading }) {
   const { isNight, setIsNight } = useContext(IsNightContext);
@@ -76,12 +76,15 @@ export default function DisplayWeather({ finalData, validCity, isLoading }) {
 
         {/* Weather description */}
         <div id="weather-description" className="item item--7">
-          {validCity && !isLoading
-            ? <span>{finalData.weather.list[0].weather[0].description}</span>
-            : "n/a"}
-          <RainValue>
-            {validCity && !isLoading && finalData.weather.list[0].rain && `(${finalData.weather.list[0].rain['3h']} mm)`}
-          </RainValue> 
+          {
+            validCity && !isLoading 
+              ? <>
+                <span>{finalData.weather.list[0].weather[0].description}</span>
+                <AirPressure>Pressure - {validCity && !isLoading && finalData.weather.list[0].main.pressure}mb</AirPressure>
+                <Humidity>Humidity - {validCity && !isLoading && finalData.weather.list[0].main.humidity}%</Humidity>
+              </>
+            : "n/a"
+          }
         </div>
 
 
