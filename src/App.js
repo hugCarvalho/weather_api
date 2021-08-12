@@ -5,8 +5,8 @@ import InputSearchCity from "./components/InputSearchCity/InputSearchCity";
 import DisplayErrorMsg from "./components/DisplayErrorMsg/DisplayErrorMsg";
 import SavedCitiesMenu from "./components/SavedCitiesMenu/SavedCitiesMenu";
 import DisplayCityName from "./components/DisplayCityName/DisplayCityName";
-import Days from "./components/Days/Days";
 import { errorInit, errorReducer } from "./components/reducers";
+import { InfoTabs } from "./components/InfoTabs/InfoTabs";
 
 export const UserQueryContext = React.createContext();
 export const ErrorContext = React.createContext();
@@ -19,14 +19,14 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
   const [isNight, setIsNight] = useState(false);
-  const [notValidCity, setNotValidCity] = useState(false);
-
+  const [cityNotFound, setCityNotFound] = useState(false);
   const [error, dispatch] = useReducer(errorReducer, errorInit);
-
+  const [forecast3Days, setForecast3Days] = useState({}) 
+ 
   //FETCH DATA
   useEffect(() => {
     setIsLoading(true); //don't change
-    //console.log("FETCHED")
+    console.log("FETCHED")
     const getWeather = async () => {
       const api = `https://api.openweathermap.org/data/2.5/forecast?q=${userQuery}&appid=${key}`;
       const response = await fetch(api);
@@ -41,8 +41,8 @@ function App() {
       } else {
         dispatch({ type: "TRUE", value: data.message });
         if (data.message === "city not found") {
-          setNotValidCity(true);
-          setNotValidCity(false); //prevents error when selecting a dif day and typing a not valid name
+          setCityNotFound(true);
+          setCityNotFound(false); //prevents error when selecting a dif day and typing a not valid name
         }
         setIsLoading(false);
       }
@@ -53,6 +53,36 @@ function App() {
       });
   }, [userQuery, key]);
 
+  useEffect(() => {
+    const currentDay = new Date().toString().slice(8,10)
+    let today = []
+    let tomorrow = []
+    let afterTomorrow = []
+    if (data) {
+      data.weather.list.forEach((day, i) => {
+          if (currentDay === day.dt_txt.slice(8,10)) {today.push(day) }
+          if (Number(currentDay) + 1 == day.dt_txt.slice(8,10)) { tomorrow.push(day) }
+          if (Number(currentDay) + 2 == day.dt_txt.slice(8,10)) { afterTomorrow.push(day) }
+          return
+        })
+    }
+
+    setForecast3Days({
+      today,
+      tomorrow,
+      afterTomorrow
+    })
+  }, [data])
+
+  useEffect(() => {
+     console.log("F3DAYS", forecast3Days)
+  }, [forecast3Days])
+
+  // useEffect(() => {
+  //   console.log("TODAY", today)
+  //   console.log("TOM", tomorrow)
+  // }, [today])
+  // console.log("T", threeDays)
   return (
     <>
       <div
@@ -69,12 +99,14 @@ function App() {
         </ErrorContext.Provider>{" "}
         <DisplayCityName validCity={validCity} isLoading={isLoading} />
         <IsNightContext.Provider value={{ isNight, setIsNight }}>
-          <Days
+          <InfoTabs
             data={data}
             isLoading={isLoading}
             validCity={validCity}
-            notValidCity={notValidCity}
-          />
+            cityNotFound={cityNotFound}
+            forecast3Days={forecast3Days}
+          >
+          </InfoTabs>
         </IsNightContext.Provider>
       </div>
     </>
