@@ -75,7 +75,7 @@ function App() {
   }, [data])
 
   useEffect(() => {
-     console.log("F3DAYS", forecast3Days)
+    //  console.log("F3DAYS", forecast3Days)
   }, [forecast3Days])
 
   // useEffect(() => {

@@ -8,7 +8,6 @@ const RainValue = styled.span`
     font-size: 1.1rem;
   };
 `
-
 export const Humidity = styled(RainValue)``
 export const AirPressure = styled(RainValue)``
 

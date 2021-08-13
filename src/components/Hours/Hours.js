@@ -8,22 +8,19 @@ export default function Hours({ filteredDataByDay, isLoading, activeDay, validCi
   const [selectedTime, setSelectedTime] = useState({})  
 
   useEffect(() => {
-    console.log("")
     if (!isLoading && validCity) {
       let res = forecast3Days[activeDay].filter(hour => {
         return hour.dt_txt.slice(11, 16) === activeHour
       })
-        console.log("FCK", res)
       setSelectedTime(res)
     }
 
   }, [forecast3Days, isLoading, validCity, activeHour])
 
   useEffect(() => {
-    console.log("selected", selectedTime[0])
+    // console.log("selected", selectedTime[0])
   }, [selectedTime])
 
-  console.log("selected", selectedTime)
   //One array with the matching time is returned and will be passed down
   // const filterByActiveHour = (day) => {
   //   const timeOnButton = day === "anotherDay" ? "12:00" : day;
