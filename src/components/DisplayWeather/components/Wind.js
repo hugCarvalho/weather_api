@@ -54,9 +54,9 @@ const Wind = ({ selectedTime }) => {
       </div>
 
       <div className="item item--9">
-        <span>
-          {selectedTime.length > 0 ? convertWindSpeed(selectedTime[0].wind.speed) : null}
-        </span>
+        {selectedTime.length > 0 && (
+          <span>{convertWindSpeed(selectedTime[0].wind.speed)}</span>
+        )}
         <span>
           {selectedTime.length > 0
             ? convertWindDirection(selectedTime[0].wind.deg)

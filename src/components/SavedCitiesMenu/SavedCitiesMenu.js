@@ -16,6 +16,7 @@ const accessibility = {
   overflow: "hidden",
 };
 
+//TODO: refactor. Css at least replace buttons with styled components
 export default function SavedCitiesMenu({ validCity }) {
   const { setUserQuery } = useContext(UserQueryContext);
   const { dispatch } = useContext(ErrorContext);
@@ -76,7 +77,7 @@ export default function SavedCitiesMenu({ validCity }) {
   };
 
   //SAVE CITY
-  const saveCity = (citySlot) => {
+  const saveCity = citySlot => {
     // prettier-ignore
     if (citySlot === "city1") return setSavedCities({ ...savedCities, city1: validCity });
     // prettier-ignore
@@ -86,12 +87,12 @@ export default function SavedCitiesMenu({ validCity }) {
   };
 
   //VALIDATION
-  const checkCityisElegible = (citySlot) => {
+  const checkCityisElegible = citySlot => {
     if (!validCity) {
       return dispatch({ type: "TRUE", value: "SEARCH for a valid city first" });
     }
 
-    const cityNameExists = Object.values(savedCities).some((city) => {
+    const cityNameExists = Object.values(savedCities).some(city => {
       return city.toLowerCase() === validCity.toLowerCase();
     });
 
@@ -101,14 +102,14 @@ export default function SavedCitiesMenu({ validCity }) {
   };
 
   // Check to prevent saving the same city again
-  const checkSlotIsEmpty = (e) => {
+  const checkSlotIsEmpty = e => {
     if (e.target.textContent === "empty") {
       return dispatch({ type: "TRUE", value: "SAVE a city first" });
     } else setUserQuery(e.target.textContent);
   };
 
   //CHOOSE DEFAULT CITY
-  const chooseDefaultCity = (city) => {
+  const chooseDefaultCity = city => {
     if (!city) {
       return dispatch({ type: "TRUE", value: "SAVE a city first" });
     }
@@ -120,22 +121,13 @@ export default function SavedCitiesMenu({ validCity }) {
       <div className="container__saved-cities-menu" style={setContainerHeight()}>
         {/*FAST ACCESS CITIES BUTTONS */}
         <div className="items items--4">
-          <CityCloud onClick={checkSlotIsEmpty}>
-           {savedCities.city1 || "empty"}
-          </CityCloud>  
+          <CityCloud onClick={checkSlotIsEmpty}>{savedCities.city1 || "empty"}</CityCloud>
         </div>
         <div className="items items--5">
-          <CityCloud onClick={checkSlotIsEmpty}>
-           {savedCities.city2 || "empty"}
-          </CityCloud>
+          <CityCloud onClick={checkSlotIsEmpty}>{savedCities.city2 || "empty"}</CityCloud>
         </div>
         <div className="items items--6">
-          <CityCloud onClick={checkSlotIsEmpty}>
-           {savedCities.city3 || "empty"}
-          </CityCloud>
-          {/* <button onClick={checkSlotIsEmpty} className="city-name">
-              
-          </button> */}
+          <CityCloud onClick={checkSlotIsEmpty}>{savedCities.city3 || "empty"}</CityCloud>
         </div>
 
         {/* CLOSE MENU */}

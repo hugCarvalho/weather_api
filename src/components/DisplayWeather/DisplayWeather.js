@@ -10,11 +10,6 @@ import { Wind } from "./components/Wind";
 export default function DisplayWeather({ selectedTime, validCity, isLoading }) {
   const { isNight, setIsNight } = useContext(IsNightContext);
 
-  //Debugging
-  // useEffect(() => {
-  //   console.log("selectedTime:", selectedTime);
-  // }, [selectedTime]);
-
   //Toggle background color
   useEffect(() => {
     if (selectedTime.length > 0) {
@@ -28,7 +23,6 @@ export default function DisplayWeather({ selectedTime, validCity, isLoading }) {
 
   return (
     <>
-      {/* added validCity condition to avoid showing at the begining without any default city set */}
       <div
         className="container__weather-card"
         style={isNight ? { background: "#202020" } : { background: "#7cafeb" }}
@@ -37,7 +31,7 @@ export default function DisplayWeather({ selectedTime, validCity, isLoading }) {
         <WeatherDescription
           validCity={validCity}
           isLoading={isLoading}
-          data={selectedTime}
+          selectedTime={selectedTime}
         />
         <Temperature selectedTime={selectedTime} />
         <Wind selectedTime={selectedTime} />
@@ -49,4 +43,5 @@ export default function DisplayWeather({ selectedTime, validCity, isLoading }) {
 DisplayWeather.propTypes = {
   validCity: PropTypes.string,
   isLoading: PropTypes.bool,
+  selectedTime: PropTypes.object,
 };

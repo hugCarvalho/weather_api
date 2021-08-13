@@ -42,16 +42,16 @@
       }
     }
 
-    &--4, 
-    &--5, 
+    &--4,
+    &--5,
     &--6 {
       :focus {
         background-color: #9694947c;
       }
-        :hover {
-      background: $gray-dark;
-      color: white;
-      opacity: 0.8;
+      :hover {
+        background: $gray-dark;
+        color: white;
+        opacity: 0.8;
       }
     }
 
