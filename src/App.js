@@ -7,6 +7,7 @@ import SavedCitiesMenu from "./components/SavedCitiesMenu/SavedCitiesMenu";
 import DisplayCityName from "./components/DisplayCityName/DisplayCityName";
 import { errorInit, errorReducer } from "./components/reducers";
 import { InfoDaysAndTime } from "./components/InfoDaysAndTime/InfoDaysAndTime";
+import { AlarmNotifications } from "./components/AlarmNotifications/AlarmNotifications2";
 
 export const UserQueryContext = React.createContext();
 export const ErrorContext = React.createContext();
@@ -26,7 +27,7 @@ function App() {
   //FETCH DATA
   useEffect(() => {
     setIsLoading(true); //don't change
-    //console.log("FETCHED");
+    console.log("FETCHED");
     const getWeather = async () => {
       const api = `https://api.openweathermap.org/data/2.5/forecast?q=${userQuery}&appid=${key}`;
       const response = await fetch(api);
@@ -90,6 +91,7 @@ function App() {
         className="container__app"
         style={isNight ? { background: "#202020" } : { background: "#7cafeb" }}
       >
+        <AlarmNotifications forecast3Days={forecast3Days} />
         <Header />
         <ErrorContext.Provider value={{ error, dispatch }}>
           <UserQueryContext.Provider value={{ userQuery, setUserQuery }}>

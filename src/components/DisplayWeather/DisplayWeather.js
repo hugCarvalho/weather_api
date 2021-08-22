@@ -43,5 +43,4 @@ export default function DisplayWeather({ selectedTime, validCity, isLoading }) {
 DisplayWeather.propTypes = {
   validCity: PropTypes.string,
   isLoading: PropTypes.bool,
-  selectedTime: PropTypes.object,
 };
