@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer, useMemo } from "react";
 import "./App.scss";
 import Header from "./components/Header/Header";
 import InputSearchCity from "./components/InputSearchCity/InputSearchCity";
@@ -7,7 +7,7 @@ import SavedCitiesMenu from "./components/SavedCitiesMenu/SavedCitiesMenu";
 import DisplayCityName from "./components/DisplayCityName/DisplayCityName";
 import { errorInit, errorReducer } from "./components/reducers";
 import { InfoDaysAndTime } from "./components/InfoDaysAndTime/InfoDaysAndTime";
-import { AlarmNotifications } from "./components/AlarmNotifications/AlarmNotifications2";
+// import { AlarmNotifications } from "./components/Notifications/AlarmNotifications2";
 
 export const UserQueryContext = React.createContext();
 export const ErrorContext = React.createContext();
@@ -50,7 +50,7 @@ function App() {
     };
 
     userQuery &&
-      getWeather().catch(() => {
+      getWeather().catch(e => {
         dispatch({ type: "TRUE", value: "Something went wrong..." });
       });
   }, [userQuery, key]);
@@ -91,7 +91,7 @@ function App() {
         className="container__app"
         style={isNight ? { background: "#202020" } : { background: "#7cafeb" }}
       >
-        <AlarmNotifications forecast3Days={forecast3Days} />
+        {/* <AlarmNotifications forecast3Days={forecast3Days} /> */}
         <Header />
         <ErrorContext.Provider value={{ error, dispatch }}>
           <UserQueryContext.Provider value={{ userQuery, setUserQuery }}>
