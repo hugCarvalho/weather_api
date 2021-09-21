@@ -32,7 +32,6 @@ function App() {
       const api = `https://api.openweathermap.org/data/2.5/forecast?q=${userQuery}&appid=${key}`;
       const response = await fetch(api);
       const data = await response.json();
-
       if (data.cod === "200") {
         setData({
           weather: data,
@@ -57,27 +56,27 @@ function App() {
 
   //sets forecast for 3 days
   useEffect(() => {
-    const currentDay = new Date().toString().slice(8, 10);
+    //const currentDay = new Date().toString().slice(8, 10);
     let today = [];
     let tomorrow = [];
     let afterTomorrow = [];
+    let todayIs = null;
+
     if (data) {
-      data.weather.list.forEach((day, i) => {
-        if (currentDay === day.dt_txt.slice(8, 10)) {
-          today.push(day);
-        }
-        // eslint-disable-next-line eqeqeq
-        if (Number(currentDay) + 1 == day.dt_txt.slice(8, 10)) {
-          tomorrow.push(day);
-        }
-        // eslint-disable-next-line eqeqeq
-        if (Number(currentDay) + 2 == day.dt_txt.slice(8, 10)) {
-          afterTomorrow.push(day);
-        }
-        return;
+      data.weather.list.forEach((dayObj, i) => {
+        const day = +dayObj.dt_txt.slice(8, 10);
+        if (i === 0) {
+          todayIs = +day;
+          today.push(dayObj);
+        } else if (todayIs === day) {
+          today.push(dayObj);
+        } else if (todayIs + 1 === day) {
+          tomorrow.push(dayObj);
+        } else if (todayIs + 2 === day) {
+          afterTomorrow.push(dayObj);
+        } else return;
       });
     }
-
     setForecast3Days({
       today,
       tomorrow,

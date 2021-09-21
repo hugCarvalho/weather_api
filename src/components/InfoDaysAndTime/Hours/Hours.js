@@ -23,7 +23,7 @@ export default function Hours({
 
   useEffect(() => {
     if (validCity && !isLoading && activeDay === "today") {
-      setActiveHour(forecast3Days[activeDay][0].dt_txt.slice(11, 16));
+      setActiveHour(forecast3Days[activeDay][0]?.dt_txt.slice(11, 16));
     }
     if (validCity && !isLoading && activeDay !== "today") {
       setActiveHour("12:00");
