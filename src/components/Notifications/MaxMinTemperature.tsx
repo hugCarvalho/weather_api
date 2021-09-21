@@ -1,3 +1,4 @@
+import { Media} from "hooks/MediaQueries"
 import React from "react"
 import styled from "styled-components"
 import {convertTemp} from "../Utils/convertTemp"
@@ -18,12 +19,13 @@ const TemperatureContainer = styled.section`
   padding: 4px;
   border-bottom-right-radius: 10px;
   border-bottom: 1px solid lightgray;
-
-  @media(min-width: 768px){
+  ${
+  Media.small`
     padding: 6px;
     line-height: 18px;
     border-bottom-right-radius: 10px;
     letter-spacing: 2px;
+  `
   }
 `
 const ValuesWraper = styled.div`
@@ -31,12 +33,13 @@ const ValuesWraper = styled.div`
   flex-direction: column;
   text-align: center;
   padding-bottom: 2px;
-  
-  @media(min-width: 768px){
-    width: 69px;
-    flex-direction: row;
-    justify-content: space-between;
-    padding-bottom: 0;
+  ${
+  Media.small`
+      width: 69px;
+      flex-direction: row;
+      justify-content: space-between;
+      padding-bottom: 0;
+    `
   }
 `
 type MaxMinTemperatureProps = {
