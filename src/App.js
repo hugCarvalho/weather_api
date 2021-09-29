@@ -7,7 +7,6 @@ import SavedCitiesMenu from "./components/SavedCitiesMenu/SavedCitiesMenu";
 import DisplayCityName from "./components/DisplayCityName/DisplayCityName";
 import { errorInit, errorReducer } from "./components/reducers";
 import { InfoDaysAndTime } from "./components/InfoDaysAndTime/InfoDaysAndTime";
-// import { AlarmNotifications } from "./components/Notifications/AlarmNotifications2";
 
 export const UserQueryContext = React.createContext();
 export const ErrorContext = React.createContext();
@@ -56,25 +55,36 @@ function App() {
 
   //sets forecast for 3 days
   useEffect(() => {
-    //const currentDay = new Date().toString().slice(8, 10);
     let today = [];
     let tomorrow = [];
     let afterTomorrow = [];
-    let todayIs = null;
+    let dayIs = null;
+    let control = 0;
 
     if (data) {
       data.weather.list.forEach((dayObj, i) => {
         const day = +dayObj.dt_txt.slice(8, 10);
         if (i === 0) {
-          todayIs = +day;
+          dayIs = day;
+          control += 1;
+        }
+        if (dayIs !== day) {
+          dayIs = day;
+          control += 1;
+        }
+        if (control === 1) {
           today.push(dayObj);
-        } else if (todayIs === day) {
-          today.push(dayObj);
-        } else if (todayIs + 1 === day) {
+          return;
+        }
+        if (control === 2) {
           tomorrow.push(dayObj);
-        } else if (todayIs + 2 === day) {
+          return;
+        }
+        if (control === 3) {
           afterTomorrow.push(dayObj);
-        } else return;
+          return;
+        }
+        return;
       });
     }
     setForecast3Days({
@@ -90,7 +100,6 @@ function App() {
         className="container__app"
         style={isNight ? { background: "#202020" } : { background: "#7cafeb" }}
       >
-        {/* <AlarmNotifications forecast3Days={forecast3Days} /> */}
         <Header />
         <ErrorContext.Provider value={{ error, dispatch }}>
           <UserQueryContext.Provider value={{ userQuery, setUserQuery }}>
