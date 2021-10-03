@@ -63,10 +63,10 @@ const MaxMinTemperature: React.FC<MaxMinTemperatureProps> = ({ forecast3Days, ac
 
   return <TemperatureContainer>
     <ValuesWraper>
-      <span>Max:</span><span>{convertedMaxTemp}°</span>
+      <span>Max:</span><span>{forecast3Days?.today?.length !== 0 ? convertedMaxTemp + "°" : "n/a"}</span>
     </ValuesWraper>
     <ValuesWraper>
-    <span>Min: </span><span>{convertedMinTemp}°</span>
+    <span>Min: </span><span>{forecast3Days?.today?.length !== 0 ? convertedMinTemp + "°" : "n/a" }</span>
     </ValuesWraper>
   </TemperatureContainer>
 }
