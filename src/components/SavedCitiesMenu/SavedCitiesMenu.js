@@ -19,7 +19,7 @@ const accessibility = {
 //TODO: refactor. Css at least replace buttons with styled components
 export default function SavedCitiesMenu({ validCity }) {
   const { setUserQuery } = useContext(UserQueryContext);
-  const { dispatch } = useContext(ErrorContext);
+  const { dispatchError } = useContext(ErrorContext);
 
   const [defaultCity, setDefaultCity] = useState("");
   const [isMenuClosed, setIsMenuClosed] = useState(false);
@@ -34,9 +34,9 @@ export default function SavedCitiesMenu({ validCity }) {
         setIsMenuClosed(JSON.parse(localStorage.getItem("menuClosed")));
       }
     } catch (err) {
-      dispatch({ type: "TRUE", value: "Error! File may be corrupted!" });
+      dispatchError({ type: "TRUE", value: "Error! File may be corrupted!" });
     }
-  }, [dispatch]);
+  }, [dispatchError]);
 
   useEffect(() => {
     try {
@@ -48,9 +48,9 @@ export default function SavedCitiesMenu({ validCity }) {
         setUserQuery(fetchedDefaultCity); //automatically fetches on onload
       }
     } catch (err) {
-      dispatch({ type: "TRUE", value: "Error! File may be corrupted!" });
+      dispatchError({ type: "TRUE", value: "Error! File may be corrupted!" });
     }
-  }, [setUserQuery, dispatch]);
+  }, [setUserQuery, dispatchError]);
 
   //LOCAL STORAGE: SET
   useEffect(() => {
@@ -89,7 +89,7 @@ export default function SavedCitiesMenu({ validCity }) {
   //VALIDATION
   const checkCityisElegible = citySlot => {
     if (!validCity) {
-      return dispatch({ type: "TRUE", value: "SEARCH for a valid city first" });
+      return dispatchError({ type: "TRUE", value: "SEARCH for a valid city first" });
     }
 
     const cityNameExists = Object.values(savedCities).some(city => {
@@ -97,21 +97,21 @@ export default function SavedCitiesMenu({ validCity }) {
     });
 
     if (cityNameExists) {
-      dispatch({ type: "TRUE", value: "City is already saved" });
+      dispatchError({ type: "TRUE", value: "City is already saved" });
     } else saveCity(citySlot);
   };
 
   // Check to prevent saving the same city again
   const checkSlotIsEmpty = e => {
     if (e.target.textContent === "empty") {
-      return dispatch({ type: "TRUE", value: "SAVE a city first" });
+      return dispatchError({ type: "TRUE", value: "SAVE a city first" });
     } else setUserQuery(e.target.textContent);
   };
 
   //CHOOSE DEFAULT CITY
   const chooseDefaultCity = city => {
     if (!city) {
-      return dispatch({ type: "TRUE", value: "SAVE a city first" });
+      return dispatchError({ type: "TRUE", value: "SAVE a city first" });
     }
     setDefaultCity(city);
   };

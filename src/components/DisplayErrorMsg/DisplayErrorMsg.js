@@ -3,17 +3,17 @@ import "./DisplayErrorMsg.scss";
 import { ErrorContext } from "../../App";
 
 export default function DisplayErrorMsg() {
-  const { error, dispatch } = useContext(ErrorContext);
+  const { error, dispatchError } = useContext(ErrorContext);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch("FALSE");
+      dispatchError("FALSE");
     }, 1500);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [error, dispatch]);
+  }, [error, dispatchError]);
 
   return (
     <>

@@ -20,14 +20,14 @@ function App() {
   const [validCity, setValidCity] = useState(""); //is useful when searching for an invalid city if there's no city saved yet
   const [cityNotFound, setCityNotFound] = useState(false);
   const [isNight, setIsNight] = useState(false);
-  const [error, dispatch] = useReducer(errorReducer, errorInit);
+  const [error, dispatchError] = useReducer(errorReducer, errorInit);
   const [forecast3Days, setForecast3Days] = useState({});
 
   //FETCH DATA
   useEffect(() => {
     setIsLoading(true); //don't change
-    console.log("FETCHED");
     const getWeather = async () => {
+      console.log("FETCHED");
       const api = `https://api.openweathermap.org/data/2.5/forecast?q=${userQuery}&appid=${key}`;
       const response = await fetch(api);
       const data = await response.json();
@@ -38,7 +38,7 @@ function App() {
         setValidCity(userQuery);
         setIsLoading(false);
       } else {
-        dispatch({ type: "TRUE", value: data.message });
+        dispatchError({ type: "TRUE", value: data.message });
         if (data.message === "city not found") {
           setCityNotFound(true);
           setCityNotFound(false); //prevents error when selecting a dif day and typing a not valid name
@@ -49,7 +49,7 @@ function App() {
 
     userQuery &&
       getWeather().catch(e => {
-        dispatch({ type: "TRUE", value: "Something went wrong..." });
+        dispatchError({ type: "TRUE", value: "Something went wrong..." });
       });
   }, [userQuery, key]);
 
@@ -101,7 +101,7 @@ function App() {
         style={isNight ? { background: "#202020" } : { background: "#7cafeb" }}
       >
         <Header />
-        <ErrorContext.Provider value={{ error, dispatch }}>
+        <ErrorContext.Provider value={{ error, dispatchError }}>
           <UserQueryContext.Provider value={{ userQuery, setUserQuery }}>
             <InputSearchCity />
             <DisplayErrorMsg />
