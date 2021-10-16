@@ -42,12 +42,12 @@ const ValuesWraper = styled.div`
     `
   }
 `
-type MaxMinTemperatureProps = {
+type MaxMinTempDisplayProps = {
   activeDay: string,
   forecast3Days: Record<string, Array<any>>
 }
 
-const MaxMinTemperature: React.FC<MaxMinTemperatureProps> = ({ forecast3Days, activeDay }) => {
+const MaxMinTempDisplay: React.FC<MaxMinTempDisplayProps> = ({ forecast3Days, activeDay }) => {
   
   const MaxTemp = forecast3Days[activeDay]?.reduce((acc, item) => {
     return item.main.temp_max > acc ? item.main.temp_max : acc
@@ -71,5 +71,5 @@ const MaxMinTemperature: React.FC<MaxMinTemperatureProps> = ({ forecast3Days, ac
   </TemperatureContainer>
 }
 
-export { MaxMinTemperature }
+export { MaxMinTempDisplay }
 //TODO 🌡️ find icon for min Temp. Make Desktop Hook?
