@@ -4,20 +4,16 @@ import { convertTemp } from "../Utils/convertTemp";
 import { convertWindSpeed } from "../Utils/convertWindSpeed";
 import { AlarmNotificationsContainer, WrapperIconAlarmsContainer, IconContainer, AlarmsContainer, AlarmsList } from "./NotificationsStyles";
 
-
-
-type AlarmTypes = {
-  rain?: any[]
-  temp?: any[]
-  wind?: any[]
-}
-
 const alarmValues = {
   wind: 5,
   cold: 0,
   heat: 5
 }
-
+type AlarmTypes = {
+  rain?: any[]
+  temp?: any[]
+  wind?: any[]
+}
 export type AlarmNotificationsProps = {
   // forecast3Days: Record<string, Array<unknown>>
   forecast3Days: Record<string, Array<any>>
@@ -47,15 +43,12 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
     }
   }, [forecast3Days, activeDay, setAlarms])
 
-  //console.log("FCK", todayAlarms)
-  console.log("islosed", closeRightPanel)
-  
   return <AlarmNotificationsContainer onClick={()=> setCloseRightPanel(!closeRightPanel)} >
     {/* {alarms.length > 0 ? <span>DANGER </span> : <span>OK </span>} */}
     <span>Alarms: </span>
     <div>
       {
-        alarms && alarms.map((obj: Record<string, any[]>, i: number) => {
+        alarms && alarms.map((obj: AlarmTypes, i: number) => {
           const type = types[i]
           if ((obj[type]).length > 0) {
             return (
@@ -70,7 +63,6 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
                       const temperature = +convertTemp(undefined, hour.main.temp)
                       
                       return (
-                        
                         <div key={hour.dt}>
                           {/* TEMP */}
                           {i === 1 && <span> {temperature < 10 ? '* ' : 'O '} </span>}
@@ -79,7 +71,6 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
                           ( <span>{i === 0 ? hour.rain["3h"] : i === 1 ? temperature : windSpeed}</span>
                           <span>{i === 0 ? 'mm' : i === 1 ? '°' : 'km/h'}</span> )
                         </div>
-                        
                       )
                     })}
                 </AlarmsList>
