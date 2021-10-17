@@ -36,18 +36,21 @@ export const Title = styled.h3``
 type ContentProps = {
   isContentOpen: boolean
 }
-export const AlarmsTime = styled.div<ContentProps>`
+export const StateWrapper = styled.div<ContentProps>`
+  display: ${ props => props.isContentOpen ? "block" : "none"};
+
+`
+export const AlarmsTime = styled.div`
   position: relative;
   background-color: pink;
   margin-left: 7px;
   padding: 3px 0px 0 3px; 
-  display: ${ props => props.isContentOpen ? "block" : "none"};
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
 `
 export const TimeWrapper = styled.div`
-  background-color: orange;
+  /* background-color: orange; */
   display: flex;
   /* flex-direction: column; */
   text-align: center;
@@ -56,4 +59,7 @@ export const TimeWrapper = styled.div`
 export const HourFormat = styled.div`
   display: flex;
   flex-direction: column;
+`
+export const ValueFormat = styled.span`
+  font-size: smaller;
 `
