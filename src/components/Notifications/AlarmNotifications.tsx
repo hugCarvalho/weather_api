@@ -59,23 +59,23 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
                 <h3>{i === 0 ? "Rain" : i === 1 ? "Temperature" : "wind"}</h3>
               </HeaderWrapper>
                   <Content isContentOpen={isContentOpen}>
-                    {obj[alarmType].map(hourForecastObj => {
-                      const windSpeed = convertWindSpeed(hourForecastObj.wind.speed)
-                      const temperature = +convertTemp(undefined, hourForecastObj.main.temp)
-                      const hour = hourForecastObj.dt_txt.slice(hourForecastObj.dt_txt.length - 8, hourForecastObj.dt_txt.length - 8 + 5)
-                      console.log("HOUR", hourForecastObj)
+                    {obj[alarmType].map(hourForecast => {
+                      const windSpeed = convertWindSpeed(hourForecast.wind.speed)
+                      //TODO change undefined
+                      const temperature = +convertTemp(undefined, hourForecast.main.temp)
+                      const hour = hourForecast.dt_txt.slice(hourForecast.dt_txt.length - 8, hourForecast.dt_txt.length - 8 + 5)
+                      const value = i === 0 ? hourForecast.rain["3h"] : i === 1 ? temperature : windSpeed
+                      const valueFormat = i === 0 ? 'mm' : i === 1 ? '°' : 'km/h'
+                      console.log("HOUR", hourForecast)
                       return (
-                        <div key={hourForecastObj.dt}>
+                        <div key={hourForecast.dt}>
                           {/* {i === 1 && <span> {temperature < 10 ? '* ' : 'O '} </span>} */}
-                          <span>{hour}</span>
-                          (<span>{i === 0 ? hourForecastObj.rain["3h"] : i === 1 ? temperature : windSpeed}</span>
-                          <span>{i === 0 ? 'mm' : i === 1 ? '°' : 'km/h'}</span>)
+                          <span>{hour}</span> (<span>{value}</span><span>{valueFormat}</span>)
                         </div>
                       )
                     })}
                 </Content>
               </Wrapper>
-            
             )
           } else return null
         })
