@@ -1,8 +1,8 @@
 import Emoji from "components/Utils/Emoji/Emoji";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { convertTemp } from "../Utils/convertTemp";
 import { convertWindSpeed } from "../Utils/convertWindSpeed";
-import { AlarmNotificationsContainer, WrapperIconAlarmsContainer, IconContainer, AlarmsContainer, AlarmsList, Wrapper, HeaderWrapper, Icon, Title, Content, ContentSlider } from "./NotificationsStyles";
+import { AlarmNotificationsContainer, IconContainer, Wrapper, HeaderWrapper, Icon, Title, Content, WrapperTime, HourFormat } from "./NotificationsStyles";
 
 const alarmValues = {
   wind: 5,
@@ -70,7 +70,17 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
                       return (
                         <div key={hourForecast.dt}>
                           {/* {i === 1 && <span> {temperature < 10 ? '* ' : 'O '} </span>} */}
-                          <span>{hour}</span> (<span>{value}</span><span>{valueFormat}</span>)
+                          {/* TODO change to Grid */}
+                          <WrapperTime>
+                            <HourFormat>
+                              <div>
+                                <span>{hour}</span>
+                              </div>
+                              <div>
+                                <span>{value}</span><span>{valueFormat}</span>
+                              </div>
+                            </HourFormat>
+                          </WrapperTime>
                         </div>
                       )
                     })}
