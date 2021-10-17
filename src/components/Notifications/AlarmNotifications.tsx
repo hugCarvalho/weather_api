@@ -2,7 +2,7 @@ import Emoji from "components/Utils/Emoji/Emoji";
 import React, { useEffect, useState } from "react";
 import { convertTemp } from "../Utils/convertTemp";
 import { convertWindSpeed } from "../Utils/convertWindSpeed";
-import { AlarmNotificationsContainer, IconContainer, Wrapper, HeaderWrapper, Icon, Title, Content, WrapperTime, HourFormat } from "./NotificationsStyles";
+import { AlarmNotificationsSection, IconContainer, AlarmsContainer, HeaderWrapper, Title, AlarmsTime, TimeWrapper, HourFormat } from "./NotificationsStyles";
 
 const alarmValues = {
   wind: 5,
@@ -44,7 +44,7 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
     }
   }, [forecast3Days, activeDay, setAlarms])
 
-  return <AlarmNotificationsContainer onClick={()=> setCloseRightPanel(!isRightPanelClosed)} >
+  return <AlarmNotificationsSection onClick={()=> setCloseRightPanel(!isRightPanelClosed)} >
     {/* {alarms.length > 0 ? <span>DANGER </span> : <span>OK </span>} */}
     <span>Alarms: </span>
     <div>
@@ -53,12 +53,12 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
           const alarmType = alarmTypes[i]
           if ((obj[alarmType]).length > 0) {
             return (
-              <Wrapper key={i}>
+              <AlarmsContainer key={i}>
               <HeaderWrapper onClick={()=> setIsContentOpen((state) => !state)}>
-                <IconContainer><span>💨</span></IconContainer>
-                <h3>{i === 0 ? "Rain" : i === 1 ? "Temperature" : "wind"}</h3>
+                <IconContainer><Emoji title="strong wind" emoji="💨"/></IconContainer>
+                <Title>{i === 0 ? "Rain" : i === 1 ? "Temperature" : "wind"}</Title>
               </HeaderWrapper>
-                  <Content isContentOpen={isContentOpen}>
+                  <AlarmsTime isContentOpen={isContentOpen}>
                     {obj[alarmType].map(hourForecast => {
                       const windSpeed = convertWindSpeed(hourForecast.wind.speed)
                       //TODO change undefined
@@ -71,7 +71,8 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
                         <div key={hourForecast.dt}>
                           {/* {i === 1 && <span> {temperature < 10 ? '* ' : 'O '} </span>} */}
                           {/* TODO change to Grid */}
-                          <WrapperTime>
+                          {/* //TODO reduce fontsize value */}
+                          <TimeWrapper>
                             <HourFormat>
                               <div>
                                 <span>{hour}</span>
@@ -80,35 +81,18 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
                                 <span>{value}</span><span>{valueFormat}</span>
                               </div>
                             </HourFormat>
-                          </WrapperTime>
+                          </TimeWrapper>
                         </div>
                       )
                     })}
-                </Content>
-              </Wrapper>
+                </AlarmsTime>
+              </AlarmsContainer>
             )
           } else return null
         })
       }
     </div>
-    
-    <Wrapper>
-      <HeaderWrapper onClick={()=> setIsContentOpen((state) => !state)}>
-        <Icon><Emoji title="strong wind" emoji="💥"/></Icon>
-        <Title>SIND</Title>
-      </HeaderWrapper>
-      <Content isContentOpen={isContentOpen}>
-        <div>timslots</div>
-        <div>timslots</div>
-        <div>timslots</div>
-      </Content>
-         <HeaderWrapper onClick={()=> setIsContentOpen((state) => !state)}>
-        <Icon><Emoji title="strong wind" emoji="💥"/></Icon>
-        <Title>SIND</Title>
-      </HeaderWrapper>
-    </Wrapper>
-
-  </AlarmNotificationsContainer>;
+  </AlarmNotificationsSection>;
 };
 
 export { AlarmNotifications };

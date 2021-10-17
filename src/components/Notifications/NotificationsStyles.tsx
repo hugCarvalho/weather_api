@@ -1,46 +1,59 @@
 import styled from "styled-components"
+//TODO sort 
+//HERE
 
-export const AlarmNotificationsContainer = styled.section`
-  width: 180px;
-  /* background-color: lime; */
+export const AlarmNotificationsSection = styled.section`
+  width: 150px;
+  background-color: #5f645f;
   position: absolute;
   top: 0;
   right: 0;
   /* overflow: hidden; */
 `
-type AlarmsContainerProps = {
-  close: boolean
-}
-
-export const WrapperIconAlarmsContainer = styled.div<AlarmsContainerProps>`
-  background-color: orange;
+export const AlarmsContainer = styled.div`
+  background-color: aliceblue;
+  /* border-radius: 10px 0 0 10px; */
+`
+export const HeaderWrapper = styled.div`
+  position:relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
-  flex-direction: row;
-    margin: ${props => props.close ? 0 : '0 0 0 150px' };
-  /* transform: ${props => props.close ? 'translate(0%)' : 'translate(5px)' }; */
-  transition: margin 2s;
-  border-radius: 5px 0 0 5px;
+  
+  background-color: #696b69;
+  padding: 4px 0;
+  border-bottom:1px solid gray;
+  border-radius: 15px 0 0 15px;
+  z-index: 10;
+  cursor: pointer;
 `
 export const IconContainer = styled.div`
-  /* padding: 5px 5px 5px 10px; */
-  height: 10px;
-  width: 200px;
-  background-color: lime;
+  width: 28px;
+  padding-left: 6px;
 `
+export const Title = styled.h3``
 
-export const AlarmsContainer = styled.div`
-  width: 170px;
+type ContentProps = {
+  isContentOpen: boolean
+}
+export const AlarmsTime = styled.div<ContentProps>`
   position: relative;
-  background-color: lightcoral;
-
-
-`
-export const AlarmsList = styled.ul`
+  background-color: pink;
+  margin-left: 7px;
+  padding: 3px 0px 0 3px; 
+  display: ${ props => props.isContentOpen ? "block" : "none"};
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  flex-wrap: wrap; /* is this doing anytinhG? */
-  /* TEMP */
-  display: none;
+  justify-content: space-around;
+  flex-wrap: wrap;
+`
+export const TimeWrapper = styled.div`
+  background-color: orange;
+  display: flex;
+  /* flex-direction: column; */
+  text-align: center;
+  margin: 0 3px 3px 0;
+`
+export const HourFormat = styled.div`
+  display: flex;
+  flex-direction: column;
 `
