@@ -73,7 +73,6 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
     })
   }
   const areThereAlarms = alarms?.some(item =>  Object.values(item).length)
-  console.log("ALARMS", alarms)
   return <AlarmNotificationsSection onClick={()=> setCloseRightPanel(!isRightPanelClosed)} >
     <HeaderWrapper
       //TODO think about the desired behaviour
