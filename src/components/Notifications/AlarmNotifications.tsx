@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components"
+import Emoji from "components/Utils/Emoji/Emoji";
+import React, { Fragment, useEffect, useState } from "react";
 import { convertTemp } from "../Utils/convertTemp";
 import { convertWindSpeed } from "../Utils/convertWindSpeed";
-import { AlarmNotificationsContainer, WrapperIconAlarmsContainer, IconContainer, AlarmsContainer, AlarmsList } from "./NotificationsStyles";
+import { AlarmNotificationsContainer, WrapperIconAlarmsContainer, IconContainer, AlarmsContainer, AlarmsList, Wrapper, HeaderWrapper, Icon, Title, Content, ContentSlider } from "./NotificationsStyles";
 
 const alarmValues = {
   wind: 5,
@@ -22,8 +22,9 @@ export type AlarmNotificationsProps = {
 
 const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, activeDay}) => {
   const [alarms, setAlarms] = useState<AlarmTypes[] | null>(null)
-  const [closeRightPanel, setCloseRightPanel] = useState(false)
-  const types = ["rain", "temp", "wind"]
+  const [isRightPanelClosed, setCloseRightPanel] = useState(false)
+  const alarmTypes = ["rain", "temp", "wind"]
+  const [isContentOpen, setIsContentOpen] =useState(true)
 
   useEffect(() => {
     const rain: Array<Record<string, any>> = []
@@ -35,52 +36,68 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
       const windConverted = convertWindSpeed(hour.wind.speed)
     
       if (hour.rain) rain.push(hour)
-      if (tempConverted > alarmValues.heat || tempConverted < alarmValues.cold) temp.push(hour)
       if (windConverted > alarmValues.wind) wind.push(hour)
+      if (tempConverted > alarmValues.heat || tempConverted < alarmValues.cold) temp.push(hour)
     })
     if (rain.length > 0 || temp.length > 0 || wind.length > 0) {
       setAlarms([{ rain: rain } , {temp: temp}, {wind: wind} ])
     }
   }, [forecast3Days, activeDay, setAlarms])
 
-  return <AlarmNotificationsContainer onClick={()=> setCloseRightPanel(!closeRightPanel)} >
+  return <AlarmNotificationsContainer onClick={()=> setCloseRightPanel(!isRightPanelClosed)} >
     {/* {alarms.length > 0 ? <span>DANGER </span> : <span>OK </span>} */}
     <span>Alarms: </span>
     <div>
       {
         alarms && alarms.map((obj: AlarmTypes, i: number) => {
-          const type = types[i]
-          if ((obj[type]).length > 0) {
+          const alarmType = alarmTypes[i]
+          if ((obj[alarmType]).length > 0) {
             return (
-              <WrapperIconAlarmsContainer close={closeRightPanel} key={i}>
+              <Wrapper key={i}>
+              <HeaderWrapper onClick={()=> setIsContentOpen((state) => !state)}>
                 <IconContainer><span>💨</span></IconContainer>
-                <AlarmsContainer>
-                  <h3>{i === 0 ? "Rain" : i === 1 ? "Temperature" : "wind"}</h3>
-                  <AlarmsList>
-                    {/* MAKE COMP */}
-                    {obj[type].map(hour => {
-                      const windSpeed = convertWindSpeed(hour.wind.speed)
-                      const temperature = +convertTemp(undefined, hour.main.temp)
-                      
+                <h3>{i === 0 ? "Rain" : i === 1 ? "Temperature" : "wind"}</h3>
+              </HeaderWrapper>
+                  <Content isContentOpen={isContentOpen}>
+                    {obj[alarmType].map(hourForecastObj => {
+                      const windSpeed = convertWindSpeed(hourForecastObj.wind.speed)
+                      const temperature = +convertTemp(undefined, hourForecastObj.main.temp)
+                      const hour = hourForecastObj.dt_txt.slice(hourForecastObj.dt_txt.length - 8, hourForecastObj.dt_txt.length - 8 + 5)
+                      console.log("HOUR", hourForecastObj)
                       return (
-                        <div key={hour.dt}>
-                          {/* TEMP */}
-                          {i === 1 && <span> {temperature < 10 ? '* ' : 'O '} </span>}
-                          <span>{hour.dt_txt.slice(hour.dt_txt.length - 8, hour.dt_txt.length - 8 + 5)} </span>
-                          {/* WInd */}
-                          ( <span>{i === 0 ? hour.rain["3h"] : i === 1 ? temperature : windSpeed}</span>
-                          <span>{i === 0 ? 'mm' : i === 1 ? '°' : 'km/h'}</span> )
+                        <div key={hourForecastObj.dt}>
+                          {/* {i === 1 && <span> {temperature < 10 ? '* ' : 'O '} </span>} */}
+                          <span>{hour}</span>
+                          (<span>{i === 0 ? hourForecastObj.rain["3h"] : i === 1 ? temperature : windSpeed}</span>
+                          <span>{i === 0 ? 'mm' : i === 1 ? '°' : 'km/h'}</span>)
                         </div>
                       )
                     })}
-                </AlarmsList>
-                </AlarmsContainer>
-              </WrapperIconAlarmsContainer>
+                </Content>
+              </Wrapper>
+            
             )
           } else return null
         })
       }
     </div>
+    
+    <Wrapper>
+      <HeaderWrapper onClick={()=> setIsContentOpen((state) => !state)}>
+        <Icon><Emoji title="strong wind" emoji="💥"/></Icon>
+        <Title>SIND</Title>
+      </HeaderWrapper>
+      <Content isContentOpen={isContentOpen}>
+        <div>timslots</div>
+        <div>timslots</div>
+        <div>timslots</div>
+      </Content>
+         <HeaderWrapper onClick={()=> setIsContentOpen((state) => !state)}>
+        <Icon><Emoji title="strong wind" emoji="💥"/></Icon>
+        <Title>SIND</Title>
+      </HeaderWrapper>
+    </Wrapper>
+
   </AlarmNotificationsContainer>;
 };
 
