@@ -9,6 +9,9 @@ export const AlarmNotificationsSection = styled.section`
   top: 0;
   right: 0;
   /* overflow: hidden; */
+  @media (max-width: 620px) {
+    display: none
+  }
 `
 export const AlarmsContainer = styled.div`
   /* background-color: aliceblue; */
@@ -35,11 +38,7 @@ export const IconContainer = styled.div`
 export const Title = styled.h4`
   color: white
 `
-
-type ContentProps = {
-  isContentOpen: boolean
-}
-export const StateWrapper = styled.div<ContentProps>`
+export const StateWrapper = styled.div<{isContentOpen: boolean}>`
   display: ${ props => props.isContentOpen ? "block" : "none"};
 `
 export const AlarmsTime = styled.div`
