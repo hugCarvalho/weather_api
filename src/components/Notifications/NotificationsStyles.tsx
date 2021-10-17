@@ -52,7 +52,6 @@ export const AlarmsTime = styled.div`
 export const TimeWrapper = styled.div`
   /* background-color: orange; */
   display: flex;
-  /* flex-direction: column; */
   text-align: center;
   margin: 0 3px 3px 0;
 `

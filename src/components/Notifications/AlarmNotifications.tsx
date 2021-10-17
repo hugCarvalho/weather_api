@@ -28,6 +28,18 @@ const AlarmMenusInit = {
   temp: false
 }
 
+//make obj 🌧️ 
+const renderEmoji = (alarm) => {
+  switch (alarm) {
+    case "wind": return <Emoji title="wind" emoji="💨" />;
+    case "rain": return <Emoji title="rain" emoji="☔" />;
+    case "temp": return <Emoji title="temperature" emoji="🌡️" />;
+    default: throw Error("invalid alarm name")
+  }
+  
+  
+}
+
 const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, activeDay}) => {
   const [alarms, setAlarms] = useState<AlarmTypes[] | null>(null)
   const [isRightPanelClosed, setCloseRightPanel] = useState(false)
@@ -52,14 +64,12 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
     }
   }, [forecast3Days, activeDay, setAlarms])
 
-  console.log(isContentOpen)
-
   const setIsAlarmContentOpen = (alarmType) => {
     setIsContentOpen((state) => {
-                  return {
-                    ...state,
-                    [alarmType]: !state[alarmType]
-                  }
+      return {
+        ...state,
+        [alarmType]: !state[alarmType]
+      }
     })
   }  
 
@@ -73,12 +83,11 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
           if ((obj[alarmName]).length > 0) {
             return (
               <AlarmsContainer key={i}>
-                {/* <HeaderWrapper onClick={() => setIsContentOpen((state) => !state)}> */}
                 <HeaderWrapper onClick={() => setIsAlarmContentOpen(alarmName)}>
                   <IconContainer>
-                    <Emoji title="strong wind" emoji="💨" />
+                    {renderEmoji(alarmName)}
                   </IconContainer>
-                  <Title>{i === 0 ? "Rain" : i === 1 ? "Temperature" : "wind"}</Title>
+                  <Title>{i === 0 ? "Rain" : i === 1 ? "Temperature" : "Wind"}</Title>
                 </HeaderWrapper>
                 <StateWrapper isContentOpen={isContentOpen[alarmName]}>
                   <AlarmsTime >
@@ -95,7 +104,6 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
                         <div key={hourForecast.dt}>
                           {/* {i === 1 && <span> {temperature < 10 ? '* ' : 'O '} </span>} */}
                           {/* TODO change to Grid */}
-                          {/* //TODO reduce fontsize value */}
                           <TimeWrapper>
                             <HourFormat>
                               <div>
