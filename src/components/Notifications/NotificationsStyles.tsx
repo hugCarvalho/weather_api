@@ -4,14 +4,14 @@ import styled from "styled-components"
 
 export const AlarmNotificationsSection = styled.section`
   width: 150px;
-  background-color: #5f645f;
+  /* background-color: #5f645f; */
   position: absolute;
   top: 0;
   right: 0;
   /* overflow: hidden; */
 `
 export const AlarmsContainer = styled.div`
-  background-color: aliceblue;
+  /* background-color: aliceblue; */
   /* border-radius: 10px 0 0 10px; */
 `
 export const HeaderWrapper = styled.div`
@@ -21,6 +21,7 @@ export const HeaderWrapper = styled.div`
   align-items: center;
   
   background-color: #696b69;
+  background-color: transparent;
   padding: 4px 0;
   border-bottom:1px solid gray;
   border-radius: 15px 0 0 15px;
@@ -31,20 +32,23 @@ export const IconContainer = styled.div`
   width: 28px;
   padding-left: 6px;
 `
-export const Title = styled.h3``
+export const Title = styled.h4`
+  color: white
+`
 
 type ContentProps = {
   isContentOpen: boolean
 }
 export const StateWrapper = styled.div<ContentProps>`
   display: ${ props => props.isContentOpen ? "block" : "none"};
-
 `
 export const AlarmsTime = styled.div`
+color: white;
+/* border-left: 1px solid gray; */
   position: relative;
-  background-color: pink;
-  margin-left: 7px;
-  padding: 3px 0px 0 3px; 
+  /* background-color: pink; */
+  margin-left: 8px;
+  padding: 5px 0px 0 3px; 
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;

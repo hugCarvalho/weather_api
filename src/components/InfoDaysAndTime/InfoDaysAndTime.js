@@ -2,7 +2,8 @@ import React from "react";
 import DisplayWeather from "../DisplayWeather/DisplayWeather";
 import Days from "./Days/Days";
 import Hours from "./Hours/Hours";
-import { MaxMinTemperature } from "../Notifications/MaxMinTemperature";
+import { MaxMinTempDisplay } from "../Notifications/MaxMinTempDisplay";
+import { AlarmNotifications } from "../Notifications/AlarmNotifications";
 
 const InfoDaysAndTime = ({ data, isLoading, cityNotFound, validCity, forecast3Days }) => {
   const [activeDay, setActiveDay] = React.useState("today");
@@ -14,7 +15,9 @@ const InfoDaysAndTime = ({ data, isLoading, cityNotFound, validCity, forecast3Da
 
   return (
     <>
-      <MaxMinTemperature forecast3Days={forecast3Days} activeDay={activeDay} />
+      <MaxMinTempDisplay forecast3Days={forecast3Days} activeDay={activeDay} />
+      <AlarmNotifications forecast3Days={forecast3Days} activeDay={activeDay} />
+
       <Days
         data={data}
         isLoading={isLoading}

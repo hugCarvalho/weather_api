@@ -17,9 +17,9 @@ export type AlarmNotificationsProps = {
 }
 
 const alarmValues = {
-  wind: 5,
+  wind: 10,
   cold: 0,
-  heat: 5
+  heat: 10
 }
 
 const AlarmMenusInit = {
@@ -28,7 +28,7 @@ const AlarmMenusInit = {
   temp: false
 }
 
-//make obj 🌧️ 
+//make obj 🌧️ 🚨
 const renderEmoji = (alarm) => {
   switch (alarm) {
     case "wind": return <Emoji title="wind" emoji="💨" />;
@@ -36,10 +36,10 @@ const renderEmoji = (alarm) => {
     case "temp": return <Emoji title="temperature" emoji="🌡️" />;
     default: throw Error("invalid alarm name")
   }
-  
-  
 }
 
+
+//TODO make keyboard friendly
 const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, activeDay}) => {
   const [alarms, setAlarms] = useState<AlarmTypes[] | null>(null)
   const [isRightPanelClosed, setCloseRightPanel] = useState(false)
@@ -71,14 +71,26 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
         [alarmType]: !state[alarmType]
       }
     })
-  }  
-
+  }
+  const areThereAlarms = alarms?.some(item =>  Object.values(item).length)
+  console.log("ALARMS", alarms)
   return <AlarmNotificationsSection onClick={()=> setCloseRightPanel(!isRightPanelClosed)} >
-    {/* {alarms.length > 0 ? <span>DANGER </span> : <span>OK </span>} */}
-    <span>Alarms: </span>
+    <HeaderWrapper
+      //TODO think about the desired behaviour
+      style={{pointerEvents: 'none'}}
+      onClick={() => setIsAlarmContentOpen(state => {
+        return {
+        }
+      })}
+    >
+      <IconContainer>
+        <Emoji title="wind" emoji="🚨"/>
+      </IconContainer>
+        <Title>Alarms</Title>
+      </HeaderWrapper>
     <div>
       {
-        alarms && alarms.map((obj: AlarmTypes, i: number) => {
+        areThereAlarms ? alarms.map((obj: AlarmTypes, i: number) => {
           const alarmName = alarmTypes[i]
           if ((obj[alarmName]).length > 0) {
             return (
@@ -122,7 +134,8 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
               </AlarmsContainer>
             )
           } else return null
-        })
+        }) : <AlarmsTime>None</AlarmsTime>
+          
       }
     </div>
   </AlarmNotificationsSection>;
