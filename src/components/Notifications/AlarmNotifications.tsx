@@ -1,4 +1,5 @@
 import Emoji from "components/Utils/Emoji/Emoji";
+import { Popup } from "components/Utils/Popup/Popup";
 import React, { useEffect, useState } from "react";
 import { convertTemp } from "../Utils/convertTemp";
 import { convertWindSpeed } from "../Utils/convertWindSpeed";
@@ -42,8 +43,9 @@ const renderEmoji = (alarm) => {
 //TODO make keyboard friendly
 const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, activeDay}) => {
   const [alarms, setAlarms] = useState<AlarmTypes[] | null>(null)
+  const [isContentOpen, setIsContentOpen] =useState(AlarmMenusInit) //rename vars
+  const [showPopup, setShowPopup] = useState(true)
   const alarmTypes = ["rain", "temp", "wind"]
-  const [isContentOpen, setIsContentOpen] =useState(AlarmMenusInit)
 
   useEffect(() => {
     const rain: Array<Record<string, any>> = []
@@ -72,19 +74,13 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
     })
   }
   const areThereAlarms = alarms?.some(item =>  Object.values(item).length)
-  return <AlarmNotificationsSection >
-    <HeaderWrapper
-      //TODO think about the desired behaviour
-      style={{pointerEvents: 'none'}}
-      onClick={() => setIsAlarmContentOpen(state => {
-        return {
-        }
-      })}
-    >
+
+  return <><AlarmNotificationsSection >
+    <HeaderWrapper onClick={() => setShowPopup(true)}>
       <IconContainer>
         <Emoji title="wind" emoji="🚨"/>
       </IconContainer>
-        <Title>Alarms</Title>
+        <Title>Alarms / Options</Title>
       </HeaderWrapper>
     <div>
       {
@@ -136,7 +132,10 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
           
       }
     </div>
+    
   </AlarmNotificationsSection>;
+    {showPopup && <Popup setShowPopup={setShowPopup} content="show me"/>}
+  </>
 };
 
 export { AlarmNotifications };
