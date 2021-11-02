@@ -17,15 +17,15 @@ export type AlarmNotificationsProps = {
 }
 
 const alarmValues = {
-  wind: 10,
-  cold: 0,
-  heat: 10
+  wind: 20,
+  cold: 5,
+  heat: 30
 }
 
 const AlarmMenusInit = {
-  rain: false,
-  wind: false,
-  temp: false
+  rain: true,
+  wind: true,
+  temp: true
 }
 
 //make obj 🌧️ 🚨
@@ -42,7 +42,6 @@ const renderEmoji = (alarm) => {
 //TODO make keyboard friendly
 const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, activeDay}) => {
   const [alarms, setAlarms] = useState<AlarmTypes[] | null>(null)
-  const [isRightPanelClosed, setCloseRightPanel] = useState(false)
   const alarmTypes = ["rain", "temp", "wind"]
   const [isContentOpen, setIsContentOpen] =useState(AlarmMenusInit)
 
@@ -73,7 +72,7 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
     })
   }
   const areThereAlarms = alarms?.some(item =>  Object.values(item).length)
-  return <AlarmNotificationsSection onClick={()=> setCloseRightPanel(!isRightPanelClosed)} >
+  return <AlarmNotificationsSection >
     <HeaderWrapper
       //TODO think about the desired behaviour
       style={{pointerEvents: 'none'}}
