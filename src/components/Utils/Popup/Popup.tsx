@@ -15,11 +15,12 @@ const BackDrop = styled.section`
 `
 const Content = styled.div`
   background-color: #ffffff;
-  min-width: 30%;
-  width: 35%;
+  min-width: 310px;
+  width: 25%;
   height: 50%;
   border-radius: 6px;
   padding: 16px 10px;
+  position: relative;
 `
 
 type PopupProps = {
@@ -28,8 +29,16 @@ type PopupProps = {
 }
 
 const Popup: React.FC<PopupProps> = ({setShowPopup, content}) => {
-  return <BackDrop onClick={() => setShowPopup(false)}>
-      <Content>{content}</Content>
+  return <BackDrop onClick={(e) => {
+    console.log("CLICKED")
+    
+    setShowPopup(false)
+  }}>
+    <Content onClick={(e) => {
+      e.stopPropagation()  
+    }}>
+      {content}
+    </Content>
   </BackDrop>
 }
 

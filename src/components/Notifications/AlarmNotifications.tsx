@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { convertTemp } from "../Utils/convertTemp";
 import { convertWindSpeed } from "../Utils/convertWindSpeed";
 import { StateWrapper, AlarmNotificationsSection, IconContainer, AlarmsContainer, HeaderWrapper, Title, AlarmsTime, TimeWrapper, HourFormat, ValueFormat } from "./NotificationsStyles";
+import { NotificationOptions } from "./NotificationOptions";
 
 
 type AlarmTypes = {
@@ -23,8 +24,17 @@ const alarmValues = {
   heat: 30
 }
 
-const AlarmMenusInit = {
+//TODO do proper objects
+export type AlarmMenusInitProps = {
+  rain: boolean,
+  rainDefault: boolean,
+  wind: boolean,
+  temp: boolean
+}
+
+const alarmMenusInit = {
   rain: true,
+  rainDefault: true,
   wind: true,
   temp: true
 }
@@ -39,11 +49,10 @@ const renderEmoji = (alarm) => {
   }
 }
 
-
 //TODO make keyboard friendly
 const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, activeDay}) => {
   const [alarms, setAlarms] = useState<AlarmTypes[] | null>(null)
-  const [isContentOpen, setIsContentOpen] =useState(AlarmMenusInit) //rename vars
+  const [isContentOpen, setIsContentOpen] =useState<AlarmMenusInitProps>(alarmMenusInit) //rename vars
   const [showPopup, setShowPopup] = useState(true)
   const alarmTypes = ["rain", "temp", "wind"]
 
@@ -66,6 +75,7 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
   }, [forecast3Days, activeDay, setAlarms])
 
   const setIsAlarmContentOpen = (alarmType) => {
+    console.log(alarmType)
     setIsContentOpen((state) => {
       return {
         ...state,
@@ -75,6 +85,7 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
   }
   const areThereAlarms = alarms?.some(item =>  Object.values(item).length)
 
+    console.log("WTF",isContentOpen)
   return <><AlarmNotificationsSection >
     <HeaderWrapper onClick={() => setShowPopup(true)}>
       <IconContainer>
@@ -134,7 +145,7 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
     </div>
     
   </AlarmNotificationsSection>;
-    {showPopup && <Popup setShowPopup={setShowPopup} content="show me"/>}
+    {showPopup && <Popup setShowPopup={setShowPopup} content={<NotificationOptions isContentOpen={isContentOpen} setIsAlarmContentOpen={setIsAlarmContentOpen}/>}/>}
   </>
 };
 
