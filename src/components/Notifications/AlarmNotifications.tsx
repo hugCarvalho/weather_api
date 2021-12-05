@@ -50,9 +50,9 @@ const renderEmoji = (alarm) => {
 }
 
 //TODO make keyboard friendly
-const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, activeDay}) => {
+const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, activeDay }) => {
   const [alarms, setAlarms] = useState<AlarmTypes[] | null>(null)
-  const [isContentOpen, setIsContentOpen] =useState<AlarmMenusInitProps>(alarmMenusInit) //rename vars
+  const [isOpen, setIsOpen] = useState<AlarmMenusInitProps>(alarmMenusInit)
   const [showPopup, setShowPopup] = useState(true)
   const alarmTypes = ["rain", "temp", "wind"]
 
@@ -60,39 +60,38 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
     const rain: Array<Record<string, any>> = []
     const temp: Array<Record<string, any>> = []
     const wind: Array<Record<string, any>> = []
-    
+
     forecast3Days[activeDay] && forecast3Days[activeDay].forEach(hour => {
       const tempConverted = +convertTemp(undefined, hour.main.temp)
       const windConverted = convertWindSpeed(hour.wind.speed)
-    
+
       if (hour.rain) rain.push(hour)
       if (windConverted > alarmValues.wind) wind.push(hour)
       if (tempConverted > alarmValues.heat || tempConverted < alarmValues.cold) temp.push(hour)
     })
     if (rain.length > 0 || temp.length > 0 || wind.length > 0) {
-      setAlarms([{ rain: rain } , {temp: temp}, {wind: wind} ])
+      setAlarms([{ rain: rain }, { temp: temp }, { wind: wind }])
     }
   }, [forecast3Days, activeDay, setAlarms])
 
   const setIsAlarmContentOpen = (alarmType) => {
     console.log(alarmType)
-    setIsContentOpen((state) => {
+    setIsOpen((state) => {
       return {
         ...state,
         [alarmType]: !state[alarmType]
       }
     })
   }
-  const areThereAlarms = alarms?.some(item =>  Object.values(item).length)
+  const areThereAlarms = alarms?.some(item => Object.values(item).length)
 
-    console.log("WTF",isContentOpen)
   return <><AlarmNotificationsSection >
     <HeaderWrapper onClick={() => setShowPopup(true)}>
       <IconContainer>
-        <Emoji title="wind" emoji="🚨"/>
+        <Emoji title="wind" emoji="🚨" />
       </IconContainer>
-        <Title>Alarms / Options</Title>
-      </HeaderWrapper>
+      <Title>Alarms / Options</Title>
+    </HeaderWrapper>
     <div>
       {
         areThereAlarms ? alarms.map((obj: AlarmTypes, i: number) => {
@@ -106,7 +105,7 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
                   </IconContainer>
                   <Title>{i === 0 ? "Rain" : i === 1 ? "Temperature" : "Wind"}</Title>
                 </HeaderWrapper>
-                <StateWrapper isContentOpen={isContentOpen[alarmName]}>
+                <StateWrapper isContentOpen={isOpen[alarmName]}>
                   <AlarmsTime >
                     {obj[alarmName].map(hourForecast => {
                       const windSpeed = convertWindSpeed(hourForecast.wind.speed)
@@ -134,18 +133,18 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({forecast3Days, a
                         </div>
                       )
                     })}
-                </AlarmsTime>
+                  </AlarmsTime>
                 </StateWrapper>
               </AlarmsContainer>
             )
           } else return null
         }) : <AlarmsTime>None</AlarmsTime>
-          
+
       }
     </div>
-    
+
   </AlarmNotificationsSection>;
-    {showPopup && <Popup setShowPopup={setShowPopup} content={<NotificationOptions isContentOpen={isContentOpen} setIsAlarmContentOpen={setIsAlarmContentOpen}/>}/>}
+    {showPopup && <Popup setShowPopup={setShowPopup} content={<NotificationOptions isContentOpen={isOpen} setIsAlarmContentOpen={setIsAlarmContentOpen} />} />}
   </>
 };
 
