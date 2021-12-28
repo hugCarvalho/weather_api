@@ -6,7 +6,7 @@ export const alarmTemperature = {
 }
 
 export const alarmWindValues = {
-  min: "5",
+  min: "3",
   max: "20"
 }
 
