@@ -40,6 +40,21 @@ const alarmMenusInit = {
   temp: true
 }
 
+const OPTIONS = {
+  temp: {
+    id: "temp",
+    title: "Temperature",
+    min: 4,
+    max: 25
+  },
+  wind: {
+    id: "wind",
+    title: "Wind",
+    min: 0,
+    max: 20
+  },
+}
+
 //make obj 🌧️ 🚨
 const renderEmoji = (alarm) => {
   switch (alarm) {
@@ -58,7 +73,7 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
   const alarmTypes = ["rain", "temp", "wind"]
 
   //TODO: refactor
-  const [alarmTemp, setAlarmTemp] = useState(alarmTemperature)
+  const [options, setOptions] = useState(OPTIONS)
   const [alarmWind, setAlarmWind] = useState(alarmWindValues)
   const [alarmRain, setAlarmRain] = useState(alarmRainValues)
 
@@ -74,12 +89,12 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
 
       if (hour.rain) rain.push(hour)
       if (windConverted > alarmValues.wind) wind.push(hour)
-      if (tempConverted > +alarmTemp.max || tempConverted < +alarmTemp.min) temp.push(hour)
+      if (tempConverted > +options.temp?.max || tempConverted < +options.temp?.min) temp.push(hour)
     })
     if (rain.length > 0 || temp.length > 0 || wind.length > 0) {
       setAlarms([{ rain: rain }, { temp: temp }, { wind: wind }])
     }
-  }, [forecast3Days, activeDay, setAlarms, alarmTemp])
+  }, [forecast3Days, activeDay, setAlarms, options.temp])
 
   const setIsAlarmContentOpen = (alarmType) => {
     console.log(alarmType)
@@ -94,10 +109,10 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
 
   useEffect(() => {
     // console.log("rain", alarmRain)
-    console.log("temp", alarmTemp)
+    console.log("temp", options.temp)
     // console.log("wind", alarmWind)
 
-  }, [alarmRain, alarmTemp, alarmWind])
+  }, [alarmRain, alarmWind, options.temp])
 
   return <>
     <AlarmNotificationsSection >
@@ -164,10 +179,9 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
         <NotificationOptions
           isOpen={isOpen}
           setIsAlarmContentOpen={setIsAlarmContentOpen}
-          alarmTemp={alarmTemp}
           alarmWind={alarmWind}
           alarmRain={alarmRain}
-          setAlarmTemp={setAlarmTemp}
+          setOptions={setOptions}
           setAlarmWind={setAlarmWind}
           setAlarmRain={setAlarmRain}
         />

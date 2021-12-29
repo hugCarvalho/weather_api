@@ -15,3 +15,25 @@ export const alarmRainValues = {
   max: "0",
   min: "0"
 }
+
+export const OPTIONS = {
+  temp: {
+    id: "temp",
+    name: "Temperature",
+    min: 4,
+    max: 25
+  },
+  wind: {
+    id: "wind",
+    name: "Wind",
+    min: 0,
+    max: 20
+  },
+  rain: {
+    id: "rain",
+    name: "Rain",
+    always: true,
+    max: "0",
+    min: "0"
+  }
+}
