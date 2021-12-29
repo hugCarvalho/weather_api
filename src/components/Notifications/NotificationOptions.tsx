@@ -3,59 +3,65 @@ import { OptionsSection, TemperatureValues, Input, WindValues, RainValues, Wrapp
 
 //TODO: enhance and refactor. Disable for now in mobile
 
-const OPTIONS = [
-  {
+const OPTIONS = {
+  temp: {
     id: "temp",
     title: "Temperature",
     min: 4,
     max: 25
   },
-  {
+  wind: {
     id: "wind",
     title: "Wind",
     min: 0,
     max: 20
   },
-
-]
+}
 
 
 const NotificationOptions = ({ alarmTemp, alarmWind, alarmRain, setAlarmTemp, setAlarmWind, setAlarmRain, isOpen, setIsAlarmContentOpen }) => {
 
-  const [inputValue, setInputValue] = useState(alarmTemp)
+  const [inputValue, setInputValue] = useState(OPTIONS)
+  const arr = ["temp", "wind"]
 
   const onSave = () => {
     //console.log("TEMP-MIN", e.currentTarget)
     // console.log(e.currentTarget.value)
-    setAlarmTemp({ max: inputValue.max, min: inputValue.min })
+    //setAlarmTemp({ max: inputValue.max, min: inputValue.min })
   }
 
-  console.log("ALARMTEMP", alarmTemp)
+  console.log("INPUT-VALUE->", inputValue)
 
   return <div>
     <h1>Options</h1>
     <OptionsSection>
       {
-        OPTIONS.map((item, i) => {
+        arr.map((item, i) => {
           return (<>
-            <h2>{item.title}</h2>
+            <h2>{OPTIONS[item].title}</h2>
             <TemperatureValues>
               {/* TODO: change to labels */}
-              <span>Show alarm if {item.title} below:</span>
+              <span>Show alarm if {OPTIONS[item].title} below:</span>
               <Input
                 type="number"
-                value={inputValue?.min}
+                value={inputValue[item]?.min}
                 onChange={(e) => {
-                  console.log("ITEM", item, e.target.value)
-                  setInputValue({ ...inputValue, min: e.target.value })
+                  const newState = {
+                    ...inputValue,
+                    [item]: {
+                      ...OPTIONS[item],
+                      min: e.target.value
+                    }
+                  }
+                  setInputValue(newState)
                 }}
               />
             </TemperatureValues>
             <TemperatureValues>
-              <span>Show alarm if {item.title} above:</span>
+              <span>Show alarm if {OPTIONS[item].title} above:</span>
               <Input
-                value={inputValue?.max}
-                onChange={(e) => setInputValue({ ...inputValue, max: e.target.value })}
+                value={OPTIONS[item]?.max}
+                onChange={(e) => setInputValue({ ...inputValue })}
               />
             </TemperatureValues>
             <button type="button" onClick={() => onSave()}>save</button>
