@@ -115,7 +115,7 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
   }, [alarmRain, alarmWind, options.temp])
 
   return <>
-    <AlarmNotificationsSection >
+    <AlarmNotificationsSection>
       <HeaderWrapper onClick={() => setShowPopup(true)}>
         <IconContainer>
           <Emoji title="wind" emoji="🚨" />

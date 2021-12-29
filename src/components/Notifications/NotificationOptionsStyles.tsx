@@ -27,12 +27,13 @@ export const Name = styled.span`
   /* padding-top: 5px; */
 `
 export const OptionsSection = styled.section`
-  background-color: pink;
   display: flex;
   flex-direction: column;
+  line-height: 18px;
 `
 export const TemperatureValues = styled.div`
   display: flex;
+  margin: 3px 0;
 `
 export const WindValues = styled(TemperatureValues)``
 export const RainValues = styled(TemperatureValues)``
@@ -44,5 +45,13 @@ export const Input = styled.input`
 `
 export const WrapperContainer2 = styled.div`
   background-color: lime;
-  display: flex
+  display: flex;
+`
+export const H1 = styled.h1`
+  font-size: 18px;
+  text-align: center;
+  padding: 0 5px 6px;
+`
+export const SaveBtn = styled.button`
+  margin: 8px 0 12px;
 `
