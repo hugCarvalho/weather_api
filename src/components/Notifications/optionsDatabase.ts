@@ -1,10 +1,14 @@
-export const alarmTypes = ["rain", "temp", "wind"]
+export type AlarmType = "rain" | "temperature" | "wind" //1
+export type OptionName = "rain" | "temp" | "wind"
+export const alarmTypes = ["rain", "temperature", "wind"]
+
+
 
 export const SETTINGS = {
-  temp: {
-    id: "temp",
+  temperature: {
+    id: "temperature",
     name: "Temperature",
-    min: 4,
+    min: 5,
     max: 25
   },
   wind: {
@@ -20,3 +24,5 @@ export const SETTINGS = {
     min: "0"
   }
 }
+
+export type SettingsType = typeof SETTINGS

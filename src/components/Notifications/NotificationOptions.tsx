@@ -1,15 +1,19 @@
 import React from "react";
 import { Fragment, useState } from "react";
 import { SaveBtn, OptionsSection, TemperatureValues, Input, H1 } from "./NotificationOptionsStyles";
-import { alarmTypes, SETTINGS } from "./optionsDatabase";
+import { AlarmType, alarmTypes, SETTINGS, SettingsType } from "./optionsDatabase";
 
-//TODO: Disable for now on mobile
+//TODO: Disabled for now on mobile
 
-const NotificationOptions = ({ options, setOptions }) => {
+type NotificationOptionsProps = {
+  options: SettingsType,
+  setOptions: any
+}
 
+const NotificationOptions: React.FC<NotificationOptionsProps> = ({ options, setOptions }) => {
   const [inputValues, setInputValues] = useState(options)
 
-  const onInputChange = (e, option, type) => {
+  const onInputChange = (e, option: AlarmType, type: "min" | "max") => {
     const newState = {
       ...inputValues,
       [option]: {
@@ -17,16 +21,13 @@ const NotificationOptions = ({ options, setOptions }) => {
         [type]: e.target.value
       }
     }
-    // console.log("option", option, type)
     setInputValues(newState)
   }
-
-  // console.log("adadsa", inputValues?.temp)
 
   return <OptionsSection>
     <H1>Options</H1>
     {
-      alarmTypes.map((option, i) => {
+      alarmTypes.map((option: AlarmType, i) => {
         return (<Fragment key={i}>
           <h2>{SETTINGS[option].name}</h2>
           {option !== "rain" && <TemperatureValues>
@@ -58,7 +59,7 @@ const NotificationOptions = ({ options, setOptions }) => {
         </Fragment>)
       })
     }
-  </OptionsSection>
+  </OptionsSection >
 }
 
 export { NotificationOptions }
