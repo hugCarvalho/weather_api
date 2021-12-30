@@ -5,7 +5,7 @@ import { convertTemp } from "../Utils/convertTemp";
 import { convertWindSpeed } from "../Utils/convertWindSpeed";
 import { StateWrapper, AlarmNotificationsSection, IconContainer, AlarmsContainer, HeaderWrapper, Title, AlarmsTime, TimeWrapper, HourFormat, ValueFormat } from "./NotificationsStyles";
 import { NotificationOptions } from "./NotificationOptions";
-import { NotificationsInit, alarmTypes, settingsObj, SettingsType } from "./optionsDatabase";
+import { NotificationsInit, alarmTypes, settingsObj, SettingsType, HourObj, AlarmType } from "./optionsDatabase";
 import { renderEmoji } from "./functions";
 
 type AlarmTypes = {
@@ -19,7 +19,6 @@ export type AlarmNotificationsProps = {
 }
 
 //TODO make keyboard friendly
-
 const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, activeDay }) => {
   const [showPopup, setShowPopup] = useState(true)
   const [showNotification, setShowNotification] = useState(NotificationsInit) //TODO merge with settings & extend
@@ -32,11 +31,10 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
     const temperature: Array<Record<string, any>> = []
     const wind: Array<Record<string, any>> = []
 
-    forecast3Days[activeDay] && forecast3Days[activeDay].forEach(hour => {
-      const tempConverted = +convertTemp(undefined, hour.main.temperature) //TODO resolve undefined
+    forecast3Days[activeDay] && forecast3Days[activeDay].forEach((hour: HourObj) => {
+      const tempConverted = +convertTemp(undefined, hour.main.temp) //TODO resolve undefined
       const windConverted = convertWindSpeed(hour.wind.speed)
-      const rainValue = Object.values(hour.rain)[0]
-
+      const rainValue = hour.rain && Object.values(hour.rain)[0]
       if (hour.rain && rainValue > +settings.rain?.max) {
         rain.push(hour)
       }
@@ -53,8 +51,8 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
     }
   }, [forecast3Days, activeDay, setAlarms, settings])
 
-  const setIsAlarmContentOpen = (alarmType) => {
-    console.log(alarmType)
+  const setIsAlarmContentOpen = (alarmType: string) => {
+    // console.log("AL", alarmType)
     setShowNotification((state) => {
       return {
         ...state,

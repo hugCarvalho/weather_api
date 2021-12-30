@@ -1,5 +1,33 @@
 export type AlarmType = "rain" | "temperature" | "wind" //1
 export type OptionName = "rain" | "temp" | "wind"
+export type SettingsType = typeof settingsObj
+
+export type HourObj = {
+  clouds: Record<string, number>,
+  dt: number,
+  dt_txt: string,
+  main: {
+    feels_like: number
+    grnd_level: number
+    humidity: number
+    pressure: number
+    sea_level: number
+    temp: number
+    temp_kf: number
+    temp_max: number
+    temp_min: number
+  }
+  pop: number,
+  rain: Record<string, number>,
+  sys: Record<string, string>,
+  visibility: number,
+  weather: Array<Record<string, any>>,
+  wind: {
+    deg: number
+    gust: number
+    speed: number
+  },
+}
 export const alarmTypes = ["rain", "temperature", "wind"]
 
 export const settingsObj = {
@@ -23,7 +51,6 @@ export const settingsObj = {
   }
 }
 
-export type SettingsType = typeof settingsObj
 
 //todo: merge
 export const NotificationsInit = {
@@ -31,3 +58,4 @@ export const NotificationsInit = {
   wind: true,
   temperature: true
 }
+
