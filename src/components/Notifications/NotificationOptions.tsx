@@ -1,6 +1,7 @@
-import React, { Fragment, useState } from "react";
-import { SaveBtn, OptionsSection, TemperatureValues, Input, WindValues, RainValues, WrapperContainer2, H1 } from "./NotificationOptionsStyles";
-import { OPTIONS } from "./optionsDatabase";
+import React from "react";
+import { Fragment, useState } from "react";
+import { SaveBtn, OptionsSection, TemperatureValues, Input, H1 } from "./NotificationOptionsStyles";
+import { settings } from "./optionsDatabase";
 
 //TODO: Disable for now on mobile
 
@@ -13,22 +14,25 @@ const NotificationOptions = ({ options, setOptions }) => {
     const newState = {
       ...inputValue,
       [option]: {
-        ...OPTIONS[option],
+        ...inputValue[option],
         [type]: e.target.value
       }
     }
+    console.log("option", option)
     setInputValue(newState)
   }
+
+  console.log("adadsa", inputValue?.temp)
 
   return <OptionsSection>
     <H1>Options</H1>
     {
       ids.map((option, i) => {
         return (<Fragment key={i}>
-          <h2>{OPTIONS[option].name}</h2>
+          <h2>{settings[option].name}</h2>
           <TemperatureValues>
             {/* TODO: change to labels */}
-            <span>Show alarm if {OPTIONS[option].name} is below:</span>
+            <span>Show alarm if {settings[option].name} is below:</span>
             <Input
               type="number"
               value={inputValue[option]?.min}
@@ -36,7 +40,7 @@ const NotificationOptions = ({ options, setOptions }) => {
             />
           </TemperatureValues>
           <TemperatureValues>
-            <span>Show alarm if {OPTIONS[option].name} is above:</span>
+            <span>Show alarm if {settings[option].name} is above:</span>
             <Input
               type="number"
               value={inputValue[option]?.max}
