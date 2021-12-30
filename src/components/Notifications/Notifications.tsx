@@ -5,8 +5,8 @@ import { convertTemp } from "../Utils/convertTemp";
 import { convertWindSpeed } from "../Utils/convertWindSpeed";
 import { StateWrapper, AlarmNotificationsSection, IconContainer, AlarmsContainer, HeaderWrapper, Title, AlarmsTime, TimeWrapper, HourFormat, ValueFormat } from "./NotificationsStyles";
 import { NotificationOptions } from "./NotificationOptions";
-import { alarmTypes, settingsObj, SettingsType } from "./optionsDatabase";
-
+import { NotificationsInit, alarmTypes, settingsObj, SettingsType } from "./optionsDatabase";
+import { renderEmoji } from "./functions";
 
 type AlarmTypes = {
   rain?: any[]
@@ -14,39 +14,15 @@ type AlarmTypes = {
   wind?: any[]
 }
 export type AlarmNotificationsProps = {
-  // forecast3Days: Record<string, Array<unknown>>
   forecast3Days: Record<string, Array<any>>
   activeDay: string
 }
 
-//TODO do proper objects
-export type AlarmMenusInitProps = {
-  rain: boolean,
-  wind: boolean,
-  temperature: boolean
-}
-
-const alarmMenusInit = {
-  rain: true,
-  rainDefault: true,
-  wind: true,
-  temperature: true
-}
-
-//make obj 🌧️ 🚨
-const renderEmoji = (alarm) => {
-  switch (alarm) {
-    case "wind": return <Emoji title="wind" emoji="💨" />;
-    case "rain": return <Emoji title="rain" emoji="☔" />;
-    case "temperature": return <Emoji title="temperature" emoji="🌡️" />;
-    default: throw Error("invalid alarm name")
-  }
-}
-
 //TODO make keyboard friendly
+
 const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, activeDay }) => {
   const [showPopup, setShowPopup] = useState(true)
-  const [isOpen, setIsOpen] = useState<AlarmMenusInitProps>(alarmMenusInit)
+  const [showNotification, setShowNotification] = useState(NotificationsInit) //TODO merge with settings & extend
   const [alarms, setAlarms] = useState<AlarmTypes[] | null>(null)
   const [settings, setSettings] = useState<SettingsType>(settingsObj)
 
@@ -57,27 +33,29 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
     const wind: Array<Record<string, any>> = []
 
     forecast3Days[activeDay] && forecast3Days[activeDay].forEach(hour => {
-      const tempConverted = +convertTemp(undefined, hour.main.temperature)
+      const tempConverted = +convertTemp(undefined, hour.main.temperature) //TODO resolve undefined
       const windConverted = convertWindSpeed(hour.wind.speed)
-      console.log("hour", hour.rain)
+      const rainValue = Object.values(hour.rain)[0]
 
-      if (hour.rain) {
-        const rainValue = Object.values(hour.rain)[0]
-        if (rainValue > +settings.rain?.max) {
-          rain.push(hour)
-        }
+      if (hour.rain && rainValue > +settings.rain?.max) {
+        rain.push(hour)
       }
-      if (windConverted > +settings.wind?.max || windConverted < +settings.wind?.min) { wind.push(hour) }
-      if (tempConverted > +settings.temperature?.max || tempConverted < +settings.temperature?.min) { temperature.push(hour) }
+      if (windConverted > +settings.wind?.max || windConverted < +settings.wind?.min) {
+        wind.push(hour)
+      }
+      if (tempConverted > +settings.temperature?.max || tempConverted < +settings.temperature?.min) {
+        temperature.push(hour)
+      }
     })
+
     if (rain.length > 0 || temperature.length > 0 || wind.length > 0) {
-      setAlarms([{ rain: rain }, { temperature: temperature }, { wind: wind }])
+      setAlarms([{ rain }, { temperature }, { wind }])
     }
-  }, [forecast3Days, activeDay, setAlarms, settings.temperature, settings.wind, settings.rain])
+  }, [forecast3Days, activeDay, setAlarms, settings])
 
   const setIsAlarmContentOpen = (alarmType) => {
     console.log(alarmType)
-    setIsOpen((state) => {
+    setShowNotification((state) => {
       return {
         ...state,
         [alarmType]: !state[alarmType]
@@ -113,7 +91,7 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
                     </IconContainer>
                     <Title>{i === 0 ? "Rain" : i === 1 ? "Temperature" : "Wind"}</Title>
                   </HeaderWrapper>
-                  <StateWrapper isContentOpen={isOpen[alarmName]}>
+                  <StateWrapper isContentOpen={showNotification[alarmName]}>
                     <AlarmsTime >
                       {obj[alarmName].map(hourForecast => {
                         const windSpeed = convertWindSpeed(hourForecast.wind.speed)

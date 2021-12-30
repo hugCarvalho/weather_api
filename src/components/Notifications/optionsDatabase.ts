@@ -2,8 +2,6 @@ export type AlarmType = "rain" | "temperature" | "wind" //1
 export type OptionName = "rain" | "temp" | "wind"
 export const alarmTypes = ["rain", "temperature", "wind"]
 
-
-
 export const settingsObj = {
   temperature: {
     id: "temperature",
@@ -26,3 +24,10 @@ export const settingsObj = {
 }
 
 export type SettingsType = typeof settingsObj
+
+//todo: merge
+export const NotificationsInit = {
+  rain: true,
+  wind: true,
+  temperature: true
+}
