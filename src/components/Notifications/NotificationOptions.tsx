@@ -1,7 +1,7 @@
 import Emoji from "components/Utils/Emoji/Emoji";
 import React from "react";
 import { Fragment, useState } from "react";
-import { OptionsTitle, SaveBtn, OptionsSection, TemperatureValues, Input, H1 } from "./NotificationOptionsStyles";
+import { OptionsTitle, SaveBtn, OptionsSection, TemperatureValues, Input, H1 } from "./styles/NotificationOptionsStyles";
 import { AlarmType, alarmTypes, settingsObj, SettingsType } from "./optionsDatabase";
 
 type NotificationOptionsProps = {
