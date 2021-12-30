@@ -16,7 +16,7 @@ export const alarmRainValues = {
   min: "0"
 }
 
-export const OPTIONS = {
+export const SETTINGS = {
   temp: {
     id: "temp",
     name: "Temperature",

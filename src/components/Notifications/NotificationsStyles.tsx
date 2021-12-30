@@ -36,7 +36,7 @@ export const IconContainer = styled.div`
   padding-left: 6px;
 `
 export const Title = styled.h4`
-  color: white
+  color: white;
 `
 export const StateWrapper = styled.div<{ isContentOpen: boolean }>`
   display: ${props => props.isContentOpen ? "block" : "none"};

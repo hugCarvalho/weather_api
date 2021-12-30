@@ -1,55 +1,55 @@
 import React from "react";
 import { Fragment, useState } from "react";
 import { SaveBtn, OptionsSection, TemperatureValues, Input, H1 } from "./NotificationOptionsStyles";
-import { settings } from "./optionsDatabase";
+import { SETTINGS } from "./optionsDatabase";
 
 //TODO: Disable for now on mobile
 
 const NotificationOptions = ({ options, setOptions }) => {
 
-  const [inputValue, setInputValue] = useState(options)
+  const [inputValues, setInputValues] = useState(options)
   const ids = ["temp", "wind"]
 
   const onInputChange = (e, option, type) => {
     const newState = {
-      ...inputValue,
+      ...inputValues,
       [option]: {
-        ...inputValue[option],
+        ...inputValues[option],
         [type]: e.target.value
       }
     }
     console.log("option", option)
-    setInputValue(newState)
+    setInputValues(newState)
   }
 
-  console.log("adadsa", inputValue?.temp)
+  console.log("adadsa", inputValues?.temp)
 
   return <OptionsSection>
     <H1>Options</H1>
     {
       ids.map((option, i) => {
         return (<Fragment key={i}>
-          <h2>{settings[option].name}</h2>
+          <h2>{SETTINGS[option].name}</h2>
           <TemperatureValues>
             {/* TODO: change to labels */}
-            <span>Show alarm if {settings[option].name} is below:</span>
+            <span>Show alarm if {SETTINGS[option].name} is below:</span>
             <Input
               type="number"
-              value={inputValue[option]?.min}
+              value={inputValues[option]?.min}
               onChange={(e) => onInputChange(e, option, "min")}
             />
           </TemperatureValues>
           <TemperatureValues>
-            <span>Show alarm if {settings[option].name} is above:</span>
+            <span>Show alarm if {SETTINGS[option].name} is above:</span>
             <Input
               type="number"
-              value={inputValue[option]?.max}
+              value={inputValues[option]?.max}
               onChange={(e) => onInputChange(e, option, "max")}
             />
           </TemperatureValues>
           <SaveBtn
             type="button"
-            onClick={() => setOptions(inputValue)}
+            onClick={() => setOptions(inputValues)}
           >
             save
           </SaveBtn>
