@@ -2,7 +2,7 @@ import Emoji from "components/Utils/Emoji/Emoji";
 import React from "react";
 import { Fragment, useState } from "react";
 import { OptionsTitle, SaveBtn, OptionsSection, TemperatureValues, Input, H1 } from "./styles/NotificationOptionsStyles";
-import { AlarmType, alarmTypes, settingsObj, SettingsType } from "./optionsDatabase";
+import { AlarmType, notifications, settingsObj, SettingsType } from "./optionsDatabase";
 
 type NotificationOptionsProps = {
   options: SettingsType,
@@ -35,7 +35,7 @@ const NotificationOptions: React.FC<NotificationOptionsProps> = ({ options, setO
     <H1>Options</H1>
     <form>
       {
-        alarmTypes.map((option: AlarmType, i) => {
+        notifications.map((option: AlarmType, i) => {
           const { min, max } = inputValues[option]
           return (<Fragment key={i}>
             <OptionsTitle>{settingsObj[option].name}</OptionsTitle>

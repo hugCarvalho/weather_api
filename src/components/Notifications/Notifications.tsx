@@ -5,7 +5,7 @@ import { convertTemp } from "../Utils/convertTemp";
 import { convertWindSpeed } from "../Utils/convertWindSpeed";
 import { StateWrapper, AlarmNotificationsSection, IconContainer, AlarmsContainer, HeaderWrapper, Title, AlarmsTime, TimeWrapper, HourFormat, ValueFormat } from "./NotificationsStyles";
 import { NotificationOptions } from "./NotificationOptions";
-import { NotificationsInit, alarmTypes, settingsObj, SettingsType, HourObj, AlarmType } from "./optionsDatabase";
+import { NotificationsInit, notifications, settingsObj, SettingsType, HourObj, AlarmType } from "./optionsDatabase";
 import { renderEmoji } from "./functions";
 
 type AlarmTypes = {
@@ -51,8 +51,7 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
     }
   }, [forecast3Days, activeDay, setAlarms, settings])
 
-  const setIsAlarmContentOpen = (alarmType: string) => {
-    // console.log("AL", alarmType)
+  const setIsAlarmContentOpen = (alarmType: AlarmType) => {
     setShowNotification((state) => {
       return {
         ...state,
@@ -60,26 +59,20 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
       }
     })
   }
-  const areThereAlarms = alarms?.some(item => Object.values(item).length)
-
-  useEffect(() => {
-    // console.log("rain", alarmRain)
-    // console.log("temperature", settings.temperature)
-
-  }, [settings])
+  const areThereAlarms = alarms?.some(alarm => Object.values(alarm).length)
 
   return <>
     <AlarmNotificationsSection>
       <HeaderWrapper onClick={() => setShowPopup(true)}>
         <IconContainer>
-          <Emoji title="wind" emoji="🚨" />
+          <Emoji title="alarm" emoji="🚨" />
         </IconContainer>
         <Title>Alarms / Options</Title>
       </HeaderWrapper>
       <div>
         {
           areThereAlarms ? alarms.map((obj: AlarmTypes, i: number) => {
-            const alarmName = alarmTypes[i]
+            const alarmName = notifications[i] as AlarmType
             if ((obj[alarmName]).length > 0) {
               return (
                 <AlarmsContainer key={i}>

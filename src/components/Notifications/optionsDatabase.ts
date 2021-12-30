@@ -28,7 +28,7 @@ export type HourObj = {
     speed: number
   },
 }
-export const alarmTypes = ["rain", "temperature", "wind"]
+export const notifications = ["rain", "temperature", "wind"]
 
 export const settingsObj = {
   temperature: {
