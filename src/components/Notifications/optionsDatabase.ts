@@ -4,7 +4,7 @@ export const alarmTypes = ["rain", "temperature", "wind"]
 
 
 
-export const SETTINGS = {
+export const settingsObj = {
   temperature: {
     id: "temperature",
     name: "Temperature",
@@ -25,4 +25,4 @@ export const SETTINGS = {
   }
 }
 
-export type SettingsType = typeof SETTINGS
+export type SettingsType = typeof settingsObj

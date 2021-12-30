@@ -5,7 +5,7 @@ import { convertTemp } from "../Utils/convertTemp";
 import { convertWindSpeed } from "../Utils/convertWindSpeed";
 import { StateWrapper, AlarmNotificationsSection, IconContainer, AlarmsContainer, HeaderWrapper, Title, AlarmsTime, TimeWrapper, HourFormat, ValueFormat } from "./NotificationsStyles";
 import { NotificationOptions } from "./NotificationOptions";
-import { alarmTypes, SETTINGS } from "./optionsDatabase";
+import { alarmTypes, settingsObj, SettingsType } from "./optionsDatabase";
 
 
 type AlarmTypes = {
@@ -22,7 +22,6 @@ export type AlarmNotificationsProps = {
 //TODO do proper objects
 export type AlarmMenusInitProps = {
   rain: boolean,
-  rainDefault: boolean,
   wind: boolean,
   temperature: boolean
 }
@@ -49,7 +48,7 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
   const [showPopup, setShowPopup] = useState(true)
   const [isOpen, setIsOpen] = useState<AlarmMenusInitProps>(alarmMenusInit)
   const [alarms, setAlarms] = useState<AlarmTypes[] | null>(null)
-  const [settings, setSettings] = useState(SETTINGS)
+  const [settings, setSettings] = useState<SettingsType>(settingsObj)
 
   //SETS DATA FOR ALARMS
   useEffect(() => {
