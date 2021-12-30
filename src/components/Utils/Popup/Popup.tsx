@@ -28,18 +28,17 @@ type PopupProps = {
   content: unknown
 }
 
-const Popup: React.FC<PopupProps> = ({setShowPopup, content}) => {
+const Popup: React.FC<PopupProps> = ({ setShowPopup, content }) => {
   return <BackDrop onClick={(e) => {
     console.log("CLICKED")
-    
     setShowPopup(false)
   }}>
     <Content onClick={(e) => {
-      e.stopPropagation()  
+      e.stopPropagation()
     }}>
       {content}
     </Content>
   </BackDrop>
 }
 
-export {Popup}
+export { Popup }

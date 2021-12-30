@@ -69,7 +69,7 @@ const renderEmoji = (alarm) => {
 const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, activeDay }) => {
   const [alarms, setAlarms] = useState<AlarmTypes[] | null>(null)
   const [isOpen, setIsOpen] = useState<AlarmMenusInitProps>(alarmMenusInit)
-  const [showPopup, setShowPopup] = useState(true)
+  const [showPopup, setShowPopup] = useState(false)
   const alarmTypes = ["rain", "temp", "wind"]
 
   //TODO: refactor
@@ -87,9 +87,9 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
       const tempConverted = +convertTemp(undefined, hour.main.temp)
       const windConverted = convertWindSpeed(hour.wind.speed)
 
-      if (hour.rain) rain.push(hour)
-      if (windConverted > alarmValues.wind) wind.push(hour)
-      if (tempConverted > +options.temp?.max || tempConverted < +options.temp?.min) temp.push(hour)
+      if (hour.rain) { rain.push(hour) }
+      if (windConverted > alarmValues.wind) { wind.push(hour) }
+      if (tempConverted > +options.temp?.max || tempConverted < +options.temp?.min) { temp.push(hour) }
     })
     if (rain.length > 0 || temp.length > 0 || wind.length > 0) {
       setAlarms([{ rain: rain }, { temp: temp }, { wind: wind }])
@@ -177,13 +177,14 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
       setShowPopup={setShowPopup}
       content={
         <NotificationOptions
-          isOpen={isOpen}
-          setIsAlarmContentOpen={setIsAlarmContentOpen}
-          alarmWind={alarmWind}
-          alarmRain={alarmRain}
+          // isOpen={isOpen}
+          //setIsAlarmContentOpen={setIsAlarmContentOpen}
+          //alarmWind={alarmWind}
+          //alarmRain={alarmRain}
+          options={options}
           setOptions={setOptions}
-          setAlarmWind={setAlarmWind}
-          setAlarmRain={setAlarmRain}
+        //setAlarmWind={setAlarmWind}
+        //setAlarmRain={setAlarmRain}
         />
       } />
     }

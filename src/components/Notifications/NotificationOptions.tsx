@@ -2,19 +2,19 @@ import React, { Fragment, useState } from "react";
 import { SaveBtn, OptionsSection, TemperatureValues, Input, WindValues, RainValues, WrapperContainer2, H1 } from "./NotificationOptionsStyles";
 import { OPTIONS } from "./optionsDatabase";
 
-//TODO: Disable for now in mobile
+//TODO: Disable for now on mobile
 
-const NotificationOptions = ({ alarmWind, alarmRain, setOptions, setAlarmWind, setAlarmRain, isOpen, setIsAlarmContentOpen }) => {
+const NotificationOptions = ({ options, setOptions }) => {
 
-  const [inputValue, setInputValue] = useState(OPTIONS)
+  const [inputValue, setInputValue] = useState(options)
   const ids = ["temp", "wind"]
 
-  const onInputChange = (e, option) => {
+  const onInputChange = (e, option, type) => {
     const newState = {
       ...inputValue,
       [option]: {
         ...OPTIONS[option],
-        min: e.target.value
+        [type]: e.target.value
       }
     }
     setInputValue(newState)
@@ -32,7 +32,7 @@ const NotificationOptions = ({ alarmWind, alarmRain, setOptions, setAlarmWind, s
             <Input
               type="number"
               value={inputValue[option]?.min}
-              onChange={(e) => onInputChange(e, option)}
+              onChange={(e) => onInputChange(e, option, "min")}
             />
           </TemperatureValues>
           <TemperatureValues>
@@ -40,7 +40,7 @@ const NotificationOptions = ({ alarmWind, alarmRain, setOptions, setAlarmWind, s
             <Input
               type="number"
               value={inputValue[option]?.max}
-              onChange={(e) => onInputChange(e, option)}
+              onChange={(e) => onInputChange(e, option, "max")}
             />
           </TemperatureValues>
           <SaveBtn
@@ -53,7 +53,7 @@ const NotificationOptions = ({ alarmWind, alarmRain, setOptions, setAlarmWind, s
       })
     }
 
-    <h2>Rain</h2>
+    {/* <h2>Rain</h2>
     <RainValues>
       <span>Show always:</span>
       <Input
@@ -76,7 +76,7 @@ const NotificationOptions = ({ alarmWind, alarmRain, setOptions, setAlarmWind, s
       <Input
         disabled={alarmRain.always}
         value={alarmWind?.min} onChange={(e) => setAlarmWind({ ...alarmWind, min: e.target.value })} />
-    </RainValues>
+    </RainValues> */}
   </OptionsSection>
 }
 

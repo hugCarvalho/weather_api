@@ -50,8 +50,9 @@ export const WrapperContainer2 = styled.div`
 export const H1 = styled.h1`
   font-size: 18px;
   text-align: center;
-  padding: 0 5px 6px;
+  padding: 0 5px 10px;
 `
 export const SaveBtn = styled.button`
-  margin: 8px 0 12px;
+  margin: 8px auto 16px;
+  width: 50%;
 `
