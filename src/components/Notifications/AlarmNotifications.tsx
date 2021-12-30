@@ -5,7 +5,7 @@ import { convertTemp } from "../Utils/convertTemp";
 import { convertWindSpeed } from "../Utils/convertWindSpeed";
 import { StateWrapper, AlarmNotificationsSection, IconContainer, AlarmsContainer, HeaderWrapper, Title, AlarmsTime, TimeWrapper, HourFormat, ValueFormat } from "./NotificationsStyles";
 import { NotificationOptions } from "./NotificationOptions";
-import { alarmTemperature, alarmWindValues, alarmRainValues, SETTINGS } from "./optionsDatabase";
+import { alarmTypes, SETTINGS } from "./optionsDatabase";
 
 
 type AlarmTypes = {
@@ -17,12 +17,6 @@ export type AlarmNotificationsProps = {
   // forecast3Days: Record<string, Array<unknown>>
   forecast3Days: Record<string, Array<any>>
   activeDay: string
-}
-
-const alarmValues = {
-  wind: 20,
-  cold: 5,
-  heat: 30
 }
 
 //TODO do proper objects
@@ -52,15 +46,10 @@ const renderEmoji = (alarm) => {
 
 //TODO make keyboard friendly
 const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, activeDay }) => {
-  const [alarms, setAlarms] = useState<AlarmTypes[] | null>(null)
-  const [isOpen, setIsOpen] = useState<AlarmMenusInitProps>(alarmMenusInit)
   const [showPopup, setShowPopup] = useState(true)
-  const alarmTypes = ["rain", "temp", "wind"]
-
-  //TODO: refactor
+  const [isOpen, setIsOpen] = useState<AlarmMenusInitProps>(alarmMenusInit)
+  const [alarms, setAlarms] = useState<AlarmTypes[] | null>(null)
   const [settings, setSettings] = useState(SETTINGS)
-  const [alarmWind, setAlarmWind] = useState(alarmWindValues)
-  const [alarmRain, setAlarmRain] = useState(alarmRainValues)
 
   //SETS DATA FOR ALARMS
   useEffect(() => {
@@ -71,15 +60,21 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
     forecast3Days[activeDay] && forecast3Days[activeDay].forEach(hour => {
       const tempConverted = +convertTemp(undefined, hour.main.temp)
       const windConverted = convertWindSpeed(hour.wind.speed)
+      console.log("hour", hour.rain)
 
-      if (hour.rain) { rain.push(hour) }
-      if (windConverted > alarmValues.wind) { wind.push(hour) }
+      if (hour.rain) {
+        const rainValue = Object.values(hour.rain)[0]
+        if (rainValue > +settings.rain?.max) {
+          rain.push(hour)
+        }
+      }
+      if (windConverted > +settings.wind?.max || windConverted < +settings.wind?.min) { wind.push(hour) }
       if (tempConverted > +settings.temp?.max || tempConverted < +settings.temp?.min) { temp.push(hour) }
     })
     if (rain.length > 0 || temp.length > 0 || wind.length > 0) {
       setAlarms([{ rain: rain }, { temp: temp }, { wind: wind }])
     }
-  }, [forecast3Days, activeDay, setAlarms, settings.temp])
+  }, [forecast3Days, activeDay, setAlarms, settings.temp, settings.wind, settings.rain])
 
   const setIsAlarmContentOpen = (alarmType) => {
     console.log(alarmType)
@@ -92,12 +87,14 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
   }
   const areThereAlarms = alarms?.some(item => Object.values(item).length)
 
+  console.log("alarms", alarms);
+
+
   useEffect(() => {
     // console.log("rain", alarmRain)
     console.log("temp", settings.temp)
-    // console.log("wind", alarmWind)
 
-  }, [alarmRain, alarmWind, settings.temp])
+  }, [settings])
 
   return <>
     <AlarmNotificationsSection>
@@ -162,14 +159,8 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
       setShowPopup={setShowPopup}
       content={
         <NotificationOptions
-          // isOpen={isOpen}
-          //setIsAlarmContentOpen={setIsAlarmContentOpen}
-          //alarmWind={alarmWind}
-          //alarmRain={alarmRain}
           options={settings}
           setOptions={setSettings}
-        //setAlarmWind={setAlarmWind}
-        //setAlarmRain={setAlarmRain}
         />
       } />
     }
