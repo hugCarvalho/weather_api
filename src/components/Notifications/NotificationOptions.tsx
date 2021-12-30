@@ -1,6 +1,7 @@
+import Emoji from "components/Utils/Emoji/Emoji";
 import React from "react";
 import { Fragment, useState } from "react";
-import { SaveBtn, OptionsSection, TemperatureValues, Input, H1 } from "./NotificationOptionsStyles";
+import { OptionsTitle, SaveBtn, OptionsSection, TemperatureValues, Input, H1 } from "./NotificationOptionsStyles";
 import { AlarmType, alarmTypes, SETTINGS, SettingsType } from "./optionsDatabase";
 
 //TODO: Disabled for now on mobile
@@ -12,6 +13,7 @@ type NotificationOptionsProps = {
 
 const NotificationOptions: React.FC<NotificationOptionsProps> = ({ options, setOptions }) => {
   const [inputValues, setInputValues] = useState(options)
+  const [showSaved, setShowSaved] = useState(false)
 
   const onInputChange = (e, option: AlarmType, type: "min" | "max") => {
     const newState = {
@@ -22,6 +24,12 @@ const NotificationOptions: React.FC<NotificationOptionsProps> = ({ options, setO
       }
     }
     setInputValues(newState)
+    setShowSaved(false)
+  }
+
+  const onSave = () => {
+    setOptions(inputValues)
+    setShowSaved(true)
   }
 
   return <OptionsSection>
@@ -29,7 +37,7 @@ const NotificationOptions: React.FC<NotificationOptionsProps> = ({ options, setO
     {
       alarmTypes.map((option: AlarmType, i) => {
         return (<Fragment key={i}>
-          <h2>{SETTINGS[option].name}</h2>
+          <OptionsTitle>{SETTINGS[option].name}</OptionsTitle>
           {option !== "rain" && <TemperatureValues>
             <label htmlFor="value-below">
               Show alarm if {SETTINGS[option].name} is below:
@@ -54,13 +62,14 @@ const NotificationOptions: React.FC<NotificationOptionsProps> = ({ options, setO
               onChange={(e) => onInputChange(e, option, "max")}
             />
           </TemperatureValues>
-          <SaveBtn
-            type="button"
-            onClick={() => setOptions(inputValues)}>save
-          </SaveBtn>
         </Fragment>)
       })
     }
+    <SaveBtn
+      type="button"
+      onClick={() => onSave()}>
+      {showSaved ? <Emoji title="check-mark" emoji="✅" /> : "save"}
+    </SaveBtn>
   </OptionsSection >
 }
 

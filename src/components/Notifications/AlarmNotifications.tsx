@@ -87,12 +87,9 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
   }
   const areThereAlarms = alarms?.some(item => Object.values(item).length)
 
-  console.log("alarms", alarms);
-
-
   useEffect(() => {
     // console.log("rain", alarmRain)
-    console.log("temperature", settings.temperature)
+    // console.log("temperature", settings.temperature)
 
   }, [settings])
 

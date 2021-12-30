@@ -8,10 +8,10 @@ type EmojiProps = {
 
 const EmojiContainer = styled.span<EmojiProps>`
   /* to prevent accessibility warnings */
-  color: black
+  color: black;
 `
 
-export function Emoji({title, emoji}) {
+export function Emoji({ title, emoji }) {
   return (
     <EmojiContainer
       role="img"

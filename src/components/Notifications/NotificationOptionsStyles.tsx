@@ -12,10 +12,13 @@ export const TemperatureValues = styled.div`
 export const WindValues = styled(TemperatureValues)``
 export const RainValues = styled(TemperatureValues)``
 
+export const OptionsTitle = styled.h2`
+  padding-top: 10px;
+`
 export const Input = styled.input`
   width: 45px;
   padding: 0 0 0 2px;
-  margin: 0 0 0 5px;
+  margin: 0 5px 0 5px;
 `
 export const H1 = styled.h1`
   font-size: 18px;
@@ -23,7 +26,7 @@ export const H1 = styled.h1`
   padding: 0 5px 10px;
 `
 export const SaveBtn = styled.button`
-  margin: 8px auto 16px;
+  margin: 12px auto 16px;
   width: 100%;
-  padding: 2px;
+  padding: 6px;
 `

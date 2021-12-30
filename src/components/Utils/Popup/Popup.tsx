@@ -17,7 +17,8 @@ const Content = styled.div`
   background-color: #ffffff;
   min-width: 310px;
   width: 25%;
-  height: 50%;
+  //height: 50%;
+  height: auto;
   border-radius: 6px;
   padding: 16px 10px;
   position: relative;
