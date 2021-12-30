@@ -7,7 +7,7 @@ import { AlarmType, alarmTypes, SETTINGS, SettingsType } from "./optionsDatabase
 
 type NotificationOptionsProps = {
   options: SettingsType,
-  setOptions: any
+  setOptions: any// () => SettingsType why not work?
 }
 
 const NotificationOptions: React.FC<NotificationOptionsProps> = ({ options, setOptions }) => {
@@ -37,6 +37,7 @@ const NotificationOptions: React.FC<NotificationOptionsProps> = ({ options, setO
             <Input
               id="value-below"
               type="number"
+              min={option !== "temperature" ? "0" : null}
               value={inputValues[option]?.min}
               onChange={(e) => onInputChange(e, option, "min")}
             />
@@ -48,6 +49,7 @@ const NotificationOptions: React.FC<NotificationOptionsProps> = ({ options, setO
             <Input
               id="value-above"
               type="number"
+              min={option !== "temperature" ? "0" : null}
               value={inputValues[option]?.max}
               onChange={(e) => onInputChange(e, option, "max")}
             />
