@@ -1,5 +1,4 @@
-export type AlarmType = "rain" | "temperature" | "wind" //1
-export type OptionName = "rain" | "temp" | "wind"
+export type AlarmName = "rain" | "temperature" | "wind" //1
 export type SettingsType = typeof settingsObj
 
 export type HourObj = {

@@ -5,7 +5,7 @@ import { convertTemp } from "../Utils/convertTemp";
 import { convertWindSpeed } from "../Utils/convertWindSpeed";
 import { StateWrapper, AlarmNotificationsSection, IconContainer, AlarmsContainer, HeaderWrapper, Title, AlarmsTime, TimeWrapper, HourFormat, ValueFormat } from "./NotificationsStyles";
 import { NotificationOptions } from "./NotificationOptions";
-import { NotificationsInit, notifications, settingsObj, SettingsType, HourObj, AlarmType } from "./optionsDatabase";
+import { NotificationsInit, notifications, settingsObj, SettingsType, HourObj, AlarmName } from "./optionsDatabase";
 import { renderEmoji } from "./functions";
 
 type AlarmTypes = {
@@ -51,7 +51,7 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
     }
   }, [forecast3Days, activeDay, setAlarms, settings])
 
-  const setIsAlarmContentOpen = (alarmType: AlarmType) => {
+  const toggleOpen = (alarmType: AlarmName) => {
     setShowNotification((state) => {
       return {
         ...state,
@@ -71,20 +71,20 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
       </HeaderWrapper>
       <div>
         {
-          areThereAlarms ? alarms.map((obj: AlarmTypes, i: number) => {
-            const alarmName = notifications[i] as AlarmType
-            if ((obj[alarmName]).length > 0) {
+          areThereAlarms ? alarms.map((alarm: AlarmTypes, i: number) => {
+            const name = notifications[i] as AlarmName
+            if ((alarm[name]).length > 0) {
               return (
                 <AlarmsContainer key={i}>
-                  <HeaderWrapper onClick={() => setIsAlarmContentOpen(alarmName)}>
+                  <HeaderWrapper onClick={() => toggleOpen(name)}>
                     <IconContainer>
-                      {renderEmoji(alarmName)}
+                      {renderEmoji(name)}
                     </IconContainer>
-                    <Title>{i === 0 ? "Rain" : i === 1 ? "Temperature" : "Wind"}</Title>
+                    <Title>{name}</Title>
                   </HeaderWrapper>
-                  <StateWrapper isContentOpen={showNotification[alarmName]}>
+                  <StateWrapper isContentOpen={showNotification[name]}>
                     <AlarmsTime >
-                      {obj[alarmName].map(hourForecast => {
+                      {alarm[name].map(hourForecast => {
                         const windSpeed = convertWindSpeed(hourForecast.wind.speed)
                         //TODO change undefined
                         const temperature = +convertTemp(undefined, hourForecast.main.temp)
