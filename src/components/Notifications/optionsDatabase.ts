@@ -58,3 +58,8 @@ export const NotificationsInit = {
   temperature: true
 }
 
+export enum ValueFormats {
+  KM = "km",
+  RAIN = "mm",
+  TEMP = "°",
+}

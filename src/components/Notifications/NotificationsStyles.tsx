@@ -38,8 +38,8 @@ export const IconContainer = styled.div`
 export const Title = styled.h4`
   color: white;
 `
-export const StateWrapper = styled.div<{ isContentOpen: boolean }>`
-  display: ${props => props.isContentOpen ? "block" : "none"};
+export const StateWrapper = styled.div<{ toggleOpen: boolean }>`
+  display: ${props => props.toggleOpen ? "block" : "none"};
 `
 export const AlarmsTime = styled.div`
 color: white;

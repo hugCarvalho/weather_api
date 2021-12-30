@@ -5,7 +5,7 @@ import { convertTemp } from "../Utils/convertTemp";
 import { convertWindSpeed } from "../Utils/convertWindSpeed";
 import { StateWrapper, AlarmNotificationsSection, IconContainer, AlarmsContainer, HeaderWrapper, Title, AlarmsTime, TimeWrapper, HourFormat, ValueFormat } from "./NotificationsStyles";
 import { NotificationOptions } from "./NotificationOptions";
-import { NotificationsInit, notifications, settingsObj, SettingsType, HourObj, AlarmName } from "./optionsDatabase";
+import { NotificationsInit, notifications, settingsObj, SettingsType, HourObj, AlarmName, ValueFormats } from "./optionsDatabase";
 import { renderEmoji } from "./functions";
 
 type AlarmTypes = {
@@ -19,6 +19,7 @@ export type AlarmNotificationsProps = {
 }
 
 //TODO make keyboard friendly
+//TODO notifications for mph $ °F
 const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, activeDay }) => {
   const [showPopup, setShowPopup] = useState(true)
   const [showNotification, setShowNotification] = useState(NotificationsInit) //TODO merge with settings & extend
@@ -71,7 +72,7 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
       </HeaderWrapper>
       <div>
         {
-          areThereAlarms ? alarms.map((alarm: AlarmTypes, i: number) => {
+          areThereAlarms ? alarms.map((alarm: AlarmTypes, i) => {
             const name = notifications[i] as AlarmName
             if ((alarm[name]).length > 0) {
               return (
@@ -82,34 +83,32 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
                     </IconContainer>
                     <Title>{name}</Title>
                   </HeaderWrapper>
-                  <StateWrapper isContentOpen={showNotification[name]}>
-                    <AlarmsTime >
-                      {alarm[name].map(hourForecast => {
-                        const windSpeed = convertWindSpeed(hourForecast.wind.speed)
-                        //TODO change undefined
-                        const temperature = +convertTemp(undefined, hourForecast.main.temp)
-                        const hour = hourForecast.dt_txt.slice(hourForecast.dt_txt.length - 8, hourForecast.dt_txt.length - 8 + 5)
-                        const value = i === 0 ? hourForecast.rain["3h"] : i === 1 ? temperature : windSpeed
-                        const valueFormat = i === 0 ? 'mm' : i === 1 ? '°' : 'km'
+                  <StateWrapper toggleOpen={showNotification[name]}>
+                    <AlarmsTime>
+                      {
+                        alarm[name].map((hourForecast: HourObj) => {
+                          const windSpeed: number = +convertWindSpeed(hourForecast.wind.speed)
+                          const temperature = +convertTemp(undefined, hourForecast.main.temp)
+                          const hour = hourForecast.dt_txt.slice(hourForecast.dt_txt.length - 8, hourForecast.dt_txt.length - 8 + 5)
+                          const value = i === 0 ? hourForecast.rain["3h"] : i === 1 ? temperature : windSpeed
+                          const valueFormat = i === 0 ? ValueFormats.RAIN : i === 1 ? ValueFormats.TEMP : ValueFormats.KM
 
-                        // console.log("HOUR", hourForecast)
-                        return (
-                          <div key={hourForecast.dt}>
-                            {/* {i === 1 && <span> {temperature < 10 ? '* ' : 'O '} </span>} */}
-                            {/* TODO change to Grid */}
-                            <TimeWrapper>
-                              <HourFormat>
-                                <div>
-                                  <span>{hour}</span>
-                                </div>
-                                <div>
-                                  <span>{value}</span><ValueFormat>{valueFormat}</ValueFormat>
-                                </div>
-                              </HourFormat>
-                            </TimeWrapper>
-                          </div>
-                        )
-                      })}
+                          return (
+                            <div key={hourForecast.dt}>
+                              <TimeWrapper>
+                                <HourFormat>
+                                  <div>
+                                    <span>{hour}</span>
+                                  </div>
+                                  <div>
+                                    <span>{value}</span><ValueFormat>{valueFormat}</ValueFormat>
+                                  </div>
+                                </HourFormat>
+                              </TimeWrapper>
+                            </div>
+                          )
+                        })
+                      }
                     </AlarmsTime>
                   </StateWrapper>
                 </AlarmsContainer>
