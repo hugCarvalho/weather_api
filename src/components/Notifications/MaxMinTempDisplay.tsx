@@ -2,7 +2,7 @@ import { Media } from "hooks/MediaQueries"
 import React from "react"
 import styled from "styled-components"
 import { convertTemp } from "../Utils/convertTemp"
-import { ActiveDay, Forecast3Days, HourObj } from "./optionsConfig"
+import { ActiveDay, Forecast3Days } from "./optionsConfig"
 
 const TemperatureContainer = styled.section`
   position: absolute;
@@ -25,8 +25,8 @@ const TemperatureContainer = styled.section`
     line-height: 18px;
     border-bottom-right-radius: 10px;
     letter-spacing: 2px;
-  `
-  }
+  `}
+  text-align:center;
 `
 const ValuesWraper = styled.div`
   display: flex;
@@ -47,26 +47,22 @@ type MaxMinTempDisplayProps = {
 }
 
 const MaxMinTempDisplay: React.FC<MaxMinTempDisplayProps> = ({ forecast3Days, activeDay }) => {
+  let defaultTemp: null | number = null
 
-  const MaxTemp = forecast3Days[activeDay]?.reduce((acc, hourObj) => {
-    console.log("ACC", acc)
-    const max = hourObj.main.temp_max
-    return max > acc ? max : acc
-  }, -100)
+  const MaxTemp = forecast3Days[activeDay]?.reduce((max, hourObj) => {
+    const maxTemp = hourObj.main.temp_max
+    defaultTemp = maxTemp
+    return maxTemp > max ? maxTemp : max
+  }, defaultTemp)
 
   const MinTemp = forecast3Days[activeDay]?.reduce((acc, hourObj) => {
     const min = hourObj.main.temp_min
     return min < acc ? min : acc
-  }, 1000)
+  }, defaultTemp)
 
   //TODO fix hardcoded celsius value as first argument
   const convertedMaxTemp = convertTemp(true, MaxTemp)
   const convertedMinTemp = convertTemp(true, MinTemp)
-
-  console.log("foreacst", forecast3Days);
-  // console.log("DAY", activeDay);
-
-
 
   return <TemperatureContainer>
     <ValuesWraper>
@@ -79,4 +75,3 @@ const MaxMinTempDisplay: React.FC<MaxMinTempDisplayProps> = ({ forecast3Days, ac
 }
 
 export { MaxMinTempDisplay }
-//TODO 🌡️ find icon for min Temp. Make Desktop Hook?
