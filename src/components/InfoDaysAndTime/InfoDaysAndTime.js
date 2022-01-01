@@ -3,7 +3,7 @@ import DisplayWeather from "../DisplayWeather/DisplayWeather";
 import Days from "./Days/Days";
 import Hours from "./Hours/Hours";
 import { MaxMinTempDisplay } from "../Notifications/MaxMinTempDisplay";
-import { AlarmNotifications } from "../Notifications/AlarmNotifications";
+import { AlarmNotifications } from "../Notifications/Notifications";
 
 const InfoDaysAndTime = ({ data, isLoading, cityNotFound, validCity, forecast3Days }) => {
   const [activeDay, setActiveDay] = React.useState("today");

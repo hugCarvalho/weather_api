@@ -1,26 +1,39 @@
-//Do database as Obj. Transform to array before render
+export type AlarmName = "rain" | "temperature" | "wind" //1
+export type SettingsType = typeof settingsObj
 
-export const alarmTemperature = {
-  min: "5",
-  max: "25"
+export type HourObj = {
+  clouds: Record<string, number>,
+  dt: number,
+  dt_txt: string,
+  main: {
+    feels_like: number
+    grnd_level: number
+    humidity: number
+    pressure: number
+    sea_level: number
+    temp: number
+    temp_kf: number
+    temp_max: number
+    temp_min: number
+  }
+  pop: number,
+  rain: Record<string, number>,
+  sys: Record<string, string>,
+  visibility: number,
+  weather: Array<Record<string, any>>,
+  wind: {
+    deg: number
+    gust: number
+    speed: number
+  },
 }
+export const notifications = ["rain", "temperature", "wind"]
 
-export const alarmWindValues = {
-  min: "3",
-  max: "20"
-}
-
-export const alarmRainValues = {
-  always: true,
-  max: "0",
-  min: "0"
-}
-
-export const OPTIONS = {
-  temp: {
-    id: "temp",
+export const settingsObj = {
+  temperature: {
+    id: "temperature",
     name: "Temperature",
-    min: 4,
+    min: 5,
     max: 25
   },
   wind: {
@@ -32,8 +45,21 @@ export const OPTIONS = {
   rain: {
     id: "rain",
     name: "Rain",
-    always: true,
     max: "0",
     min: "0"
   }
+}
+
+
+//todo: merge
+export const NotificationsInit = {
+  rain: true,
+  wind: true,
+  temperature: true
+}
+
+export enum ValueFormats {
+  KM = "km",
+  RAIN = "mm",
+  TEMP = "°",
 }

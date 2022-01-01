@@ -1,83 +1,78 @@
-import React, { Fragment, useState } from "react";
-import { SaveBtn, OptionsSection, TemperatureValues, Input, WindValues, RainValues, WrapperContainer2, H1 } from "./NotificationOptionsStyles";
-import { OPTIONS } from "./optionsDatabase";
+import Emoji from "components/Utils/Emoji/Emoji";
+import React from "react";
+import { Fragment, useState } from "react";
+import { OptionsTitle, SaveBtn, OptionsSection, TemperatureValues, Input, H1 } from "./styles/NotificationOptionsStyles";
+import { AlarmName, notifications, settingsObj, SettingsType } from "./optionsDatabase";
 
-//TODO: Disable for now on mobile
+type NotificationOptionsProps = {
+  options: SettingsType,
+  setOptions: (value: SettingsType) => void
+}
 
-const NotificationOptions = ({ options, setOptions }) => {
+const NotificationOptions: React.FC<NotificationOptionsProps> = ({ options, setOptions }) => {
+  const [inputValues, setInputValues] = useState(options)
+  const [showSaved, setShowSaved] = useState(false)
 
-  const [inputValue, setInputValue] = useState(options)
-  const ids = ["temp", "wind"]
-
-  const onInputChange = (e, option, type) => {
+  const onInputChange = (e, option: AlarmName, type: "min" | "max") => {
     const newState = {
-      ...inputValue,
+      ...inputValues,
       [option]: {
-        ...OPTIONS[option],
+        ...inputValues[option],
         [type]: e.target.value
       }
     }
-    setInputValue(newState)
+    setInputValues(newState)
+    setShowSaved(false)
+  }
+
+  const onSave = (e) => {
+    e.preventDefault()
+    setOptions(inputValues)
+    setShowSaved(true)
   }
 
   return <OptionsSection>
     <H1>Options</H1>
-    {
-      ids.map((option, i) => {
-        return (<Fragment key={i}>
-          <h2>{OPTIONS[option].name}</h2>
-          <TemperatureValues>
-            {/* TODO: change to labels */}
-            <span>Show alarm if {OPTIONS[option].name} is below:</span>
-            <Input
-              type="number"
-              value={inputValue[option]?.min}
-              onChange={(e) => onInputChange(e, option, "min")}
-            />
-          </TemperatureValues>
-          <TemperatureValues>
-            <span>Show alarm if {OPTIONS[option].name} is above:</span>
-            <Input
-              type="number"
-              value={inputValue[option]?.max}
-              onChange={(e) => onInputChange(e, option, "max")}
-            />
-          </TemperatureValues>
-          <SaveBtn
-            type="button"
-            onClick={() => setOptions(inputValue)}
-          >
-            save
-          </SaveBtn>
-        </Fragment>)
-      })
-    }
-
-    {/* <h2>Rain</h2>
-    <RainValues>
-      <span>Show always:</span>
-      <Input
-        type="checkbox"
-        checked={alarmRain?.always}
-        onChange={(e) => {
-          console.log("E", e.target)
-          setAlarmRain({ ...alarmRain, always: !alarmRain.always })
-        }}
-      />
-    </RainValues>
-    <RainValues>
-      <span>Show alarm if Rain below:</span>
-      <Input
-        disabled={alarmRain.always}
-        value={alarmWind?.min} onChange={(e) => setAlarmWind({ ...alarmWind, min: e.target.value })} />
-    </RainValues>
-    <RainValues>
-      <span>Show alarm if Rain above:</span>
-      <Input
-        disabled={alarmRain.always}
-        value={alarmWind?.min} onChange={(e) => setAlarmWind({ ...alarmWind, min: e.target.value })} />
-    </RainValues> */}
-  </OptionsSection>
+    <form>
+      {
+        notifications.map((option: AlarmName, i) => {
+          const { min, max } = inputValues[option]
+          return (<Fragment key={i}>
+            <OptionsTitle>{settingsObj[option].name}</OptionsTitle>
+            {option !== "rain" && <TemperatureValues>
+              <label htmlFor="value-below">
+                Show alarm if {settingsObj[option].name} is below:
+              </label>
+              <Input
+                id="value-below"
+                type="number"
+                min={option !== "temperature" ? "0" : null}
+                value={min}
+                onChange={(e) => onInputChange(e, option, "min")}
+              />
+            </TemperatureValues>}
+            <TemperatureValues>
+              <label htmlFor="value-above">
+                Show alarm if {settingsObj[option].name} is above:
+              </label>
+              <Input
+                id="value-above"
+                type="number"
+                min={option !== "temperature" ? "0" : null}
+                value={max}
+                onChange={(e) => onInputChange(e, option, "max")}
+              />
+            </TemperatureValues>
+          </Fragment>)
+        })
+      }
+      <SaveBtn
+        type="submit"
+        onClick={(e) => onSave(e)}>
+        {showSaved ? <Emoji title="check-mark" emoji="✅" /> : "save"}
+      </SaveBtn>
+    </form>
+  </OptionsSection >
 }
 
 export { NotificationOptions }

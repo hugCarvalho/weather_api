@@ -17,10 +17,21 @@ const Content = styled.div`
   background-color: #ffffff;
   min-width: 310px;
   width: 25%;
-  height: 50%;
+  //height: 50%;
+  height: auto;
   border-radius: 6px;
   padding: 16px 10px;
   position: relative;
+`
+export const BtnContainer = styled.div`
+  width: 100%;
+  height: 0px;
+  position: relative;
+  text-align: right;
+`
+export const CloseBtn = styled.button`
+  position: sticky;  
+  padding: 2px; 
 `
 
 type PopupProps = {
@@ -29,16 +40,14 @@ type PopupProps = {
 }
 
 const Popup: React.FC<PopupProps> = ({ setShowPopup, content }) => {
-  return <BackDrop onClick={(e) => {
-    console.log("CLICKED")
-    setShowPopup(false)
-  }}>
-    <Content onClick={(e) => {
-      e.stopPropagation()
-    }}>
+  return <BackDrop onClick={() => setShowPopup(false)}>
+    <Content onClick={(e) => e.stopPropagation()}>
+      <BtnContainer>
+        <CloseBtn onClick={() => setShowPopup(false)}>X</CloseBtn>
+      </BtnContainer>
       {content}
     </Content>
-  </BackDrop>
+  </BackDrop >
 }
 
 export { Popup }

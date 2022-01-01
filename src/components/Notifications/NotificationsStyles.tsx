@@ -36,10 +36,10 @@ export const IconContainer = styled.div`
   padding-left: 6px;
 `
 export const Title = styled.h4`
-  color: white
+  color: white;
 `
-export const StateWrapper = styled.div<{ isContentOpen: boolean }>`
-  display: ${props => props.isContentOpen ? "block" : "none"};
+export const StateWrapper = styled.div<{ toggleOpen: boolean }>`
+  display: ${props => props.toggleOpen ? "block" : "none"};
 `
 export const AlarmsTime = styled.div`
 color: white;
