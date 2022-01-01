@@ -33,9 +33,7 @@ export default function Hours({
   return (
     <>
       <div className="container__hours">
-        {!isLoading &&
-          validCity &&
-          selectedTime.length > 0 &&
+        {!isLoading && validCity && selectedTime.length > 0 &&
           forecast3Days[activeDay].map((day, i) => {
             const classes = [
               activeHour === day.dt_txt.slice(11, 16) ? "active-hour" : null,
@@ -45,8 +43,7 @@ export default function Hours({
               <button
                 className={classes.join(" ")}
                 onClick={e => setActiveHour(e.target.textContent)}
-                key={i}
-              >
+                key={i}>
                 {day.dt_txt.slice(11, 16)}
               </button>
             );

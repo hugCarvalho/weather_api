@@ -3,11 +3,12 @@ import { Popup } from "components/Utils/Popup/Popup";
 import React, { useEffect, useState } from "react";
 import { convertTemp } from "../Utils/convertTemp";
 import { convertWindSpeed } from "../Utils/convertWindSpeed";
-import { StateWrapper, AlarmNotificationsSection, IconContainer, AlarmsContainer, HeaderWrapper, Title, AlarmsTime, TimeWrapper, HourFormat, ValueFormat } from "./NotificationsStyles";
+import { StateWrapper, AlarmNotificationsSection, IconContainer, AlarmsContainer, HeaderWrapper, Title, AlarmsTime, TimeWrapper, HourFormat, ValueFormat } from "./styles/NotificationsStyles";
 import { NotificationOptions } from "./NotificationOptions";
-import { NotificationsInit, notifications, settingsObj, SettingsType, HourObj, AlarmName, ValueFormats } from "./optionsDatabase";
 import { renderEmoji } from "./functions";
 import { useLocalStorage } from "../../hooks/LocalStorage.js"
+import { NotificationsInit, settingsObj, notifications, ValueFormats } from "config/config";
+import { HourObj, AlarmName } from "config/types";
 
 type AlarmTypes = {
   rain?: any[]
@@ -69,7 +70,10 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
         <IconContainer>
           <Emoji title="alarm" emoji="🚨" />
         </IconContainer>
-        <Title>Alarms / Options</Title>
+        <Title>Alarms | Options</Title>
+        <IconContainer>
+          <Emoji title="alarm" emoji="⚙️" />
+        </IconContainer>
       </HeaderWrapper>
       <div>
         {

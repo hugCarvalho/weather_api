@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, useMemo } from "react";
+import React, { useState, useEffect, useReducer} from "react";
 import "./App.scss";
 import Header from "./components/Header/Header";
 import InputSearchCity from "./components/InputSearchCity/InputSearchCity";
@@ -12,6 +12,7 @@ export const UserQueryContext = React.createContext();
 export const ErrorContext = React.createContext();
 export const IsNightContext = React.createContext();
 
+//TODO: move optionsConfig and split types props
 function App() {
   const key = "f2b65d46e479364d7c9f2127abfcb2b4";
   const [isLoading, setIsLoading] = useState(true);
