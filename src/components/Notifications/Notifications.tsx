@@ -70,7 +70,10 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
         <IconContainer>
           <Emoji title="alarm" emoji="🚨" />
         </IconContainer>
-        <Title>Alarms / Options</Title>
+        <Title>Alarms | Options</Title>
+        <IconContainer>
+          <Emoji title="alarm" emoji="⚙️" />
+        </IconContainer>
       </HeaderWrapper>
       <div>
         {
