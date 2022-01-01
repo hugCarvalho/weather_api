@@ -1,7 +1,8 @@
-import { Media} from "hooks/MediaQueries"
+import { Media } from "hooks/MediaQueries"
 import React from "react"
 import styled from "styled-components"
-import {convertTemp} from "../Utils/convertTemp"
+import { convertTemp } from "../Utils/convertTemp"
+import { ActiveDay, Forecast3Days, HourObj } from "./optionsConfig"
 
 const TemperatureContainer = styled.section`
   position: absolute;
@@ -19,8 +20,7 @@ const TemperatureContainer = styled.section`
   padding: 4px;
   border-bottom-right-radius: 10px;
   border-bottom: 1px solid lightgray;
-  ${
-  Media.small`
+  ${Media.small`
     padding: 6px;
     line-height: 18px;
     border-bottom-right-radius: 10px;
@@ -33,8 +33,7 @@ const ValuesWraper = styled.div`
   flex-direction: column;
   text-align: center;
   padding-bottom: 2px;
-  ${
-  Media.small`
+  ${Media.small`
       width: 69px;
       flex-direction: row;
       justify-content: space-between;
@@ -43,30 +42,38 @@ const ValuesWraper = styled.div`
   }
 `
 type MaxMinTempDisplayProps = {
-  activeDay: string,
-  forecast3Days: Record<string, Array<any>>
+  activeDay: ActiveDay,
+  forecast3Days: Forecast3Days
 }
 
 const MaxMinTempDisplay: React.FC<MaxMinTempDisplayProps> = ({ forecast3Days, activeDay }) => {
-  
-  const MaxTemp = forecast3Days[activeDay]?.reduce((acc, item) => {
-    return item.main.temp_max > acc ? item.main.temp_max : acc
+
+  const MaxTemp = forecast3Days[activeDay]?.reduce((acc, hourObj) => {
+    console.log("ACC", acc)
+    const max = hourObj.main.temp_max
+    return max > acc ? max : acc
   }, -100)
 
-  const MinTemp = forecast3Days[activeDay]?.reduce((acc, item) => {
-    return item.main.temp_min < acc ? item.main.temp_max : acc
+  const MinTemp = forecast3Days[activeDay]?.reduce((acc, hourObj) => {
+    const min = hourObj.main.temp_min
+    return min < acc ? min : acc
   }, 1000)
 
   //TODO fix hardcoded celsius value as first argument
   const convertedMaxTemp = convertTemp(true, MaxTemp)
   const convertedMinTemp = convertTemp(true, MinTemp)
 
+  console.log("foreacst", forecast3Days);
+  // console.log("DAY", activeDay);
+
+
+
   return <TemperatureContainer>
     <ValuesWraper>
       <span>Max:</span><span>{forecast3Days?.today?.length !== 0 ? convertedMaxTemp + "°" : "n/a"}</span>
     </ValuesWraper>
     <ValuesWraper>
-    <span>Min: </span><span>{forecast3Days?.today?.length !== 0 ? convertedMinTemp + "°" : "n/a" }</span>
+      <span>Min: </span><span>{forecast3Days?.today?.length !== 0 ? convertedMinTemp + "°" : "n/a"}</span>
     </ValuesWraper>
   </TemperatureContainer>
 }

@@ -1,5 +1,6 @@
 export type AlarmName = "rain" | "temperature" | "wind" //1
 export type SettingsType = typeof settingsObj
+export type ActiveDay = "today" | "tomorrow" | "afterTomorrow"
 
 export type HourObj = {
   clouds: Record<string, number>,
@@ -27,6 +28,13 @@ export type HourObj = {
     speed: number
   },
 }
+
+export type Forecast3Days = {
+  today: Array<HourObj>
+  tomorrow: Array<HourObj>
+  afterTomorrow: Array<HourObj>
+}
+
 export const notifications = ["rain", "temperature", "wind"]
 
 export const settingsObj = {
@@ -49,7 +57,6 @@ export const settingsObj = {
     min: "0"
   }
 }
-
 
 //todo: merge
 export const NotificationsInit = {

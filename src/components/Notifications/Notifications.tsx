@@ -3,9 +3,9 @@ import { Popup } from "components/Utils/Popup/Popup";
 import React, { useEffect, useState } from "react";
 import { convertTemp } from "../Utils/convertTemp";
 import { convertWindSpeed } from "../Utils/convertWindSpeed";
-import { StateWrapper, AlarmNotificationsSection, IconContainer, AlarmsContainer, HeaderWrapper, Title, AlarmsTime, TimeWrapper, HourFormat, ValueFormat } from "./NotificationsStyles";
+import { StateWrapper, AlarmNotificationsSection, IconContainer, AlarmsContainer, HeaderWrapper, Title, AlarmsTime, TimeWrapper, HourFormat, ValueFormat } from "./styles/NotificationsStyles";
 import { NotificationOptions } from "./NotificationOptions";
-import { NotificationsInit, notifications, settingsObj, SettingsType, HourObj, AlarmName, ValueFormats } from "./optionsDatabase";
+import { NotificationsInit, notifications, settingsObj, SettingsType, HourObj, AlarmName, ValueFormats } from "./optionsConfig";
 import { renderEmoji } from "./functions";
 import { useLocalStorage } from "../../hooks/LocalStorage.js"
 
