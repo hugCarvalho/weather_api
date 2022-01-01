@@ -7,6 +7,7 @@ import { StateWrapper, AlarmNotificationsSection, IconContainer, AlarmsContainer
 import { NotificationOptions } from "./NotificationOptions";
 import { NotificationsInit, notifications, settingsObj, SettingsType, HourObj, AlarmName, ValueFormats } from "./optionsDatabase";
 import { renderEmoji } from "./functions";
+import { useLocalStorage } from "../../hooks/LocalStorage.js"
 
 type AlarmTypes = {
   rain?: any[]
@@ -21,10 +22,10 @@ export type AlarmNotificationsProps = {
 //TODO make keyboard friendly
 //TODO notifications for mph $ °F
 const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, activeDay }) => {
-  const [showPopup, setShowPopup] = useState(true)
+  const [showPopup, setShowPopup] = useState(false)
   const [showNotification, setShowNotification] = useState(NotificationsInit) //TODO merge with settings & extend
   const [alarms, setAlarms] = useState<AlarmTypes[] | null>(null)
-  const [settings, setSettings] = useState<SettingsType>(settingsObj)
+  const [settings, setSettings] = useLocalStorage("NotificationsSettings", settingsObj)
 
   //SETS DATA FOR ALARMS
   useEffect(() => {
