@@ -35,7 +35,7 @@ export type HourObj = {
 }
 
 
-
+export const days: Array<"today" | "tomorrow" | "afterTomorrow"> = ["today", "tomorrow", "afterTomorrow"];
 export const notifications = ["rain", "temperature", "wind"]
 
 export const settingsObj = {

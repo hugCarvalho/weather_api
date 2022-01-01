@@ -12,6 +12,8 @@ export const UserQueryContext = React.createContext();
 export const ErrorContext = React.createContext();
 export const IsNightContext = React.createContext();
 
+
+//TODO: move optionsConfig and split types props
 function App() {
   const key = "f2b65d46e479364d7c9f2127abfcb2b4";
   const [isLoading, setIsLoading] = useState(true);
