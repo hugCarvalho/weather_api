@@ -2,7 +2,7 @@ import React from "react";
 import "./Days.scss";
 import Moment from "react-moment";
 import PropTypes from "prop-types";
-import {days} from "../../Notifications/optionsConfig"
+import {days} from "../../../config/config"
 
 export default function Days({ activeDay, setActiveDay, isLoading, validCity }) {
 

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import "./DisplayWeather.scss";
 import { IsNightContext } from "../../App";
 import PropTypes from "prop-types";

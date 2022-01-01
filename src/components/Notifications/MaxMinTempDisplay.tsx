@@ -1,8 +1,8 @@
+import { Days, Forecast3Days } from "config/types"
 import { Media } from "hooks/MediaQueries"
 import React from "react"
 import styled from "styled-components"
 import { convertTemp } from "../Utils/convertTemp"
-import { ActiveDay, Forecast3Days } from "./optionsConfig"
 
 const TemperatureContainer = styled.section`
   position: absolute;
@@ -42,7 +42,7 @@ const ValuesWraper = styled.div`
   }
 `
 type MaxMinTempDisplayProps = {
-  activeDay: ActiveDay,
+  activeDay: Days,
   forecast3Days: Forecast3Days
 }
 

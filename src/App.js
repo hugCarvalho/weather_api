@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, useMemo } from "react";
+import React, { useState, useEffect, useReducer} from "react";
 import "./App.scss";
 import Header from "./components/Header/Header";
 import InputSearchCity from "./components/InputSearchCity/InputSearchCity";
@@ -11,7 +11,6 @@ import { InfoDaysAndTime } from "./components/InfoDaysAndTime/InfoDaysAndTime";
 export const UserQueryContext = React.createContext();
 export const ErrorContext = React.createContext();
 export const IsNightContext = React.createContext();
-
 
 //TODO: move optionsConfig and split types props
 function App() {

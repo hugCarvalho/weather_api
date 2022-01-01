@@ -5,9 +5,10 @@ import { convertTemp } from "../Utils/convertTemp";
 import { convertWindSpeed } from "../Utils/convertWindSpeed";
 import { StateWrapper, AlarmNotificationsSection, IconContainer, AlarmsContainer, HeaderWrapper, Title, AlarmsTime, TimeWrapper, HourFormat, ValueFormat } from "./styles/NotificationsStyles";
 import { NotificationOptions } from "./NotificationOptions";
-import { NotificationsInit, notifications, settingsObj, SettingsType, HourObj, AlarmName, ValueFormats } from "./optionsConfig";
 import { renderEmoji } from "./functions";
 import { useLocalStorage } from "../../hooks/LocalStorage.js"
+import { NotificationsInit, settingsObj, notifications, ValueFormats } from "config/config";
+import { HourObj, AlarmName } from "config/types";
 
 type AlarmTypes = {
   rain?: any[]
