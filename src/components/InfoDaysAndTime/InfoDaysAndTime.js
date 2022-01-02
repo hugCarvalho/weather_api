@@ -1,6 +1,6 @@
 import React from "react";
 import DisplayWeather from "../DisplayWeather/DisplayWeather";
-import Days from "./Days/Days";
+import {Days} from "./Days/Days.tsx";
 import Hours from "./Hours/Hours";
 import { MaxMinTempDisplay } from "../Notifications/MaxMinTempDisplay";
 import { AlarmNotifications } from "../Notifications/Notifications";
@@ -19,10 +19,6 @@ const InfoDaysAndTime = ({ data, isLoading, validCity, forecast3Days }) => {
       <AlarmNotifications forecast3Days={forecast3Days} activeDay={activeDay} />
 
       <Days
-        data={data}
-        isLoading={isLoading}
-        validCity={validCity}
-        forecast3Days={forecast3Days}
         activeDay={activeDay}
         setActiveDay={setActiveDay}
       />
