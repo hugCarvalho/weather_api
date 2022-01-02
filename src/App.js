@@ -19,7 +19,6 @@ function App() {
   const [data, setData] = useState(null);
   const [userQuery, setUserQuery] = useState("");
   const [validCity, setValidCity] = useState(""); //is useful when searching for an invalid city if there's no city saved yet
-  const [cityNotFound, setCityNotFound] = useState(false);
   const [isNight, setIsNight] = useState(false);
   const [error, dispatchError] = useReducer(errorReducer, errorInit);
   const [forecast3Days, setForecast3Days] = useState({});
@@ -40,10 +39,6 @@ function App() {
         setIsLoading(false);
       } else {
         dispatchError({ type: "TRUE", value: data.message });
-        if (data.message === "city not found") {
-          setCityNotFound(true);
-          setCityNotFound(false); //prevents error when selecting a dif day and typing a not valid name
-        }
         setIsLoading(false);
       }
     };
@@ -115,7 +110,6 @@ function App() {
             data={data}
             isLoading={isLoading}
             validCity={validCity}
-            cityNotFound={cityNotFound}
             forecast3Days={forecast3Days}
           />
         </IsNightContext.Provider>

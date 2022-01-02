@@ -4,7 +4,7 @@ import { ErrorContext, UserQueryContext } from "../../App";
 
 export default function InputSearchCity() {
   const { setUserQuery } = useContext(UserQueryContext);
-  const { dispatch } = useContext(ErrorContext);
+  const { dispatchError } = useContext(ErrorContext);
 
   const [text, setText] = useState("");
 
@@ -15,7 +15,7 @@ export default function InputSearchCity() {
     if (text) {
       setUserQuery(text);
     } else {
-      dispatch({ type: "TRUE", value: "Please type something" });
+      dispatchError({ type: "TRUE", value: "Please type something" });
     }
   };
 

@@ -5,7 +5,7 @@ import Hours from "./Hours/Hours";
 import { MaxMinTempDisplay } from "../Notifications/MaxMinTempDisplay";
 import { AlarmNotifications } from "../Notifications/Notifications";
 
-const InfoDaysAndTime = ({ data, isLoading, cityNotFound, validCity, forecast3Days }) => {
+const InfoDaysAndTime = ({ data, isLoading, validCity, forecast3Days }) => {
   const [activeDay, setActiveDay] = React.useState("today");
   const [selectedTime, setSelectedTime] = React.useState({});
 
@@ -22,7 +22,6 @@ const InfoDaysAndTime = ({ data, isLoading, cityNotFound, validCity, forecast3Da
         data={data}
         isLoading={isLoading}
         validCity={validCity}
-        cityNotFound={cityNotFound}
         forecast3Days={forecast3Days}
         activeDay={activeDay}
         setActiveDay={setActiveDay}
