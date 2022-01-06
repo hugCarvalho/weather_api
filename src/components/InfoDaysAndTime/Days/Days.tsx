@@ -7,11 +7,11 @@ import { DaysType } from "../../../config/types";
 type DaysProps = {
   activeDay: DaysType
   setActiveDay: (day: DaysType) => DaysType
-  isLoading: boolean
-  validCity: "" | string
 }
 
 export const Days: React.FC<DaysProps> = ({ activeDay, setActiveDay }) => {
+  const time = new Date().getHours()
+  const isTimeBetween22and24 = time > 21 && time < 24
 
   return (
     <>
@@ -22,7 +22,7 @@ export const Days: React.FC<DaysProps> = ({ activeDay, setActiveDay }) => {
               <li key={i} onClick={() => setActiveDay(day)}>
                 <button
                   className={activeDay === day ? "tab-is-active" : "tab-is-inactive"}>
-                  {i === 0 ? "Today" : <Moment format="dddd" add={{ days: i }}></Moment>}
+                  {i === 0 ? "Today" : <Moment format="dddd" add={{ days: isTimeBetween22and24 ? (i + 1) : i }}></Moment>}
                 </button>
               </li>
             );

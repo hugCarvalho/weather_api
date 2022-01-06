@@ -32,6 +32,7 @@ function App() {
       const response = await fetch(api);
       const data = await response.json();
       if (data.cod === "200") {
+
         setData({
           weather: data,
         });

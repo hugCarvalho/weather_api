@@ -5,10 +5,8 @@ import { ErrorContext, UserQueryContext } from "../../App";
 export default function InputSearchCity() {
   const { setUserQuery } = useContext(UserQueryContext);
   const { dispatchError } = useContext(ErrorContext);
-
   const [text, setText] = useState("");
 
-  //VALIDATION
   const checkInputIsValid = e => {
     //don't use setIsLoading. Allows for rerender on city not found
     e.preventDefault();

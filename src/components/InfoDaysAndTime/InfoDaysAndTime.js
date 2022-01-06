@@ -4,6 +4,7 @@ import {Days} from "./Days/Days.tsx";
 import Hours from "./Hours/Hours";
 import { MaxMinTempDisplay } from "../Notifications/MaxMinTempDisplay";
 import { AlarmNotifications } from "../Notifications/Notifications";
+import { useEffect } from "react";
 
 const InfoDaysAndTime = ({ data, isLoading, validCity, forecast3Days }) => {
   const [activeDay, setActiveDay] = React.useState("today");
@@ -13,6 +14,7 @@ const InfoDaysAndTime = ({ data, isLoading, validCity, forecast3Days }) => {
     setActiveDay("today");
   }, [validCity]); //will reset the active tab after a request about a new city
 
+    
   return (
     <>
       <MaxMinTempDisplay forecast3Days={forecast3Days} activeDay={activeDay} />
