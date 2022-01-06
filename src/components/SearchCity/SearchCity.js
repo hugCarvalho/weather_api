@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import "./InputSearchCity.scss";
+import "./SearchCity.scss";
 import { ErrorContext, UserQueryContext } from "../../App";
 
 export default function InputSearchCity() {
@@ -18,7 +18,6 @@ export default function InputSearchCity() {
   };
 
   return (
-    <>
       <div className="container__search-city">
         <form onSubmit={checkInputIsValid}>
           <input
@@ -31,6 +30,5 @@ export default function InputSearchCity() {
           <button type="submit">Go</button>
         </form>
       </div>
-    </>
   );
 }

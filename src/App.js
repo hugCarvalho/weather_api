@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useReducer} from "react";
 import "./App.scss";
 import Header from "./components/Header/Header";
-import InputSearchCity from "./components/InputSearchCity/InputSearchCity";
+import InputSearchCity from "./components/SearchCity/SearchCity";
 import DisplayErrorMsg from "./components/DisplayErrorMsg/DisplayErrorMsg";
 import SavedCitiesMenu from "./components/SavedCitiesMenu/SavedCitiesMenu";
 import DisplayCityName from "./components/DisplayCityName/DisplayCityName";
