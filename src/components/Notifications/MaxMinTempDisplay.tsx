@@ -1,4 +1,4 @@
-import { Days, Forecast3Days } from "config/types"
+import { DaysType, Forecast3Days } from "config/types"
 import { Media } from "hooks/MediaQueries"
 import React from "react"
 import styled from "styled-components"
@@ -42,27 +42,27 @@ const ValuesWraper = styled.div`
   }
 `
 type MaxMinTempDisplayProps = {
-  activeDay: Days,
+  activeDay: DaysType,
   forecast3Days: Forecast3Days
 }
 
 const MaxMinTempDisplay: React.FC<MaxMinTempDisplayProps> = ({ forecast3Days, activeDay }) => {
   let defaultTemp: null | number = null
 
-  const MaxTemp = forecast3Days[activeDay]?.reduce((max, hourObj) => {
+  const maxTemperature = forecast3Days[activeDay]?.reduce((temp, hourObj) => {
     const maxTemp = hourObj.main.temp_max
     defaultTemp = maxTemp
-    return maxTemp > max ? maxTemp : max
+    return maxTemp > temp ? maxTemp : temp
   }, defaultTemp)
 
-  const MinTemp = forecast3Days[activeDay]?.reduce((acc, hourObj) => {
-    const min = hourObj.main.temp_min
-    return min < acc ? min : acc
+  const minTemperature = forecast3Days[activeDay]?.reduce((temp, hourObj) => {
+    const minTemp = hourObj.main.temp_min
+    return minTemp < temp ? minTemp : temp
   }, defaultTemp)
 
   //TODO fix hardcoded celsius value as first argument
-  const convertedMaxTemp = convertTemp(true, MaxTemp)
-  const convertedMinTemp = convertTemp(true, MinTemp)
+  const convertedMaxTemp = convertTemp(true, maxTemperature)
+  const convertedMinTemp = convertTemp(true, minTemperature)
 
   return <TemperatureContainer>
     <ValuesWraper>

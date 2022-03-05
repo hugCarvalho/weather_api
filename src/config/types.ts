@@ -2,7 +2,7 @@ import { settingsObj } from "./config"
 
 export type AlarmName = "rain" | "temperature" | "wind" //1
 export type SettingsType = typeof settingsObj
-export type Days = "today" | "tomorrow" | "afterTomorrow"
+export type DaysType = "today" | "tomorrow" | "afterTomorrow"
 export type DaysArr = Array<"today" | "tomorrow" | "afterTomorrow">
 
 export type Forecast3Days = {
