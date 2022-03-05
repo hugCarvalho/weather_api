@@ -3,12 +3,11 @@ import { ErrorContext, UserQueryContext } from "../../App";
 import styled from "styled-components"
 
 const Form = styled.form`
+  display: flex;
+  justify-content: center;
   height: 2.5rem;
   margin: 15px 0 5px 0;
-  justify-content: center;
-  display: flex;
   text-align: center;
-  background-color: pink ;
 `
 
 const Input = styled.input`
