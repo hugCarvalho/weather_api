@@ -6,6 +6,7 @@ import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import PropTypes from "prop-types";
 import { CityCloud } from "./SavedCitiesStyled";
+import {convertToCaps} from "../Utils/convertToCaps"
 
 const accessibility = {
   width: "1px",
@@ -116,18 +117,19 @@ export default function SavedCitiesMenu({ validCity }) {
     setDefaultCity(city);
   };
 
+  console.log(savedCities.city1)
   return (
     <>
       <div className="container__saved-cities-menu" style={setContainerHeight()}>
         {/*FAST ACCESS CITIES BUTTONS */}
         <div className="items items--4">
-          <CityCloud onClick={checkSlotIsEmpty}>{savedCities.city1 || "empty"}</CityCloud>
+          <CityCloud onClick={checkSlotIsEmpty}>{convertToCaps(savedCities.city1) || "empty"}</CityCloud>
         </div>
         <div className="items items--5">
-          <CityCloud onClick={checkSlotIsEmpty}>{savedCities.city2 || "empty"}</CityCloud>
+          <CityCloud onClick={checkSlotIsEmpty}>{convertToCaps(savedCities.city2) || "empty"}</CityCloud>
         </div>
         <div className="items items--6">
-          <CityCloud onClick={checkSlotIsEmpty}>{savedCities.city3 || "empty"}</CityCloud>
+          <CityCloud onClick={checkSlotIsEmpty}>{convertToCaps(savedCities.city3) || "empty"}</CityCloud>
         </div>
 
         {/* CLOSE MENU */}

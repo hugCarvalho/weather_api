@@ -6,7 +6,7 @@ const Form = styled.form`
   display: flex;
   justify-content: center;
   height: 2.5rem;
-  margin: 15px 0 5px 0;
+  margin: 15px 0 15px 0;
   text-align: center;
 `
 
