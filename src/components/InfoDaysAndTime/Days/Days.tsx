@@ -22,7 +22,7 @@ export const Days: React.FC<DaysProps> = ({ activeDay, setActiveDay }) => {
               <li key={i} onClick={() => setActiveDay(day)}>
                 <button
                   className={activeDay === day ? "tab-is-active" : "tab-is-inactive"}>
-                  {i === 0 ? "Today" : <Moment format="dddd" add={{ days: isTimeBetween22and24 ? (i + 1) : i }}></Moment>}
+                  {<Moment format="dddd" add={{ days: isTimeBetween22and24 ? (i + 1) : i }} />}
                 </button>
               </li>
             );

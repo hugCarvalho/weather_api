@@ -7,6 +7,7 @@ import SavedCitiesMenu from "./components/SavedCitiesMenu/SavedCitiesMenu";
 import DisplayCityName from "./components/DisplayCityName/DisplayCityName";
 import { errorInit, errorReducer } from "./components/reducers";
 import { InfoDaysAndTime } from "./components/InfoDaysAndTime/InfoDaysAndTime";
+import { ClimbingBoxLoader } from "react-spinners";
 
 export const UserQueryContext = React.createContext();
 export const ErrorContext = React.createContext();
@@ -27,12 +28,10 @@ function App() {
   useEffect(() => {
     setIsLoading(true); //don't change
     const getWeather = async () => {
-      console.log("FETCHED");
       const api = `https://api.openweathermap.org/data/2.5/forecast?q=${userQuery}&appid=${key}`;
       const response = await fetch(api);
       const data = await response.json();
       if (data.cod === "200") {
-
         setData({
           weather: data,
         });

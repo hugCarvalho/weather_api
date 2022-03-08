@@ -10,7 +10,7 @@ const InfoDaysAndTime = ({ data, isLoading, validCity, forecast3Days }) => {
   const [activeDay, setActiveDay] = React.useState("today");
   const [selectedTime, setSelectedTime] = React.useState({});
 
-  React.useEffect(() => {
+  useEffect(() => {
     setActiveDay("today");
   }, [validCity]); //will reset the active tab after a request about a new city
 
