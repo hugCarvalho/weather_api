@@ -117,7 +117,6 @@ export default function SavedCitiesMenu({ validCity }) {
     setDefaultCity(city);
   };
 
-  console.log(savedCities.city1)
   return (
     <>
       <div className="container__saved-cities-menu" style={setContainerHeight()}>

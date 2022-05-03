@@ -7,7 +7,6 @@ import SavedCitiesMenu from "./components/SavedCitiesMenu/SavedCitiesMenu";
 import DisplayCityName from "./components/DisplayCityName/DisplayCityName";
 import { errorInit, errorReducer } from "./components/reducers";
 import { InfoDaysAndTime } from "./components/InfoDaysAndTime/InfoDaysAndTime";
-import { ClimbingBoxLoader } from "react-spinners";
 
 export const UserQueryContext = React.createContext();
 export const ErrorContext = React.createContext();
@@ -88,6 +87,7 @@ function App() {
       tomorrow,
       afterTomorrow,
     });
+
   }, [data]);
 
   return (

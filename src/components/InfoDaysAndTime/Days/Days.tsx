@@ -11,7 +11,7 @@ type DaysProps = {
 
 export const Days: React.FC<DaysProps> = ({ activeDay, setActiveDay }) => {
   const time = new Date().getHours()
-  const isTimeBetween22and24 = time > 21 && time < 24
+  const isTimeBetween22and24 = time > 22 && time < 24
 
   return (
     <>
