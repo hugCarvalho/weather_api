@@ -5,9 +5,10 @@ import styled from "styled-components"
 const Form = styled.form`
   display: flex;
   justify-content: center;
-  height: 2.5rem;
-  margin: 15px 0 15px 0;
+  height: 3.5rem;
+  margin: 30px 0;
   text-align: center;
+  font-size: 1.6rem;
 `
 
 const Input = styled.input`
@@ -28,6 +29,10 @@ const Input = styled.input`
     outline: none;
   }
 
+  &::placeholder{
+    font-size: 12px;
+  }
+
   @media (min-width: 576px){
     width: 30%;
   }
@@ -37,7 +42,6 @@ const Button = styled.button`
   display: inline;
   background: #0059c5;
   height: 100%;
-  background-color: blue;
   color: white;
   font-weight: 500;
   letter-spacing: 1px;
@@ -53,9 +57,8 @@ const Button = styled.button`
   }
   &:hover,
   :focus {
-    background-color: #045CC7;
+    background-color: #163862;
     opacity: .8;
-    font-weight: 600;
   }
 `
 
@@ -84,7 +87,7 @@ export default function InputSearchCity() {
           onChange={e => setText(e.target.value)}
           id="input-search-city"
         />
-        <Button type="submit">Go</Button>
+        <Button type="submit">Search</Button>
       </Form>
     </div>
   );

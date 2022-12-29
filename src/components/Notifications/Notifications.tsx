@@ -102,11 +102,12 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
                             <div key={hourForecast.dt}>
                               <TimeWrapper>
                                 <HourFormat>
-                                  <div>
+                                  <div style={{paddingBottom: '4px'}}>
                                     <span>{hour}</span>
                                   </div>
                                   <div>
-                                    <span>{value}</span><ValueFormat>{valueFormat}</ValueFormat>
+                                    <span style={{fontSize: '13px'}}>{value}</span>
+                                    <ValueFormat>{valueFormat}</ValueFormat>
                                   </div>
                                 </HourFormat>
                               </TimeWrapper>
