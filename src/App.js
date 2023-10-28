@@ -23,7 +23,6 @@ function App() {
   const [error, dispatchError] = useReducer(errorReducer, errorInit)
   const [forecast3Days, setForecast3Days] = useState({})
 
-  console.log('key', key)
   //FETCH DATA
   useEffect(() => {
     setIsLoading(true) //don't change
