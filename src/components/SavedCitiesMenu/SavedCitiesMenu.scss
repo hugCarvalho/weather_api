@@ -1,4 +1,4 @@
-@import "../../App.scss";
+@import '../../App.scss';
 
 .container__saved-cities-menu {
   //height is inline controlled - setContainerHeight()
@@ -9,20 +9,18 @@
   grid-column-gap: 3px;
   grid-row-gap: 10px;
   grid-template-rows: 40px 20px 20px;
-  grid-template-columns: 1fr 1fr 1fr auto auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr auto auto;
   grid-template-areas:
-    "city1 city2 city3 open open"
-    "radiobtn1 radiobtn2 radiobtn2 question2 close"
-    "save1 save2 save3 question3 close";
+    'city1 city2 city3 city4 open open'
+    'btn1 btn2 btn3 btn4 question1 close'
+    'save1 save2 save3 save4 question2 close';
 
   //Shared properties
-  .items,
   button {
     border-radius: 5px;
     font-weight: 600;
     font-size: 1.3rem;
     outline: none;
-
   }
 
   .fa-angle-double-down,
