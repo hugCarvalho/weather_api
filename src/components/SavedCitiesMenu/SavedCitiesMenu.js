@@ -130,7 +130,7 @@ export default function SavedCitiesMenu({ validCity }) {
               className='items cityClouds'
               key={i}>
               <CityCloud
-                className={city === validCity ? 'selected' : ''}
+                className={city && city === validCity ? 'selected' : ''}
                 onClick={checkSlotIsEmpty}>
                 {city || 'empty'}
               </CityCloud>
