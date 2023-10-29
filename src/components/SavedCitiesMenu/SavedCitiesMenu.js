@@ -104,14 +104,14 @@ export default function SavedCitiesMenu({ validCity }) {
   // Check to prevent saving the same city again
   const checkSlotIsEmpty = (e) => {
     if (e.target.textContent === 'empty') {
-      return dispatchError({ type: 'TRUE', value: 'SAVE a city first' })
+      return dispatchError({ type: 'TRUE', value: 'This slot is empty. SAVE a city first' })
     } else setUserQuery(e.target.textContent)
   }
 
   //CHOOSE DEFAULT CITY
   const chooseDefaultCity = (city) => {
     if (!city) {
-      return dispatchError({ type: 'TRUE', value: 'SAVE a city first' })
+      return dispatchError({ type: 'TRUE', value: 'This slot is empty. SAVE a city first' })
     }
     setDefaultCity(city)
   }

@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
-import { ErrorContext, UserQueryContext } from "../../App";
-import styled from "styled-components"
+import React, { useState, useContext } from 'react'
+import { ErrorContext, UserQueryContext } from '../../App'
+import styled from 'styled-components'
 
 const Form = styled.form`
   display: flex;
@@ -25,15 +25,15 @@ const Input = styled.input`
   -webkit-border-radius: 3px 0 0 3px;
   -webkit-border-right: none;
 
-  &:focus{
+  &:focus {
     outline: none;
   }
 
-  &::placeholder{
+  &::placeholder {
     font-size: 12px;
   }
 
-  @media (min-width: 576px){
+  @media (min-width: 576px) {
     width: 30%;
   }
 `
@@ -58,37 +58,37 @@ const Button = styled.button`
   &:hover,
   :focus {
     background-color: #163862;
-    opacity: .8;
+    opacity: 0.8;
   }
 `
 
 export default function InputSearchCity() {
-  const { setUserQuery } = useContext(UserQueryContext);
-  const { dispatchError } = useContext(ErrorContext);
-  const [text, setText] = useState("");
+  const { setUserQuery } = useContext(UserQueryContext)
+  const { dispatchError } = useContext(ErrorContext)
+  const [text, setText] = useState('')
 
-  const checkInputIsValid = e => {
+  const checkInputIsValid = (e) => {
     //don't use setIsLoading. Allows for rerender on city not found
-    e.preventDefault();
+    e.preventDefault()
     if (text) {
-      setUserQuery(text);
+      setUserQuery(text)
     } else {
-      dispatchError({ type: "TRUE", value: "Please type something" });
+      dispatchError({ type: 'TRUE', value: 'Please type a city' })
     }
-  };
+  }
 
   return (
     <div>
       <Form onSubmit={checkInputIsValid}>
         <Input
-          name="searchCity"
-          type="search"
-          placeholder="type a city name..."
-          onChange={e => setText(e.target.value)}
-          id="input-search-city"
+          name='searchCity'
+          type='search'
+          placeholder='type a city name...'
+          onChange={(e) => setText(e.target.value)}
+          id='input-search-city'
         />
-        <Button type="submit">Search</Button>
+        <Button type='submit'>Search</Button>
       </Form>
     </div>
-  );
+  )
 }
