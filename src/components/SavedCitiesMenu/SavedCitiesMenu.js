@@ -6,7 +6,6 @@ import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css'
 import PropTypes from 'prop-types'
 import { CityCloud } from './SavedCitiesStyled'
-import { convertToCaps } from '../Utils/convertToCaps'
 
 const accessibility = {
   width: '1px',
@@ -24,8 +23,7 @@ export default function SavedCitiesMenu({ validCity }) {
 
   const [defaultCity, setDefaultCity] = useState('')
   const [isMenuClosed, setIsMenuClosed] = useState(false)
-  // prettier-ignore
-  const [savedCities, setSavedCities] = useState({city1: "",city2: "",city3: "", city4: ""});
+  const [savedCities, setSavedCities] = useState({ city1: '', city2: '', city3: '', city4: '' })
 
   //LOCAL STORAGE: GET
   useEffect(() => {
@@ -99,7 +97,7 @@ export default function SavedCitiesMenu({ validCity }) {
     })
 
     if (cityNameExists) {
-      dispatchError({ type: 'TRUE', value: 'City is already saved' })
+      dispatchError({ type: 'TRUE', value: `${validCity} is already saved` })
     } else saveCity(citySlot)
   }
 
@@ -118,24 +116,27 @@ export default function SavedCitiesMenu({ validCity }) {
     setDefaultCity(city)
   }
 
+  const cities = Object.values(savedCities)
+
   return (
     <>
       <div
         className='container__saved-cities-menu'
         style={setContainerHeight()}>
         {/*FAST ACCESS CITIES BUTTONS */}
-        <div className='items items--4'>
-          <CityCloud onClick={checkSlotIsEmpty}>{convertToCaps(savedCities.city1) || 'empty'}</CityCloud>
-        </div>
-        <div className='items items--5'>
-          <CityCloud onClick={checkSlotIsEmpty}>{convertToCaps(savedCities.city2) || 'empty'}</CityCloud>
-        </div>
-        <div className='items items--6'>
-          <CityCloud onClick={checkSlotIsEmpty}>{convertToCaps(savedCities.city3) || 'empty'}</CityCloud>
-        </div>
-        <div className='items items--6'>
-          <CityCloud onClick={checkSlotIsEmpty}>{convertToCaps(savedCities.city4) || 'empty'}</CityCloud>
-        </div>
+        {cities.map((city, i) => {
+          return (
+            <div
+              className='items cityClouds'
+              key={i}>
+              <CityCloud
+                className={city === validCity ? 'selected' : ''}
+                onClick={checkSlotIsEmpty}>
+                {city || 'empty'}
+              </CityCloud>
+            </div>
+          )
+        })}
 
         {/* CLOSE MENU */}
         <div className='items items--8 '>
@@ -156,39 +157,20 @@ export default function SavedCitiesMenu({ validCity }) {
           </button>
         </div>
 
-        {/* RADIO INPUTS*/}
-        <div className='items items--10 radio-btns'>
-          <RadioButtons
-            value={savedCities.city1}
-            value2={defaultCity}
-            id='city-1'
-            action={chooseDefaultCity}
-          />
-        </div>
-        <div className='items items--11 radio-btns'>
-          <RadioButtons
-            value={savedCities.city2}
-            value2={defaultCity}
-            id='city-2'
-            action={chooseDefaultCity}
-          />
-        </div>
-        <div className='items items--12 radio-btns'>
-          <RadioButtons
-            value={savedCities.city3}
-            id='city-3'
-            value2={defaultCity}
-            action={chooseDefaultCity}
-          />
-        </div>
-        <div className='items items--12 radio-btns'>
-          <RadioButtons
-            value={savedCities.city4}
-            id='city-4'
-            value2={defaultCity}
-            action={chooseDefaultCity}
-          />
-        </div>
+        {/* RADIO BTNS*/}
+        {cities.map((city, i) => {
+          return (
+            <div
+              className='items radio-btns'
+              key={i}>
+              <RadioButtons
+                value={city}
+                value2={defaultCity}
+                action={chooseDefaultCity}
+              />
+            </div>
+          )
+        })}
 
         {/* TOOLTIP RADIO BUTTONS*/}
         <div className='items items--13'>
@@ -200,34 +182,19 @@ export default function SavedCitiesMenu({ validCity }) {
         </div>
 
         {/* SAVE CITY BUTTONS */}
-        <div className='items items--20 '>
-          <button
-            className='save-btns'
-            onClick={() => checkCityisElegible('city1')}>
-            Save
-          </button>
-        </div>
-        <div className='items items--21'>
-          <button
-            className='save-btns'
-            onClick={() => checkCityisElegible('city2')}>
-            Save
-          </button>
-        </div>
-        <div className='items items--22'>
-          <button
-            className='save-btns'
-            onClick={() => checkCityisElegible('city3')}>
-            Save
-          </button>
-        </div>
-        <div className='items items--22'>
-          <button
-            className='save-btns'
-            onClick={() => checkCityisElegible('city4')}>
-            Save
-          </button>
-        </div>
+        {cities.map((city, i) => {
+          return (
+            <div
+              className='items'
+              key={i}>
+              <button
+                className='save-btns'
+                onClick={() => checkCityisElegible(city)}>
+                Save
+              </button>
+            </div>
+          )
+        })}
 
         {/* TOOLTIP SAVE BUTTON */}
         <div className='items items--23'>

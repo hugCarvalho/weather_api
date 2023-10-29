@@ -1,11 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 const CityCloud = styled.button`
-  font-size: 2.9rem;
-  font-weight: 500;
+  text-transform: capitalize;
+
   @media (min-width: 768px) {
-    font-size: 1.9rem;
-    font-weight: 500;
+    text-transform: uppercase;
   }
-`;
-export { CityCloud };
+`
+export { CityCloud }

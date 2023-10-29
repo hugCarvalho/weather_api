@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components"
+import React from 'react'
+import styled from 'styled-components'
 
 type EmojiProps = {
-  title: string,
+  title: string
   emoji: string
 }
 
@@ -14,14 +14,13 @@ const EmojiContainer = styled.span<EmojiProps>`
 export function Emoji({ title, emoji }) {
   return (
     <EmojiContainer
-      role="img"
+      role='img'
       aria-label={title}
       title={title}
-      emoji={emoji}
-    >
+      emoji={emoji}>
       {emoji}
     </EmojiContainer>
-  );
+  )
 }
 
-export default Emoji;
+export default Emoji
