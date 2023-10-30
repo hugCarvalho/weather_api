@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import './SavedCitiesMenu.scss'
-import RadioButtons from '../Utils/RadioButtons/RadioButtons'
+import DefaultCityRadioBtn from '../Utils/RadioButtons/RadioButtons'
 import { ErrorContext, UserQueryContext } from '../../App'
 import Tippy from '@tippyjs/react'
 import 'tippy.js/dist/tippy.css'
@@ -53,6 +53,7 @@ export default function SavedCitiesMenu({ validCity }) {
 
   //LOCAL STORAGE: SET
   useEffect(() => {
+    console.log('SAVED CITIES', savedCities)
     localStorage.setItem('weatherApp', JSON.stringify(savedCities))
   }, [savedCities])
   useEffect(() => {
@@ -76,14 +77,7 @@ export default function SavedCitiesMenu({ validCity }) {
 
   //SAVE CITY
   const saveCity = (citySlot) => {
-    // prettier-ignore
-    if (citySlot === "city1") return setSavedCities({ ...savedCities, city1: validCity });
-    // prettier-ignore
-    if (citySlot === "city2") return setSavedCities({ ...savedCities, city2: validCity });
-    // prettier-ignore
-    if (citySlot === "city3") return setSavedCities({ ...savedCities, city3: validCity });
-    // prettier-ignore
-    if (citySlot === "city4") return setSavedCities({ ...savedCities, city4: validCity });
+    setSavedCities({ ...savedCities, [citySlot]: validCity })
   }
 
   //VALIDATION
@@ -98,7 +92,9 @@ export default function SavedCitiesMenu({ validCity }) {
 
     if (cityNameExists) {
       dispatchError({ type: 'TRUE', value: `${validCity} is already saved` })
-    } else saveCity(citySlot)
+    } else {
+      saveCity(citySlot)
+    }
   }
 
   // Check to prevent saving the same city again
@@ -117,6 +113,7 @@ export default function SavedCitiesMenu({ validCity }) {
   }
 
   const cities = Object.values(savedCities)
+  const citySlots = Object.keys(savedCities)
 
   return (
     <>
@@ -163,10 +160,10 @@ export default function SavedCitiesMenu({ validCity }) {
             <div
               className='items radio-btns'
               key={i}>
-              <RadioButtons
+              <DefaultCityRadioBtn
                 value={city}
-                value2={defaultCity}
-                action={chooseDefaultCity}
+                defaultCity={defaultCity}
+                chooseDefaultCity={chooseDefaultCity}
               />
             </div>
           )
@@ -182,7 +179,7 @@ export default function SavedCitiesMenu({ validCity }) {
         </div>
 
         {/* SAVE CITY BUTTONS */}
-        {cities.map((city, i) => {
+        {citySlots.map((city, i) => {
           return (
             <div
               className='items'

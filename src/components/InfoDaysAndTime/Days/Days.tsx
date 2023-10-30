@@ -12,7 +12,6 @@ type DaysProps = {
 export const Days: React.FC<DaysProps> = ({ activeDay, setActiveDay }) => {
   const time = new Date().getHours()
   const isTimeBetween22and24 = time >= 22 && time < 24
-  console.log('%c Days.tsx - line: 15', 'color: white; background-color: #00cc29', time, time)
 
   return (
     <>

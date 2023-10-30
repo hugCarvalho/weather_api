@@ -1,25 +1,31 @@
-import React from "react";
+import React from 'react'
 
-export default function RadioButtons({ id, value, value2, action }) {
+export default function DefaultCityRadioBtn({ id, value, defaultCity, chooseDefaultCity }) {
+  console.log('V', value, 'V2', defaultCity)
   return (
     <>
       <input
-        type="radio"
+        type='radio'
         id={id}
         value={value}
-        onChange={e => action(e.target.value)}
-        checked={value === value2}
+        onChange={(e) => chooseDefaultCity(e.target.value)}
+        checked={value === defaultCity}
       />
       <label htmlFor={id}></label>
     </>
-  );
+  )
 }
 
 export function RadioButtons2({ id, checked, label, action }) {
   return (
     <>
-      <input type="radio" id={id} checked={checked} onChange={action} />
+      <input
+        type='radio'
+        id={id}
+        checked={checked}
+        onChange={action}
+      />
       <label htmlFor={id}>{label}</label>
     </>
-  );
+  )
 }
