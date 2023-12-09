@@ -1,18 +1,21 @@
 import React from 'react'
-import './DisplayCityName.scss'
 import { ClipLoader } from 'react-spinners'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const CityName = styled.h2`
-  padding: 15px 3px 20px;
+  /* background-color: orange; */
+  /* padding: 25px 3px 15px; */
+  padding: 5px;
+  margin: 25px 0px 15px;
   text-align: center;
   color: #faf9f9;
   letter-spacing: 2px;
-  font-size: 20px;
+  font-size: 17px;
 
   @media (min-width: 768px) {
-    font-size: 26px;
+    margin: 50px 0px 35px;
+    font-size: 24px;
   }
 `
 
