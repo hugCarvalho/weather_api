@@ -1,6 +1,5 @@
-import React from 'react'
-import { ClipLoader } from 'react-spinners'
 import PropTypes from 'prop-types'
+import { ClipLoader } from 'react-spinners'
 import styled from 'styled-components'
 
 const Name = styled.div`
