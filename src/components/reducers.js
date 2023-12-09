@@ -1,7 +1,7 @@
 // ERROR REDUCER
 export const errorInit = {
-  showError: true,
-  text: 'my error',
+  showError: false,
+  text: '',
 }
 
 export function errorReducer(state, action) {
