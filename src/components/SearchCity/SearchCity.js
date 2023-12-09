@@ -6,7 +6,7 @@ const Form = styled.form`
   display: flex;
   justify-content: center;
   height: 3.5rem;
-  margin: 30px 0;
+  margin-top: 30px;
   text-align: center;
   font-size: 1.6rem;
 `
@@ -24,7 +24,6 @@ const Input = styled.input`
   -webkit-appearance: none;
   -webkit-border-radius: 3px 0 0 3px;
   -webkit-border-right: none;
-
   &:focus {
     outline: none;
   }

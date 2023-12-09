@@ -1,17 +1,17 @@
 // ERROR REDUCER
 export const errorInit = {
-  showError: false,
-  text: "",
-};
+  showError: true,
+  text: 'my error',
+}
 
 export function errorReducer(state, action) {
   switch (action.type) {
-    case "TRUE":
+    case 'TRUE':
       return {
         showError: true,
         text: action.value,
-      };
+      }
     default:
-      return errorInit;
+      return errorInit
   }
 }
