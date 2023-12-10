@@ -1,8 +1,8 @@
-import { DaysType, Forecast3Days } from "config/types"
-import { Media } from "hooks/MediaQueries"
-import React from "react"
-import styled from "styled-components"
-import { convertTemp } from "../Utils/convertTemp"
+import { DaysType, Forecast3Days } from 'config/types'
+import { Media } from 'hooks/useMediaQueries'
+import React from 'react'
+import styled from 'styled-components'
+import { convertTemp } from '../Utils/convertTemp'
 
 const TemperatureContainer = styled.section`
   position: absolute;
@@ -38,11 +38,10 @@ const ValuesWraper = styled.div`
       flex-direction: row;
       justify-content: space-between;
       padding-bottom: 0;
-    `
-  }
+    `}
 `
 type MaxMinTempDisplayProps = {
-  activeDay: DaysType,
+  activeDay: DaysType
   forecast3Days: Forecast3Days
 }
 
@@ -64,14 +63,18 @@ const MaxMinTempDisplay: React.FC<MaxMinTempDisplayProps> = ({ forecast3Days, ac
   const convertedMaxTemp = convertTemp(true, maxTemperature)
   const convertedMinTemp = convertTemp(true, minTemperature)
 
-  return <TemperatureContainer>
-    <ValuesWraper>
-      <span>Max:</span><span>{forecast3Days?.today?.length !== 0 ? convertedMaxTemp + "°" : "n/a"}</span>
-    </ValuesWraper>
-    <ValuesWraper>
-      <span>Min: </span><span>{forecast3Days?.today?.length !== 0 ? convertedMinTemp + "°" : "n/a"}</span>
-    </ValuesWraper>
-  </TemperatureContainer>
+  return (
+    <TemperatureContainer>
+      <ValuesWraper>
+        <span>Max:</span>
+        <span>{forecast3Days?.today?.length !== 0 ? convertedMaxTemp + '°' : 'n/a'}</span>
+      </ValuesWraper>
+      <ValuesWraper>
+        <span>Min: </span>
+        <span>{forecast3Days?.today?.length !== 0 ? convertedMinTemp + '°' : 'n/a'}</span>
+      </ValuesWraper>
+    </TemperatureContainer>
+  )
 }
 
 export { MaxMinTempDisplay }

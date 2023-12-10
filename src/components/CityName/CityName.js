@@ -3,7 +3,7 @@ import { ClipLoader } from 'react-spinners'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-const CityName = styled.h2`
+const CityName = styled.div`
   /* background-color: orange; */
   /* padding: 25px 3px 15px; */
   padding: 5px;

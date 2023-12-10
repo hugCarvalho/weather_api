@@ -14,10 +14,13 @@ import {
   TimeWrapper,
   HourFormat,
   ValueFormat,
+  AlarmSettingsMobile,
 } from './styles/NotificationsStyles'
 import { NotificationOptions } from './NotificationOptions'
 import { renderEmoji } from './functions'
-import { useLocalStorage } from '../../hooks/LocalStorage.js'
+import { useLocalStorage } from '../../hooks/useLocalStorage.js'
+import { useDeviceType } from '../../hooks/useDeviceType.js'
+
 import { NotificationsInit, settingsObj, notifications, ValueFormats } from 'config/config'
 import { HourObj, AlarmName } from 'config/types'
 
@@ -38,6 +41,7 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
   const [showNotification, setShowNotification] = useState(NotificationsInit) //TODO merge with settings & extend
   const [alarms, setAlarms] = useState<AlarmTypes[] | null>(null)
   const [settings, setSettings] = useLocalStorage('NotificationsSettings', settingsObj)
+  const isMobile = useDeviceType()
 
   //SETS DATA FOR ALARMS
   useEffect(() => {
@@ -78,22 +82,28 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
 
   return (
     <>
-      <AlarmNotificationsSection>
-        <HeaderWrapper onClick={() => setShowPopup(true)}>
+      {isMobile && (
+        <AlarmSettingsMobile onClick={() => setShowPopup(true)}>
           <IconContainer>
             <Emoji
               title='alarm'
               emoji='🚨'
             />
           </IconContainer>
-          <Title>Alarms | Options</Title>
-          <IconContainer>
-            <Emoji
-              title='alarm'
-              emoji='⚙️'
-            />
-          </IconContainer>
-        </HeaderWrapper>
+        </AlarmSettingsMobile>
+      )}
+      <AlarmNotificationsSection>
+        {!isMobile && (
+          <HeaderWrapper onClick={() => setShowPopup(true)}>
+            <IconContainer>
+              <Emoji
+                title='alarm'
+                emoji='🚨'
+              />
+            </IconContainer>
+            <Title>Settings</Title>
+          </HeaderWrapper>
+        )}
         <div>
           {areThereAlarms ? (
             alarms.map((alarm: AlarmTypes, i) => {

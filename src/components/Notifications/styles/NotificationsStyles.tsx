@@ -7,17 +7,25 @@ export const AlarmNotificationsSection = styled.section`
   position: absolute;
   top: 0;
   right: 0;
-  padding: 7px;
+  padding: 7px 0px 7px 7px;
   font-size: 14px;
-
+  background-color: ;
   @media (max-width: 960px) {
     width: 100%;
     /* background-color: lime; */
     margin: 0px 0 0 0;
     position: relative;
+    padding: 7px 7px 7px 7px;
   }
 `
 export const AlarmsContainer = styled.div``
+export const AlarmSettingsMobile = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 16px;
+  padding: 7px;
+`
 export const HeaderWrapper = styled.div`
   position: relative;
   overflow: hidden;
@@ -25,7 +33,7 @@ export const HeaderWrapper = styled.div`
   align-items: center;
 
   background-color: transparent;
-  /* background-color: orange; */
+  background-color: #5d5c5c;
   padding: 4px 0;
   border-bottom: 1px solid gray;
   border-radius: 15px 0 0 15px;
@@ -51,14 +59,14 @@ export const StateWrapper = styled.div<{ toggleOpen: boolean }>`
 export const AlarmsTime = styled.div`
   color: white;
   position: relative;
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: 10px;
+  margin-right: 10px;
   padding: 5px 0px 0 3px;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-
-  background-color: #6d6d69;
+  /* border-radius: 4px; */
+  /* background-color: #8a8a8a; */
 `
 export const TimeWrapper = styled.div`
   display: flex;
