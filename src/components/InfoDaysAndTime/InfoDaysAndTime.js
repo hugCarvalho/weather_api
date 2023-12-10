@@ -1,24 +1,29 @@
-import React from "react";
-import DisplayWeather from "../DisplayWeather/DisplayWeather";
-import {Days} from "./Days/Days.tsx";
-import Hours from "./Hours/Hours";
-import { MaxMinTempDisplay } from "../Notifications/MaxMinTempDisplay";
-import { AlarmNotifications } from "../Notifications/Notifications";
-import { useEffect } from "react";
+import React from 'react'
+import DisplayWeather from '../DisplayWeather/DisplayWeather.js'
+import { Days } from './Days/Days.tsx'
+import Hours from './Hours/Hours'
+import { MaxMinTempDisplay } from '../Notifications/MaxMinTempDisplay'
+import { AlarmNotifications } from '../Notifications/Notifications'
+import { useEffect } from 'react'
 
 const InfoDaysAndTime = ({ data, isLoading, validCity, forecast3Days }) => {
-  const [activeDay, setActiveDay] = React.useState("today");
-  const [selectedTime, setSelectedTime] = React.useState({});
+  const [activeDay, setActiveDay] = React.useState('today')
+  const [selectedTime, setSelectedTime] = React.useState({})
 
   useEffect(() => {
-    setActiveDay("today");
-  }, [validCity]); //will reset the active tab after a request about a new city
+    setActiveDay('today')
+  }, [validCity]) //will reset the active tab after a request about a new city
 
-    
   return (
     <>
-      <MaxMinTempDisplay forecast3Days={forecast3Days} activeDay={activeDay} />
-      <AlarmNotifications forecast3Days={forecast3Days} activeDay={activeDay} />
+      <MaxMinTempDisplay
+        forecast3Days={forecast3Days}
+        activeDay={activeDay}
+      />
+      <AlarmNotifications
+        forecast3Days={forecast3Days}
+        activeDay={activeDay}
+      />
 
       <Days
         activeDay={activeDay}
@@ -38,7 +43,7 @@ const InfoDaysAndTime = ({ data, isLoading, validCity, forecast3Days }) => {
         isLoading={isLoading}
       />
     </>
-  );
-};
+  )
+}
 
-export { InfoDaysAndTime };
+export { InfoDaysAndTime }

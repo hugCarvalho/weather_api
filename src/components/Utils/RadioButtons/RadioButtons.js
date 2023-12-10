@@ -1,7 +1,6 @@
 import React from 'react'
 
 export default function DefaultCityRadioBtn({ id, value, defaultCity, chooseDefaultCity }) {
-  console.log('V', value, 'V2', defaultCity)
   return (
     <>
       <input

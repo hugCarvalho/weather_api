@@ -53,7 +53,6 @@ export default function SavedCitiesMenu({ validCity }) {
 
   //LOCAL STORAGE: SET
   useEffect(() => {
-    console.log('SAVED CITIES', savedCities)
     localStorage.setItem('weatherApp', JSON.stringify(savedCities))
   }, [savedCities])
   useEffect(() => {

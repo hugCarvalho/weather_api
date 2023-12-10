@@ -1,34 +1,35 @@
 import React from 'react'
-import './DisplayCityName.scss'
 import { ClipLoader } from 'react-spinners'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-const CityName = styled.h2`
-  padding: 15px 3px 20px;
+const Name = styled.div`
+  padding: 5px;
+  margin: 15px 0px 0px;
   text-align: center;
   color: #faf9f9;
   letter-spacing: 2px;
-  font-size: 20px;
+  font-size: 17px;
 
   @media (min-width: 768px) {
-    font-size: 26px;
+    margin: 85px 0px 35px;
+    font-size: 24px;
   }
 `
 
-export default function DisplayCityName({ validCity, isLoading }) {
+export default function CityName({ validCity, isLoading }) {
   return (
     <>
-      <CityName>
+      <Name>
         <h2>
           {isLoading && validCity ? <ClipLoader color='white' /> : validCity.toUpperCase() || 'Search for a city'}
         </h2>
-      </CityName>
+      </Name>
     </>
   )
 }
 
-DisplayCityName.propTypes = {
+Name.propTypes = {
   validCity: PropTypes.string,
   isLoading: PropTypes.bool,
 }
