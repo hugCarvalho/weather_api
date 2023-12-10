@@ -25,6 +25,7 @@ export const AlarmSettingsMobile = styled.div`
   right: 0;
   font-size: 16px;
   padding: 7px;
+  cursor: pointer;
 `
 export const HeaderWrapper = styled.div`
   position: relative;
@@ -32,10 +33,10 @@ export const HeaderWrapper = styled.div`
   display: flex;
   align-items: center;
 
-  background-color: transparent;
   background-color: #5d5c5c;
   padding: 4px 0;
   border-bottom: 1px solid gray;
+  /* border: 1px solid #5d5c5c; */
   border-radius: 15px 0 0 15px;
   z-index: 10;
   cursor: pointer;
@@ -44,6 +45,11 @@ export const HeaderWrapper = styled.div`
     text-align: center;
     border-radius: 15px;
     justify-content: center;
+    border: 1px solid #5d5c5c;
+    background-color: transparent;
+    border-top: none;
+    border-left: none;
+    border-right: none;
   }
 `
 export const IconContainer = styled.div`

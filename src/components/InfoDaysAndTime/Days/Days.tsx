@@ -11,7 +11,7 @@ type DaysProps = {
 
 export const Days: React.FC<DaysProps> = ({ activeDay, setActiveDay }) => {
   const time = new Date().getHours()
-  const isTimeBetween22and24 = time >= 22 && time < 24
+  const isTimeBetween23and24 = time >= 23 && time < 24
 
   return (
     <>
@@ -26,7 +26,7 @@ export const Days: React.FC<DaysProps> = ({ activeDay, setActiveDay }) => {
                   {
                     <Moment
                       format='dddd'
-                      add={{ days: isTimeBetween22and24 ? i + 1 : i }}
+                      add={{ days: isTimeBetween23and24 ? i + 1 : i }}
                     />
                   }
                 </button>
