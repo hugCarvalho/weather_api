@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useReducer } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import './App.scss'
-import Header from './components/Header/Header'
-import InputSearchCity from './components/SearchCity/SearchCity'
-import DisplayErrorMsg from './components/ErrorMsg/ErrorMsg'
-import SavedCitiesMenu from './components/SavedCitiesMenu/SavedCitiesMenu'
 import DisplayCityName from './components/CityName/CityName'
-import { errorInit, errorReducer } from './components/reducers'
+import DisplayErrorMsg from './components/ErrorMsg/ErrorMsg'
+import Header from './components/Header/Header'
 import { InfoDaysAndTime } from './components/InfoDaysAndTime/InfoDaysAndTime'
+import { errorInit, errorReducer } from './components/reducers'
+import SavedCitiesMenu from './components/SavedCitiesMenu/SavedCitiesMenu'
+import InputSearchCity from './components/SearchCity/SearchCity'
 
 export const UserQueryContext = React.createContext()
 export const ErrorContext = React.createContext()
@@ -31,12 +31,14 @@ function App() {
       const response = await fetch(api)
       const data = await response.json()
       if (data.cod === '200') {
+        dispatchError({ type: 'FALSE' })
         setData({
           weather: data,
         })
         setValidCity(userQuery)
         setIsLoading(false)
       } else {
+        console.log("WTFFFF")
         dispatchError({ type: 'TRUE', value: data.message })
         setIsLoading(false)
       }
@@ -88,7 +90,6 @@ function App() {
       afterTomorrow,
     })
   }, [data])
-
   return (
     <>
       <div
