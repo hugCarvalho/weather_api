@@ -1,6 +1,4 @@
 import styled from 'styled-components'
-//TODO sort
-//HERE
 
 export const AlarmNotificationsSection = styled.section`
   width: 300px;

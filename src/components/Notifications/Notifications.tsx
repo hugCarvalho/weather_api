@@ -1,28 +1,28 @@
 import Emoji from 'components/Utils/Emoji/Emoji'
 import { Popup } from 'components/Utils/Popup/Popup'
 import React, { useEffect, useState } from 'react'
+import { useDeviceType } from '../../hooks/useDeviceType.js'
+import { useLocalStorage } from '../../hooks/useLocalStorage.js'
 import { convertTemp } from '../Utils/convertTemp'
 import { convertWindSpeed } from '../Utils/convertWindSpeed'
-import {
-  StateWrapper,
-  AlarmNotificationsSection,
-  IconContainer,
-  AlarmsContainer,
-  HeaderWrapper,
-  Title,
-  AlarmsTime,
-  TimeWrapper,
-  HourFormat,
-  ValueFormat,
-  AlarmSettingsMobile,
-} from './styles/NotificationsStyles'
 import { NotificationOptions } from './NotificationOptions'
 import { renderEmoji } from './functions'
-import { useLocalStorage } from '../../hooks/useLocalStorage.js'
-import { useDeviceType } from '../../hooks/useDeviceType.js'
+import {
+  AlarmNotificationsSection,
+  AlarmsContainer,
+  AlarmSettingsMobile,
+  AlarmsTime,
+  HeaderWrapper,
+  HourFormat,
+  IconContainer,
+  StateWrapper,
+  TimeWrapper,
+  Title,
+  ValueFormat,
+} from './styles/NotificationsStyles'
 
-import { NotificationsInit, settingsObj, notifications, ValueFormats } from 'config/config'
-import { HourObj, AlarmName } from 'config/types'
+import { notifications, NotificationsInit, settingsObj, ValueFormats } from 'config/config'
+import { AlarmName, HourObj } from 'config/types'
 
 type AlarmTypes = {
   rain?: any[]
@@ -113,7 +113,7 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
                   <AlarmsContainer key={i}>
                     <HeaderWrapper onClick={() => toggleOpen(name)}>
                       <IconContainer>{renderEmoji(name)}</IconContainer>
-                      <Title>{name}</Title>
+                      <Title>{name} {name === "rain" && "(mm)"}</Title>
                     </HeaderWrapper>
                     <StateWrapper toggleOpen={showNotification[name]}>
                       <AlarmsTime>
@@ -151,7 +151,7 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
               } else return null
             })
           ) : (
-            <AlarmsTime>None</AlarmsTime>
+            <AlarmsTime></AlarmsTime>
           )}
         </div>
       </AlarmNotificationsSection>

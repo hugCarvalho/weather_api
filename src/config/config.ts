@@ -33,6 +33,6 @@ export const NotificationsInit = {
 
 export enum ValueFormats {
   KM = "km",
-  RAIN = "mm",
+  RAIN = "", //"mm",
   TEMP = "°",
 }
