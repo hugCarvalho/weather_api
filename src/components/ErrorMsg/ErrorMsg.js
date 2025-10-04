@@ -1,15 +1,16 @@
-import React, { useEffect, useContext } from 'react'
-import { ErrorContext } from '../../App'
+import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components'
+import { ErrorContext } from '../../App'
+const x = React
 
 const ErrorMessage = styled.div`
   text-align: center;
-  margin: 20px;
+  margin: 4px 0px -4px 0px;
 
   .error-message {
     color: lighten($gray-dark, 18%);
     display: inline;
-    padding: 5px 10px;
+    padding: 2px 10px;
     font-size: 1.3rem;
     font-weight: 500;
     border-radius: 4px;
