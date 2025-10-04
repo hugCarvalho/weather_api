@@ -1,8 +1,6 @@
-import Tippy from '@tippyjs/react'
 import PropTypes from 'prop-types'
 import React, { useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import 'tippy.js/dist/tippy.css'
 import { ErrorContext, UserQueryContext } from '../../App'
 import DefaultCityRadioBtn from '../Utils/RadioButtons/RadioButtons'
 import { CityCloud } from './SavedCitiesStyled'
@@ -17,21 +15,25 @@ const accessibility = {
   overflow: 'hidden',
 }
 
-// Styled Components
+// ---------------- Styled Components ----------------
 const Container = styled.div`
   width: 90%;
-  margin: 0 auto;
+  max-width: 700px;
+  margin: 1rem auto;
   overflow: hidden;
   display: grid;
+  /* minimal horizontal spacing, original-like vertical spacing */
   grid-column-gap: 3px;
   grid-row-gap: 10px;
   grid-template-rows: 40px 20px 20px;
   grid-template-columns: 1fr 1fr 1fr 1fr auto auto;
   grid-template-areas:
     'city1 city2 city3 city4 open open'
-    'btn1 btn2 btn3 btn4 question1 close'
+    'radio1 radio2 radio3 radio4 question1 close'
     'save1 save2 save3 save4 question2 close';
-
+  justify-items: center;
+  align-items: center;
+  transition: height 0.25s ease;
   @media (min-width: 768px) {
     width: 60%;
     grid-column-gap: 6px;
@@ -42,13 +44,6 @@ const Item = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  .tooltips {
-    padding: 0 6px;
-    &:hover {
-      cursor: help;
-    }
-  }
 
   .selected {
     background-color: rgb(107, 102, 102);
@@ -63,56 +58,83 @@ const Item = styled.div`
       background: #3c3c3c;
       color: white;
       opacity: 0.8;
+      border-radius: 5px;
     }
   }
 
   button {
     border-radius: 5px;
     font-weight: 600;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     outline: none;
     background: #a6caee75;
     color: white;
     width: 100%;
     height: 100%;
-    padding: 0 3px;
+    padding: 0.35rem 0.6rem;
     border: none;
-    transition: background 250ms ease-in;
+    transition: background 200ms ease-in;
+    &:hover {
+      background: #6ea8dc;
+      cursor: pointer;
+    }
   }
 `
 
-const CloseItem = styled(Item)`
-  grid-area: close;
-  width: 20px;
-  margin-left: 4px;
-`
+/* City cloud wrapper with fixed height and desktop growth */
+const CityItem = styled(Item)`
+  grid-area: ${({ area }) => area};
+  width: 85px;
+  height: 40px;
+  justify-self: center;
+  align-self: center;
 
-const OpenItem = styled(Item)`
-  grid-area: open;
-  width: 20px;
-  margin-left: 4px;
+  @media (min-width: 768px) {
+    width: 160px; /* grows on desktop */
+  }
 `
 
 const RadioBtnWrapper = styled(Item)`
-  width: 55%;
+  grid-area: ${({ area }) => area};
+  width: 70%;
   justify-self: center;
 `
 
 const SaveBtnWrapper = styled(Item)`
-  width: 55%;
+  grid-area: ${({ area }) => area};
   justify-self: center;
+`
 
-  .save-btns {
-    width: auto;
-    padding: 0 8px;
+/* Toggle sits in the top-right area ('open open') so it's aligned with clouds */
+const ToggleItem = styled.div`
+  grid-area: open;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`
+
+const ToggleButton = styled.button`
+  padding: 2px;
+  height: 38px;
+  background: #a6caee75;
+  border: none;
+  color: white;
+  font-size: 1.3rem;
+  transition: background 0.2s ease-in;
+  cursor: pointer;
+
+  &:hover {
+    background: #6ea8dc;
   }
 `
 
 const Icon = styled.i`
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+  color: white;
 `
 
-// COMPONENT
+// ---------------- COMPONENT ----------------
 export default function SavedCitiesMenu({ validCity }) {
   const { setUserQuery } = useContext(UserQueryContext)
   const { dispatchError } = useContext(ErrorContext)
@@ -121,7 +143,7 @@ export default function SavedCitiesMenu({ validCity }) {
   const [isMenuClosed, setIsMenuClosed] = useState(false)
   const [savedCities, setSavedCities] = useState({ city1: '', city2: '', city3: '', city4: '' })
 
-  //LOCAL STORAGE: GET
+  // LOCAL STORAGE: GET
   useEffect(() => {
     try {
       if (localStorage.weatherApp) {
@@ -143,7 +165,7 @@ export default function SavedCitiesMenu({ validCity }) {
     }
   }, [setUserQuery, dispatchError])
 
-  //LOCAL STORAGE: SET
+  // LOCAL STORAGE: SET
   useEffect(() => {
     localStorage.setItem('weatherApp', JSON.stringify(savedCities))
   }, [savedCities])
@@ -154,9 +176,8 @@ export default function SavedCitiesMenu({ validCity }) {
     localStorage.setItem('menuClosed', JSON.stringify(isMenuClosed))
   }, [isMenuClosed])
 
-  //FUNCTIONS
+  // FUNCTIONS
   const setContainerHeight = () => (isMenuClosed ? { height: '42px' } : { height: 'auto' })
-  const showHideOpenArrow = () => (isMenuClosed ? { visibility: 'visible' } : { visibility: 'hidden' })
 
   const saveCity = (citySlot) => {
     setSavedCities({ ...savedCities, [citySlot]: validCity })
@@ -194,35 +215,28 @@ export default function SavedCitiesMenu({ validCity }) {
 
   return (
     <Container style={setContainerHeight()}>
-      {/* FAST ACCESS CITIES BUTTONS */}
+      {/* FAST ACCESS CITIES */}
       {cities.map((city, i) => (
-        <Item className="cityClouds" key={i}>
+        <CityItem className="cityClouds" key={i} area={`city${i + 1}`}>
           <CityCloud
             className={city && city === validCity ? 'selected' : ''}
             onClick={checkSlotIsEmpty}>
             {city || 'empty'}
           </CityCloud>
-        </Item>
+        </CityItem>
       ))}
 
-      {/* CLOSE MENU */}
-      <CloseItem>
-        <button onClick={() => setIsMenuClosed(true)}>
-          <Icon className="fas fa-angle-double-up" />
-          <span style={accessibility}>open or close saved cities menu</span>
-        </button>
-      </CloseItem>
-
-      {/* OPEN MENU */}
-      <OpenItem style={showHideOpenArrow()}>
-        <button className="open-menu" onClick={() => setIsMenuClosed(false)}>
-          <Icon className="fas fa-angle-double-down" />
-        </button>
-      </OpenItem>
+      {/* TOGGLE BUTTON (fixed at top-right area; icon flips only) */}
+      <ToggleItem>
+        <ToggleButton onClick={() => setIsMenuClosed(!isMenuClosed)}>
+          <Icon className={`fas fa-angle-double-${isMenuClosed ? 'down' : 'up'}`} />
+          <span style={accessibility}>toggle saved cities menu</span>
+        </ToggleButton>
+      </ToggleItem>
 
       {/* RADIO BTNS */}
       {cities.map((city, i) => (
-        <RadioBtnWrapper key={i}>
+        <RadioBtnWrapper key={i} area={`radio${i + 1}`}>
           <DefaultCityRadioBtn
             value={city}
             defaultCity={defaultCity}
@@ -231,28 +245,12 @@ export default function SavedCitiesMenu({ validCity }) {
         </RadioBtnWrapper>
       ))}
 
-      {/* TOOLTIP RADIO BUTTON */}
-      <Item>
-        <Tippy delay={500} content="set a default city to load at startup">
-          <button className="tooltips">?</button>
-        </Tippy>
-      </Item>
-
       {/* SAVE CITY BUTTONS */}
       {citySlots.map((city, i) => (
-        <SaveBtnWrapper key={i}>
-          <button className="save-btns" onClick={() => checkCityisElegible(city)}>
-            Save
-          </button>
+        <SaveBtnWrapper key={i} area={`save${i + 1}`}>
+          <button onClick={() => checkCityisElegible(city)}>Save</button>
         </SaveBtnWrapper>
       ))}
-
-      {/* TOOLTIP SAVE BUTTON */}
-      <Item>
-        <Tippy delay={400} content="SEARCH for a city first. Then press `save`">
-          <button className="tooltips">?</button>
-        </Tippy>
-      </Item>
     </Container>
   )
 }
