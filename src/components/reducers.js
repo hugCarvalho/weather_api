@@ -15,3 +15,5 @@ export function errorReducer(state, action) {
       return errorInit
   }
 }
+// import React from 'react'
+// const x = React

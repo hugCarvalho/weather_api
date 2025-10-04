@@ -1,6 +1,11 @@
-import PropTypes from 'prop-types'
-import { ClipLoader } from 'react-spinners'
-import styled from 'styled-components'
+
+// @ts-ignore
+import PropTypes from 'prop-types';
+import React from 'react';
+import { ClipLoader } from 'react-spinners';
+import styled from 'styled-components';
+
+const useReactFix = React;
 
 const Name = styled.div`
   padding: 5px;
