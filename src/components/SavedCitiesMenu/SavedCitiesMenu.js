@@ -23,6 +23,7 @@ export default function SavedCitiesMenu({ validCity }) {
   const [isMenuClosed, setIsMenuClosed] = useState(false)
   const [savedCities, setSavedCities] = useState({ city1: '', city2: '', city3: '', city4: '' })
 
+
   // LOCAL STORAGE: GET
   useEffect(() => {
     try {
@@ -60,6 +61,17 @@ export default function SavedCitiesMenu({ validCity }) {
   const setContainerHeight = () => (isMenuClosed ? { height: '42px' } : { height: 'auto' })
 
   const saveCity = (citySlot) => {
+    const howManyCities = (cityObject) => {
+      const cityValues = Object.values(cityObject);
+      const savedCitiesArray = cityValues.filter(city => city);
+    return savedCitiesArray.length;
+    }
+    const numCitiesSaved = howManyCities(savedCities)
+
+    //automatically set default city when first city is saved
+    if (numCitiesSaved === 0) {
+      setDefaultCity(validCity)
+    }
     setSavedCities({ ...savedCities, [citySlot]: validCity })
   }
 
