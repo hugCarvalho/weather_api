@@ -126,6 +126,7 @@ const HourButton = styled.button`
   outline: none;
   /* flex: 0 0 auto; */
   cursor: pointer;
+  appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   transition: color 0.2s ease;
