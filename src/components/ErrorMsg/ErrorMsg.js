@@ -1,6 +1,8 @@
 import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { ErrorContext } from '../../App'
+
+// eslint-disable-next-line no-unused-vars
 const x = React
 
 const ErrorMessage = styled.div`
