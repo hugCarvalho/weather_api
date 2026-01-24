@@ -1,161 +1,174 @@
-import Emoji from 'components/Utils/Emoji/Emoji'
-import { Popup } from 'components/Utils/Popup/Popup'
-import React, { useEffect, useState } from 'react'
-import { useDeviceType } from '../../hooks/useDeviceType.js'
-import { useLocalStorage } from '../../hooks/useLocalStorage.js'
-import { convertTemp } from '../Utils/convertTemp'
-import { convertWindSpeed } from '../Utils/convertWindSpeed'
-import { NotificationOptions } from './NotificationOptions'
-import { renderEmoji } from './functions'
+import Emoji from 'components/Utils/Emoji/Emoji';
+import { Popup } from 'components/Utils/Popup/Popup';
+import React, { useEffect, useState } from 'react';
+import { useDeviceType } from '../../hooks/useDeviceType.js';
+import { useLocalStorage } from '../../hooks/useLocalStorage.js';
+import { convertTemp } from '../Utils/convertTemp';
+import { convertWindSpeed } from '../Utils/convertWindSpeed';
+import { NotificationOptions } from './NotificationOptions';
+import { renderEmoji } from './functions';
 import {
   AlarmNotificationsSection,
   AlarmsContainer,
   AlarmSettingsMobile,
-  AlarmsTime,
+  DataCell,
   HeaderWrapper,
-  HourFormat,
+  HorizontalScrollWrapper,
   IconContainer,
+  NotificationTable,
   StateWrapper,
-  TimeWrapper,
-  Title,
-  ValueFormat,
-} from './styles/NotificationsStyles'
+  StickyCell,
+  TimeHeader,
+  Title
+} from './styles/NotificationsStyles';
 
-import { notifications, NotificationsInit, settingsObj, ValueFormats } from 'config/config'
-import { AlarmName, HourObj } from 'config/types'
+import { settingsObj } from 'config/config';
+import { HourObj } from 'config/types';
 
+// Types
 type AlarmTypes = {
-  rain?: any[]
-  temperature?: any[]
-  wind?: any[]
-}
+  rain?: HourObj[];
+  temperature?: HourObj[];
+  wind?: HourObj[];
+};
+
 export type AlarmNotificationsProps = {
-  forecast3Days: Record<string, Array<any>>
-  activeDay: string
-}
+  forecast3Days: Record<string, Array<HourObj>>;
+  activeDay: string;
+};
 
-//TODO make keyboard friendly
-//TODO notifications for mph $ °F
 const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, activeDay }) => {
-  const [showPopup, setShowPopup] = useState(false)
-  const [showNotification, setShowNotification] = useState(NotificationsInit) //TODO merge with settings & extend
-  const [alarms, setAlarms] = useState<AlarmTypes[] | null>(null)
-  const [settings, setSettings] = useLocalStorage('NotificationsSettings', settingsObj)
-  const isMobile = useDeviceType()
+  const [showPopup, setShowPopup] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
+  const [alarms, setAlarms] = useState<AlarmTypes[] | null>(null);
+  const [settings, setSettings] = useLocalStorage('NotificationsSettings', settingsObj);
+  const isMobile = useDeviceType();
 
-  //SETS DATA FOR ALARMS
+  // 1. DATA FILTERING (Logic from original code)
   useEffect(() => {
-    const rain: Array<Record<string, any>> = []
-    const temperature: Array<Record<string, any>> = []
-    const wind: Array<Record<string, any>> = []
+    const rain: HourObj[] = [];
+    const temperature: HourObj[] = [];
+    const wind: HourObj[] = [];
 
-    forecast3Days[activeDay] &&
+    if (forecast3Days[activeDay]) {
       forecast3Days[activeDay].forEach((hour: HourObj) => {
-        const tempConverted = +convertTemp(undefined, hour.main.temp) //TODO resolve undefined
-        const windConverted = convertWindSpeed(hour.wind.speed)
-        const rainValue = hour.rain && Object.values(hour.rain)[0]
+        const tempConverted = +convertTemp(undefined, hour.main.temp);
+        const windConverted = +convertWindSpeed(hour.wind.speed);
+        const rainValue = hour.rain ? Object.values(hour.rain)[0] : 0;
+
         if (hour.rain && rainValue > +settings.rain?.max) {
-          rain.push(hour)
+          rain.push(hour);
         }
         if (windConverted > +settings.wind?.max || windConverted < +settings.wind?.min) {
-          wind.push(hour)
+          wind.push(hour);
         }
         if (tempConverted > +settings.temperature?.max || tempConverted < +settings.temperature?.min) {
-          temperature.push(hour)
+          temperature.push(hour);
         }
-      })
+      });
+    }
 
     if (rain.length > 0 || temperature.length > 0 || wind.length > 0) {
-      setAlarms([{ rain }, { temperature }, { wind }])
+      setAlarms([{ rain }, { temperature }, { wind }]);
+    } else {
+      setAlarms(null);
     }
-  }, [forecast3Days, activeDay, setAlarms, settings])
+  }, [forecast3Days, activeDay, settings]);
 
-  const toggleOpen = (alarmType: AlarmName) => {
-    setShowNotification((state) => {
-      return {
-        ...state,
-        [alarmType]: !state[alarmType],
-      }
-    })
-  }
-  const areThereAlarms = alarms?.some((alarm) => Object.values(alarm).length)
+  // 2. MATRIX DATA TRANSFORMATION
+  // Create a map: TimeString -> { rainVal, tempVal, windVal }
+  const groupedByHour: Record<string, { rain?: string | number; temp?: string | number; wind?: string | number }> = {};
+
+  alarms?.forEach((alarmGroup) => {
+    const type = Object.keys(alarmGroup)[0] as keyof AlarmTypes;
+    const items = alarmGroup[type] as HourObj[];
+
+    items.forEach((item) => {
+      const time = item.dt_txt.slice(11, 16);
+      if (!groupedByHour[time]) groupedByHour[time] = {};
+
+      if (type === 'rain') groupedByHour[time].rain = item.rain ? Object.values(item.rain)[0] : '-';
+      if (type === 'temperature') groupedByHour[time].temp = +convertTemp(undefined, item.main.temp);
+      if (type === 'wind') groupedByHour[time].wind = +convertWindSpeed(item.wind.speed);
+    });
+  });
+
+  const hours = Object.keys(groupedByHour).sort();
+  const hasAlarms = hours.length > 0;
 
   return (
     <>
       {isMobile && (
         <AlarmSettingsMobile onClick={() => setShowPopup(true)}>
           <IconContainer>
-            <Emoji
-              title='alarm'
-              emoji='🚨'
-            />
+            <Emoji title='alarm' emoji='🚨' />
           </IconContainer>
         </AlarmSettingsMobile>
       )}
+
       <AlarmNotificationsSection>
         {!isMobile && (
           <HeaderWrapper onClick={() => setShowPopup(true)}>
             <IconContainer>
-              <Emoji
-                title='alarm'
-                emoji='🚨'
-              />
+              <Emoji title='alarm' emoji='🚨' />
             </IconContainer>
             <Title>Settings</Title>
           </HeaderWrapper>
         )}
-        <div>
-          {areThereAlarms ? (
-            alarms.map((alarm: AlarmTypes, i) => {
-              const name = notifications[i] as AlarmName
-              if (alarm[name].length > 0) {
-                return (
-                  <AlarmsContainer key={i}>
-                    <HeaderWrapper onClick={() => toggleOpen(name)}>
-                      <IconContainer>{renderEmoji(name)}</IconContainer>
-                      <Title>{name} {name === "rain" && "(mm)"}</Title>
-                    </HeaderWrapper>
-                    <StateWrapper toggleOpen={showNotification[name]}>
-                      <AlarmsTime>
-                        {alarm[name].map((hourForecast: HourObj) => {
-                          const windSpeed: number = +convertWindSpeed(hourForecast.wind.speed)
-                          const temperature = +convertTemp(undefined, hourForecast.main.temp)
-                          const hour = hourForecast.dt_txt.slice(
-                            hourForecast.dt_txt.length - 8,
-                            hourForecast.dt_txt.length - 8 + 5
-                          )
-                          const value = i === 0 ? hourForecast.rain['3h'] : i === 1 ? temperature : windSpeed
-                          const valueFormat =
-                            i === 0 ? ValueFormats.RAIN : i === 1 ? ValueFormats.TEMP : ValueFormats.KM
 
-                          return (
-                            <div key={hourForecast.dt}>
-                              <TimeWrapper>
-                                <HourFormat>
-                                  <div style={{ paddingBottom: '4px' }}>
-                                    <span>{hour}</span>
-                                  </div>
-                                  <div>
-                                    <span style={{ fontSize: '13px' }}>{value}</span>
-                                    <ValueFormat>{valueFormat}</ValueFormat>
-                                  </div>
-                                </HourFormat>
-                              </TimeWrapper>
-                            </div>
-                          )
-                        })}
-                      </AlarmsTime>
-                    </StateWrapper>
-                  </AlarmsContainer>
-                )
-              } else return null
-            })
+        <AlarmsContainer>
+          {hasAlarms ? (
+            <>
+              <HeaderWrapper onClick={() => setIsOpen(!isOpen)} style={{ marginTop: '5px' }}>
+                <Title style={{ paddingLeft: '10px' }}>
+                  {isOpen ? '▲' : '▼'}
+                </Title>
+              </HeaderWrapper>
+              {/* Alarm Notifications Table */}
+              <StateWrapper toggleOpen={isOpen}>
+                <HorizontalScrollWrapper>
+                  <NotificationTable>
+                    <thead>
+                      <tr>
+                        <StickyCell /> {/* Completely empty header cell */}
+                        {hours.map((time) => (
+                          <TimeHeader key={time}>{time}</TimeHeader>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <StickyCell>{renderEmoji('rain')}</StickyCell>
+                        {hours.map((time) => (
+                          <DataCell key={time}>{groupedByHour[time].rain ?? '-'}</DataCell>
+                        ))}
+                      </tr>
+                      <tr>
+                        <StickyCell>{renderEmoji('temperature')}</StickyCell>
+                        {hours.map((time) => (
+                          <DataCell key={time}>{groupedByHour[time].temp ?? '-'}</DataCell>
+                        ))}
+                      </tr>
+                      <tr>
+                        <StickyCell>{renderEmoji('wind')}</StickyCell>
+                        {hours.map((time) => (
+                          <DataCell key={time}>{groupedByHour[time].wind ?? '-'}</DataCell>
+                        ))}
+                      </tr>
+                    </tbody>
+                  </NotificationTable>
+                </HorizontalScrollWrapper>
+              </StateWrapper>
+
+            </>
           ) : (
-            <AlarmsTime></AlarmsTime>
+            <div style={{ color: '#888', textAlign: 'center', fontSize: '12px', marginTop: '10px' }}>
+              No active alarms
+            </div>
           )}
-        </div>
+        </AlarmsContainer>
       </AlarmNotificationsSection>
-      ;
+
       {showPopup && (
         <Popup
           setShowPopup={setShowPopup}
@@ -168,7 +181,7 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
         />
       )}
     </>
-  )
-}
+  );
+};
 
-export { AlarmNotifications }
+export { AlarmNotifications };
