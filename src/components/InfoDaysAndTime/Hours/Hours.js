@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
+// eslint-disable-next-line no-unused-vars
 const x = React
 export default function Hours({
   selectedTime,
@@ -64,7 +65,7 @@ Hours.propTypes = {
 
 // Colors formerly from App.scss
 const grayDark = "#423f3f";
-const mainBlue = "#1e90ff";
+// const mainBlue = "#1e90ff";
 
 const Container = styled.div`
   background-color: ${grayDark};
@@ -125,6 +126,7 @@ const HourButton = styled.button`
   outline: none;
   /* flex: 0 0 auto; */
   cursor: pointer;
+  appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   transition: color 0.2s ease;

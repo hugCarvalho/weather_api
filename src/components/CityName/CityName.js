@@ -5,6 +5,7 @@ import React from 'react';
 import { ClipLoader } from 'react-spinners';
 import styled from 'styled-components';
 
+// eslint-disable-next-line no-unused-vars
 const useReactFix = React;
 
 const Name = styled.div`
