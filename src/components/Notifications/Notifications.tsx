@@ -121,7 +121,7 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
             <>
               <HeaderWrapper onClick={() => setIsOpen(!isOpen)} style={{ marginTop: '5px' }}>
                 <Title style={{ paddingLeft: '10px' }}>
-                  {isOpen ? '▲' : '▼'}
+                  {isOpen ? '☔ Rain(mm) 💨 Wind (km)  🌡️ Temp (°) ▲' : '▼'}
                 </Title>
               </HeaderWrapper>
               {/* Alarm Notifications Table */}

@@ -1,6 +1,8 @@
-import React from "react";
 import Emoji from "components/Utils/Emoji/Emoji";
+import React from "react";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const x = React
 export const renderEmoji = (alarm: string) => {
   switch (alarm) {
     case "wind": return <Emoji title="wind" emoji="💨" />;
@@ -9,3 +11,4 @@ export const renderEmoji = (alarm: string) => {
     default: throw Error("invalid alarm name")
   }
 }
+
