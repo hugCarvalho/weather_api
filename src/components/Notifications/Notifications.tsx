@@ -12,6 +12,7 @@ import {
   AlarmsContainer,
   AlarmSettingsMobile,
   DataCell,
+  HackRainCell,
   HeaderWrapper,
   HorizontalScrollWrapper,
   IconContainer,
@@ -19,7 +20,8 @@ import {
   StateWrapper,
   StickyCell,
   TimeHeader,
-  Title
+  Title,
+  ValueFormat
 } from './styles/NotificationsStyles';
 
 import { settingsObj } from 'config/config';
@@ -76,8 +78,11 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
   }, [forecast3Days, activeDay, settings]);
 
   // 2. MATRIX DATA TRANSFORMATION
-  // Create a map: TimeString -> { rainVal, tempVal, windVal }
-  const groupedByHour: Record<string, { rain?: string | number; temp?: string | number; wind?: string | number }> = {};
+  const groupedByHour: Record<string, {
+    rain?: number;
+    temp?: number;
+    wind?: number
+  }> = {};
 
   alarms?.forEach((alarmGroup) => {
     const type = Object.keys(alarmGroup)[0] as keyof AlarmTypes;
@@ -85,11 +90,19 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
 
     items.forEach((item) => {
       const time = item.dt_txt.slice(11, 16);
-      if (!groupedByHour[time]) groupedByHour[time] = {};
+      if (!groupedByHour[time]) {
+        groupedByHour[time] = {};
+      }
 
-      if (type === 'rain') groupedByHour[time].rain = item.rain ? Object.values(item.rain)[0] : '-';
-      if (type === 'temperature') groupedByHour[time].temp = +convertTemp(undefined, item.main.temp);
-      if (type === 'wind') groupedByHour[time].wind = +convertWindSpeed(item.wind.speed);
+      if (type === 'rain') {
+        groupedByHour[time].rain = item.rain ? Object.values(item.rain)[0] as number : undefined;
+      }
+      if (type === 'temperature') {
+        groupedByHour[time].temp = +convertTemp(undefined, item.main.temp);
+      }
+      if (type === 'wind') {
+        groupedByHour[time].wind = +convertWindSpeed(item.wind.speed);
+      }
     });
   });
 
@@ -121,7 +134,7 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
             <>
               <HeaderWrapper onClick={() => setIsOpen(!isOpen)} style={{ marginTop: '5px' }}>
                 <Title style={{ paddingLeft: '10px' }}>
-                  {isOpen ? '☔ Rain(mm) 💨 Wind (km)  🌡️ Temp (°) ▲' : '▼'}
+                  {isOpen ? '▲' : '▼'}
                 </Title>
               </HeaderWrapper>
               {/* Alarm Notifications Table */}
@@ -137,23 +150,58 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <StickyCell>{renderEmoji('rain')}</StickyCell>
-                        {hours.map((time) => (
-                          <DataCell key={time}>{groupedByHour[time].rain ?? '-'}</DataCell>
-                        ))}
-                      </tr>
+                      {/* Temperature Row */}
                       <tr>
                         <StickyCell>{renderEmoji('temperature')}</StickyCell>
-                        {hours.map((time) => (
-                          <DataCell key={time}>{groupedByHour[time].temp ?? '-'}</DataCell>
-                        ))}
+                        {hours.map((time) => {
+                          const val = groupedByHour[time].temp;
+                          return (
+                            <DataCell key={time}>
+                              {val !== undefined ? (
+                                <>
+                                  {val}
+                                  <span>°</span>
+                                </>
+                              ) : '-'}
+                            </DataCell>
+                          );
+                        })}
                       </tr>
+
+                      {/* Rain Row */}
+                      <tr>
+                        <StickyCell>{renderEmoji('rain')}</StickyCell>
+                        {hours.map((time) => {
+                          const val = groupedByHour[time].rain;
+                          return (
+                            <HackRainCell key={time}>
+                              {val !== undefined ? (
+                                <>
+                                  {val}
+                                  <ValueFormat>mm</ValueFormat>
+                                </>
+                              ) : '-'}
+                            </HackRainCell>
+                          );
+                        })}
+                      </tr>
+
+                      {/* Wind Row */}
                       <tr>
                         <StickyCell>{renderEmoji('wind')}</StickyCell>
-                        {hours.map((time) => (
-                          <DataCell key={time}>{groupedByHour[time].wind ?? '-'}</DataCell>
-                        ))}
+                        {hours.map((time) => {
+                          const val = groupedByHour[time].wind;
+                          return (
+                            <DataCell key={time}>
+                              {val !== undefined ? (
+                                <>
+                                  {val}
+                                  <ValueFormat>km</ValueFormat>
+                                </>
+                              ) : '-'}
+                            </DataCell>
+                          );
+                        })}
                       </tr>
                     </tbody>
                   </NotificationTable>

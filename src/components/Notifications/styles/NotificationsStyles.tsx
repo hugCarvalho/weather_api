@@ -140,9 +140,18 @@ export const DataCell = styled.td`
   text-align: center;
   min-width: 42px;
 `;
-
-export const ValueFormat = styled.span`
-  font-size: 10px;
-  color: #aaa;
-  margin-left: 1px;
+export const HackRainCell = styled.td`
+  padding: 4px 2px;
+  font-size: 9px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: #efefef;
+  font-family: 'monospace';
+  text-align: center;
+  min-width: 42px;
 `;
+export const ValueFormat = styled.span`
+  font-size: 9px; /* Lower font-size for units */
+  margin-left: 1px;
+  vertical-align: baseline;
+`;
+
