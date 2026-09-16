@@ -1,4 +1,4 @@
-import { DaysType, Forecast3Days } from 'config/types'
+import { DaysType, Forecast5Days } from 'config/types'
 import { Media } from 'hooks/useMediaQueries'
 import React from 'react'
 import styled from 'styled-components'
@@ -42,19 +42,19 @@ const ValuesWraper = styled.div`
 `
 type MaxMinTempDisplayProps = {
   activeDay: DaysType
-  forecast3Days: Forecast3Days
+  forecast5Days: Forecast5Days
 }
 
-const MaxMinTempDisplay: React.FC<MaxMinTempDisplayProps> = ({ forecast3Days, activeDay }) => {
+const MaxMinTempDisplay: React.FC<MaxMinTempDisplayProps> = ({ forecast5Days, activeDay }) => {
   let defaultTemp: null | number = null
 
-  const maxTemperature = forecast3Days[activeDay]?.reduce((temp, hourObj) => {
+  const maxTemperature = forecast5Days[activeDay]?.reduce((temp, hourObj) => {
     const maxTemp = hourObj.main.temp_max
     defaultTemp = maxTemp
     return maxTemp > temp ? maxTemp : temp
   }, defaultTemp)
 
-  const minTemperature = forecast3Days[activeDay]?.reduce((temp, hourObj) => {
+  const minTemperature = forecast5Days[activeDay]?.reduce((temp, hourObj) => {
     const minTemp = hourObj.main.temp_min
     return minTemp < temp ? minTemp : temp
   }, defaultTemp)
@@ -67,11 +67,11 @@ const MaxMinTempDisplay: React.FC<MaxMinTempDisplayProps> = ({ forecast3Days, ac
     <TemperatureContainer>
       <ValuesWraper>
         <span>Max:</span>
-        <span>{forecast3Days?.today?.length !== 0 ? convertedMaxTemp + '°' : 'n/a'}</span>
+        <span>{forecast5Days?.today?.length !== 0 ? convertedMaxTemp + '°' : 'n/a'}</span>
       </ValuesWraper>
       <ValuesWraper>
         <span>Min: </span>
-        <span>{forecast3Days?.today?.length !== 0 ? convertedMinTemp + '°' : 'n/a'}</span>
+        <span>{forecast5Days?.today?.length !== 0 ? convertedMinTemp + '°' : 'n/a'}</span>
       </ValuesWraper>
     </TemperatureContainer>
   )

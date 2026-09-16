@@ -1,6 +1,6 @@
 import { DaysArr } from "./types";
 
-export const days: DaysArr = ["today", "tomorrow", "afterTomorrow"];
+export const days: DaysArr = ["today", "tomorrow", "afterTomorrow", "day4", "day5"];
 export const notifications = ["rain", "temperature", "wind"]
 
 export const settingsObj = {

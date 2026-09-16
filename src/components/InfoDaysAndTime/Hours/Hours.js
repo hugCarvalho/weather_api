@@ -10,34 +10,34 @@ export default function Hours({
   isLoading,
   activeDay,
   validCity,
-  forecast3Days,
+  forecast5Days,
 }) {
   const [activeHour, setActiveHour] = useState("12:00");
 
   useEffect(() => {
     if (!isLoading && validCity) {
-      const filteredBySelectedHour = forecast3Days[activeDay].filter(hour => {
+      const filteredBySelectedHour = forecast5Days[activeDay].filter(hour => {
         return hour.dt_txt.slice(11, 16) === activeHour;
       });
       setSelectedTime(filteredBySelectedHour);
     }
-  }, [setSelectedTime, forecast3Days, isLoading, validCity, activeHour, activeDay]);
+  }, [setSelectedTime, forecast5Days, isLoading, validCity, activeHour, activeDay]);
 
   useEffect(() => {
     if (validCity && !isLoading && activeDay === "today") {
-      setActiveHour(forecast3Days[activeDay][0]?.dt_txt.slice(11, 16));
+      setActiveHour(forecast5Days[activeDay][0]?.dt_txt.slice(11, 16));
     }
     if (validCity && !isLoading && activeDay !== "today") {
       setActiveHour("12:00");
     }
-  }, [isLoading, validCity, activeDay, forecast3Days]);
+  }, [isLoading, validCity, activeDay, forecast5Days]);
 
   return (
     <Container>
       {!isLoading &&
         validCity &&
         selectedTime.length > 0 &&
-        forecast3Days[activeDay].map((day, i) => {
+        forecast5Days[activeDay].map((day, i) => {
           const hour = day.dt_txt.slice(11, 16);
           return (
             <HourButton
@@ -58,7 +58,7 @@ Hours.propTypes = {
   activeDay: PropTypes.string,
   selectedTime: PropTypes.array,
   setSelectedTime: PropTypes.func,
-  forecast3Days: PropTypes.object,
+  forecast5Days: PropTypes.object,
 };
 
 // ---------------- Styled Components ----------------

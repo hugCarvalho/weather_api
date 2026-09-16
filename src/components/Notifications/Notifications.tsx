@@ -35,11 +35,11 @@ type AlarmTypes = {
 };
 
 export type AlarmNotificationsProps = {
-  forecast3Days: Record<string, Array<HourObj>>;
+  forecast5Days: Record<string, Array<HourObj>>;
   activeDay: string;
 };
 
-const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, activeDay }) => {
+const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast5Days, activeDay }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
   const [alarms, setAlarms] = useState<AlarmTypes[] | null>(null);
@@ -52,8 +52,8 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
     const temperature: HourObj[] = [];
     const wind: HourObj[] = [];
 
-    if (forecast3Days[activeDay]) {
-      forecast3Days[activeDay].forEach((hour: HourObj) => {
+    if (forecast5Days[activeDay]) {
+      forecast5Days[activeDay].forEach((hour: HourObj) => {
         const tempConverted = +convertTemp(undefined, hour.main.temp);
         const windConverted = +convertWindSpeed(hour.wind.speed);
         const rainValue = hour.rain ? Object.values(hour.rain)[0] : 0;
@@ -75,7 +75,7 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast3Days, 
     } else {
       setAlarms(null);
     }
-  }, [forecast3Days, activeDay, settings]);
+  }, [forecast5Days, activeDay, settings]);
 
   // 2. MATRIX DATA TRANSFORMATION
   const groupedByHour: Record<string, {

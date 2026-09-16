@@ -21,8 +21,8 @@ function App() {
   const [validCity, setValidCity] = useState('') //is useful when searching for an invalid city if there's no city saved yet
   const [isNight, setIsNight] = useState(false)
   const [error, dispatchError] = useReducer(errorReducer, errorInit)
-  const [forecast3Days, setForecast3Days] = useState({})
-
+  const [forecast5Days, setForecast5Days] = useState({})
+console.log(data)
   //FETCH DATA
   useEffect(() => {
     setIsLoading(true) //don't change
@@ -55,6 +55,8 @@ function App() {
     let today = []
     let tomorrow = []
     let afterTomorrow = []
+    let day4 = []
+    let day5 = []
     let dayIs = null
     let control = 0
 
@@ -81,13 +83,23 @@ function App() {
           afterTomorrow.push(dayObj)
           return
         }
+        if (control === 4) {
+          day4.push(dayObj)
+          return
+        }
+        if (control === 5) {
+          day5.push(dayObj)
+          return
+        }
         return
       })
     }
-    setForecast3Days({
+    setForecast5Days({
       today,
       tomorrow,
       afterTomorrow,
+      day4,
+      day5,
     })
   }, [data])
   return (
@@ -112,7 +124,7 @@ function App() {
             data={data}
             isLoading={isLoading}
             validCity={validCity}
-            forecast3Days={forecast3Days}
+            forecast5Days={forecast5Days}
           />
         </IsNightContext.Provider>
       </div>
