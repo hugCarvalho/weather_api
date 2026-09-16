@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const CityCloud = styled.button`
   text-transform: capitalize;
@@ -7,7 +7,7 @@ const CityCloud = styled.button`
     text-transform: uppercase;
   }
 `
-export { CityCloud }
+export { CityCloud };
 
 export const Container = styled.div`
   width: 99%;
@@ -15,23 +15,19 @@ export const Container = styled.div`
   margin: 1rem auto;
   overflow: hidden;
   display: grid;
-  /* minimal horizontal spacing, original-like vertical spacing */
   grid-column-gap: 2px;
   grid-row-gap: 10px;
   grid-template-rows: 40px 20px 20px;
-  grid-template-columns: 1fr 1fr 1fr 1fr auto auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr auto auto 10px;
+  /* n CSS Grid, a period (.) acts as an empty placeholder cell (an unnamed grid area). */
   grid-template-areas:
-    'city1 city2 city3 city4 open open'
-    'radio1 radio2 radio3 radio4 question1 close'
-    'save1 save2 save3 save4 question2 close';
+    'city1 city2 city3 city4 open open .'
+    'radio1 radio2 radio3 radio4 . close .'
+    'save1 save2 save3 save4 . close .';
   justify-items: center;
   align-items: center;
   transition: height 0.25s ease;
-  /* @media (min-width: 900px) {
-    width: 60%;
-    grid-column-gap: 6px;
-  } */
-`
+`;
 
 const Item = styled.div`
   display: flex;
