@@ -12,7 +12,7 @@ type DaysProps = {
 export const Days: React.FC<DaysProps> = ({ activeDay, setActiveDay }) => {
   const time = new Date().getHours()
   const isTimeBetween23and24 = time >= 23 && time < 24
-  console.log("days", days)
+
   return (
     <>
       <div className='container__days-forecast'>

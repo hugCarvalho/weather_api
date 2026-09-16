@@ -22,7 +22,7 @@ function App() {
   const [isNight, setIsNight] = useState(false)
   const [error, dispatchError] = useReducer(errorReducer, errorInit)
   const [forecast5Days, setForecast5Days] = useState({})
-console.log(data)
+
   //FETCH DATA
   useEffect(() => {
     setIsLoading(true) //don't change
@@ -38,7 +38,6 @@ console.log(data)
         setValidCity(userQuery)
         setIsLoading(false)
       } else {
-        console.log("WTFFFF")
         dispatchError({ type: 'TRUE', value: data.message })
         setIsLoading(false)
       }

@@ -12,7 +12,7 @@ const InfoDaysAndTime = ({ data, isLoading, validCity, forecast5Days }) => {
   useEffect(() => {
     setActiveDay('today')
   }, [validCity]) //will reset the active tab after a request about a new city
-console.log("activeDay", activeDay)
+
   return (
     <>
       <MaxMinTempDisplay
