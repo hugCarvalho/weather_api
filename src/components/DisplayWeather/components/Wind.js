@@ -1,5 +1,5 @@
 import React from "react";
-import { RadioButtons2 } from "../../Utils/RadioButtons/RadioButtons";
+import { RadioButtons2 } from "../../utils/RadioButtons/RadioButtons";
 
 const Wind = ({ selectedTime }) => {
   const [isKm, setIsKm] = React.useState(true);

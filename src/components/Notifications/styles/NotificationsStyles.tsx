@@ -13,14 +13,15 @@ export const AlarmNotificationsSection = styled.section`
     width: 100%;
     margin: 0;
     position: relative;
-    padding: 7px;
+    padding: 0px 7px;
   }
 `;
 
 export const AlarmsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
+  background-color: pink;
 `;
 
 export const AlarmSettingsMobile = styled.div`

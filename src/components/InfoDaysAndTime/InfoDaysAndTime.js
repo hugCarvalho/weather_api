@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import DisplayWeather from '../DisplayWeather/DisplayWeather.js'
+import { AlarmNotifications } from '../Notifications/AlarmNotifications.tsx'
 import { MaxMinTempDisplay } from '../Notifications/MaxMinTempDisplay'
-import { AlarmNotifications } from '../Notifications/Notifications'
 import { Days } from './Days/Days.tsx'
 import Hours from './Hours/Hours'
 

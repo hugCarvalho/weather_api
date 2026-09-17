@@ -9,8 +9,9 @@ import styled from 'styled-components';
 const useReactFix = React;
 
 const Name = styled.div`
-  padding: 5px;
-  margin: 15px 0px 0px;
+background-color: beige;
+  padding: 0px;
+  margin: 0px 0px 0px;
   text-align: center;
   color: #faf9f9;
   letter-spacing: 2px;

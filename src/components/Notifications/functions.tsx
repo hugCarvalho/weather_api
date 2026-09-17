@@ -1,4 +1,4 @@
-import Emoji from "components/Utils/Emoji/Emoji";
+import Emoji from "components/utils/Emoji/Emoji";
 import React from "react";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

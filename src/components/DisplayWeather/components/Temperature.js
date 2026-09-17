@@ -1,6 +1,6 @@
 import React from "react";
-import { RadioButtons2 } from "../../Utils/RadioButtons/RadioButtons";
-import { convertTemp } from "../../Utils/convertTemp";
+import { RadioButtons2 } from "../../utils/RadioButtons/RadioButtons";
+import { convertTemp } from "../../utils/convertTemp";
 
 const Temperature = ({ selectedTime }) => {
   const [isCelsius, setIsCelsius] = React.useState(true);

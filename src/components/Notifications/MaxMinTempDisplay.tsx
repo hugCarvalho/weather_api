@@ -2,7 +2,7 @@ import { DaysType, Forecast5Days } from 'config/types'
 import { Media } from 'hooks/useMediaQueries'
 import React from 'react'
 import styled from 'styled-components'
-import { convertTemp } from '../Utils/convertTemp'
+import { convertTemp } from '../utils/convertTemp'
 
 const TemperatureContainer = styled.section`
   position: absolute;

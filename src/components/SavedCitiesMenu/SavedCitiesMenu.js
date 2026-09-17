@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { useContext, useEffect, useState } from 'react'
 import { ErrorContext, UserQueryContext } from '../../App'
-import DefaultCityRadioBtn from '../Utils/RadioButtons/RadioButtons'
+import DefaultCityRadioBtn from '../utils/RadioButtons/RadioButtons'
 import { CityCloud, CityItem, Container, Icon, RadioBtnWrapper, SaveBtnWrapper, ToggleButton, ToggleItem, } from './SavedCitiesStyled'
 
 // eslint-disable-next-line no-unused-vars

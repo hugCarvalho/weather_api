@@ -1,9 +1,8 @@
-import Emoji from 'components/Utils/Emoji/Emoji'
+import Emoji from 'components/utils/Emoji/Emoji'
 import { notifications, settingsObj } from 'config/config'
-import { SettingsType, AlarmName } from 'config/types'
-import React from 'react'
-import { Fragment, useState } from 'react'
-import { OptionsTitle, SaveBtn, OptionsSection, TemperatureValues, Input, H1 } from './styles/NotificationOptionsStyles'
+import { AlarmName, SettingsType } from 'config/types'
+import React, { Fragment, useState } from 'react'
+import { H1, Input, OptionsSection, OptionsTitle, SaveBtn, TemperatureValues } from './styles/NotificationOptionsStyles'
 
 type NotificationOptionsProps = {
   options: SettingsType

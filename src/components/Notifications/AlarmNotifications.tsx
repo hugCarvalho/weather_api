@@ -1,31 +1,17 @@
-import Emoji from 'components/Utils/Emoji/Emoji';
-import { Popup } from 'components/Utils/Popup/Popup';
-import React, { useEffect, useState } from 'react';
-import { useDeviceType } from '../../hooks/useDeviceType.js';
-import { useLocalStorage } from '../../hooks/useLocalStorage.js';
-import { convertTemp } from '../Utils/convertTemp';
-import { convertWindSpeed } from '../Utils/convertWindSpeed';
-import { NotificationOptions } from './NotificationOptions';
-import { renderEmoji } from './functions';
-import {
-  AlarmNotificationsSection,
-  AlarmsContainer,
-  AlarmSettingsMobile,
-  DataCell,
-  HackRainCell,
-  HeaderWrapper,
-  HorizontalScrollWrapper,
-  IconContainer,
-  NotificationTable,
-  StateWrapper,
-  StickyCell,
-  TimeHeader,
-  Title,
-  ValueFormat
-} from './styles/NotificationsStyles';
+//src/components/Notifications/AlarmNotifications.tsx
+import Emoji from 'components/utils/Emoji/Emoji';
+import { Popup } from 'components/utils/Popup/Popup';
 
+import { convertTemp } from 'components/utils/convertTemp';
+import { convertWindSpeed } from 'components/utils/convertWindSpeed';
 import { settingsObj } from 'config/config';
 import { HourObj } from 'config/types';
+import React, { useEffect, useState } from 'react';
+import { useDeviceType } from '../../hooks/useDeviceType';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { renderEmoji } from './functions';
+import { NotificationOptions } from './NotificationOptions';
+import { AlarmNotificationsSection, AlarmsContainer, AlarmSettingsMobile, DataCell, HackRainCell, HeaderWrapper, HorizontalScrollWrapper, IconContainer, NotificationTable, StateWrapper, StickyCell, TimeHeader, Title, ValueFormat } from './styles/NotificationsStyles';
 
 // Types
 type AlarmTypes = {
@@ -39,7 +25,7 @@ export type AlarmNotificationsProps = {
   activeDay: string;
 };
 
-const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast5Days, activeDay }) => {
+export const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast5Days, activeDay }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [isOpen, setIsOpen] = useState(true);
   const [alarms, setAlarms] = useState<AlarmTypes[] | null>(null);
@@ -129,11 +115,12 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast5Days, 
           </HeaderWrapper>
         )}
 
+        {/* ALARMS CONTAINER */}
         <AlarmsContainer>
           {hasAlarms ? (
             <>
-              <HeaderWrapper onClick={() => setIsOpen(!isOpen)} style={{ marginTop: '5px' }}>
-                <Title style={{ paddingLeft: '10px' }}>
+              <HeaderWrapper onClick={() => setIsOpen(!isOpen)} style={{ marginTop: '0px', backgroundColor: 'red' }}>
+                <Title style={{ backgroundColor: 'green' }}>
                   {isOpen ? '▲' : '▼'}
                 </Title>
               </HeaderWrapper>
@@ -231,5 +218,3 @@ const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast5Days, 
     </>
   );
 };
-
-export { AlarmNotifications };
