@@ -21,7 +21,6 @@ export const AlarmsContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 0px;
-  background-color: pink;
 `;
 
 export const AlarmSettingsMobile = styled.div`

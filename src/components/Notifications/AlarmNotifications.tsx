@@ -119,8 +119,8 @@ export const AlarmNotifications: React.FC<AlarmNotificationsProps> = ({ forecast
         <AlarmsContainer>
           {hasAlarms ? (
             <>
-              <HeaderWrapper onClick={() => setIsOpen(!isOpen)} style={{ marginTop: '0px', backgroundColor: 'red' }}>
-                <Title style={{ backgroundColor: 'green' }}>
+              <HeaderWrapper onClick={() => setIsOpen(!isOpen)}>
+                <Title>
                   {isOpen ? '▲' : '▼'}
                 </Title>
               </HeaderWrapper>
