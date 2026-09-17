@@ -13,7 +13,7 @@ export const AlarmNotificationsSection = styled.section`
     width: 100%;
     margin: 0;
     position: relative;
-    padding: 0px 7px 7px 7px;
+    padding: 0px 7px 12px 7px;
   }
 `;
 
